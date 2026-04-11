@@ -1,0 +1,17 @@
+# Dependencies
+node_modules
+
+# Next.js
+.next
+out
+build
+
+# Misc
+coverage
+*.min.js
+*.min.css
+
+# Lockfiles (optional: remove lines if you want Prettier to format them)
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
