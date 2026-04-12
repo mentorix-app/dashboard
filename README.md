@@ -1,36 +1,91 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Mentorix Dashboard
 
-## Getting Started
+Admin-facing web UI for **Mentorix**, built with the [Next.js App Router](https://nextjs.org/docs/app). This repository contains the administrative interface used to manage and operate the Mentorix platform.
 
-First, run the development server:
+## Overview
+
+|             |                              |
+| ----------- | ---------------------------- |
+| **Role**    | Admin / operations dashboard |
+| **Stack**   | Next.js, React, TypeScript   |
+| **Styling** | Tailwind CSS                 |
+
+This app is one piece of the broader Mentorix product; other services and user-facing apps may live in separate repositories.
+
+## Requirements
+
+- **Node.js** — LTS recommended (see [Node releases](https://nodejs.org/en/about/previous-releases))
+- **Yarn** — this project uses [Yarn Classic](https://classic.yarnpkg.com/) (see `yarn.lock`)
+
+## Getting started
+
+Clone the repository and install dependencies:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone git@github.com:mentorix-app/dashboard.git
+cd dashboard
+yarn install
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Start the development server:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```bash
+yarn dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Open [http://localhost:3000/ru](http://localhost:3000/ru) (Russian, default) or [http://localhost:3000/en](http://localhost:3000/en) (English). The root URL redirects to the default locale.
 
-## Learn More
+Routes use a **locale prefix** (e.g. [http://localhost:3000/ru/rq-demo](http://localhost:3000/ru/rq-demo)). If you open a path without a locale (e.g. `/rq-demo`), [`proxy.ts`](proxy.ts) picks a locale from `Accept-Language` via [negotiator](https://www.npmjs.com/package/negotiator) and [@formatjs/intl-localematcher](https://www.npmjs.com/package/@formatjs/intl-localematcher), then redirects to `/{locale}{path}`.
 
-To learn more about Next.js, take a look at the following resources:
+## Internationalization (i18n)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **Library:** [next-intl](https://next-intl.dev/) for messages and navigation. Locales and defaults live in [`i18n/config.ts`](i18n/config.ts); [`i18n/routing.ts`](i18n/routing.ts) wires them into next-intl. Import the public helpers from [`@/i18n`](i18n/index.ts) (`i18n`, `routing`, `Link`, `useRouter`, etc.).
+- **Messages:** JSON files in [`i18n/messages/`](i18n/messages/) — [`i18n/messages/ru.json`](i18n/messages/ru.json) and [`i18n/messages/en.json`](i18n/messages/en.json). Add keys per namespace (for example `Home`, `RqDemo`, `Metadata`).
+- **Routing config:** request config [`i18n/request.ts`](i18n/request.ts), typed navigation helpers [`i18n/navigation.ts`](i18n/navigation.ts) (`Link`, `useRouter`, etc.).
+- **Server components:** use `getTranslations` from `next-intl/server`. **Client components:** use `useTranslations` from `next-intl`.
+- **HTTP:** [`proxy.ts`](proxy.ts) (Next.js proxy) negotiates locale, redirects missing-locale paths, runs `next-intl` middleware, and sets `Content-Language`.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## Scripts
 
-## Deploy on Vercel
+| Command             | Description                                        |
+| ------------------- | -------------------------------------------------- |
+| `yarn dev`          | Start the development server with hot reload       |
+| `yarn build`        | Create an optimized production build               |
+| `yarn start`        | Run the production server (run `yarn build` first) |
+| `yarn lint`         | Run ESLint                                         |
+| `yarn test`         | Run Jest tests                                     |
+| `yarn format`       | Format the codebase with Prettier                  |
+| `yarn format:check` | Check formatting without writing files             |
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Code quality
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **ESLint** — configured with `eslint-config-next` and Prettier compatibility via `eslint-config-prettier`
+- **Prettier** — consistent formatting; respects `.prettierignore`
+- **Git hooks** — on `git commit`, [Husky](https://typicode.github.io/husky/) runs [lint-staged](https://github.com/lint-staged/lint-staged), which formats staged files with Prettier and runs ESLint with `--fix` where applicable (see `config/lint-staged.config.mjs`)
+
+To skip hooks for a one-off commit (use sparingly):
+
+```bash
+git commit --no-verify
+```
+
+## Project layout
+
+```
+app/[locale]/  # Localized routes (pages, layouts)
+i18n/          # next-intl routing, request config, barrel `index.ts` → `@/i18n`
+i18n/messages/ # Translation JSON (ru, en)
+public/        # Static assets
+```
+
+Configuration lives at the repo root (`next.config.ts`, `eslint.config.mjs`, `tsconfig.json`, etc.).
+
+## Contributing
+
+1. Create a branch from `main` (or the team’s default branch).
+2. Keep changes focused; run `yarn lint` and `yarn format:check` before opening a pull request.
+3. Follow existing patterns for components, naming, and file structure.
+
+## License
+
+This project is **private** and intended for Mentorix internal use unless stated otherwise.
