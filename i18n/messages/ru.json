@@ -30,5 +30,10 @@
     "ru": "RU",
     "en": "EN",
     "label": "Язык"
+  },
+  "ThemeSwitcher": {
+    "groupLabel": "Тема",
+    "light": "Светлая тема",
+    "dark": "Тёмная тема"
   }
 }

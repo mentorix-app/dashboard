@@ -37,7 +37,7 @@
   resolved "https://registry.yarnpkg.com/@babel/compat-data/-/compat-data-7.29.0.tgz#00d03e8c0ac24dd9be942c5370990cbe1f17d88d"
   integrity sha512-T1NCJqT/j9+cn8fvkt7jtwbLBfLC/1y1c7NtCeXFRgzGTsafi68MRv8yzkYSapBnFA6L3U2VSc02ciDzoAJhJg==
 
-"@babel/core@^7.23.9", "@babel/core@^7.24.4", "@babel/core@^7.27.4":
+"@babel/core@^7.23.9", "@babel/core@^7.24.4", "@babel/core@^7.27.4", "@babel/core@^7.28.0":
   version "7.29.0"
   resolved "https://registry.yarnpkg.com/@babel/core/-/core-7.29.0.tgz#5286ad785df7f79d656e88ce86e650d16ca5f322"
   integrity sha512-CGOfOJqWjg2qW/Mb6zNsDm+u5vFQ8DxXfbM09z69p5Z6+mE1ikP2jUXw+j42Pf1XTYED2Rni5f95npYeuwMDQA==
@@ -69,6 +69,13 @@
     "@jridgewell/trace-mapping" "^0.3.28"
     jsesc "^3.0.2"
 
+"@babel/helper-annotate-as-pure@^7.27.3":
+  version "7.27.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/helper-annotate-as-pure/-/helper-annotate-as-pure-7.27.3.tgz#f31fd86b915fc4daf1f3ac6976c59be7084ed9c5"
+  integrity sha1-8x/Ya5FfxNrx86xpdsWb5whO2cU=
+  dependencies:
+    "@babel/types" "^7.27.3"
+
 "@babel/helper-compilation-targets@^7.28.6":
   version "7.28.6"
   resolved "https://registry.yarnpkg.com/@babel/helper-compilation-targets/-/helper-compilation-targets-7.28.6.tgz#32c4a3f41f12ed1532179b108a4d746e105c2b25"
@@ -80,10 +87,31 @@
     lru-cache "^5.1.1"
     semver "^6.3.1"
 
+"@babel/helper-create-class-features-plugin@^7.28.6":
+  version "7.28.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/helper-create-class-features-plugin/-/helper-create-class-features-plugin-7.28.6.tgz#611ff5482da9ef0db6291bcd24303400bca170fb"
+  integrity sha1-YR/1SC2p7w22KRvNJDA0ALyhcPs=
+  dependencies:
+    "@babel/helper-annotate-as-pure" "^7.27.3"
+    "@babel/helper-member-expression-to-functions" "^7.28.5"
+    "@babel/helper-optimise-call-expression" "^7.27.1"
+    "@babel/helper-replace-supers" "^7.28.6"
+    "@babel/helper-skip-transparent-expression-wrappers" "^7.27.1"
+    "@babel/traverse" "^7.28.6"
+    semver "^6.3.1"
+
 "@babel/helper-globals@^7.28.0":
   version "7.28.0"
   resolved "https://registry.yarnpkg.com/@babel/helper-globals/-/helper-globals-7.28.0.tgz#b9430df2aa4e17bc28665eadeae8aa1d985e6674"
   integrity sha512-+W6cISkXFa1jXsDEdYA8HeevQT/FULhxzR99pxphltZcVaugps53THCeiWA8SguxxpSp3gKPiuYfSWopkLQ4hw==
+
+"@babel/helper-member-expression-to-functions@^7.28.5":
+  version "7.28.5"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/helper-member-expression-to-functions/-/helper-member-expression-to-functions-7.28.5.tgz#f3e07a10be37ed7a63461c63e6929575945a6150"
+  integrity sha1-8+B6EL437XpjRhxj5pKVdZRaYVA=
+  dependencies:
+    "@babel/traverse" "^7.28.5"
+    "@babel/types" "^7.28.5"
 
 "@babel/helper-module-imports@^7.28.6":
   version "7.28.6"
@@ -102,10 +130,34 @@
     "@babel/helper-validator-identifier" "^7.28.5"
     "@babel/traverse" "^7.28.6"
 
-"@babel/helper-plugin-utils@^7.0.0", "@babel/helper-plugin-utils@^7.10.4", "@babel/helper-plugin-utils@^7.12.13", "@babel/helper-plugin-utils@^7.14.5", "@babel/helper-plugin-utils@^7.28.6", "@babel/helper-plugin-utils@^7.8.0":
+"@babel/helper-optimise-call-expression@^7.27.1":
+  version "7.27.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/helper-optimise-call-expression/-/helper-optimise-call-expression-7.27.1.tgz#c65221b61a643f3e62705e5dd2b5f115e35f9200"
+  integrity sha1-xlIhthpkPz5icF5d0rXxFeNfkgA=
+  dependencies:
+    "@babel/types" "^7.27.1"
+
+"@babel/helper-plugin-utils@^7.0.0", "@babel/helper-plugin-utils@^7.10.4", "@babel/helper-plugin-utils@^7.12.13", "@babel/helper-plugin-utils@^7.14.5", "@babel/helper-plugin-utils@^7.27.1", "@babel/helper-plugin-utils@^7.28.6", "@babel/helper-plugin-utils@^7.8.0":
   version "7.28.6"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/helper-plugin-utils/-/helper-plugin-utils-7.28.6.tgz#6f13ea251b68c8532e985fd532f28741a8af9ac8"
   integrity sha1-bxPqJRtoyFMumF/VMvKHQaivmsg=
+
+"@babel/helper-replace-supers@^7.28.6":
+  version "7.28.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/helper-replace-supers/-/helper-replace-supers-7.28.6.tgz#94aa9a1d7423a00aead3f204f78834ce7d53fe44"
+  integrity sha1-lKqaHXQjoArq0/IE94g0zn1T/kQ=
+  dependencies:
+    "@babel/helper-member-expression-to-functions" "^7.28.5"
+    "@babel/helper-optimise-call-expression" "^7.27.1"
+    "@babel/traverse" "^7.28.6"
+
+"@babel/helper-skip-transparent-expression-wrappers@^7.27.1":
+  version "7.27.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/helper-skip-transparent-expression-wrappers/-/helper-skip-transparent-expression-wrappers-7.27.1.tgz#62bb91b3abba8c7f1fec0252d9dbea11b3ee7a56"
+  integrity sha1-YruRs6u6jH8f7AJS2dvqEbPuelY=
+  dependencies:
+    "@babel/traverse" "^7.27.1"
+    "@babel/types" "^7.27.1"
 
 "@babel/helper-string-parser@^7.27.1":
   version "7.27.1"
@@ -130,7 +182,7 @@
     "@babel/template" "^7.28.6"
     "@babel/types" "^7.29.0"
 
-"@babel/parser@^7.1.0", "@babel/parser@^7.20.7", "@babel/parser@^7.23.9", "@babel/parser@^7.24.4", "@babel/parser@^7.28.6", "@babel/parser@^7.29.0":
+"@babel/parser@^7.1.0", "@babel/parser@^7.20.7", "@babel/parser@^7.23.9", "@babel/parser@^7.24.4", "@babel/parser@^7.28.0", "@babel/parser@^7.28.6", "@babel/parser@^7.29.0":
   version "7.29.2"
   resolved "https://registry.yarnpkg.com/@babel/parser/-/parser-7.29.2.tgz#58bd50b9a7951d134988a1ae177a35ef9a703ba1"
   integrity sha512-4GgRzy/+fsBa72/RZVJmGKPmZu9Byn8o4MoLpmNe1m8ZfYnz5emHLQz3U4gLud6Zwl0RZIcgiLD7Uq7ySFuDLA==
@@ -249,12 +301,42 @@
   dependencies:
     "@babel/helper-plugin-utils" "^7.14.5"
 
-"@babel/plugin-syntax-typescript@^7.27.1":
+"@babel/plugin-syntax-typescript@^7.27.1", "@babel/plugin-syntax-typescript@^7.28.6":
   version "7.28.6"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/plugin-syntax-typescript/-/plugin-syntax-typescript-7.28.6.tgz#c7b2ddf1d0a811145b1de800d1abd146af92e3a2"
   integrity sha1-x7Ld8dCoERRbHegA0avRRq+S46I=
   dependencies:
     "@babel/helper-plugin-utils" "^7.28.6"
+
+"@babel/plugin-transform-modules-commonjs@^7.27.1":
+  version "7.28.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/plugin-transform-modules-commonjs/-/plugin-transform-modules-commonjs-7.28.6.tgz#c0232e0dfe66a734cc4ad0d5e75fc3321b6fdef1"
+  integrity sha1-wCMuDf5mpzTMStDV51/DMhtv3vE=
+  dependencies:
+    "@babel/helper-module-transforms" "^7.28.6"
+    "@babel/helper-plugin-utils" "^7.28.6"
+
+"@babel/plugin-transform-typescript@^7.28.0", "@babel/plugin-transform-typescript@^7.28.5":
+  version "7.28.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/plugin-transform-typescript/-/plugin-transform-typescript-7.28.6.tgz#1e93d96da8adbefdfdade1d4956f73afa201a158"
+  integrity sha1-HpPZbaitvv39reHUlW9zr6IBoVg=
+  dependencies:
+    "@babel/helper-annotate-as-pure" "^7.27.3"
+    "@babel/helper-create-class-features-plugin" "^7.28.6"
+    "@babel/helper-plugin-utils" "^7.28.6"
+    "@babel/helper-skip-transparent-expression-wrappers" "^7.27.1"
+    "@babel/plugin-syntax-typescript" "^7.28.6"
+
+"@babel/preset-typescript@^7.27.1":
+  version "7.28.5"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@babel/preset-typescript/-/preset-typescript-7.28.5.tgz#540359efa3028236958466342967522fd8f2a60c"
+  integrity sha1-VANZ76MCgjaVhGY0KWdSL9jypgw=
+  dependencies:
+    "@babel/helper-plugin-utils" "^7.27.1"
+    "@babel/helper-validator-option" "^7.27.1"
+    "@babel/plugin-syntax-jsx" "^7.27.1"
+    "@babel/plugin-transform-modules-commonjs" "^7.27.1"
+    "@babel/plugin-transform-typescript" "^7.28.5"
 
 "@babel/runtime@^7.12.5":
   version "7.29.2"
@@ -270,7 +352,7 @@
     "@babel/parser" "^7.28.6"
     "@babel/types" "^7.28.6"
 
-"@babel/traverse@^7.28.6", "@babel/traverse@^7.29.0":
+"@babel/traverse@^7.27.1", "@babel/traverse@^7.28.5", "@babel/traverse@^7.28.6", "@babel/traverse@^7.29.0":
   version "7.29.0"
   resolved "https://registry.yarnpkg.com/@babel/traverse/-/traverse-7.29.0.tgz#f323d05001440253eead3c9c858adbe00b90310a"
   integrity sha512-4HPiQr0X7+waHfyXPZpWPfWL/J7dcN1mx9gL6WdQVMbPnF3+ZhSMs8tCxN7oHddJE9fhNE7+lxdnlyemKfJRuA==
@@ -283,7 +365,7 @@
     "@babel/types" "^7.29.0"
     debug "^4.3.1"
 
-"@babel/types@^7.0.0", "@babel/types@^7.20.7", "@babel/types@^7.27.3", "@babel/types@^7.28.2", "@babel/types@^7.28.6", "@babel/types@^7.29.0":
+"@babel/types@^7.0.0", "@babel/types@^7.20.7", "@babel/types@^7.27.1", "@babel/types@^7.27.3", "@babel/types@^7.28.2", "@babel/types@^7.28.5", "@babel/types@^7.28.6", "@babel/types@^7.29.0":
   version "7.29.0"
   resolved "https://registry.yarnpkg.com/@babel/types/-/types-7.29.0.tgz#9f5b1e838c446e72cf3cd4b918152b8c605e37c7"
   integrity sha512-LwdZHpScM4Qz8Xw2iKSzS+cfglZzJGvofQICy7W7v4caru4EaAmyUuO6BGrbyQ2mYV11W0U8j5mBhd14dd3B0A==
@@ -323,6 +405,27 @@
   version "3.0.4"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@csstools/css-tokenizer/-/css-tokenizer-3.0.4.tgz#333fedabc3fd1a8e5d0100013731cf19e6a8c5d3"
   integrity sha1-Mz/tq8P9Go5dAQABNzHPGeaoxdM=
+
+"@dotenvx/dotenvx@^1.48.4":
+  version "1.61.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@dotenvx/dotenvx/-/dotenvx-1.61.0.tgz#fc505cd62f49621407d8893d47444e05d1919c1d"
+  integrity sha1-/FBc1i9JYhQH2Ik9R0ROBdGRnB0=
+  dependencies:
+    commander "^11.1.0"
+    dotenv "^17.2.1"
+    eciesjs "^0.4.10"
+    execa "^5.1.1"
+    fdir "^6.2.0"
+    ignore "^5.3.0"
+    object-treeify "1.1.33"
+    picomatch "^4.0.2"
+    which "^4.0.0"
+    yocto-spinner "^1.1.0"
+
+"@ecies/ciphers@^0.2.5":
+  version "0.2.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@ecies/ciphers/-/ciphers-0.2.6.tgz#e7cdc4688de3c224e03d479e3227bcece44cbeab"
+  integrity sha1-583EaI3jwiTgPUeeMie87ORMvqs=
 
 "@emnapi/core@^1.4.3", "@emnapi/core@^1.8.1":
   version "1.9.2"
@@ -414,6 +517,33 @@
     "@eslint/core" "^0.17.0"
     levn "^0.4.1"
 
+"@floating-ui/core@^1.7.5":
+  version "1.7.5"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@floating-ui/core/-/core-1.7.5.tgz#d4af157a03330af5a60e69da7a4692507ada0622"
+  integrity sha1-1K8VegMzCvWmDmnaekaSUHraBiI=
+  dependencies:
+    "@floating-ui/utils" "^0.2.11"
+
+"@floating-ui/dom@^1.7.6":
+  version "1.7.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@floating-ui/dom/-/dom-1.7.6.tgz#f915bba5abbb177e1f227cacee1b4d0634b187bf"
+  integrity sha1-+RW7pau7F34fInys7htNBjSxh78=
+  dependencies:
+    "@floating-ui/core" "^1.7.5"
+    "@floating-ui/utils" "^0.2.11"
+
+"@floating-ui/react-dom@^2.0.0":
+  version "2.1.8"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@floating-ui/react-dom/-/react-dom-2.1.8.tgz#5fb5a20d10aafb9505f38c24f38d00c8e1598893"
+  integrity sha1-X7WiDRCq+5UF84wk840AyOFZiJM=
+  dependencies:
+    "@floating-ui/dom" "^1.7.6"
+
+"@floating-ui/utils@^0.2.11":
+  version "0.2.11"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@floating-ui/utils/-/utils-0.2.11.tgz#a269e055e40e2f45873bae9d1a2fdccbd314ea3f"
+  integrity sha1-omngVeQOL0WHO66dGi/cy9MU6j8=
+
 "@formatjs/bigdecimal@0.2.0":
   version "0.2.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@formatjs/bigdecimal/-/bigdecimal-0.2.0.tgz#84b8293eab6113d436f27a56691975c86eecbaa4"
@@ -454,6 +584,11 @@
   integrity sha1-BiqpnbzMia/elbgS6fApchtMb+8=
   dependencies:
     "@formatjs/fast-memoize" "3.1.1"
+
+"@hono/node-server@^1.19.9":
+  version "1.19.14"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@hono/node-server/-/node-server-1.19.14.tgz#e30f844bc77e3ce7be442aac3b1f73ad8b58d181"
+  integrity sha1-4w+ES8d+POe+RCqsOx9zrYtY0YE=
 
 "@humanfs/core@^0.19.1":
   version "0.19.1"
@@ -624,6 +759,43 @@
   version "0.34.5"
   resolved "https://registry.yarnpkg.com/@img/sharp-win32-x64/-/sharp-win32-x64-0.34.5.tgz#a81ffb00e69267cd0a1d626eaedb8a8430b2b2f8"
   integrity sha512-+29YMsqY2/9eFEiW93eqWnuLcWcufowXewwSNIT6UwZdUUCrM3oFjMWH/Z6/TMmb4hlFenmfAVbpWeup2jryCw==
+
+"@inquirer/ansi@^1.0.2":
+  version "1.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@inquirer/ansi/-/ansi-1.0.2.tgz#674a4c4d81ad460695cb2a1fc69d78cd187f337e"
+  integrity sha1-Z0pMTYGtRgaVyyofxp14zRh/M34=
+
+"@inquirer/confirm@^5.0.0":
+  version "5.1.21"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@inquirer/confirm/-/confirm-5.1.21.tgz#610c4acd7797d94890a6e2dde2c98eb1e891dd12"
+  integrity sha1-YQxKzXeX2UiQpuLd4smOseiR3RI=
+  dependencies:
+    "@inquirer/core" "^10.3.2"
+    "@inquirer/type" "^3.0.10"
+
+"@inquirer/core@^10.3.2":
+  version "10.3.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@inquirer/core/-/core-10.3.2.tgz#535979ff3ff4fe1e7cc4f83e2320504c743b7e20"
+  integrity sha1-U1l5/z/0/h58xPg+IyBQTHQ7fiA=
+  dependencies:
+    "@inquirer/ansi" "^1.0.2"
+    "@inquirer/figures" "^1.0.15"
+    "@inquirer/type" "^3.0.10"
+    cli-width "^4.1.0"
+    mute-stream "^2.0.0"
+    signal-exit "^4.1.0"
+    wrap-ansi "^6.2.0"
+    yoctocolors-cjs "^2.1.3"
+
+"@inquirer/figures@^1.0.15":
+  version "1.0.15"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@inquirer/figures/-/figures-1.0.15.tgz#dbb49ed80df11df74268023b496ac5d9acd22b3a"
+  integrity sha1-27Se2A3xHfdCaAI7SWrF2azSKzo=
+
+"@inquirer/type@^3.0.10":
+  version "3.0.10"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@inquirer/type/-/type-3.0.10.tgz#11ed564ec78432a200ea2601a212d24af8150d50"
+  integrity sha1-Ee1WTseEMqIA6iYBohLSSvgVDVA=
 
 "@isaacs/cliui@^8.0.2":
   version "8.0.2"
@@ -918,6 +1090,41 @@
     "@jridgewell/resolve-uri" "^3.1.0"
     "@jridgewell/sourcemap-codec" "^1.4.14"
 
+"@modelcontextprotocol/sdk@^1.26.0":
+  version "1.29.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@modelcontextprotocol/sdk/-/sdk-1.29.0.tgz#79786d8b525e269de850ac82b1f1f757f3915f44"
+  integrity sha1-eXhti1JeJp3oUKyCsfH3V/ORX0Q=
+  dependencies:
+    "@hono/node-server" "^1.19.9"
+    ajv "^8.17.1"
+    ajv-formats "^3.0.1"
+    content-type "^1.0.5"
+    cors "^2.8.5"
+    cross-spawn "^7.0.5"
+    eventsource "^3.0.2"
+    eventsource-parser "^3.0.0"
+    express "^5.2.1"
+    express-rate-limit "^8.2.1"
+    hono "^4.11.4"
+    jose "^6.1.3"
+    json-schema-typed "^8.0.2"
+    pkce-challenge "^5.0.0"
+    raw-body "^3.0.0"
+    zod "^3.25 || ^4.0"
+    zod-to-json-schema "^3.25.1"
+
+"@mswjs/interceptors@^0.41.2":
+  version "0.41.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@mswjs/interceptors/-/interceptors-0.41.3.tgz#d766dc1a168aa315a6a0b2d0f2e0cf1b74f23c82"
+  integrity sha1-12bcGhaKoxWmoLLQ8uDPG3TyPII=
+  dependencies:
+    "@open-draft/deferred-promise" "^2.2.0"
+    "@open-draft/logger" "^0.3.0"
+    "@open-draft/until" "^2.0.0"
+    is-node-process "^1.2.0"
+    outvariant "^1.4.3"
+    strict-event-emitter "^0.5.1"
+
 "@napi-rs/wasm-runtime@^0.2.11":
   version "0.2.12"
   resolved "https://registry.yarnpkg.com/@napi-rs/wasm-runtime/-/wasm-runtime-0.2.12.tgz#3e78a8b96e6c33a6c517e1894efbd5385a7cb6f2"
@@ -986,6 +1193,23 @@
   resolved "https://registry.yarnpkg.com/@next/swc-win32-x64-msvc/-/swc-win32-x64-msvc-16.2.3.tgz#aff6de2107cb29c9e8f3242e43f432d00dbea0e0"
   integrity sha512-Ibm29/GgB/ab5n7XKqlStkm54qqZE8v2FnijUPBgrd67FWrac45o/RsNlaOWjme/B5UqeWt/8KM4aWBwA1D2Kw==
 
+"@noble/ciphers@^1.3.0":
+  version "1.3.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@noble/ciphers/-/ciphers-1.3.0.tgz#f64b8ff886c240e644e5573c097f86e5b43676dc"
+  integrity sha1-9kuP+IbCQOZE5Vc8CX+G5bQ2dtw=
+
+"@noble/curves@^1.9.7":
+  version "1.9.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@noble/curves/-/curves-1.9.7.tgz#79d04b4758a43e4bca2cbdc62e7771352fa6b951"
+  integrity sha1-edBLR1ikPkvKLL3GLndxNS+muVE=
+  dependencies:
+    "@noble/hashes" "1.8.0"
+
+"@noble/hashes@1.8.0", "@noble/hashes@^1.8.0":
+  version "1.8.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@noble/hashes/-/hashes-1.8.0.tgz#cee43d801fcef9644b11b8194857695acd5f815a"
+  integrity sha1-zuQ9gB/O+WRLEbgZSFdpWs1fgVo=
+
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
   resolved "https://registry.yarnpkg.com/@nodelib/fs.scandir/-/fs.scandir-2.1.5.tgz#7619c2eb21b25483f6d167548b4cfd5a7488c3d5"
@@ -1011,6 +1235,24 @@
   version "1.0.39"
   resolved "https://registry.yarnpkg.com/@nolyfill/is-core-module/-/is-core-module-1.0.39.tgz#3dc35ba0f1e66b403c00b39344f870298ebb1c8e"
   integrity sha512-nn5ozdjYQpUCZlWGuxcJY/KpxkWQs4DcbMCmKojjyrYDEAGy4Ce19NN4v5MduafTwJlbKc99UA8YhSVqq9yPZA==
+
+"@open-draft/deferred-promise@^2.2.0":
+  version "2.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@open-draft/deferred-promise/-/deferred-promise-2.2.0.tgz#4a822d10f6f0e316be4d67b4d4f8c9a124b073bd"
+  integrity sha1-SoItEPbw4xa+TWe01PjJoSSwc70=
+
+"@open-draft/logger@^0.3.0":
+  version "0.3.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@open-draft/logger/-/logger-0.3.0.tgz#2b3ab1242b360aa0adb28b85f5d7da1c133a0954"
+  integrity sha1-KzqxJCs2CqCtsouF9dfaHBM6CVQ=
+  dependencies:
+    is-node-process "^1.2.0"
+    outvariant "^1.4.0"
+
+"@open-draft/until@^2.0.0":
+  version "2.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@open-draft/until/-/until-2.1.0.tgz#0acf32f470af2ceaf47f095cdecd40d68666efda"
+  integrity sha1-Cs8y9HCvLOr0fwlc3s1A1oZm79o=
 
 "@parcel/watcher-android-arm64@2.5.6":
   version "2.5.6"
@@ -1111,6 +1353,671 @@
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@pkgr/core/-/core-0.2.9.tgz#d229a7b7f9dac167a156992ef23c7f023653f53b"
   integrity sha1-0imnt/nawWehVpku8jx/AjZT9Ts=
 
+"@radix-ui/number@1.1.1":
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/number/-/number-1.1.1.tgz#7b2c9225fbf1b126539551f5985769d0048d9090"
+  integrity sha1-eyySJfvxsSZTlVH1mFdp0ASNkJA=
+
+"@radix-ui/primitive@1.1.3":
+  version "1.1.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/primitive/-/primitive-1.1.3.tgz#e2dbc13bdc5e4168f4334f75832d7bdd3e2de5ba"
+  integrity sha1-4tvBO9xeQWj0M091gy173T4t5bo=
+
+"@radix-ui/react-accessible-icon@1.1.7":
+  version "1.1.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-accessible-icon/-/react-accessible-icon-1.1.7.tgz#3b1629ce0c5ce0f791a21e28cfa6a1ffb82e2029"
+  integrity sha1-OxYpzgxc4PeRoh4oz6ah/7guICk=
+  dependencies:
+    "@radix-ui/react-visually-hidden" "1.2.3"
+
+"@radix-ui/react-accordion@1.2.12":
+  version "1.2.12"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-accordion/-/react-accordion-1.2.12.tgz#1fd70d4ef36018012b9e03324ff186de7a29c13f"
+  integrity sha1-H9cNTvNgGAErngMyT/GG3nopwT8=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-collapsible" "1.1.12"
+    "@radix-ui/react-collection" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+
+"@radix-ui/react-alert-dialog@1.1.15":
+  version "1.1.15"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-alert-dialog/-/react-alert-dialog-1.1.15.tgz#fa751d0fdd9aa2a90961c9901dba18e638dd4b41"
+  integrity sha1-+nUdD92aoqkJYcmQHboY5jjdS0E=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-dialog" "1.1.15"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-slot" "1.2.3"
+
+"@radix-ui/react-arrow@1.1.7":
+  version "1.1.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-arrow/-/react-arrow-1.1.7.tgz#e14a2657c81d961598c5e72b73dd6098acc04f09"
+  integrity sha1-4UomV8gdlhWYxecrc91gmKzATwk=
+  dependencies:
+    "@radix-ui/react-primitive" "2.1.3"
+
+"@radix-ui/react-aspect-ratio@1.1.7":
+  version "1.1.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-aspect-ratio/-/react-aspect-ratio-1.1.7.tgz#95d0adcdddd0d40c5dd2ae07c8608b4f0b983f53"
+  integrity sha1-ldCtzd3Q1Axd0q4HyGCLTwuYP1M=
+  dependencies:
+    "@radix-ui/react-primitive" "2.1.3"
+
+"@radix-ui/react-avatar@1.1.10":
+  version "1.1.10"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-avatar/-/react-avatar-1.1.10.tgz#c58a8800ef3d3ee783b3168fee7c76f6534bfd93"
+  integrity sha1-xYqIAO89PueDsxaP7nx29lNL/ZM=
+  dependencies:
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-is-hydrated" "0.1.0"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+
+"@radix-ui/react-checkbox@1.3.3":
+  version "1.3.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-checkbox/-/react-checkbox-1.3.3.tgz#db45ca8a6d5c056a92f74edbb564acee05318b79"
+  integrity sha1-20XKim1cBWqS907btWSs7gUxi3k=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-previous" "1.1.1"
+    "@radix-ui/react-use-size" "1.1.1"
+
+"@radix-ui/react-collapsible@1.1.12":
+  version "1.1.12"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-collapsible/-/react-collapsible-1.1.12.tgz#e2cc69a4490a2920f97c3c3150b0bf21281e3c49"
+  integrity sha1-4sxppEkKKSD5fDwxULC/ISgePEk=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+
+"@radix-ui/react-collection@1.1.7":
+  version "1.1.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-collection/-/react-collection-1.1.7.tgz#d05c25ca9ac4695cc19ba91f42f686e3ea2d9aec"
+  integrity sha1-0FwlyprEaVzBm6kfQvaG4+otmuw=
+  dependencies:
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-slot" "1.2.3"
+
+"@radix-ui/react-compose-refs@1.1.2":
+  version "1.1.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-compose-refs/-/react-compose-refs-1.1.2.tgz#a2c4c47af6337048ee78ff6dc0d090b390d2bb30"
+  integrity sha1-osTEevYzcEjueP9twNCQs5DSuzA=
+
+"@radix-ui/react-context-menu@2.2.16":
+  version "2.2.16"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-context-menu/-/react-context-menu-2.2.16.tgz#e7bf94a457b68af08f24ad696949144530faab50"
+  integrity sha1-57+UpFe2ivCPJK1paUkURTD6q1A=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-menu" "2.1.16"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+
+"@radix-ui/react-context@1.1.2":
+  version "1.1.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-context/-/react-context-1.1.2.tgz#61628ef269a433382c364f6f1e3788a6dc213a36"
+  integrity sha1-YWKO8mmkMzgsNk9vHjeIptwhOjY=
+
+"@radix-ui/react-dialog@1.1.15":
+  version "1.1.15"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-dialog/-/react-dialog-1.1.15.tgz#1de3d7a7e9a17a9874d29c07f5940a18a119b632"
+  integrity sha1-HePXp+mheph00pwH9ZQKGKEZtjI=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.11"
+    "@radix-ui/react-focus-guards" "1.1.3"
+    "@radix-ui/react-focus-scope" "1.1.7"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-portal" "1.1.9"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-slot" "1.2.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    aria-hidden "^1.2.4"
+    react-remove-scroll "^2.6.3"
+
+"@radix-ui/react-direction@1.1.1":
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-direction/-/react-direction-1.1.1.tgz#39e5a5769e676c753204b792fbe6cf508e550a14"
+  integrity sha1-OeWldp5nbHUyBLeS++bPUI5VChQ=
+
+"@radix-ui/react-dismissable-layer@1.1.11":
+  version "1.1.11"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-dismissable-layer/-/react-dismissable-layer-1.1.11.tgz#e33ab6f6bdaa00f8f7327c408d9f631376b88b37"
+  integrity sha1-4zq29r2qAPj3MnxAjZ9jE3a4izc=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-escape-keydown" "1.1.1"
+
+"@radix-ui/react-dropdown-menu@2.1.16":
+  version "2.1.16"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-dropdown-menu/-/react-dropdown-menu-2.1.16.tgz#5ee045c62bad8122347981c479d92b1ff24c7254"
+  integrity sha1-XuBFxiutgSI0eYHEedkrH/JMclQ=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-menu" "2.1.16"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+
+"@radix-ui/react-focus-guards@1.1.3":
+  version "1.1.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-focus-guards/-/react-focus-guards-1.1.3.tgz#2a5669e464ad5fde9f86d22f7fdc17781a4dfa7f"
+  integrity sha1-KlZp5GStX96fhtIvf9wXeBpN+n8=
+
+"@radix-ui/react-focus-scope@1.1.7":
+  version "1.1.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-focus-scope/-/react-focus-scope-1.1.7.tgz#dfe76fc103537d80bf42723a183773fd07bfb58d"
+  integrity sha1-3+dvwQNTfYC/QnI6GDdz/Qe/tY0=
+  dependencies:
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+
+"@radix-ui/react-form@0.1.8":
+  version "0.1.8"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-form/-/react-form-0.1.8.tgz#daec0fde305a70edf1a97b932b5e02a4cbf5b68e"
+  integrity sha1-2uwP3jBacO3xqXuTK14CpMv1to4=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-label" "2.1.7"
+    "@radix-ui/react-primitive" "2.1.3"
+
+"@radix-ui/react-hover-card@1.1.15":
+  version "1.1.15"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-hover-card/-/react-hover-card-1.1.15.tgz#9bc7ed55c37a9032acdfcc7cfa5c73b117cffe5e"
+  integrity sha1-m8ftVcN6kDKs38x8+lxzsRfP/l4=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.11"
+    "@radix-ui/react-popper" "1.2.8"
+    "@radix-ui/react-portal" "1.1.9"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+
+"@radix-ui/react-id@1.1.1":
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-id/-/react-id-1.1.1.tgz#1404002e79a03fe062b7e3864aa01e24bd1471f7"
+  integrity sha1-FAQALnmgP+Bit+OGSqAeJL0Ucfc=
+  dependencies:
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+
+"@radix-ui/react-label@2.1.7":
+  version "2.1.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-label/-/react-label-2.1.7.tgz#ad959ff9c6e4968d533329eb95696e1ba8ad72ab"
+  integrity sha1-rZWf+cbklo1TMynrlWluG6itcqs=
+  dependencies:
+    "@radix-ui/react-primitive" "2.1.3"
+
+"@radix-ui/react-menu@2.1.16":
+  version "2.1.16"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-menu/-/react-menu-2.1.16.tgz#528a5a973c3a7413d3d49eb9ccd229aa52402911"
+  integrity sha1-Uopalzw6dBPT1J65zNIpqlJAKRE=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-collection" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-dismissable-layer" "1.1.11"
+    "@radix-ui/react-focus-guards" "1.1.3"
+    "@radix-ui/react-focus-scope" "1.1.7"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-popper" "1.2.8"
+    "@radix-ui/react-portal" "1.1.9"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-roving-focus" "1.1.11"
+    "@radix-ui/react-slot" "1.2.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    aria-hidden "^1.2.4"
+    react-remove-scroll "^2.6.3"
+
+"@radix-ui/react-menubar@1.1.16":
+  version "1.1.16"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-menubar/-/react-menubar-1.1.16.tgz#5edf7ea2ff7aa7e3ba896b35cf577f122160121c"
+  integrity sha1-Xt9+ov96p+O6iWs1z1d/EiFgEhw=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-collection" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-menu" "2.1.16"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-roving-focus" "1.1.11"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+
+"@radix-ui/react-navigation-menu@1.2.14":
+  version "1.2.14"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-navigation-menu/-/react-navigation-menu-1.2.14.tgz#4e6d1172be3c89752e564f8721706f78574ad7dd"
+  integrity sha1-Tm0Rcr48iXUuVk+HIXBveFdK190=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-collection" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-dismissable-layer" "1.1.11"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+    "@radix-ui/react-use-previous" "1.1.1"
+    "@radix-ui/react-visually-hidden" "1.2.3"
+
+"@radix-ui/react-one-time-password-field@0.1.8":
+  version "0.1.8"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-one-time-password-field/-/react-one-time-password-field-0.1.8.tgz#edb7476d29478477ffc837f7deacec3a1ae08a24"
+  integrity sha1-7bdHbSlHhHf/yDf33qzsOhrgiiQ=
+  dependencies:
+    "@radix-ui/number" "1.1.1"
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-collection" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-roving-focus" "1.1.11"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-effect-event" "0.0.2"
+    "@radix-ui/react-use-is-hydrated" "0.1.0"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+
+"@radix-ui/react-password-toggle-field@0.1.3":
+  version "0.1.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-password-toggle-field/-/react-password-toggle-field-0.1.3.tgz#3d47de91c0f8e79d697cefde2ef8146816712031"
+  integrity sha1-PUfekcD4551pfO/eLvgUaBZxIDE=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-effect-event" "0.0.2"
+    "@radix-ui/react-use-is-hydrated" "0.1.0"
+
+"@radix-ui/react-popover@1.1.15":
+  version "1.1.15"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-popover/-/react-popover-1.1.15.tgz#9c852f93990a687ebdc949b2c3de1f37cdc4c5d5"
+  integrity sha1-nIUvk5kKaH69yUmyw94fN83ExdU=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.11"
+    "@radix-ui/react-focus-guards" "1.1.3"
+    "@radix-ui/react-focus-scope" "1.1.7"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-popper" "1.2.8"
+    "@radix-ui/react-portal" "1.1.9"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-slot" "1.2.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    aria-hidden "^1.2.4"
+    react-remove-scroll "^2.6.3"
+
+"@radix-ui/react-popper@1.2.8":
+  version "1.2.8"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-popper/-/react-popper-1.2.8.tgz#a79f39cdd2b09ab9fb50bf95250918422c4d9602"
+  integrity sha1-p585zdKwmrn7UL+VJQkYQixNlgI=
+  dependencies:
+    "@floating-ui/react-dom" "^2.0.0"
+    "@radix-ui/react-arrow" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+    "@radix-ui/react-use-rect" "1.1.1"
+    "@radix-ui/react-use-size" "1.1.1"
+    "@radix-ui/rect" "1.1.1"
+
+"@radix-ui/react-portal@1.1.9":
+  version "1.1.9"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-portal/-/react-portal-1.1.9.tgz#14c3649fe48ec474ac51ed9f2b9f5da4d91c4472"
+  integrity sha1-FMNkn+SOxHSsUe2fK59dpNkcRHI=
+  dependencies:
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+
+"@radix-ui/react-presence@1.1.5":
+  version "1.1.5"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-presence/-/react-presence-1.1.5.tgz#5d8f28ac316c32f078afce2996839250c10693db"
+  integrity sha1-XY8orDFsMvB4r84ploOSUMEGk9s=
+  dependencies:
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+
+"@radix-ui/react-primitive@2.1.3":
+  version "2.1.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-primitive/-/react-primitive-2.1.3.tgz#db9b8bcff49e01be510ad79893fb0e4cda50f1bc"
+  integrity sha1-25uLz/SeAb5RCteYk/sOTNpQ8bw=
+  dependencies:
+    "@radix-ui/react-slot" "1.2.3"
+
+"@radix-ui/react-progress@1.1.7":
+  version "1.1.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-progress/-/react-progress-1.1.7.tgz#a2b76398b3f24b6bd5e37f112b1e30fbedd4f38e"
+  integrity sha1-ordjmLPyS2vV438RKx4w++3U844=
+  dependencies:
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-primitive" "2.1.3"
+
+"@radix-ui/react-radio-group@1.3.8":
+  version "1.3.8"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-radio-group/-/react-radio-group-1.3.8.tgz#93f102b5b948d602c2f2adb1bc5c347cbaf64bd9"
+  integrity sha1-k/ECtblI1gLC8q2xvFw0fLr2S9k=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-roving-focus" "1.1.11"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-previous" "1.1.1"
+    "@radix-ui/react-use-size" "1.1.1"
+
+"@radix-ui/react-roving-focus@1.1.11":
+  version "1.1.11"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-roving-focus/-/react-roving-focus-1.1.11.tgz#ef54384b7361afc6480dcf9907ef2fedb5080fd9"
+  integrity sha1-71Q4S3Nhr8ZIDc+ZB+8v7bUID9k=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-collection" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+
+"@radix-ui/react-scroll-area@1.2.10":
+  version "1.2.10"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-scroll-area/-/react-scroll-area-1.2.10.tgz#e4fd3b4a79bb77bec1a52f0c8f26d8f3f1ca4b22"
+  integrity sha1-5P07Snm7d77BpS8MjybY8/HKSyI=
+  dependencies:
+    "@radix-ui/number" "1.1.1"
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+
+"@radix-ui/react-select@2.2.6":
+  version "2.2.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-select/-/react-select-2.2.6.tgz#022cf8dab16bf05d0d1b4df9e53e4bea1b744fd9"
+  integrity sha1-Aiz42rFr8F0NG0355T5L6ht0T9k=
+  dependencies:
+    "@radix-ui/number" "1.1.1"
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-collection" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-dismissable-layer" "1.1.11"
+    "@radix-ui/react-focus-guards" "1.1.3"
+    "@radix-ui/react-focus-scope" "1.1.7"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-popper" "1.2.8"
+    "@radix-ui/react-portal" "1.1.9"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-slot" "1.2.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+    "@radix-ui/react-use-previous" "1.1.1"
+    "@radix-ui/react-visually-hidden" "1.2.3"
+    aria-hidden "^1.2.4"
+    react-remove-scroll "^2.6.3"
+
+"@radix-ui/react-separator@1.1.7":
+  version "1.1.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-separator/-/react-separator-1.1.7.tgz#a18bd7fd07c10fda1bba14f2a3032e7b1a2b3470"
+  integrity sha1-oYvX/QfBD9obuhTyowMuexorNHA=
+  dependencies:
+    "@radix-ui/react-primitive" "2.1.3"
+
+"@radix-ui/react-slider@1.3.6":
+  version "1.3.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-slider/-/react-slider-1.3.6.tgz#409453110b8f34ca00972750b80cd792f0b23a8c"
+  integrity sha1-QJRTEQuPNMoAlydQuAzXkvCyOow=
+  dependencies:
+    "@radix-ui/number" "1.1.1"
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-collection" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+    "@radix-ui/react-use-previous" "1.1.1"
+    "@radix-ui/react-use-size" "1.1.1"
+
+"@radix-ui/react-slot@1.2.3":
+  version "1.2.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-slot/-/react-slot-1.2.3.tgz#502d6e354fc847d4169c3bc5f189de777f68cfe1"
+  integrity sha1-UC1uNU/IR9QWnDvF8Yned39oz+E=
+  dependencies:
+    "@radix-ui/react-compose-refs" "1.1.2"
+
+"@radix-ui/react-switch@1.2.6":
+  version "1.2.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-switch/-/react-switch-1.2.6.tgz#ff79acb831f0d5ea9216cfcc5b939912571358e3"
+  integrity sha1-/3msuDHw1eqSFs/MW5OZElcTWOM=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-previous" "1.1.1"
+    "@radix-ui/react-use-size" "1.1.1"
+
+"@radix-ui/react-tabs@1.1.13":
+  version "1.1.13"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-tabs/-/react-tabs-1.1.13.tgz#3537ce379d7e7ff4eeb6b67a0973e139c2ac1f15"
+  integrity sha1-NTfON51+f/TutrZ6CXPhOcKsHxU=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-roving-focus" "1.1.11"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+
+"@radix-ui/react-toast@1.2.15":
+  version "1.2.15"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-toast/-/react-toast-1.2.15.tgz#746cf9a81297ddbfba214e5c81245ea3f706f876"
+  integrity sha1-dGz5qBKX3b+6IU5cgSReo/cG+HY=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-collection" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.11"
+    "@radix-ui/react-portal" "1.1.9"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+    "@radix-ui/react-visually-hidden" "1.2.3"
+
+"@radix-ui/react-toggle-group@1.1.11":
+  version "1.1.11"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-toggle-group/-/react-toggle-group-1.1.11.tgz#e513d6ffdb07509b400ab5b26f2523747c0d51c1"
+  integrity sha1-5RPW/9sHUJtACrWybyUjdHwNUcE=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-roving-focus" "1.1.11"
+    "@radix-ui/react-toggle" "1.1.10"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+
+"@radix-ui/react-toggle@1.1.10":
+  version "1.1.10"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-toggle/-/react-toggle-1.1.10.tgz#b04ba0f9609599df666fce5b2f38109a197f08cf"
+  integrity sha1-sEug+WCVmd9mb85bLzgQmhl/CM8=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+
+"@radix-ui/react-toolbar@1.1.11":
+  version "1.1.11"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-toolbar/-/react-toolbar-1.1.11.tgz#2a71f1d91535788f88145d542159e2faaa561db7"
+  integrity sha1-KnHx2RU1eI+IFF1UIVni+qpWHbc=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-roving-focus" "1.1.11"
+    "@radix-ui/react-separator" "1.1.7"
+    "@radix-ui/react-toggle-group" "1.1.11"
+
+"@radix-ui/react-tooltip@1.2.8":
+  version "1.2.8"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-tooltip/-/react-tooltip-1.2.8.tgz#3f50267e25bccfc9e20bb3036bfd9ab4c2c30c2c"
+  integrity sha1-P1AmfiW8z8niC7MDa/2atMLDDCw=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-dismissable-layer" "1.1.11"
+    "@radix-ui/react-id" "1.1.1"
+    "@radix-ui/react-popper" "1.2.8"
+    "@radix-ui/react-portal" "1.1.9"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-slot" "1.2.3"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-visually-hidden" "1.2.3"
+
+"@radix-ui/react-use-callback-ref@1.1.1":
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-use-callback-ref/-/react-use-callback-ref-1.1.1.tgz#62a4dba8b3255fdc5cc7787faeac1c6e4cc58d40"
+  integrity sha1-YqTbqLMlX9xcx3h/rqwcbkzFjUA=
+
+"@radix-ui/react-use-controllable-state@1.2.2":
+  version "1.2.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-use-controllable-state/-/react-use-controllable-state-1.2.2.tgz#905793405de57d61a439f4afebbb17d0645f3190"
+  integrity sha1-kFeTQF3lfWGkOfSv67sX0GRfMZA=
+  dependencies:
+    "@radix-ui/react-use-effect-event" "0.0.2"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+
+"@radix-ui/react-use-effect-event@0.0.2":
+  version "0.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-use-effect-event/-/react-use-effect-event-0.0.2.tgz#090cf30d00a4c7632a15548512e9152217593907"
+  integrity sha1-CQzzDQCkx2MqFVSFEukVIhdZOQc=
+  dependencies:
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+
+"@radix-ui/react-use-escape-keydown@1.1.1":
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-use-escape-keydown/-/react-use-escape-keydown-1.1.1.tgz#b3fed9bbea366a118f40427ac40500aa1423cc29"
+  integrity sha1-s/7Zu+o2ahGPQEJ6xAUAqhQjzCk=
+  dependencies:
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+
+"@radix-ui/react-use-is-hydrated@0.1.0":
+  version "0.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-use-is-hydrated/-/react-use-is-hydrated-0.1.0.tgz#544da73369517036c77659d7cdd019dc0f5ff9a0"
+  integrity sha1-VE2nM2lRcDbHdlnXzdAZ3A9f+aA=
+  dependencies:
+    use-sync-external-store "^1.5.0"
+
+"@radix-ui/react-use-layout-effect@1.1.1":
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-use-layout-effect/-/react-use-layout-effect-1.1.1.tgz#0c4230a9eed49d4589c967e2d9c0d9d60a23971e"
+  integrity sha1-DEIwqe7UnUWJyWfi2cDZ1gojlx4=
+
+"@radix-ui/react-use-previous@1.1.1":
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-use-previous/-/react-use-previous-1.1.1.tgz#1a1ad5568973d24051ed0af687766f6c7cb9b5b5"
+  integrity sha1-GhrVVolz0kBR7Qr2h3ZvbHy5tbU=
+
+"@radix-ui/react-use-rect@1.1.1":
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-use-rect/-/react-use-rect-1.1.1.tgz#01443ca8ed071d33023c1113e5173b5ed8769152"
+  integrity sha1-AUQ8qO0HHTMCPBET5Rc7Xth2kVI=
+  dependencies:
+    "@radix-ui/rect" "1.1.1"
+
+"@radix-ui/react-use-size@1.1.1":
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-use-size/-/react-use-size-1.1.1.tgz#6de276ffbc389a537ffe4316f5b0f24129405b37"
+  integrity sha1-beJ2/7w4mlN//kMW9bDyQSlAWzc=
+  dependencies:
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+
+"@radix-ui/react-visually-hidden@1.2.3":
+  version "1.2.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/react-visually-hidden/-/react-visually-hidden-1.2.3.tgz#a8c38c8607735dc9f05c32f87ab0f9c2b109efbf"
+  integrity sha1-qMOMhgdzXcnwXDL4erD5wrEJ778=
+  dependencies:
+    "@radix-ui/react-primitive" "2.1.3"
+
+"@radix-ui/rect@1.1.1":
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@radix-ui/rect/-/rect-1.1.1.tgz#78244efe12930c56fd255d7923865857c41ac8cb"
+  integrity sha1-eCRO/hKTDFb9JV15I4ZYV8QayMs=
+
 "@rtsao/scc@^1.1.0":
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/@rtsao/scc/-/scc-1.1.0.tgz#927dd2fae9bc3361403ac2c7a00c32ddce9ad7e8"
@@ -1121,10 +2028,20 @@
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@schummar/icu-type-parser/-/icu-type-parser-1.21.5.tgz#75989085bbbf80ee325874a0137437bde77e9baf"
   integrity sha1-dZiQhbu/gO4yWHSgE3Q3ved+m68=
 
+"@sec-ant/readable-stream@^0.4.1":
+  version "0.4.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@sec-ant/readable-stream/-/readable-stream-0.4.1.tgz#60de891bb126abfdc5410fdc6166aca065f10a0c"
+  integrity sha1-YN6JG7Emq/3FQQ/cYWasoGXxCgw=
+
 "@sinclair/typebox@^0.34.0":
   version "0.34.49"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@sinclair/typebox/-/typebox-0.34.49.tgz#4f1369234f2ecf693866476c3b2e1b54d2a9d68e"
   integrity sha1-TxNpI08uz2k4ZkdsOy4bVNKp1o4=
+
+"@sindresorhus/merge-streams@^4.0.0":
+  version "4.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@sindresorhus/merge-streams/-/merge-streams-4.0.0.tgz#abb11d99aeb6d27f1b563c38147a72d50058e339"
+  integrity sha1-q7Edma620n8bVjw4FHpy1QBY4zk=
 
 "@sinonjs/commons@^3.0.1":
   version "3.0.1"
@@ -1418,6 +2335,15 @@
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@testing-library/user-event/-/user-event-14.6.1.tgz#13e09a32d7a8b7060fe38304788ebf4197cd2149"
   integrity sha1-E+CaMteotwYP44MEeI6/QZfNIUk=
 
+"@ts-morph/common@~0.27.0":
+  version "0.27.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@ts-morph/common/-/common-0.27.0.tgz#e83a1bd7cbac054045c6246a7c4c99eab7692d46"
+  integrity sha1-6Dob18usBUBFxiRqfEyZ6rdpLUY=
+  dependencies:
+    fast-glob "^3.3.3"
+    minimatch "^10.0.1"
+    path-browserify "^1.0.1"
+
 "@tybys/wasm-util@^0.10.0", "@tybys/wasm-util@^0.10.1":
   version "0.10.1"
   resolved "https://registry.yarnpkg.com/@tybys/wasm-util/-/wasm-util-0.10.1.tgz#ecddd3205cf1e2d5274649ff0eedd2991ed7f414"
@@ -1550,10 +2476,20 @@
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@types/stack-utils/-/stack-utils-2.0.3.tgz#6209321eb2c1712a7e7466422b8cb1fc0d9dd5d8"
   integrity sha1-YgkyHrLBcSp+dGZCK4yx/A2d1dg=
 
+"@types/statuses@^2.0.6":
+  version "2.0.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@types/statuses/-/statuses-2.0.6.tgz#66748315cc9a96d63403baa8671b2c124f8633aa"
+  integrity sha1-ZnSDFcyaltY0A7qoZxssEk+GM6o=
+
 "@types/tough-cookie@*":
   version "4.0.5"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@types/tough-cookie/-/tough-cookie-4.0.5.tgz#cb6e2a691b70cb177c6e3ae9c1d2e8b2ea8cd304"
   integrity sha1-y24qaRtwyxd8bjrpwdLosuqM0wQ=
+
+"@types/validate-npm-package-name@^4.0.2":
+  version "4.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@types/validate-npm-package-name/-/validate-npm-package-name-4.0.2.tgz#df0f7dac25df7761f7476605ddac54cb1abda26e"
+  integrity sha1-3w99rCXfd2H3R2YF3axUyxq9om4=
 
 "@types/yargs-parser@*":
   version "21.0.3"
@@ -1765,6 +2701,14 @@
   resolved "https://registry.yarnpkg.com/@unrs/resolver-binding-win32-x64-msvc/-/resolver-binding-win32-x64-msvc-1.11.1.tgz#538b1e103bf8d9864e7b85cc96fa8d6fb6c40777"
   integrity sha512-lrW200hZdbfRtztbygyaq/6jP6AKE8qQN2KvPcJ+x7wiD038YtnYtZ82IMNJ69GJibV7bwL3y9FgK+5w/pYt6g==
 
+accepts@^2.0.0:
+  version "2.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/accepts/-/accepts-2.0.0.tgz#bbcf4ba5075467f3f2131eab3cffc73c2f5d7895"
+  integrity sha1-u89LpQdUZ/PyEx6rPP/HPC9deJU=
+  dependencies:
+    mime-types "^3.0.0"
+    negotiator "^1.0.0"
+
 acorn-jsx@^5.3.2:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/acorn-jsx/-/acorn-jsx-5.3.2.tgz#7ed5bb55908b3b2f1bc55c6af1653bada7f07937"
@@ -1780,6 +2724,13 @@ agent-base@^7.1.0, agent-base@^7.1.2:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/agent-base/-/agent-base-7.1.4.tgz#e3cd76d4c548ee895d3c3fd8dc1f6c5b9032e7a8"
   integrity sha1-48121MVI7oldPD/Y3B9sW5Ay56g=
 
+ajv-formats@^3.0.1:
+  version "3.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/ajv-formats/-/ajv-formats-3.0.1.tgz#3d5dc762bca17679c3c2ea7e90ad6b7532309578"
+  integrity sha1-PV3HYryhdnnDwup+kK1rdTIwlXg=
+  dependencies:
+    ajv "^8.0.0"
+
 ajv@^6.14.0:
   version "6.14.0"
   resolved "https://registry.yarnpkg.com/ajv/-/ajv-6.14.0.tgz#fd067713e228210636ebb08c60bd3765d6dbe73a"
@@ -1789,6 +2740,16 @@ ajv@^6.14.0:
     fast-json-stable-stringify "^2.0.0"
     json-schema-traverse "^0.4.1"
     uri-js "^4.2.2"
+
+ajv@^8.0.0, ajv@^8.17.1:
+  version "8.18.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/ajv/-/ajv-8.18.0.tgz#8864186b6738d003eb3a933172bb3833e10cefbc"
+  integrity sha1-iGQYa2c40APrOpMxcrs4M+EM77w=
+  dependencies:
+    fast-deep-equal "^3.1.3"
+    fast-uri "^3.0.1"
+    json-schema-traverse "^1.0.0"
+    require-from-string "^2.0.2"
 
 ansi-escapes@^4.3.2:
   version "4.3.2"
@@ -1850,6 +2811,13 @@ argparse@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/argparse/-/argparse-2.0.1.tgz#246f50f3ca78a3240f6c997e8a9bd1eac49e4b38"
   integrity sha512-8+9WqebbFzpX9OR+Wa6O29asIogeRMzcGtAINdpMHHyAg10f05aSFVBbcEqGf/PXw1EjAZ+q2/bEBg3DvurK3Q==
+
+aria-hidden@^1.2.4:
+  version "1.2.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/aria-hidden/-/aria-hidden-1.2.6.tgz#73051c9b088114c795b1ea414e9c0fff874ffc1a"
+  integrity sha1-cwUcmwiBFMeVsepBTpwP/4dP/Bo=
+  dependencies:
+    tslib "^2.0.0"
 
 aria-query@5.3.0:
   version "5.3.0"
@@ -1959,6 +2927,13 @@ ast-types-flow@^0.0.8:
   resolved "https://registry.yarnpkg.com/ast-types-flow/-/ast-types-flow-0.0.8.tgz#0a85e1c92695769ac13a428bb653e7538bea27d6"
   integrity sha512-OH/2E5Fg20h2aPrbe+QL8JZQFko0YZaF+j4mnQ7BGhfavO7OpSLa8a0y9sBwomHdSbkhTS8TQNayBfnW5DwbvQ==
 
+ast-types@^0.16.1:
+  version "0.16.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/ast-types/-/ast-types-0.16.1.tgz#7a9da1617c9081bc121faafe91711b4c8bb81da2"
+  integrity sha1-ep2hYXyQgbwSH6r+kXEbTIu4HaI=
+  dependencies:
+    tslib "^2.0.1"
+
 async-function@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/async-function/-/async-function-1.0.0.tgz#509c9fca60eaf85034c6829838188e4e4c8ffb2b"
@@ -2056,6 +3031,21 @@ baseline-browser-mapping@^2.10.12, baseline-browser-mapping@^2.9.19:
   resolved "https://registry.yarnpkg.com/baseline-browser-mapping/-/baseline-browser-mapping-2.10.17.tgz#435c101835c314c2d89d768795e1ea79941fafd3"
   integrity sha512-HdrkN8eVG2CXxeifv/VdJ4A4RSra1DTW8dc/hdxzhGHN8QePs6gKaWM9pHPcpCoxYZJuOZ8drHmbdpLHjCYjLA==
 
+body-parser@^2.2.1:
+  version "2.2.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/body-parser/-/body-parser-2.2.2.tgz#1a32cdb966beaf68de50a9dfbe5b58f83cb8890c"
+  integrity sha1-GjLNuWa+r2jeUKnfvltY+Dy4iQw=
+  dependencies:
+    bytes "^3.1.2"
+    content-type "^1.0.5"
+    debug "^4.4.3"
+    http-errors "^2.0.0"
+    iconv-lite "^0.7.0"
+    on-finished "^2.4.1"
+    qs "^6.14.1"
+    raw-body "^3.0.1"
+    type-is "^2.0.1"
+
 brace-expansion@^1.1.7:
   version "1.1.13"
   resolved "https://registry.yarnpkg.com/brace-expansion/-/brace-expansion-1.1.13.tgz#d37875c01dc9eff988dd49d112a57cb67b54efe6"
@@ -2085,7 +3075,7 @@ braces@^3.0.3:
   dependencies:
     fill-range "^7.1.1"
 
-browserslist@^4.24.0:
+browserslist@^4.24.0, browserslist@^4.26.2:
   version "4.28.2"
   resolved "https://registry.yarnpkg.com/browserslist/-/browserslist-4.28.2.tgz#f50b65362ef48974ca9f50b3680566d786b811d2"
   integrity sha512-48xSriZYYg+8qXna9kwqjIVzuQxi+KYWp2+5nCYnYKPTr0LvD89Jqk2Or5ogxz0NUMfIjhh2lIUX/LyX9B4oIg==
@@ -2107,6 +3097,18 @@ buffer-from@^1.0.0:
   version "1.1.2"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/buffer-from/-/buffer-from-1.1.2.tgz#2b146a6fd72e80b4f55d255f35ed59a3a9a41bd5"
   integrity sha1-KxRqb9cugLT1XSVfNe1Zo6mkG9U=
+
+bundle-name@^4.1.0:
+  version "4.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/bundle-name/-/bundle-name-4.1.0.tgz#f3b96b34160d6431a19d7688135af7cfb8797889"
+  integrity sha1-87lrNBYNZDGhnXaIE1r3z7h5eIk=
+  dependencies:
+    run-applescript "^7.0.0"
+
+bytes@^3.1.2, bytes@~3.1.2:
+  version "3.1.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/bytes/-/bytes-3.1.2.tgz#8b0beeb98605adf1b128fa4386403c009e0221a5"
+  integrity sha1-iwvuuYYFrfGxKPpDhkA8AJ4CIaU=
 
 call-bind-apply-helpers@^1.0.1, call-bind-apply-helpers@^1.0.2:
   version "1.0.2"
@@ -2162,6 +3164,11 @@ chalk@^4.0.0, chalk@^4.1.2:
     ansi-styles "^4.1.0"
     supports-color "^7.1.0"
 
+chalk@^5.3.0:
+  version "5.6.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/chalk/-/chalk-5.6.2.tgz#b1238b6e23ea337af71c7f8a295db5af0c158aea"
+  integrity sha1-sSOLbiPqM3r3HH+KKV21rwwViuo=
+
 char-regex@^1.0.2:
   version "1.0.2"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/char-regex/-/char-regex-1.0.2.tgz#d744358226217f981ed58f479b1d6bcc29545dcf"
@@ -2177,12 +3184,24 @@ cjs-module-lexer@^2.1.0:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/cjs-module-lexer/-/cjs-module-lexer-2.2.0.tgz#b3ca5101843389259ade7d88c77bd06ce55849ca"
   integrity sha1-s8pRAYQziSWa3n2Ix3vQbOVYSco=
 
+class-variance-authority@^0.7.1:
+  version "0.7.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/class-variance-authority/-/class-variance-authority-0.7.1.tgz#4008a798a0e4553a781a57ac5177c9fb5d043787"
+  integrity sha1-QAinmKDkVTp4GlesUXfJ+10EN4c=
+  dependencies:
+    clsx "^2.1.1"
+
 cli-cursor@^5.0.0:
   version "5.0.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/cli-cursor/-/cli-cursor-5.0.0.tgz#24a4831ecf5a6b01ddeb32fb71a4b2088b0dce38"
   integrity sha1-JKSDHs9aawHd6zL7caSyCIsNzjg=
   dependencies:
     restore-cursor "^5.0.0"
+
+cli-spinners@^2.9.2:
+  version "2.9.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/cli-spinners/-/cli-spinners-2.9.2.tgz#1773a8f4b9c4d6ac31563df53b3fc1d79462fe41"
+  integrity sha1-F3Oo9LnE1qwxVj31Oz/B15Ri/kE=
 
 cli-truncate@^5.0.0:
   version "5.2.0"
@@ -2191,6 +3210,11 @@ cli-truncate@^5.0.0:
   dependencies:
     slice-ansi "^8.0.0"
     string-width "^8.2.0"
+
+cli-width@^4.1.0:
+  version "4.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/cli-width/-/cli-width-4.1.0.tgz#42daac41d3c254ef38ad8ac037672130173691c5"
+  integrity sha1-QtqsQdPCVO84rYrAN2chMBc2kcU=
 
 client-only@0.0.1:
   version "0.0.1"
@@ -2206,10 +3230,20 @@ cliui@^8.0.1:
     strip-ansi "^6.0.1"
     wrap-ansi "^7.0.0"
 
+clsx@^2.1.1:
+  version "2.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/clsx/-/clsx-2.1.1.tgz#eed397c9fd8bd882bfb18deab7102049a2f32999"
+  integrity sha1-7tOXyf2L2IK/sY3qtxAgSaLzKZk=
+
 co@^4.6.0:
   version "4.6.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/co/-/co-4.6.0.tgz#6ea6bdf3d853ae54ccb8e47bfa0bf3f9031fb184"
   integrity sha1-bqa989hTrlTMuOR7+gvz+QMfsYQ=
+
+code-block-writer@^13.0.3:
+  version "13.0.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/code-block-writer/-/code-block-writer-13.0.3.tgz#90f8a84763a5012da7af61319dd638655ae90b5b"
+  integrity sha1-kPioR2OlAS2nr2ExndY4ZVrpC1s=
 
 collect-v8-coverage@^1.0.2:
   version "1.0.3"
@@ -2233,7 +3267,12 @@ colorette@^2.0.20:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/colorette/-/colorette-2.0.20.tgz#9eb793e6833067f7235902fcd3b09917a000a95a"
   integrity sha1-nreT5oMwZ/cjWQL807CZF6AAqVo=
 
-commander@^14.0.3:
+commander@^11.1.0:
+  version "11.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/commander/-/commander-11.1.0.tgz#62fdce76006a68e5c1ab3314dc92e800eb83d906"
+  integrity sha1-Yv3OdgBqaOXBqzMU3JLoAOuD2QY=
+
+commander@^14.0.0, commander@^14.0.3:
   version "14.0.3"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/commander/-/commander-14.0.3.tgz#425d79b48f9af82fcd9e4fc1ea8af6c5ec07bbc2"
   integrity sha1-Ql15tI+a+C/Nnk/B6or2xewHu8I=
@@ -2243,12 +3282,55 @@ concat-map@0.0.1:
   resolved "https://registry.yarnpkg.com/concat-map/-/concat-map-0.0.1.tgz#d8a96bd77fd68df7793a73036a3ba0d5405d477b"
   integrity sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==
 
+content-disposition@^1.0.0:
+  version "1.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/content-disposition/-/content-disposition-1.1.0.tgz#f3db789c752d45564cc7e9e1e0b31790d4a38e17"
+  integrity sha1-89t4nHUtRVZMx+nh4LMXkNSjjhc=
+
+content-type@^1.0.5:
+  version "1.0.5"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/content-type/-/content-type-1.0.5.tgz#8b773162656d1d1086784c8f23a54ce6d73d7918"
+  integrity sha1-i3cxYmVtHRCGeEyPI6VM5tc9eRg=
+
 convert-source-map@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/convert-source-map/-/convert-source-map-2.0.0.tgz#4b560f649fc4e918dd0ab75cf4961e8bc882d82a"
   integrity sha512-Kvp459HrV2FEJ1CAsi1Ku+MY3kasH19TFykTz2xWmMeq6bk2NU3XXvfJ+Q61m0xktWwt+1HSYf3JZsTms3aRJg==
 
-cross-spawn@^7.0.3, cross-spawn@^7.0.6:
+cookie-signature@^1.2.1:
+  version "1.2.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/cookie-signature/-/cookie-signature-1.2.2.tgz#57c7fc3cc293acab9fec54d73e15690ebe4a1793"
+  integrity sha1-V8f8PMKTrKuf7FTXPhVpDr5KF5M=
+
+cookie@^0.7.1:
+  version "0.7.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/cookie/-/cookie-0.7.2.tgz#556369c472a2ba910f2979891b526b3436237ed7"
+  integrity sha1-VWNpxHKiupEPKXmJG1JrNDYjftc=
+
+cookie@^1.0.2:
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/cookie/-/cookie-1.1.1.tgz#3bb9bdfc82369db9c2f69c93c9c3ceb310c88b3c"
+  integrity sha1-O7m9/II2nbnC9pyTycPOsxDIizw=
+
+cors@^2.8.5:
+  version "2.8.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/cors/-/cors-2.8.6.tgz#ff5dd69bd95e547503820d29aba4f8faf8dfec96"
+  integrity sha1-/13Wm9leVHUDgg0pq6T4+vjf7JY=
+  dependencies:
+    object-assign "^4"
+    vary "^1"
+
+cosmiconfig@^9.0.0:
+  version "9.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/cosmiconfig/-/cosmiconfig-9.0.1.tgz#df110631a8547b5d1a98915271986f06e3011379"
+  integrity sha1-3xEGMahUe10amJFScZhvBuMBE3k=
+  dependencies:
+    env-paths "^2.2.1"
+    import-fresh "^3.3.0"
+    js-yaml "^4.1.0"
+    parse-json "^5.2.0"
+
+cross-spawn@^7.0.3, cross-spawn@^7.0.5, cross-spawn@^7.0.6:
   version "7.0.6"
   resolved "https://registry.yarnpkg.com/cross-spawn/-/cross-spawn-7.0.6.tgz#8a58fe78f00dcd70c370451759dfbfaf03e8ee9f"
   integrity sha512-uV2QOWP2nWzsy2aMp8aRibhi9dlzF5Hgh5SHaB9OiTGEyDTiJJyx0uy51QXdyWbtAHNua4XJzUKca3OzKUd3vA==
@@ -2261,6 +3343,11 @@ css.escape@^1.5.1:
   version "1.5.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/css.escape/-/css.escape-1.5.1.tgz#42e27d4fa04ae32f931a4b4d4191fa9cddee97cb"
   integrity sha1-QuJ9T6BK4y+TGktNQZH6nN3ul8s=
+
+cssesc@^3.0.0:
+  version "3.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/cssesc/-/cssesc-3.0.0.tgz#37741919903b868565e1c09ea747445cd18983ee"
+  integrity sha1-N3QZGZA7hoVl4cCep0dEXNGJg+4=
 
 cssstyle@^4.2.1:
   version "4.6.0"
@@ -2279,6 +3366,11 @@ damerau-levenshtein@^1.0.8:
   version "1.0.8"
   resolved "https://registry.yarnpkg.com/damerau-levenshtein/-/damerau-levenshtein-1.0.8.tgz#b43d286ccbd36bc5b2f7ed41caf2d0aba1f8a6e7"
   integrity sha512-sdQSFB7+llfUcQHUQO3+B8ERRj0Oa4w9POWMI/puGtuf7gFywGmkaLCElnudfTiKZV+NvHqL0ifzdrI8Ro7ESA==
+
+data-uri-to-buffer@^4.0.0:
+  version "4.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/data-uri-to-buffer/-/data-uri-to-buffer-4.0.1.tgz#d8feb2b2881e6a4f58c2e08acfd0e2834e26222e"
+  integrity sha1-2P6ysogeak9YwuCKz9Dig04mIi4=
 
 data-urls@^5.0.0:
   version "5.0.0"
@@ -2349,6 +3441,19 @@ deepmerge@^4.3.1:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/deepmerge/-/deepmerge-4.3.1.tgz#44b5f2147cd3b00d4b56137685966f26fd25dd4a"
   integrity sha1-RLXyFHzTsA1LVhN2hZZvJv0l3Uo=
 
+default-browser-id@^5.0.0:
+  version "5.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/default-browser-id/-/default-browser-id-5.0.1.tgz#f7a7ccb8f5104bf8e0f71ba3b1ccfa5eafdb21e8"
+  integrity sha1-96fMuPUQS/jg9xujscz6Xq/bIeg=
+
+default-browser@^5.4.0:
+  version "5.5.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/default-browser/-/default-browser-5.5.0.tgz#2792e886f2422894545947cc80e1a444496c5976"
+  integrity sha1-J5LohvJCKJRUWUfMgOGkRElsWXY=
+  dependencies:
+    bundle-name "^4.1.0"
+    default-browser-id "^5.0.0"
+
 define-data-property@^1.0.1, define-data-property@^1.1.4:
   version "1.1.4"
   resolved "https://registry.yarnpkg.com/define-data-property/-/define-data-property-1.1.4.tgz#894dc141bb7d3060ae4366f6a0107e68fbe48c5e"
@@ -2358,6 +3463,11 @@ define-data-property@^1.0.1, define-data-property@^1.1.4:
     es-errors "^1.3.0"
     gopd "^1.0.1"
 
+define-lazy-prop@^3.0.0:
+  version "3.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/define-lazy-prop/-/define-lazy-prop-3.0.0.tgz#dbb19adfb746d7fc6d734a06b72f4a00d021255f"
+  integrity sha1-27Ga37dG1/xtc0oGty9KANAhJV8=
+
 define-properties@^1.1.3, define-properties@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/define-properties/-/define-properties-1.2.1.tgz#10781cc616eb951a80a034bafcaa7377f6af2b6c"
@@ -2366,6 +3476,11 @@ define-properties@^1.1.3, define-properties@^1.2.1:
     define-data-property "^1.0.1"
     has-property-descriptors "^1.0.0"
     object-keys "^1.1.1"
+
+depd@^2.0.0, depd@~2.0.0:
+  version "2.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/depd/-/depd-2.0.0.tgz#b696163cc757560d09cf22cc8fad1571b79e76df"
+  integrity sha1-tpYWPMdXVg0JzyLMj60Vcbeedt8=
 
 dequal@^2.0.3:
   version "2.0.3"
@@ -2381,6 +3496,16 @@ detect-newline@^3.1.0:
   version "3.1.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/detect-newline/-/detect-newline-3.1.0.tgz#576f5dfc63ae1a192ff192d8ad3af6308991b651"
   integrity sha1-V29d/GOuGhkv8ZLYrTr2MImRtlE=
+
+detect-node-es@^1.1.0:
+  version "1.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/detect-node-es/-/detect-node-es-1.1.0.tgz#163acdf643330caa0b4cd7c21e7ee7755d6fa493"
+  integrity sha1-FjrN9kMzDKoLTNfCHn7ndV1vpJM=
+
+diff@^8.0.2:
+  version "8.0.4"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/diff/-/diff-8.0.4.tgz#4f5baf3188b9b2431117b962eb20ba330fadf696"
+  integrity sha1-T1uvMYi5skMRF7li6yC6Mw+t9pY=
 
 doctrine@^2.1.0:
   version "2.1.0"
@@ -2399,6 +3524,11 @@ dom-accessibility-api@^0.6.3:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/dom-accessibility-api/-/dom-accessibility-api-0.6.3.tgz#993e925cc1d73f2c662e7d75dd5a5445259a8fd8"
   integrity sha1-mT6SXMHXPyxmLn113VpURSWaj9g=
 
+dotenv@^17.2.1:
+  version "17.4.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/dotenv/-/dotenv-17.4.2.tgz#c07e54a746e11eba021dd9e1047ced5afdc1c034"
+  integrity sha1-wH5Up0bhHroCHdnhBHztWv3BwDQ=
+
 dunder-proto@^1.0.0, dunder-proto@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/dunder-proto/-/dunder-proto-1.0.1.tgz#d7ae667e1dc83482f8b70fd0f6eefc50da30f58a"
@@ -2412,6 +3542,21 @@ eastasianwidth@^0.2.0:
   version "0.2.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/eastasianwidth/-/eastasianwidth-0.2.0.tgz#696ce2ec0aa0e6ea93a397ffcf24aa7840c827cb"
   integrity sha1-aWzi7Aqg5uqTo5f/zySqeEDIJ8s=
+
+eciesjs@^0.4.10:
+  version "0.4.18"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/eciesjs/-/eciesjs-0.4.18.tgz#5f1a40b2171a1fdd97854bdfc31620bb8a1dbbbe"
+  integrity sha1-XxpAshcaH92XhUvfwxYgu4odu74=
+  dependencies:
+    "@ecies/ciphers" "^0.2.5"
+    "@noble/ciphers" "^1.3.0"
+    "@noble/curves" "^1.9.7"
+    "@noble/hashes" "^1.8.0"
+
+ee-first@1.1.1:
+  version "1.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
+  integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
 
 electron-to-chromium@^1.5.328:
   version "1.5.335"
@@ -2438,6 +3583,11 @@ emoji-regex@^9.2.2:
   resolved "https://registry.yarnpkg.com/emoji-regex/-/emoji-regex-9.2.2.tgz#840c8803b0d8047f4ff0cf963176b32d4ef3ed72"
   integrity sha512-L18DaJsXSUk2+42pv8mLs5jJT2hqFkFE4j21wOmgbUqsZ2hL72NsUU785g9RXgo3s0ZNgVl42TiHp3ZtOv/Vyg==
 
+encodeurl@^2.0.0:
+  version "2.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/encodeurl/-/encodeurl-2.0.0.tgz#7b8ea898077d7e409d3ac45474ea38eaf0857a58"
+  integrity sha1-e46omAd9fkCdOsRUdOo46vCFelg=
+
 enhanced-resolve@^5.19.0:
   version "5.20.1"
   resolved "https://registry.yarnpkg.com/enhanced-resolve/-/enhanced-resolve-5.20.1.tgz#eeeb3966bea62c348c40a0cc9e7912e2557d0be0"
@@ -2450,6 +3600,11 @@ entities@^6.0.0:
   version "6.0.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/entities/-/entities-6.0.1.tgz#c28c34a43379ca7f61d074130b2f5f7020a30694"
   integrity sha1-wow0pDN5yn9h0HQTCy9fcCCjBpQ=
+
+env-paths@^2.2.1:
+  version "2.2.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/env-paths/-/env-paths-2.2.1.tgz#420399d416ce1fbe9bc0a07c62fa68d67fd0f8f2"
+  integrity sha1-QgOZ1BbOH76bwKB8Yvpo1n/Q+PI=
 
 environment@^1.0.0:
   version "1.1.0"
@@ -2592,6 +3747,11 @@ escalade@^3.1.1, escalade@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/escalade/-/escalade-3.2.0.tgz#011a3f69856ba189dffa7dc8fcce99d2a87903e5"
   integrity sha512-WUj2qlxaQtO4g6Pq5c29GTcWGDyd8itL8zTlipgECz3JesAiiOKotd8JU6otB3PACgG6xkJUyVhboMS+bje/jA==
+
+escape-html@^1.0.3:
+  version "1.0.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/escape-html/-/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
+  integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
 
 escape-string-regexp@^2.0.0:
   version "2.0.0"
@@ -2805,7 +3965,7 @@ espree@^10.0.1, espree@^10.4.0:
     acorn-jsx "^5.3.2"
     eslint-visitor-keys "^4.2.1"
 
-esprima@^4.0.0:
+esprima@^4.0.0, esprima@~4.0.0:
   version "4.0.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/esprima/-/esprima-4.0.1.tgz#13b04cdb3e6c5d19df91ab6987a8695619b0aa71"
   integrity sha1-E7BM2z5sXRnfkatph6hpVhmwqnE=
@@ -2834,10 +3994,27 @@ esutils@^2.0.2:
   resolved "https://registry.yarnpkg.com/esutils/-/esutils-2.0.3.tgz#74d2eb4de0b8da1293711910d50775b9b710ef64"
   integrity sha512-kVscqXk4OCp68SZ0dkgEKVi6/8ij300KBWTJq32P/dYeWTSwK41WyTxalN1eRmA5Z9UU/LX9D7FWSmV9SAYx6g==
 
+etag@^1.8.1:
+  version "1.8.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/etag/-/etag-1.8.1.tgz#41ae2eeb65efa62268aebfea83ac7d79299b0887"
+  integrity sha1-Qa4u62XvpiJorr/qg6x9eSmbCIc=
+
 eventemitter3@^5.0.1:
   version "5.0.4"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/eventemitter3/-/eventemitter3-5.0.4.tgz#a86d66170433712dde814707ac52b5271ceb1feb"
   integrity sha1-qG1mFwQzcS3egUcHrFK1JxzrH+s=
+
+eventsource-parser@^3.0.0, eventsource-parser@^3.0.1:
+  version "3.0.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/eventsource-parser/-/eventsource-parser-3.0.6.tgz#292e165e34cacbc936c3c92719ef326d4aeb4e90"
+  integrity sha1-KS4WXjTKy8k2w8knGe8ybUrrTpA=
+
+eventsource@^3.0.2:
+  version "3.0.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/eventsource/-/eventsource-3.0.7.tgz#1157622e2f5377bb6aef2114372728ba0c156989"
+  integrity sha1-EVdiLi9Td7tq7yEUNycougwVaYk=
+  dependencies:
+    eventsource-parser "^3.0.1"
 
 execa@^5.1.1:
   version "5.1.1"
@@ -2853,6 +4030,24 @@ execa@^5.1.1:
     onetime "^5.1.2"
     signal-exit "^3.0.3"
     strip-final-newline "^2.0.0"
+
+execa@^9.6.0:
+  version "9.6.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/execa/-/execa-9.6.1.tgz#5b90acedc6bdc0fa9b9a6ddf8f9cbb0c75a7c471"
+  integrity sha1-W5Cs7ca9wPqbmm3fj5y7DHWnxHE=
+  dependencies:
+    "@sindresorhus/merge-streams" "^4.0.0"
+    cross-spawn "^7.0.6"
+    figures "^6.1.0"
+    get-stream "^9.0.0"
+    human-signals "^8.0.1"
+    is-plain-obj "^4.1.0"
+    is-stream "^4.0.1"
+    npm-run-path "^6.0.0"
+    pretty-ms "^9.2.0"
+    signal-exit "^4.1.0"
+    strip-final-newline "^4.0.0"
+    yoctocolors "^2.1.1"
 
 exit-x@^0.2.2:
   version "0.2.2"
@@ -2871,6 +4066,47 @@ expect@30.3.0, expect@^30.0.0:
     jest-mock "30.3.0"
     jest-util "30.3.0"
 
+express-rate-limit@^8.2.1:
+  version "8.3.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/express-rate-limit/-/express-rate-limit-8.3.2.tgz#81bbdbf599b7889a5b3cc272ec115aff200011be"
+  integrity sha1-gbvb9Zm3iJpbPMJy7BFa/yAAEb4=
+  dependencies:
+    ip-address "10.1.0"
+
+express@^5.2.1:
+  version "5.2.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/express/-/express-5.2.1.tgz#8f21d15b6d327f92b4794ecf8cb08a72f956ac04"
+  integrity sha1-jyHRW20yf5K0eU7PjLCKcvlWrAQ=
+  dependencies:
+    accepts "^2.0.0"
+    body-parser "^2.2.1"
+    content-disposition "^1.0.0"
+    content-type "^1.0.5"
+    cookie "^0.7.1"
+    cookie-signature "^1.2.1"
+    debug "^4.4.0"
+    depd "^2.0.0"
+    encodeurl "^2.0.0"
+    escape-html "^1.0.3"
+    etag "^1.8.1"
+    finalhandler "^2.1.0"
+    fresh "^2.0.0"
+    http-errors "^2.0.0"
+    merge-descriptors "^2.0.0"
+    mime-types "^3.0.0"
+    on-finished "^2.4.1"
+    once "^1.4.0"
+    parseurl "^1.3.3"
+    proxy-addr "^2.0.7"
+    qs "^6.14.0"
+    range-parser "^1.2.1"
+    router "^2.2.0"
+    send "^1.1.0"
+    serve-static "^2.2.0"
+    statuses "^2.0.1"
+    type-is "^2.0.1"
+    vary "^1.1.2"
+
 fast-deep-equal@^3.1.1, fast-deep-equal@^3.1.3:
   version "3.1.3"
   resolved "https://registry.yarnpkg.com/fast-deep-equal/-/fast-deep-equal-3.1.3.tgz#3a7d56b559d6cbc3eb512325244e619a65c6c525"
@@ -2887,6 +4123,17 @@ fast-glob@3.3.1:
     merge2 "^1.3.0"
     micromatch "^4.0.4"
 
+fast-glob@^3.3.3:
+  version "3.3.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/fast-glob/-/fast-glob-3.3.3.tgz#d06d585ce8dba90a16b0505c543c3ccfb3aeb818"
+  integrity sha1-0G1YXOjbqQoWsFBcVDw8z7OuuBg=
+  dependencies:
+    "@nodelib/fs.stat" "^2.0.2"
+    "@nodelib/fs.walk" "^1.2.3"
+    glob-parent "^5.1.2"
+    merge2 "^1.3.0"
+    micromatch "^4.0.8"
+
 fast-json-stable-stringify@^2.0.0, fast-json-stable-stringify@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/fast-json-stable-stringify/-/fast-json-stable-stringify-2.1.0.tgz#874bf69c6f404c2b5d99c481341399fd55892633"
@@ -2896,6 +4143,11 @@ fast-levenshtein@^2.0.6:
   version "2.0.6"
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha512-DCXu6Ifhqcks7TZKY3Hxp3y6qphY5SJZmrWMDrKcERSOXWQdMhU9Ig/PYrzyw/ul9jOIyh0N4M0tbC5hodg8dw==
+
+fast-uri@^3.0.1:
+  version "3.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/fast-uri/-/fast-uri-3.1.0.tgz#66eecff6c764c0df9b762e62ca7edcfb53b4edfa"
+  integrity sha1-Zu7P9sdkwN+bdi5iyn7c+1O07fo=
 
 fastq@^1.6.0:
   version "1.20.1"
@@ -2911,10 +4163,25 @@ fb-watchman@^2.0.2:
   dependencies:
     bser "2.1.1"
 
-fdir@^6.5.0:
+fdir@^6.2.0, fdir@^6.5.0:
   version "6.5.0"
   resolved "https://registry.yarnpkg.com/fdir/-/fdir-6.5.0.tgz#ed2ab967a331ade62f18d077dae192684d50d350"
   integrity sha512-tIbYtZbucOs0BRGqPJkshJUYdL+SDH7dVM8gjy+ERp3WAUjLEFJE+02kanyHtwjWOnwrKYBiwAmM0p4kLJAnXg==
+
+fetch-blob@^3.1.2, fetch-blob@^3.1.4:
+  version "3.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/fetch-blob/-/fetch-blob-3.2.0.tgz#f09b8d4bbd45adc6f0c20b7e787e793e309dcce9"
+  integrity sha1-8JuNS71Frcbwwgt+eH55PjCdzOk=
+  dependencies:
+    node-domexception "^1.0.0"
+    web-streams-polyfill "^3.0.3"
+
+figures@^6.1.0:
+  version "6.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/figures/-/figures-6.1.0.tgz#935479f51865fa7479f6fa94fc6fc7ac14e62c4a"
+  integrity sha1-k1R59Rhl+nR59vqU/G/HrBTmLEo=
+  dependencies:
+    is-unicode-supported "^2.0.0"
 
 file-entry-cache@^8.0.0:
   version "8.0.0"
@@ -2929,6 +4196,18 @@ fill-range@^7.1.1:
   integrity sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==
   dependencies:
     to-regex-range "^5.0.1"
+
+finalhandler@^2.1.0:
+  version "2.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/finalhandler/-/finalhandler-2.1.1.tgz#a2c517a6559852bcdb06d1f8bd7f51b68fad8099"
+  integrity sha1-osUXplWYUrzbBtH4vX9Rto+tgJk=
+  dependencies:
+    debug "^4.4.0"
+    encodeurl "^2.0.0"
+    escape-html "^1.0.3"
+    on-finished "^2.4.1"
+    parseurl "^1.3.3"
+    statuses "^2.0.1"
 
 find-up@^4.0.0, find-up@^4.1.0:
   version "4.1.0"
@@ -2974,6 +4253,32 @@ foreground-child@^3.1.0:
     cross-spawn "^7.0.6"
     signal-exit "^4.0.1"
 
+formdata-polyfill@^4.0.10:
+  version "4.0.10"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/formdata-polyfill/-/formdata-polyfill-4.0.10.tgz#24807c31c9d402e002ab3d8c720144ceb8848423"
+  integrity sha1-JIB8McnUAuACqz2McgFEzriEhCM=
+  dependencies:
+    fetch-blob "^3.1.2"
+
+forwarded@0.2.0:
+  version "0.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/forwarded/-/forwarded-0.2.0.tgz#2269936428aad4c15c7ebe9779a84bf0b2a81811"
+  integrity sha1-ImmTZCiq1MFcfr6XeahL8LKoGBE=
+
+fresh@^2.0.0:
+  version "2.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/fresh/-/fresh-2.0.0.tgz#8dd7df6a1b3a1b3a5cf186c05a5dd267622635a4"
+  integrity sha1-jdffahs6Gzpc8YbAWl3SZ2ImNaQ=
+
+fs-extra@^11.3.1:
+  version "11.3.4"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/fs-extra/-/fs-extra-11.3.4.tgz#ab6934eca8bcf6f7f6b82742e33591f86301d6fc"
+  integrity sha1-q2k07Ki89vf2uCdC4zWR+GMB1vw=
+  dependencies:
+    graceful-fs "^4.2.0"
+    jsonfile "^6.0.1"
+    universalify "^2.0.0"
+
 fs.realpath@^1.0.0:
   version "1.0.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/fs.realpath/-/fs.realpath-1.0.0.tgz#1504ad2523158caa40db4a2787cb01411994ea4f"
@@ -3005,6 +4310,11 @@ functions-have-names@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/functions-have-names/-/functions-have-names-1.2.3.tgz#0404fe4ee2ba2f607f0e0ec3c80bae994133b834"
   integrity sha512-xckBUXyTIqT97tq2x2AMb+g163b5JFysYk0x4qxNFwbfQkmNZoiRHb6sPzI9/QV33WeuvVYBUIiD4NzNIyqaRQ==
+
+fuzzysort@^3.1.0:
+  version "3.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/fuzzysort/-/fuzzysort-3.1.0.tgz#4d7832d8fa48ad381753eaa7a7aae9927bdc10a8"
+  integrity sha1-TXgy2PpIrTgXU+qnp6rpknvcEKg=
 
 generator-function@^2.0.0:
   version "2.0.1"
@@ -3042,6 +4352,16 @@ get-intrinsic@^1.2.4, get-intrinsic@^1.2.5, get-intrinsic@^1.2.6, get-intrinsic@
     hasown "^2.0.2"
     math-intrinsics "^1.1.0"
 
+get-nonce@^1.0.0:
+  version "1.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/get-nonce/-/get-nonce-1.0.1.tgz#fdf3f0278073820d2ce9426c18f07481b1e0cdf3"
+  integrity sha1-/fPwJ4Bzgg0s6UJsGPB0gbHgzfM=
+
+get-own-enumerable-keys@^1.0.0:
+  version "1.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/get-own-enumerable-keys/-/get-own-enumerable-keys-1.0.0.tgz#59bbda0f7e7469c8c74086e08f79f1381b203899"
+  integrity sha1-WbvaD350acjHQIbgj3nxOBsgOJk=
+
 get-package-type@^0.1.0:
   version "0.1.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/get-package-type/-/get-package-type-0.1.0.tgz#8de2d803cff44df3bc6c456e6668b36c3926e11a"
@@ -3059,6 +4379,14 @@ get-stream@^6.0.0:
   version "6.0.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/get-stream/-/get-stream-6.0.1.tgz#a262d8eef67aced57c2852ad6167526a43cbf7b7"
   integrity sha1-omLY7vZ6ztV8KFKtYWdSakPL97c=
+
+get-stream@^9.0.0:
+  version "9.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/get-stream/-/get-stream-9.0.1.tgz#95157d21df8eb90d1647102b63039b1df60ebd27"
+  integrity sha1-lRV9Id+OuQ0WRxArYwObHfYOvSc=
+  dependencies:
+    "@sec-ant/readable-stream" "^0.4.1"
+    is-stream "^4.0.1"
 
 get-symbol-description@^1.1.0:
   version "1.1.0"
@@ -3137,10 +4465,15 @@ gopd@^1.0.1, gopd@^1.2.0:
   resolved "https://registry.yarnpkg.com/gopd/-/gopd-1.2.0.tgz#89f56b8217bdbc8802bd299df6d7f1081d7e51a1"
   integrity sha512-ZUKRh6/kUFoAiTAtTYPZJ3hw9wNxx+BIBOijnlG9PnrJsCcSjs1wyyD6vJpaYtgnzDrKYRSqf3OO6Rfa93xsRg==
 
-graceful-fs@^4.2.11, graceful-fs@^4.2.4:
+graceful-fs@^4.1.6, graceful-fs@^4.2.0, graceful-fs@^4.2.11, graceful-fs@^4.2.4:
   version "4.2.11"
   resolved "https://registry.yarnpkg.com/graceful-fs/-/graceful-fs-4.2.11.tgz#4183e4e8bf08bb6e05bbb2f7d2e0c8f712ca40e3"
   integrity sha512-RbJ5/jmFcNNCcDV5o9eTnBLJ/HszWV0P73bc+Ff4nS/rJj+YaS6IGyiOL0VoBYX+l1Wrl3k63h/KrH+nhJ0XvQ==
+
+graphql@^16.12.0:
+  version "16.13.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/graphql/-/graphql-16.13.2.tgz#4d2b73df5796b201f1bc2765f5d7067f689cb55f"
+  integrity sha1-TStz31eWsgHxvCdl9dcGf2ictV8=
 
 has-bigints@^1.0.2:
   version "1.1.0"
@@ -3185,6 +4518,11 @@ hasown@^2.0.2:
   dependencies:
     function-bind "^1.1.2"
 
+headers-polyfill@^4.0.2:
+  version "4.0.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/headers-polyfill/-/headers-polyfill-4.0.3.tgz#922a0155de30ecc1f785bcf04be77844ca95ad07"
+  integrity sha1-kioBVd4w7MH3hbzwS+d4RMqVrQc=
+
 hermes-estree@0.25.1:
   version "0.25.1"
   resolved "https://registry.yarnpkg.com/hermes-estree/-/hermes-estree-0.25.1.tgz#6aeec17d1983b4eabf69721f3aa3eb705b17f480"
@@ -3197,6 +4535,11 @@ hermes-parser@^0.25.1:
   dependencies:
     hermes-estree "0.25.1"
 
+hono@^4.11.4:
+  version "4.12.14"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/hono/-/hono-4.12.14.tgz#4777c9512b7c84138e4f09e61e3d2fa305eb1414"
+  integrity sha1-R3fJUSt8hBOOTwnmHj0vowXrFBQ=
+
 html-encoding-sniffer@^4.0.0:
   version "4.0.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/html-encoding-sniffer/-/html-encoding-sniffer-4.0.0.tgz#696df529a7cfd82446369dc5193e590a3735b448"
@@ -3208,6 +4551,17 @@ html-escaper@^2.0.0:
   version "2.0.2"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/html-escaper/-/html-escaper-2.0.2.tgz#dfd60027da36a36dfcbe236262c00a5822681453"
   integrity sha1-39YAJ9o2o238viNiYsAKWCJoFFM=
+
+http-errors@^2.0.0, http-errors@^2.0.1, http-errors@~2.0.1:
+  version "2.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/http-errors/-/http-errors-2.0.1.tgz#36d2f65bc909c8790018dd36fb4d93da6caae06b"
+  integrity sha1-NtL2W8kJyHkAGN02+02T2myq4Gs=
+  dependencies:
+    depd "~2.0.0"
+    inherits "~2.0.4"
+    setprototypeof "~1.2.0"
+    statuses "~2.0.2"
+    toidentifier "~1.0.1"
 
 http-proxy-agent@^7.0.2:
   version "7.0.2"
@@ -3230,6 +4584,11 @@ human-signals@^2.1.0:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/human-signals/-/human-signals-2.1.0.tgz#dc91fcba42e4d06e4abaed33b3e7a3c02f514ea0"
   integrity sha1-3JH8ukLk0G5Kuu0zs+ejwC9RTqA=
 
+human-signals@^8.0.1:
+  version "8.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/human-signals/-/human-signals-8.0.1.tgz#f08bb593b6d1db353933d06156cedec90abe51fb"
+  integrity sha1-8Iu1k7bR2zU5M9BhVs7eyQq+Ufs=
+
 husky@^9.1.7:
   version "9.1.7"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/husky/-/husky-9.1.7.tgz#d46a38035d101b46a70456a850ff4201344c0b2d"
@@ -3242,6 +4601,13 @@ iconv-lite@0.6.3:
   dependencies:
     safer-buffer ">= 2.1.2 < 3.0.0"
 
+iconv-lite@^0.7.0, iconv-lite@~0.7.0:
+  version "0.7.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/iconv-lite/-/iconv-lite-0.7.2.tgz#d0bdeac3f12b4835b7359c2ad89c422a4d1cc72e"
+  integrity sha1-0L3qw/ErSDW3NZwq2JxCKk0cxy4=
+  dependencies:
+    safer-buffer ">= 2.1.2 < 3.0.0"
+
 icu-minify@^4.9.1:
   version "4.9.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/icu-minify/-/icu-minify-4.9.1.tgz#95504d2147713e851755ef810234cf4f4d5457e7"
@@ -3249,7 +4615,7 @@ icu-minify@^4.9.1:
   dependencies:
     "@formatjs/icu-messageformat-parser" "^3.4.0"
 
-ignore@^5.2.0:
+ignore@^5.2.0, ignore@^5.3.0:
   version "5.3.2"
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-5.3.2.tgz#3cd40e729f3643fd87cb04e50bf0eb722bc596f5"
   integrity sha512-hsBTNUqQTDwkWtcdYI2i06Y/nUBEsNEDJKjWdigLvegy8kDuJAS8uRlpkkcQpyEXL0Z/pjDy5HBmMjRCJ2gq+g==
@@ -3259,7 +4625,7 @@ ignore@^7.0.5:
   resolved "https://registry.yarnpkg.com/ignore/-/ignore-7.0.5.tgz#4cb5f6cd7d4c7ab0365738c7aea888baa6d7efd9"
   integrity sha512-Hs59xBNfUIunMFgWAbGX5cq6893IbWg4KnrjbYwX3tx0ztorVgTDA6B2sxf8ejHJ4wz8BqGUMYlnzNBer5NvGg==
 
-import-fresh@^3.2.1:
+import-fresh@^3.2.1, import-fresh@^3.3.0:
   version "3.3.1"
   resolved "https://registry.yarnpkg.com/import-fresh/-/import-fresh-3.3.1.tgz#9cecb56503c0ada1f2741dbbd6546e4b13b57ccf"
   integrity sha512-TR3KfrTZTYLPB6jUjfx6MF9WcWrHL9su5TObK4ZkYgBdWKPOFoSoQIdEuTuR82pmtxH2spWG9h6etwfr1pLBqQ==
@@ -3293,7 +4659,7 @@ inflight@^1.0.4:
     once "^1.3.0"
     wrappy "1"
 
-inherits@2:
+inherits@2, inherits@~2.0.4:
   version "2.0.4"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/inherits/-/inherits-2.0.4.tgz#0fa2c64f932917c3433a0ded55363aae37416b7c"
   integrity sha1-D6LGT5MpF8NDOg3tVTY6rjdBa3w=
@@ -3315,6 +4681,16 @@ intl-messageformat@^11.1.0:
     "@formatjs/ecma402-abstract" "3.2.0"
     "@formatjs/fast-memoize" "3.1.1"
     "@formatjs/icu-messageformat-parser" "3.5.3"
+
+ip-address@10.1.0:
+  version "10.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/ip-address/-/ip-address-10.1.0.tgz#d8dcffb34d0e02eb241427444a6e23f5b0595aa4"
+  integrity sha1-2Nz/s00OAuskFCdESm4j9bBZWqQ=
+
+ipaddr.js@1.9.1:
+  version "1.9.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/ipaddr.js/-/ipaddr.js-1.9.1.tgz#bff38543eeb8984825079ff3a2a8e6cbd46781b3"
+  integrity sha1-v/OFQ+64mEglB5/zoqjmy9RngbM=
 
 is-array-buffer@^3.0.4, is-array-buffer@^3.0.5:
   version "3.0.5"
@@ -3392,6 +4768,11 @@ is-date-object@^1.0.5, is-date-object@^1.1.0:
     call-bound "^1.0.2"
     has-tostringtag "^1.0.2"
 
+is-docker@^3.0.0:
+  version "3.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-docker/-/is-docker-3.0.0.tgz#90093aa3106277d8a77a5910dbae71747e15a200"
+  integrity sha1-kAk6oxBid9inelkQ265xdH4VogA=
+
 is-extglob@^2.1.1:
   version "2.1.1"
   resolved "https://registry.yarnpkg.com/is-extglob/-/is-extglob-2.1.1.tgz#a88c02535791f02ed37c76a1b9ea9773c833f8c2"
@@ -3439,6 +4820,23 @@ is-glob@^4.0.0, is-glob@^4.0.1, is-glob@^4.0.3:
   dependencies:
     is-extglob "^2.1.1"
 
+is-in-ssh@^1.0.0:
+  version "1.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-in-ssh/-/is-in-ssh-1.0.0.tgz#8eb73c1cabba77748d389588eeea132a63057622"
+  integrity sha1-jrc8HKu6d3SNOJWI7uoTKmMFdiI=
+
+is-inside-container@^1.0.0:
+  version "1.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-inside-container/-/is-inside-container-1.0.0.tgz#e81fba699662eb31dbdaf26766a61d4814717ea4"
+  integrity sha1-6B+6aZZi6zHb2vJnZqYdSBRxfqQ=
+  dependencies:
+    is-docker "^3.0.0"
+
+is-interactive@^2.0.0:
+  version "2.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-interactive/-/is-interactive-2.0.0.tgz#40c57614593826da1100ade6059778d597f16e90"
+  integrity sha1-QMV2FFk4JtoRAK3mBZd41ZfxbpA=
+
 is-map@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/is-map/-/is-map-2.0.3.tgz#ede96b7fe1e270b3c4465e3a465658764926d62e"
@@ -3448,6 +4846,11 @@ is-negative-zero@^2.0.3:
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/is-negative-zero/-/is-negative-zero-2.0.3.tgz#ced903a027aca6381b777a5743069d7376a49747"
   integrity sha512-5KoIu2Ngpyek75jXodFvnafB6DJgr3u8uuK0LEZJjrU19DrMD3EVERaR8sjz8CCGgpZvxPl9SuE1GMVPFHx1mw==
+
+is-node-process@^1.2.0:
+  version "1.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-node-process/-/is-node-process-1.2.0.tgz#ea02a1b90ddb3934a19aea414e88edef7e11d134"
+  integrity sha1-6gKhuQ3bOTShmupBTojt734R0TQ=
 
 is-number-object@^1.1.1:
   version "1.1.1"
@@ -3462,10 +4865,25 @@ is-number@^7.0.0:
   resolved "https://registry.yarnpkg.com/is-number/-/is-number-7.0.0.tgz#7535345b896734d5f80c4d06c50955527a14f12b"
   integrity sha512-41Cifkg6e8TylSpdtTpeLVMqvSBEVzTttHvERD741+pnZ8ANv0004MRL43QKPDlK9cGvNp6NZWZUBlbGXYxxng==
 
+is-obj@^3.0.0:
+  version "3.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-obj/-/is-obj-3.0.0.tgz#b0889f1f9f8cb87e87df53a8d1230a2250f8b9be"
+  integrity sha1-sIifH5+MuH6H31Oo0SMKIlD4ub4=
+
+is-plain-obj@^4.1.0:
+  version "4.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-plain-obj/-/is-plain-obj-4.1.0.tgz#d65025edec3657ce032fd7db63c97883eaed71f0"
+  integrity sha1-1lAl7ew2V84DL9fbY8l4g+rtcfA=
+
 is-potential-custom-element-name@^1.0.1:
   version "1.0.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-potential-custom-element-name/-/is-potential-custom-element-name-1.0.1.tgz#171ed6f19e3ac554394edf78caa05784a45bebb5"
   integrity sha1-Fx7W8Z46xVQ5Tt94yqBXhKRb67U=
+
+is-promise@^4.0.0:
+  version "4.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-promise/-/is-promise-4.0.0.tgz#42ff9f84206c1991d26debf520dd5c01042dd2f3"
+  integrity sha1-Qv+fhCBsGZHSbev1IN1cAQQt0vM=
 
 is-regex@^1.2.1:
   version "1.2.1"
@@ -3476,6 +4894,11 @@ is-regex@^1.2.1:
     gopd "^1.2.0"
     has-tostringtag "^1.0.2"
     hasown "^2.0.2"
+
+is-regexp@^3.1.0:
+  version "3.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-regexp/-/is-regexp-3.1.0.tgz#0235eab9cda5b83f96ac4a263d8c32c9d5ad7422"
+  integrity sha1-AjXquc2luD+WrEomPYwyydWtdCI=
 
 is-set@^2.0.3:
   version "2.0.3"
@@ -3493,6 +4916,11 @@ is-stream@^2.0.0:
   version "2.0.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-stream/-/is-stream-2.0.1.tgz#fac1e3d53b97ad5a9d0ae9cef2389f5810a5c077"
   integrity sha1-+sHj1TuXrVqdCunO8jifWBClwHc=
+
+is-stream@^4.0.1:
+  version "4.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-stream/-/is-stream-4.0.1.tgz#375cf891e16d2e4baec250b85926cffc14720d9b"
+  integrity sha1-N1z4keFtLkuuwlC4WSbP/BRyDZs=
 
 is-string@^1.1.1:
   version "1.1.1"
@@ -3518,6 +4946,16 @@ is-typed-array@^1.1.13, is-typed-array@^1.1.14, is-typed-array@^1.1.15:
   dependencies:
     which-typed-array "^1.1.16"
 
+is-unicode-supported@^1.3.0:
+  version "1.3.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-unicode-supported/-/is-unicode-supported-1.3.0.tgz#d824984b616c292a2e198207d4a609983842f714"
+  integrity sha1-2CSYS2FsKSouGYIH1KYJmDhC9xQ=
+
+is-unicode-supported@^2.0.0:
+  version "2.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-unicode-supported/-/is-unicode-supported-2.1.0.tgz#09f0ab0de6d3744d48d265ebb98f65d11f2a9b3a"
+  integrity sha1-CfCrDebTdE1I0mXruY9l0R8qmzo=
+
 is-weakmap@^2.0.2:
   version "2.0.2"
   resolved "https://registry.yarnpkg.com/is-weakmap/-/is-weakmap-2.0.2.tgz#bf72615d649dfe5f699079c54b83e47d1ae19cfd"
@@ -3538,6 +4976,13 @@ is-weakset@^2.0.3:
     call-bound "^1.0.3"
     get-intrinsic "^1.2.6"
 
+is-wsl@^3.1.0:
+  version "3.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/is-wsl/-/is-wsl-3.1.1.tgz#327897b26832a3eb117da6c27492d04ca132594f"
+  integrity sha1-MniXsmgyo+sRfabCdJLQTKEyWU8=
+  dependencies:
+    is-inside-container "^1.0.0"
+
 isarray@^2.0.5:
   version "2.0.5"
   resolved "https://registry.yarnpkg.com/isarray/-/isarray-2.0.5.tgz#8af1e4c1221244cc62459faf38940d4e644a5723"
@@ -3547,6 +4992,11 @@ isexe@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/isexe/-/isexe-2.0.0.tgz#e8fbf374dc556ff8947a10dcb0572d633f2cfa10"
   integrity sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==
+
+isexe@^3.1.1:
+  version "3.1.5"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/isexe/-/isexe-3.1.5.tgz#42e368f68d5e10dadfee4fda7b550bc2d8892dc9"
+  integrity sha1-QuNo9o1eENrf7k/ae1ULwtiJLck=
 
 istanbul-lib-coverage@^3.0.0, istanbul-lib-coverage@^3.2.0:
   version "3.2.2"
@@ -3980,6 +5430,11 @@ jiti@^2.6.1:
   resolved "https://registry.yarnpkg.com/jiti/-/jiti-2.6.1.tgz#178ef2fc9a1a594248c20627cd820187a4d78d92"
   integrity sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==
 
+jose@^6.1.3:
+  version "6.2.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/jose/-/jose-6.2.2.tgz#d6b5279b89b3e88d531c202e3fbe351f39a44aac"
+  integrity sha1-1rUnm4mz6I1THCAuP741HzmkSqw=
+
 "js-tokens@^3.0.0 || ^4.0.0", js-tokens@^4.0.0:
   version "4.0.0"
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
@@ -3993,7 +5448,7 @@ js-yaml@^3.13.1:
     argparse "^1.0.7"
     esprima "^4.0.0"
 
-js-yaml@^4.1.1:
+js-yaml@^4.1.0, js-yaml@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/js-yaml/-/js-yaml-4.1.1.tgz#854c292467705b699476e1a2decc0c8a3458806b"
   integrity sha512-qQKT4zQxXl8lLwBtHMWwaTcGfFOZviOJet3Oy/xmGk2gZH677CJM9EvtfdSkgWcATZhj/55JZ0rmy3myCT5lsA==
@@ -4046,6 +5501,16 @@ json-schema-traverse@^0.4.1:
   resolved "https://registry.yarnpkg.com/json-schema-traverse/-/json-schema-traverse-0.4.1.tgz#69f6a87d9513ab8bb8fe63bdb0979c448e684660"
   integrity sha512-xbbCH5dCYU5T8LcEhhuh7HJ88HXuW3qsI3Y0zOZFKfZEHcpWiHU/Jxzk629Brsab/mMiHQti9wMP+845RPe3Vg==
 
+json-schema-traverse@^1.0.0:
+  version "1.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/json-schema-traverse/-/json-schema-traverse-1.0.0.tgz#ae7bcb3656ab77a73ba5c49bf654f38e6b6860e2"
+  integrity sha1-rnvLNlard6c7pcSb9lTzjmtoYOI=
+
+json-schema-typed@^8.0.2:
+  version "8.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/json-schema-typed/-/json-schema-typed-8.0.2.tgz#e98ee7b1899ff4a184534d1f167c288c66bbeff4"
+  integrity sha1-6Y7nsYmf9KGEU00fFnwojGa77/Q=
+
 json-stable-stringify-without-jsonify@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/json-stable-stringify-without-jsonify/-/json-stable-stringify-without-jsonify-1.0.1.tgz#9db7b59496ad3f3cfef30a75142d2d930ad72651"
@@ -4058,10 +5523,19 @@ json5@^1.0.2:
   dependencies:
     minimist "^1.2.0"
 
-json5@^2.2.3:
+json5@^2.2.2, json5@^2.2.3:
   version "2.2.3"
   resolved "https://registry.yarnpkg.com/json5/-/json5-2.2.3.tgz#78cd6f1a19bdc12b73db5ad0c61efd66c1e29283"
   integrity sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==
+
+jsonfile@^6.0.1:
+  version "6.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/jsonfile/-/jsonfile-6.2.0.tgz#7c265bd1b65de6977478300087c99f1c84383f62"
+  integrity sha1-fCZb0bZd5pd0eDAAh8mfHIQ4P2I=
+  dependencies:
+    universalify "^2.0.0"
+  optionalDependencies:
+    graceful-fs "^4.1.6"
 
 "jsx-ast-utils@^2.4.1 || ^3.0.0", jsx-ast-utils@^3.3.5:
   version "3.3.5"
@@ -4079,6 +5553,16 @@ keyv@^4.5.4:
   integrity sha512-oxVHkHR/EJf2CNXnWxRLW6mg7JyCCUcG0DtEGmL2ctUo1PNTin1PUil+r/+4r5MpVgC/fn1kjsx7mjSujKqIpw==
   dependencies:
     json-buffer "3.0.1"
+
+kleur@^3.0.3:
+  version "3.0.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/kleur/-/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
+  integrity sha1-p5yezIbuHOP6YgbRIWxQHxR/wH4=
+
+kleur@^4.1.5:
+  version "4.1.5"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/kleur/-/kleur-4.1.5.tgz#95106101795f7050c6c650f350c683febddb1780"
+  integrity sha1-lRBhAXlfcFDGxlDzUMaD/r3bF4A=
 
 language-subtag-registry@^0.3.20:
   version "0.3.23"
@@ -4227,6 +5711,14 @@ lodash.merge@^4.6.2:
   resolved "https://registry.yarnpkg.com/lodash.merge/-/lodash.merge-4.6.2.tgz#558aa53b43b661e1925a0afdfa36a9a1085fe57a"
   integrity sha512-0KpjqXRVvrYyCsX1swR/XTK0va6VQkQM6MNo7PqW77ByjAhoARA8EfrP1N4+KlKj8YS0ZUCtRT/YUuhyYDujIQ==
 
+log-symbols@^6.0.0:
+  version "6.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/log-symbols/-/log-symbols-6.0.0.tgz#bb95e5f05322651cac30c0feb6404f9f2a8a9439"
+  integrity sha1-u5Xl8FMiZRysMMD+tkBPnyqKlDk=
+  dependencies:
+    chalk "^5.3.0"
+    is-unicode-supported "^1.3.0"
+
 log-update@^6.1.0:
   version "6.1.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/log-update/-/log-update-6.1.0.tgz#1a04ff38166f94647ae1af562f4bd6a15b1b7cd4"
@@ -4256,6 +5748,11 @@ lru-cache@^5.1.1:
   integrity sha512-KpNARQA3Iwv+jTA0utUVVbrh+Jlrr1Fv0e56GGzAFOXN7dk/FviaDW8LHmK52DlcH4WP2n6gI8vN1aesBFgo9w==
   dependencies:
     yallist "^3.0.2"
+
+lucide-react@^1.8.0:
+  version "1.8.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/lucide-react/-/lucide-react-1.8.0.tgz#107f8d8df0914dc5f8d037b948159d6cce86b9f5"
+  integrity sha1-EH+NjfCRTcX40De5SBWdbM6GufU=
 
 lz-string@^1.5.0:
   version "1.5.0"
@@ -4288,6 +5785,16 @@ math-intrinsics@^1.1.0:
   resolved "https://registry.yarnpkg.com/math-intrinsics/-/math-intrinsics-1.1.0.tgz#a0dd74be81e2aa5c2f27e65ce283605ee4e2b7f9"
   integrity sha512-/IXtbwEk5HTPyEwyKX6hGkYXxM9nbj64B+ilVJnC/R6B0pH5G4V3b0pVbL7DBj4tkhBAppbQUlf6F6Xl9LHu1g==
 
+media-typer@^1.1.0:
+  version "1.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/media-typer/-/media-typer-1.1.0.tgz#6ab74b8f2d3320f2064b2a87a38e7931ff3a5561"
+  integrity sha1-ardLjy0zIPIGSyqHo455Mf86VWE=
+
+merge-descriptors@^2.0.0:
+  version "2.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/merge-descriptors/-/merge-descriptors-2.0.0.tgz#ea922f660635a2249ee565e0449f951e6b603808"
+  integrity sha1-6pIvZgY1oiSe5WXgRJ+VHmtgOAg=
+
 merge-stream@^2.0.0:
   version "2.0.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/merge-stream/-/merge-stream-2.0.0.tgz#52823629a14dd00c9770fb6ad47dc6310f2c1f60"
@@ -4298,13 +5805,25 @@ merge2@^1.3.0:
   resolved "https://registry.yarnpkg.com/merge2/-/merge2-1.4.1.tgz#4368892f885e907455a6fd7dc55c0c9d404990ae"
   integrity sha512-8q7VEgMJW4J8tcfVPy8g09NcQwZdbwFEqhe/WZkoIzjn/3TGDwtOCYtXGxA3O8tPzpczCCDgv+P2P5y00ZJOOg==
 
-micromatch@^4.0.4:
+micromatch@^4.0.4, micromatch@^4.0.8:
   version "4.0.8"
   resolved "https://registry.yarnpkg.com/micromatch/-/micromatch-4.0.8.tgz#d66fa18f3a47076789320b9b1af32bd86d9fa202"
   integrity sha512-PXwfBhYu0hBCPw8Dn0E+WDYb7af3dSLVWKi3HGv84IdF4TyFoC0ysxFd0Goxw7nSv4T/PzEJQxsYsEiFCKo2BA==
   dependencies:
     braces "^3.0.3"
     picomatch "^2.3.1"
+
+mime-db@^1.54.0:
+  version "1.54.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/mime-db/-/mime-db-1.54.0.tgz#cddb3ee4f9c64530dff640236661d42cb6a314f5"
+  integrity sha1-zds+5PnGRTDf9kAjZmHULLajFPU=
+
+mime-types@^3.0.0, mime-types@^3.0.2:
+  version "3.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/mime-types/-/mime-types-3.0.2.tgz#39002d4182575d5af036ffa118100f2524b2e2ab"
+  integrity sha1-OQAtQYJXXVrwNv+hGBAPJSSy4qs=
+  dependencies:
+    mime-db "^1.54.0"
 
 mimic-fn@^2.1.0:
   version "2.1.0"
@@ -4321,7 +5840,7 @@ min-indent@^1.0.0:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/min-indent/-/min-indent-1.0.1.tgz#a63f681673b30571fbe8bc25686ae746eefa9869"
   integrity sha1-pj9oFnOzBXH76LwlaGrnRu76mGk=
 
-minimatch@^10.2.2:
+minimatch@^10.0.1, minimatch@^10.2.2:
   version "10.2.5"
   resolved "https://registry.yarnpkg.com/minimatch/-/minimatch-10.2.5.tgz#bd48687a0be38ed2961399105600f832095861d1"
   integrity sha512-MULkVLfKGYDFYejP07QOurDLLQpcjk7Fw+7jXS2R2czRQzR56yHRveU5NDJEOviH+hETZKSkIk5c+T23GjFUMg==
@@ -4356,6 +5875,35 @@ ms@^2.1.1, ms@^2.1.3:
   version "2.1.3"
   resolved "https://registry.yarnpkg.com/ms/-/ms-2.1.3.tgz#574c8138ce1d2b5861f0b44579dbadd60c6615b2"
   integrity sha512-6FlzubTLZG3J2a/NVCAleEhjzq5oxgHyaCU9yYXvcLsvoVaHJq/s5xXI6/XXP6tz7R9xAOtHnSO/tXtF3WRTlA==
+
+msw@^2.10.4:
+  version "2.13.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/msw/-/msw-2.13.3.tgz#730dc26e0d2bc7cf14ca85987c0cddd724198329"
+  integrity sha1-cw3Cbg0rx88UyoWYfAzd1yQZgyk=
+  dependencies:
+    "@inquirer/confirm" "^5.0.0"
+    "@mswjs/interceptors" "^0.41.2"
+    "@open-draft/deferred-promise" "^2.2.0"
+    "@types/statuses" "^2.0.6"
+    cookie "^1.0.2"
+    graphql "^16.12.0"
+    headers-polyfill "^4.0.2"
+    is-node-process "^1.2.0"
+    outvariant "^1.4.3"
+    path-to-regexp "^6.3.0"
+    picocolors "^1.1.1"
+    rettime "^0.11.7"
+    statuses "^2.0.2"
+    strict-event-emitter "^0.5.1"
+    tough-cookie "^6.0.0"
+    type-fest "^5.2.0"
+    until-async "^3.0.2"
+    yargs "^17.7.2"
+
+mute-stream@^2.0.0:
+  version "2.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/mute-stream/-/mute-stream-2.0.0.tgz#a5446fc0c512b71c83c44d908d5c7b7b4c493b2b"
+  integrity sha1-pURvwMUStxyDxE2QjVx7e0xJOys=
 
 nanoid@^3.3.11, nanoid@^3.3.6:
   version "3.3.11"
@@ -4423,6 +5971,11 @@ node-addon-api@^7.0.0:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/node-addon-api/-/node-addon-api-7.1.1.tgz#1aba6693b0f255258a049d621329329322aad558"
   integrity sha1-Grpmk7DyVSWKBJ1iEykykyKq1Vg=
 
+node-domexception@^1.0.0:
+  version "1.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/node-domexception/-/node-domexception-1.0.0.tgz#6888db46a1f71c0b76b3f7555016b63fe64766e5"
+  integrity sha1-aIjbRqH3HAt2s/dVUBa2P+ZHZuU=
+
 node-exports-info@^1.6.0:
   version "1.6.0"
   resolved "https://registry.yarnpkg.com/node-exports-info/-/node-exports-info-1.6.0.tgz#1aedafb01a966059c9a5e791a94a94d93f5c2a13"
@@ -4432,6 +5985,15 @@ node-exports-info@^1.6.0:
     es-errors "^1.3.0"
     object.entries "^1.1.9"
     semver "^6.3.1"
+
+node-fetch@^3.3.2:
+  version "3.3.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/node-fetch/-/node-fetch-3.3.2.tgz#d1e889bacdf733b4ff3b2b243eb7a12866a0b78b"
+  integrity sha1-0eiJus33M7T/OyskPrehKGagt4s=
+  dependencies:
+    data-uri-to-buffer "^4.0.0"
+    fetch-blob "^3.1.4"
+    formdata-polyfill "^4.0.10"
 
 node-int64@^0.4.0:
   version "0.4.0"
@@ -4455,12 +6017,20 @@ npm-run-path@^4.0.1:
   dependencies:
     path-key "^3.0.0"
 
+npm-run-path@^6.0.0:
+  version "6.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/npm-run-path/-/npm-run-path-6.0.0.tgz#25cfdc4eae04976f3349c0b1afc089052c362537"
+  integrity sha1-Jc/cTq4El28zScCxr8CJBSw2JTc=
+  dependencies:
+    path-key "^4.0.0"
+    unicorn-magic "^0.3.0"
+
 nwsapi@^2.2.16:
   version "2.2.23"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/nwsapi/-/nwsapi-2.2.23.tgz#59712c3a88e6de2bb0b6ccc1070397267019cf6c"
   integrity sha1-WXEsOojm3iuwtszBBwOXJnAZz2w=
 
-object-assign@^4.1.1:
+object-assign@^4, object-assign@^4.1.1:
   version "4.1.1"
   resolved "https://registry.yarnpkg.com/object-assign/-/object-assign-4.1.1.tgz#2109adc7965887cfc05cbbd442cac8bfbb360863"
   integrity sha512-rJgTQnkUnH1sFw8yT6VSU3zD3sWmu6sZhIseY8VX+GRu3P6F7Fu+JNDoXfklElbLJSnc3FUQHVe4cU5hj+BcUg==
@@ -4474,6 +6044,11 @@ object-keys@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/object-keys/-/object-keys-1.1.1.tgz#1c47f272df277f3b1daf061677d9c82e2322c60e"
   integrity sha512-NuAESUOUMrlIXOfHKzD6bpPu3tYt3xvjNdRIQ+FeT0lNb4K8WR70CaDxhuNguS2XG+GjkyMwOzsN5ZktImfhLA==
+
+object-treeify@1.1.33:
+  version "1.1.33"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/object-treeify/-/object-treeify-1.1.33.tgz#f06fece986830a3cba78ddd32d4c11d1f76cdf40"
+  integrity sha1-8G/s6YaDCjy6eN3TLUwR0fds30A=
 
 object.assign@^4.1.4, object.assign@^4.1.7:
   version "4.1.7"
@@ -4526,7 +6101,14 @@ object.values@^1.1.6, object.values@^1.2.1:
     define-properties "^1.2.1"
     es-object-atoms "^1.0.0"
 
-once@^1.3.0:
+on-finished@^2.4.1:
+  version "2.4.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/on-finished/-/on-finished-2.4.1.tgz#58c8c44116e54845ad57f14ab10b03533184ac3f"
+  integrity sha1-WMjEQRblSEWtV/FKsQsDUzGErD8=
+  dependencies:
+    ee-first "1.1.1"
+
+once@^1.3.0, once@^1.4.0:
   version "1.4.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/once/-/once-1.4.0.tgz#583b1aa775961d4b113ac17d9c50baef9dd76bd1"
   integrity sha1-WDsap3WWHUsROsF9nFC6753Xa9E=
@@ -4547,6 +6129,18 @@ onetime@^7.0.0:
   dependencies:
     mimic-function "^5.0.0"
 
+open@^11.0.0:
+  version "11.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/open/-/open-11.0.0.tgz#897e6132f994d3554cbcf72e0df98f176a7e5f62"
+  integrity sha1-iX5hMvmU01VMvPcuDfmPF2p+X2I=
+  dependencies:
+    default-browser "^5.4.0"
+    define-lazy-prop "^3.0.0"
+    is-in-ssh "^1.0.0"
+    is-inside-container "^1.0.0"
+    powershell-utils "^0.1.0"
+    wsl-utils "^0.3.0"
+
 optionator@^0.9.3:
   version "0.9.4"
   resolved "https://registry.yarnpkg.com/optionator/-/optionator-0.9.4.tgz#7ea1c1a5d91d764fb282139c88fe11e182a3a734"
@@ -4558,6 +6152,26 @@ optionator@^0.9.3:
     prelude-ls "^1.2.1"
     type-check "^0.4.0"
     word-wrap "^1.2.5"
+
+ora@^8.2.0:
+  version "8.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/ora/-/ora-8.2.0.tgz#8fbbb7151afe33b540dd153f171ffa8bd38e9861"
+  integrity sha1-j7u3FRr+M7VA3RU/Fx/6i9OOmGE=
+  dependencies:
+    chalk "^5.3.0"
+    cli-cursor "^5.0.0"
+    cli-spinners "^2.9.2"
+    is-interactive "^2.0.0"
+    is-unicode-supported "^2.0.0"
+    log-symbols "^6.0.0"
+    stdin-discarder "^0.2.2"
+    string-width "^7.2.0"
+    strip-ansi "^7.1.0"
+
+outvariant@^1.4.0, outvariant@^1.4.3:
+  version "1.4.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/outvariant/-/outvariant-1.4.3.tgz#221c1bfc093e8fec7075497e7799fdbf43d14873"
+  integrity sha1-Ihwb/Ak+j+xwdUl+d5n9v0PRSHM=
 
 own-keys@^1.0.1:
   version "1.0.1"
@@ -4623,12 +6237,27 @@ parse-json@^5.2.0:
     json-parse-even-better-errors "^2.3.0"
     lines-and-columns "^1.1.6"
 
+parse-ms@^4.0.0:
+  version "4.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/parse-ms/-/parse-ms-4.0.0.tgz#c0c058edd47c2a590151a718990533fd62803df4"
+  integrity sha1-wMBY7dR8KlkBUacYmQUz/WKAPfQ=
+
 parse5@^7.0.0, parse5@^7.2.1:
   version "7.3.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/parse5/-/parse5-7.3.0.tgz#d7e224fa72399c7a175099f45fc2ad024b05ec05"
   integrity sha1-1+Ik+nI5nHoXUJn0X8KtAksF7AU=
   dependencies:
     entities "^6.0.0"
+
+parseurl@^1.3.3:
+  version "1.3.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/parseurl/-/parseurl-1.3.3.tgz#9da19e7bee8d12dff0513ed5b76957793bc2e8d4"
+  integrity sha1-naGee+6NEt/wUT7Vt2lXeTvC6NQ=
+
+path-browserify@^1.0.1:
+  version "1.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/path-browserify/-/path-browserify-1.0.1.tgz#d98454a9c3753d5790860f16f68867b9e46be1fd"
+  integrity sha1-2YRUqcN1PVeQhg8W9ohnueRr4f0=
 
 path-exists@^4.0.0:
   version "4.0.0"
@@ -4645,6 +6274,11 @@ path-key@^3.0.0, path-key@^3.1.0:
   resolved "https://registry.yarnpkg.com/path-key/-/path-key-3.1.1.tgz#581f6ade658cbba65a0d3380de7753295054f375"
   integrity sha512-ojmeN0qd+y0jszEtoY48r0Peq5dwMEkIlCOu6Q5f41lfkswXuKtYrhgoTpLnyIcHm24Uhqx+5Tqm2InSwLhE6Q==
 
+path-key@^4.0.0:
+  version "4.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/path-key/-/path-key-4.0.0.tgz#295588dc3aee64154f877adb9d780b81c554bf18"
+  integrity sha1-KVWI3DruZBVPh3rbnXgLgcVUvxg=
+
 path-parse@^1.0.7:
   version "1.0.7"
   resolved "https://registry.yarnpkg.com/path-parse/-/path-parse-1.0.7.tgz#fbc114b60ca42b30d9daf5858e4bd68bbedb6735"
@@ -4658,6 +6292,16 @@ path-scurry@^1.11.1:
     lru-cache "^10.2.0"
     minipass "^5.0.0 || ^6.0.2 || ^7.0.0"
 
+path-to-regexp@^6.3.0:
+  version "6.3.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/path-to-regexp/-/path-to-regexp-6.3.0.tgz#2b6a26a337737a8e1416f9272ed0766b1c0389f4"
+  integrity sha1-K2omozdzeo4UFvknLtB2axwDifQ=
+
+path-to-regexp@^8.0.0:
+  version "8.4.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/path-to-regexp/-/path-to-regexp-8.4.2.tgz#795c420c4f7ca45c5b887366f622ee0c9852cccd"
+  integrity sha1-eVxCDE98pFxbiHNm9iLuDJhSzM0=
+
 picocolors@1.1.1, picocolors@^1.0.0, picocolors@^1.1.1:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/picocolors/-/picocolors-1.1.1.tgz#3d321af3eab939b083c8f929a1d12cda81c26b6b"
@@ -4668,7 +6312,7 @@ picomatch@^2.0.4, picomatch@^2.3.1:
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-2.3.2.tgz#5a942915e26b372dc0f0e6753149a16e6b1c5601"
   integrity sha512-V7+vQEJ06Z+c5tSye8S+nHUfI51xoXIXjHQ99cQtKUkQqqO1kO/KCJUfZXuB47h/YBlDhah2H3hdUGXn8ie0oA==
 
-picomatch@^4.0.3, picomatch@^4.0.4:
+picomatch@^4.0.2, picomatch@^4.0.3, picomatch@^4.0.4:
   version "4.0.4"
   resolved "https://registry.yarnpkg.com/picomatch/-/picomatch-4.0.4.tgz#fd6f5e00a143086e074dffe4c924b8fb293b0589"
   integrity sha512-QP88BAKvMam/3NxH6vj2o21R6MjxZUAd6nlwAS/pnGvN9IVLocLHxGYIzFhg6fUQ+5th6P4dv4eW9jX3DSIj7A==
@@ -4677,6 +6321,11 @@ pirates@^4.0.7:
   version "4.0.7"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/pirates/-/pirates-4.0.7.tgz#643b4a18c4257c8a65104b73f3049ce9a0a15e22"
   integrity sha1-ZDtKGMQlfIplEEtz8wSc6aChXiI=
+
+pkce-challenge@^5.0.0:
+  version "5.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/pkce-challenge/-/pkce-challenge-5.0.1.tgz#3b4446865b17b1745e9ace2016a31f48ddf6230d"
+  integrity sha1-O0RGhlsXsXRems4gFqMfSN32Iw0=
 
 pkg-dir@^4.2.0:
   version "4.2.0"
@@ -4695,6 +6344,14 @@ possible-typed-array-names@^1.0.0:
   resolved "https://registry.yarnpkg.com/possible-typed-array-names/-/possible-typed-array-names-1.1.0.tgz#93e3582bc0e5426586d9d07b79ee40fc841de4ae"
   integrity sha512-/+5VFTchJDoVj3bhoqi6UeymcD00DAwb1nJwamzPvHEszJ4FpF6SNNbUbOS8yI56qHzdV8eK0qEfOSiodkTdxg==
 
+postcss-selector-parser@^7.1.0:
+  version "7.1.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/postcss-selector-parser/-/postcss-selector-parser-7.1.1.tgz#e75d2e0d843f620e5df69076166f4e16f891cb9f"
+  integrity sha1-510uDYQ/Yg5d9pB2Fm9OFviRy58=
+  dependencies:
+    cssesc "^3.0.0"
+    util-deprecate "^1.0.2"
+
 postcss@8.4.31:
   version "8.4.31"
   resolved "https://registry.yarnpkg.com/postcss/-/postcss-8.4.31.tgz#92b451050a9f914da6755af352bdc0192508656d"
@@ -4712,6 +6369,11 @@ postcss@^8.5.6:
     nanoid "^3.3.11"
     picocolors "^1.1.1"
     source-map-js "^1.2.1"
+
+powershell-utils@^0.1.0:
+  version "0.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/powershell-utils/-/powershell-utils-0.1.0.tgz#5a42c9a824fb4f2f251ccb41aaae73314f5d6ac2"
+  integrity sha1-WkLJqCT7Ty8lHMtBqq5zMU9dasI=
 
 prelude-ls@^1.2.1:
   version "1.2.1"
@@ -4741,6 +6403,21 @@ pretty-format@^27.0.2:
     ansi-styles "^5.0.0"
     react-is "^17.0.1"
 
+pretty-ms@^9.2.0:
+  version "9.3.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/pretty-ms/-/pretty-ms-9.3.0.tgz#dd2524fcb3c326b4931b2272dfd1e1a8ed9a9f5a"
+  integrity sha1-3SUk/LPDJrSTGyJy39HhqO2an1o=
+  dependencies:
+    parse-ms "^4.0.0"
+
+prompts@^2.4.2:
+  version "2.4.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/prompts/-/prompts-2.4.2.tgz#7b57e73b3a48029ad10ebd44f74b01722a4cb069"
+  integrity sha1-e1fnOzpIAprRDr1E90sBcipMsGk=
+  dependencies:
+    kleur "^3.0.3"
+    sisteransi "^1.0.5"
+
 prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
@@ -4749,6 +6426,14 @@ prop-types@^15.8.1:
     loose-envify "^1.4.0"
     object-assign "^4.1.1"
     react-is "^16.13.1"
+
+proxy-addr@^2.0.7:
+  version "2.0.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/proxy-addr/-/proxy-addr-2.0.7.tgz#f19fe69ceab311eeb94b42e70e8c2070f9ba1025"
+  integrity sha1-8Z/mnOqzEe65S0LnDowgcPm6ECU=
+  dependencies:
+    forwarded "0.2.0"
+    ipaddr.js "1.9.1"
 
 punycode@^2.1.0, punycode@^2.3.1:
   version "2.3.1"
@@ -4760,10 +6445,93 @@ pure-rand@^7.0.0:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/pure-rand/-/pure-rand-7.0.1.tgz#6f53a5a9e3e4a47445822af96821ca509ed37566"
   integrity sha1-b1OlqePkpHRFgir5aCHKUJ7TdWY=
 
+qs@^6.14.0, qs@^6.14.1:
+  version "6.15.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/qs/-/qs-6.15.1.tgz#bdb55aed06bfac257a90c44a446a73fba5575c8f"
+  integrity sha1-vbVa7Qa/rCV6kMRKRGpz+6VXXI8=
+  dependencies:
+    side-channel "^1.1.0"
+
 queue-microtask@^1.2.2:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/queue-microtask/-/queue-microtask-1.2.3.tgz#4929228bbc724dfac43e0efb058caf7b6cfb6243"
   integrity sha512-NuaNSa6flKT5JaSYQzJok04JzTL1CA6aGhv5rfLW3PgqA+M2ChpZQnAC8h8i4ZFkBS8X5RqkDBHA7r4hej3K9A==
+
+radix-ui@^1.4.3:
+  version "1.4.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/radix-ui/-/radix-ui-1.4.3.tgz#17712d9e26ee61fdf4cd3969f4e16a794419508b"
+  integrity sha1-F3EtnibuYf30zTlp9OFqeUQZUIs=
+  dependencies:
+    "@radix-ui/primitive" "1.1.3"
+    "@radix-ui/react-accessible-icon" "1.1.7"
+    "@radix-ui/react-accordion" "1.2.12"
+    "@radix-ui/react-alert-dialog" "1.1.15"
+    "@radix-ui/react-arrow" "1.1.7"
+    "@radix-ui/react-aspect-ratio" "1.1.7"
+    "@radix-ui/react-avatar" "1.1.10"
+    "@radix-ui/react-checkbox" "1.3.3"
+    "@radix-ui/react-collapsible" "1.1.12"
+    "@radix-ui/react-collection" "1.1.7"
+    "@radix-ui/react-compose-refs" "1.1.2"
+    "@radix-ui/react-context" "1.1.2"
+    "@radix-ui/react-context-menu" "2.2.16"
+    "@radix-ui/react-dialog" "1.1.15"
+    "@radix-ui/react-direction" "1.1.1"
+    "@radix-ui/react-dismissable-layer" "1.1.11"
+    "@radix-ui/react-dropdown-menu" "2.1.16"
+    "@radix-ui/react-focus-guards" "1.1.3"
+    "@radix-ui/react-focus-scope" "1.1.7"
+    "@radix-ui/react-form" "0.1.8"
+    "@radix-ui/react-hover-card" "1.1.15"
+    "@radix-ui/react-label" "2.1.7"
+    "@radix-ui/react-menu" "2.1.16"
+    "@radix-ui/react-menubar" "1.1.16"
+    "@radix-ui/react-navigation-menu" "1.2.14"
+    "@radix-ui/react-one-time-password-field" "0.1.8"
+    "@radix-ui/react-password-toggle-field" "0.1.3"
+    "@radix-ui/react-popover" "1.1.15"
+    "@radix-ui/react-popper" "1.2.8"
+    "@radix-ui/react-portal" "1.1.9"
+    "@radix-ui/react-presence" "1.1.5"
+    "@radix-ui/react-primitive" "2.1.3"
+    "@radix-ui/react-progress" "1.1.7"
+    "@radix-ui/react-radio-group" "1.3.8"
+    "@radix-ui/react-roving-focus" "1.1.11"
+    "@radix-ui/react-scroll-area" "1.2.10"
+    "@radix-ui/react-select" "2.2.6"
+    "@radix-ui/react-separator" "1.1.7"
+    "@radix-ui/react-slider" "1.3.6"
+    "@radix-ui/react-slot" "1.2.3"
+    "@radix-ui/react-switch" "1.2.6"
+    "@radix-ui/react-tabs" "1.1.13"
+    "@radix-ui/react-toast" "1.2.15"
+    "@radix-ui/react-toggle" "1.1.10"
+    "@radix-ui/react-toggle-group" "1.1.11"
+    "@radix-ui/react-toolbar" "1.1.11"
+    "@radix-ui/react-tooltip" "1.2.8"
+    "@radix-ui/react-use-callback-ref" "1.1.1"
+    "@radix-ui/react-use-controllable-state" "1.2.2"
+    "@radix-ui/react-use-effect-event" "0.0.2"
+    "@radix-ui/react-use-escape-keydown" "1.1.1"
+    "@radix-ui/react-use-is-hydrated" "0.1.0"
+    "@radix-ui/react-use-layout-effect" "1.1.1"
+    "@radix-ui/react-use-size" "1.1.1"
+    "@radix-ui/react-visually-hidden" "1.2.3"
+
+range-parser@^1.2.1:
+  version "1.2.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/range-parser/-/range-parser-1.2.1.tgz#3cf37023d199e1c24d1a55b84800c2f3e6468031"
+  integrity sha1-PPNwI9GZ4cJNGlW4SADC8+ZGgDE=
+
+raw-body@^3.0.0, raw-body@^3.0.1:
+  version "3.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/raw-body/-/raw-body-3.0.2.tgz#3e3ada5ae5568f9095d84376fd3a49b8fb000a51"
+  integrity sha1-PjraWuVWj5CV2EN2/TpJuPsAClE=
+  dependencies:
+    bytes "~3.1.2"
+    http-errors "~2.0.1"
+    iconv-lite "~0.7.0"
+    unpipe "~1.0.0"
 
 react-dom@19.2.4:
   version "19.2.4"
@@ -4787,10 +6555,48 @@ react-is@^18.3.1:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/react-is/-/react-is-18.3.1.tgz#e83557dc12eae63a99e003a46388b1dcbb44db7e"
   integrity sha1-6DVX3BLq5jqZ4AOkY4ix3LtE234=
 
+react-remove-scroll-bar@^2.3.7:
+  version "2.3.8"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/react-remove-scroll-bar/-/react-remove-scroll-bar-2.3.8.tgz#99c20f908ee467b385b68a3469b4a3e750012223"
+  integrity sha1-mcIPkI7kZ7OFtoo0abSj51ABIiM=
+  dependencies:
+    react-style-singleton "^2.2.2"
+    tslib "^2.0.0"
+
+react-remove-scroll@^2.6.3:
+  version "2.7.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/react-remove-scroll/-/react-remove-scroll-2.7.2.tgz#6442da56791117661978ae99cd29be9026fecca0"
+  integrity sha1-ZELaVnkRF2YZeK6ZzSm+kCb+zKA=
+  dependencies:
+    react-remove-scroll-bar "^2.3.7"
+    react-style-singleton "^2.2.3"
+    tslib "^2.1.0"
+    use-callback-ref "^1.3.3"
+    use-sidecar "^1.1.3"
+
+react-style-singleton@^2.2.2, react-style-singleton@^2.2.3:
+  version "2.2.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/react-style-singleton/-/react-style-singleton-2.2.3.tgz#4265608be69a4d70cfe3047f2c6c88b2c3ace388"
+  integrity sha1-QmVgi+aaTXDP4wR/LGyIssOs44g=
+  dependencies:
+    get-nonce "^1.0.0"
+    tslib "^2.0.0"
+
 react@19.2.4:
   version "19.2.4"
   resolved "https://registry.yarnpkg.com/react/-/react-19.2.4.tgz#438e57baa19b77cb23aab516cf635cd0579ee09a"
   integrity sha512-9nfp2hYpCwOjAN+8TZFGhtWEwgvWHXqESH8qT89AT/lWklpLON22Lc8pEtnpsZz7VmawabSU0gCjnj8aC0euHQ==
+
+recast@^0.23.11:
+  version "0.23.11"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/recast/-/recast-0.23.11.tgz#8885570bb28cf773ba1dc600da7f502f7883f73f"
+  integrity sha1-iIVXC7KM93O6HcYA2n9QL3iD9z8=
+  dependencies:
+    ast-types "^0.16.1"
+    esprima "~4.0.0"
+    source-map "~0.6.1"
+    tiny-invariant "^1.3.3"
+    tslib "^2.0.1"
 
 redent@^3.0.0:
   version "3.0.0"
@@ -4830,6 +6636,11 @@ require-directory@^2.1.1:
   version "2.1.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/require-directory/-/require-directory-2.1.1.tgz#8c64ad5fd30dab1c976e2344ffe7f792a6a6df42"
   integrity sha1-jGStX9MNqxyXbiNE/+f3kqam30I=
+
+require-from-string@^2.0.2:
+  version "2.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/require-from-string/-/require-from-string-2.0.2.tgz#89a7fdd938261267318eafe14f9c32e598c36909"
+  integrity sha1-iaf92TgmEmcxjq/hT5wy5ZjDaQk=
 
 resolve-cwd@^3.0.0:
   version "3.0.0"
@@ -4873,6 +6684,11 @@ restore-cursor@^5.0.0:
     onetime "^7.0.0"
     signal-exit "^4.1.0"
 
+rettime@^0.11.7:
+  version "0.11.7"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/rettime/-/rettime-0.11.7.tgz#93ba5b4619aa19d18e9d21ea3a6b3b9845a4f071"
+  integrity sha1-k7pbRhmqGdGOnSHqOms7mEWk8HE=
+
 reusify@^1.0.4:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/reusify/-/reusify-1.1.0.tgz#0fe13b9522e1473f51b558ee796e08f11f9b489f"
@@ -4883,10 +6699,26 @@ rfdc@^1.4.1:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/rfdc/-/rfdc-1.4.1.tgz#778f76c4fb731d93414e8f925fbecf64cce7f6ca"
   integrity sha1-d492xPtzHZNBTo+SX77PZMzn9so=
 
+router@^2.2.0:
+  version "2.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/router/-/router-2.2.0.tgz#019be620b711c87641167cc79b99090f00b146ef"
+  integrity sha1-AZvmILcRyHZBFnzHm5kJDwCxRu8=
+  dependencies:
+    debug "^4.4.0"
+    depd "^2.0.0"
+    is-promise "^4.0.0"
+    parseurl "^1.3.3"
+    path-to-regexp "^8.0.0"
+
 rrweb-cssom@^0.8.0:
   version "0.8.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/rrweb-cssom/-/rrweb-cssom-0.8.0.tgz#3021d1b4352fbf3b614aaeed0bc0d5739abe0bc2"
   integrity sha1-MCHRtDUvvzthSq7tC8DVc5q+C8I=
+
+run-applescript@^7.0.0:
+  version "7.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/run-applescript/-/run-applescript-7.1.0.tgz#2e9e54c4664ec3106c5b5630e249d3d6595c4911"
+  integrity sha1-Lp5UxGZOwxBsW1Yw4knT1llcSRE=
 
 run-parallel@^1.1.9:
   version "1.2.0"
@@ -4950,6 +6782,33 @@ semver@^7.5.3, semver@^7.5.4, semver@^7.7.1, semver@^7.7.2, semver@^7.7.3:
   resolved "https://registry.yarnpkg.com/semver/-/semver-7.7.4.tgz#28464e36060e991fa7a11d0279d2d3f3b57a7e8a"
   integrity sha512-vFKC2IEtQnVhpT78h1Yp8wzwrf8CM+MzKMHGJZfBtzhZNycRFnXsHk6E5TxIkkMsgNS7mdX3AGB7x2QM2di4lA==
 
+send@^1.1.0, send@^1.2.0:
+  version "1.2.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/send/-/send-1.2.1.tgz#9eab743b874f3550f40a26867bf286ad60d3f3ed"
+  integrity sha1-nqt0O4dPNVD0CiaGe/KGrWDT8+0=
+  dependencies:
+    debug "^4.4.3"
+    encodeurl "^2.0.0"
+    escape-html "^1.0.3"
+    etag "^1.8.1"
+    fresh "^2.0.0"
+    http-errors "^2.0.1"
+    mime-types "^3.0.2"
+    ms "^2.1.3"
+    on-finished "^2.4.1"
+    range-parser "^1.2.1"
+    statuses "^2.0.2"
+
+serve-static@^2.2.0:
+  version "2.2.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/serve-static/-/serve-static-2.2.1.tgz#7f186a4a4e5f5b663ad7a4294ff1bf37cf0e98a9"
+  integrity sha1-fxhqSk5fW2Y616QpT/G/N88OmKk=
+  dependencies:
+    encodeurl "^2.0.0"
+    escape-html "^1.0.3"
+    parseurl "^1.3.3"
+    send "^1.2.0"
+
 set-function-length@^1.2.2:
   version "1.2.2"
   resolved "https://registry.yarnpkg.com/set-function-length/-/set-function-length-1.2.2.tgz#aac72314198eaed975cf77b2c3b6b880695e5449"
@@ -4980,6 +6839,51 @@ set-proto@^1.0.0:
     dunder-proto "^1.0.1"
     es-errors "^1.3.0"
     es-object-atoms "^1.0.0"
+
+setprototypeof@~1.2.0:
+  version "1.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/setprototypeof/-/setprototypeof-1.2.0.tgz#66c9a24a73f9fc28cbe66b09fed3d33dcaf1b424"
+  integrity sha1-ZsmiSnP5/CjL5msJ/tPTPcrxtCQ=
+
+shadcn@^4.2.0:
+  version "4.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/shadcn/-/shadcn-4.2.0.tgz#d8aff21cb4d1d3e6753945e2087df5a0aa3f15a3"
+  integrity sha1-2K/yHLTR0+Z1OUXiCH31oKo/FaM=
+  dependencies:
+    "@babel/core" "^7.28.0"
+    "@babel/parser" "^7.28.0"
+    "@babel/plugin-transform-typescript" "^7.28.0"
+    "@babel/preset-typescript" "^7.27.1"
+    "@dotenvx/dotenvx" "^1.48.4"
+    "@modelcontextprotocol/sdk" "^1.26.0"
+    "@types/validate-npm-package-name" "^4.0.2"
+    browserslist "^4.26.2"
+    commander "^14.0.0"
+    cosmiconfig "^9.0.0"
+    dedent "^1.6.0"
+    deepmerge "^4.3.1"
+    diff "^8.0.2"
+    execa "^9.6.0"
+    fast-glob "^3.3.3"
+    fs-extra "^11.3.1"
+    fuzzysort "^3.1.0"
+    https-proxy-agent "^7.0.6"
+    kleur "^4.1.5"
+    msw "^2.10.4"
+    node-fetch "^3.3.2"
+    open "^11.0.0"
+    ora "^8.2.0"
+    postcss "^8.5.6"
+    postcss-selector-parser "^7.1.0"
+    prompts "^2.4.2"
+    recast "^0.23.11"
+    stringify-object "^5.0.0"
+    tailwind-merge "^3.0.1"
+    ts-morph "^26.0.0"
+    tsconfig-paths "^4.2.0"
+    validate-npm-package-name "^7.0.1"
+    zod "^3.24.1"
+    zod-to-json-schema "^3.24.6"
 
 sharp@^0.34.5:
   version "0.34.5"
@@ -5077,6 +6981,11 @@ signal-exit@^4.0.1, signal-exit@^4.1.0:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/signal-exit/-/signal-exit-4.1.0.tgz#952188c1cbd546070e2dd20d0f41c0ae0530cb04"
   integrity sha1-lSGIwcvVRgcOLdIND0HArgUwywQ=
 
+sisteransi@^1.0.5:
+  version "1.0.5"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/sisteransi/-/sisteransi-1.0.5.tgz#134d681297756437cc05ca01370d3a7a571075ed"
+  integrity sha1-E01oEpd1ZDfMBcoBNw06elcQde0=
+
 slash@^3.0.0:
   version "3.0.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/slash/-/slash-3.0.0.tgz#6539be870c165adbd5240220dbe361f1bc4d4634"
@@ -5111,7 +7020,7 @@ source-map-support@0.5.13:
     buffer-from "^1.0.0"
     source-map "^0.6.0"
 
-source-map@^0.6.0:
+source-map@^0.6.0, source-map@~0.6.1:
   version "0.6.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/source-map/-/source-map-0.6.1.tgz#74722af32e9614e9c287a8d0bbde48b5e2f1a263"
   integrity sha1-dHIq8y6WFOnCh6jQu95IteLxomM=
@@ -5133,6 +7042,16 @@ stack-utils@^2.0.6:
   dependencies:
     escape-string-regexp "^2.0.0"
 
+statuses@^2.0.1, statuses@^2.0.2, statuses@~2.0.2:
+  version "2.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/statuses/-/statuses-2.0.2.tgz#8f75eecef765b5e1cfcdc080da59409ed424e382"
+  integrity sha1-j3XuzvdlteHPzcCA2llAntQk44I=
+
+stdin-discarder@^0.2.2:
+  version "0.2.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/stdin-discarder/-/stdin-discarder-0.2.2.tgz#390037f44c4ae1a1ae535c5fe38dc3aba8d997be"
+  integrity sha1-OQA39ExK4aGuU1xf443Dq6jZl74=
+
 stop-iteration-iterator@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/stop-iteration-iterator/-/stop-iteration-iterator-1.1.0.tgz#f481ff70a548f6124d0312c3aa14cbfa7aa542ad"
@@ -5140,6 +7059,11 @@ stop-iteration-iterator@^1.1.0:
   dependencies:
     es-errors "^1.3.0"
     internal-slot "^1.1.0"
+
+strict-event-emitter@^0.5.1:
+  version "0.5.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/strict-event-emitter/-/strict-event-emitter-0.5.1.tgz#1602ece81c51574ca39c6815e09f1a3e8550bd93"
+  integrity sha1-FgLs6BxRV0yjnGgV4J8aPoVQvZM=
 
 string-argv@^0.3.2:
   version "0.3.2"
@@ -5181,7 +7105,7 @@ string-width@^5.0.1, string-width@^5.1.2:
     emoji-regex "^9.2.2"
     strip-ansi "^7.0.1"
 
-string-width@^7.0.0:
+string-width@^7.0.0, string-width@^7.2.0:
   version "7.2.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/string-width/-/string-width-7.2.0.tgz#b5bb8e2165ce275d4d43476dd2700ad9091db6dc"
   integrity sha1-tbuOIWXOJ11NQ0dt0nAK2Qkdttw=
@@ -5266,6 +7190,15 @@ string.prototype.trimstart@^1.0.8:
     define-properties "^1.2.1"
     es-object-atoms "^1.0.0"
 
+stringify-object@^5.0.0:
+  version "5.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/stringify-object/-/stringify-object-5.0.0.tgz#d5b05649fedaf8860640471641f70906fea7f351"
+  integrity sha1-1bBWSf7a+IYGQEcWQfcJBv6n81E=
+  dependencies:
+    get-own-enumerable-keys "^1.0.0"
+    is-obj "^3.0.0"
+    is-regexp "^3.1.0"
+
 "strip-ansi-cjs@npm:strip-ansi@^6.0.1":
   version "6.0.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/strip-ansi/-/strip-ansi-6.0.1.tgz#9e26c63d30f53443e9489495b2105d37b67a85d9"
@@ -5301,6 +7234,11 @@ strip-final-newline@^2.0.0:
   version "2.0.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/strip-final-newline/-/strip-final-newline-2.0.0.tgz#89b852fb2fcbe936f6f4b3187afb0a12c1ab58ad"
   integrity sha1-ibhS+y/L6Tb29LMYevsKEsGrWK0=
+
+strip-final-newline@^4.0.0:
+  version "4.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/strip-final-newline/-/strip-final-newline-4.0.0.tgz#35a369ec2ac43df356e3edd5dcebb6429aa1fa5c"
+  integrity sha1-NaNp7CrEPfNW4+3V3Ou2Qpqh+lw=
 
 strip-indent@^3.0.0:
   version "3.0.0"
@@ -5352,6 +7290,16 @@ synckit@^0.11.8:
   dependencies:
     "@pkgr/core" "^0.2.9"
 
+tagged-tag@^1.0.0:
+  version "1.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tagged-tag/-/tagged-tag-1.0.0.tgz#a0b5917c2864cba54841495abfa3f6b13edcf4d6"
+  integrity sha1-oLWRfChky6VIQUlav6P2sT7c9NY=
+
+tailwind-merge@^3.0.1, tailwind-merge@^3.5.0:
+  version "3.5.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tailwind-merge/-/tailwind-merge-3.5.0.tgz#06502f4496ba15151445d97d916a26564d50d1ca"
+  integrity sha1-BlAvRJa6FRUURdl9kWomVk1Q0co=
+
 tailwindcss@4.2.2, tailwindcss@^4:
   version "4.2.2"
   resolved "https://registry.yarnpkg.com/tailwindcss/-/tailwindcss-4.2.2.tgz#688fb0751c8ca9044e890546510a2ee817308e87"
@@ -5371,6 +7319,11 @@ test-exclude@^6.0.0:
     glob "^7.1.4"
     minimatch "^3.0.4"
 
+tiny-invariant@^1.3.3:
+  version "1.3.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tiny-invariant/-/tiny-invariant-1.3.3.tgz#46680b7a873a0d5d10005995eb90a70d74d60127"
+  integrity sha1-RmgLeoc6DV0QAFmV65CnDXTWASc=
+
 tinyexec@^1.0.4:
   version "1.1.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tinyexec/-/tinyexec-1.1.1.tgz#e1ff45dfa60d1dedb91b734956b78f6c2a3e821b"
@@ -5389,12 +7342,24 @@ tldts-core@^6.1.86:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tldts-core/-/tldts-core-6.1.86.tgz#a93e6ed9d505cb54c542ce43feb14c73913265d8"
   integrity sha1-qT5u2dUFy1TFQs5D/rFMc5EyZdg=
 
+tldts-core@^7.0.28:
+  version "7.0.28"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tldts-core/-/tldts-core-7.0.28.tgz#28c256edae2ed177b2a8338a51caf81d41580ecf"
+  integrity sha1-KMJW7a4u0XeyqDOKUcr4HUFYDs8=
+
 tldts@^6.1.32:
   version "6.1.86"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tldts/-/tldts-6.1.86.tgz#087e0555b31b9725ee48ca7e77edc56115cd82f7"
   integrity sha1-CH4FVbMblyXuSMp+d+3FYRXNgvc=
   dependencies:
     tldts-core "^6.1.86"
+
+tldts@^7.0.5:
+  version "7.0.28"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tldts/-/tldts-7.0.28.tgz#5a5bb26ef3f70008d88c6e53ff58cd59ed8d4c68"
+  integrity sha1-WluybvP3AAjYjG5T/1jNWe2NTGg=
+  dependencies:
+    tldts-core "^7.0.28"
 
 tmpl@1.0.5:
   version "1.0.5"
@@ -5408,12 +7373,24 @@ to-regex-range@^5.0.1:
   dependencies:
     is-number "^7.0.0"
 
+toidentifier@~1.0.1:
+  version "1.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/toidentifier/-/toidentifier-1.0.1.tgz#3be34321a88a820ed1bd80dfaa33e479fbb8dd35"
+  integrity sha1-O+NDIaiKgg7RvYDfqjPkefu43TU=
+
 tough-cookie@^5.1.1:
   version "5.1.2"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tough-cookie/-/tough-cookie-5.1.2.tgz#66d774b4a1d9e12dc75089725af3ac75ec31bed7"
   integrity sha1-Ztd0tKHZ4S3HUIlyWvOsdewxvtc=
   dependencies:
     tldts "^6.1.32"
+
+tough-cookie@^6.0.0:
+  version "6.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tough-cookie/-/tough-cookie-6.0.1.tgz#a495f833836609ed983c19bc65639cfbceb54c76"
+  integrity sha1-pJX4M4NmCe2YPBm8ZWOc+861THY=
+  dependencies:
+    tldts "^7.0.5"
 
 tr46@^5.1.0:
   version "5.1.1"
@@ -5427,6 +7404,14 @@ ts-api-utils@^2.5.0:
   resolved "https://registry.yarnpkg.com/ts-api-utils/-/ts-api-utils-2.5.0.tgz#4acd4a155e22734990a5ed1fe9e97f113bcb37c1"
   integrity sha512-OJ/ibxhPlqrMM0UiNHJ/0CKQkoKF243/AEmplt3qpRgkW8VG7IfOS41h7V8TjITqdByHzrjcS/2si+y4lIh8NA==
 
+ts-morph@^26.0.0:
+  version "26.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/ts-morph/-/ts-morph-26.0.0.tgz#d435ccac9421d4615fde8be86fee782f18cd9f73"
+  integrity sha1-1DXMrJQh1GFf3ovob+54LxjNn3M=
+  dependencies:
+    "@ts-morph/common" "~0.27.0"
+    code-block-writer "^13.0.3"
+
 tsconfig-paths@^3.15.0:
   version "3.15.0"
   resolved "https://registry.yarnpkg.com/tsconfig-paths/-/tsconfig-paths-3.15.0.tgz#5299ec605e55b1abb23ec939ef15edaf483070d4"
@@ -5437,10 +7422,24 @@ tsconfig-paths@^3.15.0:
     minimist "^1.2.6"
     strip-bom "^3.0.0"
 
-tslib@^2.4.0, tslib@^2.8.0, tslib@^2.8.1:
+tsconfig-paths@^4.2.0:
+  version "4.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tsconfig-paths/-/tsconfig-paths-4.2.0.tgz#ef78e19039133446d244beac0fd6a1632e2d107c"
+  integrity sha1-73jhkDkTNEbSRL6sD9ahYy4tEHw=
+  dependencies:
+    json5 "^2.2.2"
+    minimist "^1.2.6"
+    strip-bom "^3.0.0"
+
+tslib@^2.0.0, tslib@^2.0.1, tslib@^2.1.0, tslib@^2.4.0, tslib@^2.8.0, tslib@^2.8.1:
   version "2.8.1"
   resolved "https://registry.yarnpkg.com/tslib/-/tslib-2.8.1.tgz#612efe4ed235d567e8aba5f2a5fab70280ade83f"
   integrity sha512-oJFu94HQb+KVduSUQL7wnpmqnfmLsOA/nAh6b6EH0wCEoK0/mPeXU6c3wKDV83MkOuHPRHtSXKKU99IBazS/2w==
+
+tw-animate-css@^1.4.0:
+  version "1.4.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/tw-animate-css/-/tw-animate-css-1.4.0.tgz#b4a06f68244cba39428aa47e65e6e4c0babc21ee"
+  integrity sha1-tKBvaCRMujlCiqR+ZebkwLq8Ie4=
 
 type-check@^0.4.0, type-check@~0.4.0:
   version "0.4.0"
@@ -5458,6 +7457,22 @@ type-fest@^0.21.3:
   version "0.21.3"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/type-fest/-/type-fest-0.21.3.tgz#d260a24b0198436e133fa26a524a6d65fa3b2e37"
   integrity sha1-0mCiSwGYQ24TP6JqUkptZfo7Ljc=
+
+type-fest@^5.2.0:
+  version "5.5.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/type-fest/-/type-fest-5.5.0.tgz#78fca72f3a1f9ec964e6ae260db492b070c56f3b"
+  integrity sha1-ePynLzofnslk5q4mDbSSsHDFbzs=
+  dependencies:
+    tagged-tag "^1.0.0"
+
+type-is@^2.0.1:
+  version "2.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/type-is/-/type-is-2.0.1.tgz#64f6cf03f92fce4015c2b224793f6bdd4b068c97"
+  integrity sha1-ZPbPA/kvzkAVwrIkeT9r3UsGjJc=
+  dependencies:
+    content-type "^1.0.5"
+    media-typer "^1.1.0"
+    mime-types "^3.0.0"
 
 typed-array-buffer@^1.0.3:
   version "1.0.3"
@@ -5539,6 +7554,21 @@ undici-types@~7.19.0:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/undici-types/-/undici-types-7.19.2.tgz#1b67fc26d0f157a0cba3a58a5b5c1e2276b8ba2a"
   integrity sha1-G2f8JtDxV6DLo6WKW1weIna4uio=
 
+unicorn-magic@^0.3.0:
+  version "0.3.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/unicorn-magic/-/unicorn-magic-0.3.0.tgz#4efd45c85a69e0dd576d25532fbfa22aa5c8a104"
+  integrity sha1-Tv1FyFpp4N1XbSVTL7+iKqXIoQQ=
+
+universalify@^2.0.0:
+  version "2.0.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/universalify/-/universalify-2.0.1.tgz#168efc2180964e6386d061e094df61afe239b18d"
+  integrity sha1-Fo78IYCWTmOG0GHglN9hr+I5sY0=
+
+unpipe@~1.0.0:
+  version "1.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/unpipe/-/unpipe-1.0.0.tgz#b2bf4ee8514aae6165b4817829d21b2ef49904ec"
+  integrity sha1-sr9O6FFKrmFltIF4KdIbLvSZBOw=
+
 unrs-resolver@^1.6.2, unrs-resolver@^1.7.11:
   version "1.11.1"
   resolved "https://registry.yarnpkg.com/unrs-resolver/-/unrs-resolver-1.11.1.tgz#be9cd8686c99ef53ecb96df2a473c64d304048a9"
@@ -5566,6 +7596,11 @@ unrs-resolver@^1.6.2, unrs-resolver@^1.7.11:
     "@unrs/resolver-binding-win32-ia32-msvc" "1.11.1"
     "@unrs/resolver-binding-win32-x64-msvc" "1.11.1"
 
+until-async@^3.0.2:
+  version "3.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/until-async/-/until-async-3.0.2.tgz#447f1531fdd7bb2b4c7a98869bdb1a4c2a23865f"
+  integrity sha1-RH8VMf3XuytMepiGm9saTCojhl8=
+
 update-browserslist-db@^1.2.3:
   version "1.2.3"
   resolved "https://registry.yarnpkg.com/update-browserslist-db/-/update-browserslist-db-1.2.3.tgz#64d76db58713136acbeb4c49114366cc6cc2e80d"
@@ -5581,6 +7616,13 @@ uri-js@^4.2.2:
   dependencies:
     punycode "^2.1.0"
 
+use-callback-ref@^1.3.3:
+  version "1.3.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/use-callback-ref/-/use-callback-ref-1.3.3.tgz#98d9fab067075841c5b2c6852090d5d0feabe2bf"
+  integrity sha1-mNn6sGcHWEHFssaFIJDV0P6r4r8=
+  dependencies:
+    tslib "^2.0.0"
+
 use-intl@^4.9.1:
   version "4.9.1"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/use-intl/-/use-intl-4.9.1.tgz#230eea8bb62cfb2ab021ba9c65e546b8f92b07de"
@@ -5591,6 +7633,24 @@ use-intl@^4.9.1:
     icu-minify "^4.9.1"
     intl-messageformat "^11.1.0"
 
+use-sidecar@^1.1.3:
+  version "1.1.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/use-sidecar/-/use-sidecar-1.1.3.tgz#10e7fd897d130b896e2c546c63a5e8233d00efdb"
+  integrity sha1-EOf9iX0TC4luLFRsY6XoIz0A79s=
+  dependencies:
+    detect-node-es "^1.1.0"
+    tslib "^2.0.0"
+
+use-sync-external-store@^1.5.0:
+  version "1.6.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/use-sync-external-store/-/use-sync-external-store-1.6.0.tgz#b174bfa65cb2b526732d9f2ac0a408027876f32d"
+  integrity sha1-sXS/plyytSZzLZ8qwKQIAnh28y0=
+
+util-deprecate@^1.0.2:
+  version "1.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/util-deprecate/-/util-deprecate-1.0.2.tgz#450d4dc9fa70de732762fbd2d4a28981419a0ccf"
+  integrity sha1-RQ1Nyfpw3nMnYvvS1KKJgUGaDM8=
+
 v8-to-istanbul@^9.0.1:
   version "9.3.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/v8-to-istanbul/-/v8-to-istanbul-9.3.0.tgz#b9572abfa62bd556c16d75fdebc1a411d5ff3175"
@@ -5599,6 +7659,16 @@ v8-to-istanbul@^9.0.1:
     "@jridgewell/trace-mapping" "^0.3.12"
     "@types/istanbul-lib-coverage" "^2.0.1"
     convert-source-map "^2.0.0"
+
+validate-npm-package-name@^7.0.1:
+  version "7.0.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/validate-npm-package-name/-/validate-npm-package-name-7.0.2.tgz#e57c3d721a4c8bbff454a246e7f7da811559ea0d"
+  integrity sha1-5Xw9chpMi7/0VKJG5/fagRVZ6g0=
+
+vary@^1, vary@^1.1.2:
+  version "1.1.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/vary/-/vary-1.1.2.tgz#2299f02c6ded30d4a5961b0b9f74524a18f634fc"
+  integrity sha1-IpnwLG3tMNSllhsLn3RSShj2NPw=
 
 w3c-xmlserializer@^5.0.0:
   version "5.0.0"
@@ -5613,6 +7683,11 @@ walker@^1.0.8:
   integrity sha1-vUmNtHev5XPcBBhfAR06uKjXZT8=
   dependencies:
     makeerror "1.0.12"
+
+web-streams-polyfill@^3.0.3:
+  version "3.3.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/web-streams-polyfill/-/web-streams-polyfill-3.3.3.tgz#2073b91a2fdb1fbfbd401e7de0ac9f8214cecb4b"
+  integrity sha1-IHO5Gi/bH7+9QB594KyfghTOy0s=
 
 webidl-conversions@^7.0.0:
   version "7.0.0"
@@ -5699,6 +7774,13 @@ which@^2.0.1:
   dependencies:
     isexe "^2.0.0"
 
+which@^4.0.0:
+  version "4.0.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/which/-/which-4.0.0.tgz#cd60b5e74503a3fbcfbf6cd6b4138a8bae644c1a"
+  integrity sha1-zWC150UDo/vPv2zWtBOKi65kTBo=
+  dependencies:
+    isexe "^3.1.1"
+
 word-wrap@^1.2.5:
   version "1.2.5"
   resolved "https://registry.yarnpkg.com/word-wrap/-/word-wrap-1.2.5.tgz#d2c45c6dd4fbce621a66f136cbe328afd0410b34"
@@ -5708,6 +7790,15 @@ word-wrap@^1.2.5:
   version "7.0.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/wrap-ansi/-/wrap-ansi-7.0.0.tgz#67e145cff510a6a6984bdf1152911d69d2eb9e43"
   integrity sha1-Z+FFz/UQpqaYS98RUpEdadLrnkM=
+  dependencies:
+    ansi-styles "^4.0.0"
+    string-width "^4.1.0"
+    strip-ansi "^6.0.0"
+
+wrap-ansi@^6.2.0:
+  version "6.2.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/wrap-ansi/-/wrap-ansi-6.2.0.tgz#e9393ba07102e6c91a3b221478f0257cd2856e53"
+  integrity sha1-6Tk7oHEC5skaOyIUePAlfNKFblM=
   dependencies:
     ansi-styles "^4.0.0"
     string-width "^4.1.0"
@@ -5758,6 +7849,14 @@ ws@^8.18.0:
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/ws/-/ws-8.20.0.tgz#4cd9532358eba60bc863aad1623dfb045a4d4af8"
   integrity sha1-TNlTI1jrpgvIY6rRYj37BFpNSvg=
 
+wsl-utils@^0.3.0:
+  version "0.3.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/wsl-utils/-/wsl-utils-0.3.1.tgz#9479836ddf03be267aad3abfc3cb1f6e0c9f1ed1"
+  integrity sha1-lHmDbd8DviZ6rTq/w8sfbgyfHtE=
+  dependencies:
+    is-wsl "^3.1.0"
+    powershell-utils "^0.1.0"
+
 xml-name-validator@^5.0.0:
   version "5.0.0"
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/xml-name-validator/-/xml-name-validator-5.0.0.tgz#82be9b957f7afdacf961e5980f1bf227c0bf7673"
@@ -5806,12 +7905,39 @@ yocto-queue@^0.1.0:
   resolved "https://registry.yarnpkg.com/yocto-queue/-/yocto-queue-0.1.0.tgz#0294eb3dee05028d31ee1a5fa2c556a6aaf10a1b"
   integrity sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==
 
+yocto-spinner@^1.1.0:
+  version "1.1.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/yocto-spinner/-/yocto-spinner-1.1.0.tgz#07ac2ae3c4a02b6a39c1842b7c775a779f041f06"
+  integrity sha1-B6wq48SgK2o5wYQrfHdad58EHwY=
+  dependencies:
+    yoctocolors "^2.1.1"
+
+yoctocolors-cjs@^2.1.3:
+  version "2.1.3"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/yoctocolors-cjs/-/yoctocolors-cjs-2.1.3.tgz#7e4964ea8ec422b7a40ac917d3a344cfd2304baa"
+  integrity sha1-fklk6o7EIrekCskX06NEz9IwS6o=
+
+yoctocolors@^2.1.1:
+  version "2.1.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/yoctocolors/-/yoctocolors-2.1.2.tgz#d795f54d173494e7d8db93150cec0ed7f678c83a"
+  integrity sha1-15X1TRc0lOfY25MVDOwO1/Z4yDo=
+
+zod-to-json-schema@^3.24.6, zod-to-json-schema@^3.25.1:
+  version "3.25.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/zod-to-json-schema/-/zod-to-json-schema-3.25.2.tgz#3fa799a7badd554541472fb65843fdc460b2e5aa"
+  integrity sha1-P6eZp7rdVUVBRy+2WEP9xGCy5ao=
+
 "zod-validation-error@^3.5.0 || ^4.0.0":
   version "4.0.2"
   resolved "https://registry.yarnpkg.com/zod-validation-error/-/zod-validation-error-4.0.2.tgz#bc605eba49ce0fcd598c127fee1c236be3f22918"
   integrity sha512-Q6/nZLe6jxuU80qb/4uJ4t5v2VEZ44lzQjPDhYJNztRQ4wyWc6VF3D3Kb/fAuPetZQnhS3hnajCf9CsWesghLQ==
 
-"zod@^3.25.0 || ^4.0.0":
+zod@^3.24.1:
+  version "3.25.76"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/zod/-/zod-3.25.76.tgz#26841c3f6fd22a6a2760e7ccb719179768471e34"
+  integrity sha1-JoQcP2/SKmonYOfMtxkXl2hHHjQ=
+
+"zod@^3.25 || ^4.0", "zod@^3.25.0 || ^4.0.0":
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/zod/-/zod-4.3.6.tgz#89c56e0aa7d2b05107d894412227087885ab112a"
   integrity sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==

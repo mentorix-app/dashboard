@@ -6,6 +6,7 @@ import { getMessages, getTranslations, setRequestLocale } from '@/i18n/server';
 import { Suspense, type ReactNode } from 'react';
 import { Providers } from '@/app/providers';
 import { LanguageSwitcher } from '@/components/language-switcher';
+import { ThemeSwitcher } from '@/components/theme-switcher';
 import { routing } from '@/i18n';
 
 type Props = {
@@ -46,6 +47,7 @@ export default async function LocaleLayout({ children, params }: Props) {
     <NextIntlClientProvider messages={messages}>
       <Providers>
         <div className="flex justify-end gap-2 border-b border-zinc-200 px-4 py-2 dark:border-zinc-800">
+          <ThemeSwitcher />
           <Suspense fallback={null}>
             <LanguageSwitcher />
           </Suspense>
