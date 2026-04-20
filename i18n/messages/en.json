@@ -35,5 +35,15 @@
     "groupLabel": "Theme",
     "light": "Light mode",
     "dark": "Dark mode"
+  },
+  "Login": {
+    "pageTitle": "Sign in · Mentorix",
+    "metadataDescription": "Sign in to the Mentorix dashboard.",
+    "heading": "Sign in",
+    "usernameLabel": "Username",
+    "usernamePlaceholder": "Enter your username",
+    "passwordLabel": "Password",
+    "passwordPlaceholder": "Enter your password",
+    "submit": "Sign in"
   }
 }

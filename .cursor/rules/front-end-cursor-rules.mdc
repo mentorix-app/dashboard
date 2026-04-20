@@ -111,6 +111,25 @@ Bug severity classification:
 - Medium: impacts experience but not access (missing skip links, suboptimal tab order).
 - Low: minor or intermittent issues.
 
+### Architecture: Feature-Sliced Design (FSD)
+
+The project follows Feature-Sliced Design with strict layer dependency rules.
+Global layers (top to bottom, upper depends on lower, never reverse):
+app → src/pages → src/widgets → src/features → src/entities → src/shared
+Rules:
+
+- A lower layer MUST NOT import from an upper layer (e.g. `shared` cannot import from `features`, `entities` cannot import from `widgets`)
+- Each layer can only depend on layers below it
+- Cross-imports within the same layer are prohibited (e.g. one feature cannot import from another feature)
+  Dependency flow:
+  src/
+  ├── app/ ← nextjs root folder
+  ├── src/pages - fsd widgets export inside app nestjs folder
+  ├── src/widgets ← fsd widgets
+  ├── src/features/ ← fsd features
+  ├── src/entities/ ← fsd entities
+  └── src/shared/ ← fsd shared (ui, api, hooks, types, lib)
+
 ### File Naming and Component Structure
 
 - Keep files short: target 100-120 lines max. If a file grows beyond this, split it into smaller focused modules. Exceptions are acceptable for complex configurations

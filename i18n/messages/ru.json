@@ -35,5 +35,15 @@
     "groupLabel": "Тема",
     "light": "Светлая тема",
     "dark": "Тёмная тема"
+  },
+  "Login": {
+    "pageTitle": "Вход · Mentorix",
+    "metadataDescription": "Вход в панель Mentorix.",
+    "heading": "Вход",
+    "usernameLabel": "Логин",
+    "usernamePlaceholder": "Введите логин",
+    "passwordLabel": "Пароль",
+    "passwordPlaceholder": "Введите пароль",
+    "submit": "Войти"
   }
 }

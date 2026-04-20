@@ -2,7 +2,7 @@
 
 import { useCallback, useSyncExternalStore } from 'react';
 import { useTranslations } from '@/i18n';
-import { THEME_STORAGE_KEY } from '@/lib/theme-inline-script';
+import { THEME_STORAGE_KEY } from '@/src/shared/lib/theme-inline-script';
 
 type ResolvedTheme = 'light' | 'dark';
 

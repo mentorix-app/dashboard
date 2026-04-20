@@ -1,4 +1,4 @@
-import { THEME_STORAGE_KEY, themeInlineScript } from '@/lib/theme-inline-script';
+import { THEME_STORAGE_KEY, themeInlineScript } from '@/src/shared/lib/theme-inline-script';
 
 describe('themeInlineScript', () => {
   it('uses the expected localStorage key', () => {

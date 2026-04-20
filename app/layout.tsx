@@ -1,11 +1,11 @@
 import type { ReactNode } from 'react';
 import { headers } from 'next/headers';
 import { routing } from '@/i18n';
-import { themeInlineScript } from '@/lib/theme-inline-script';
+import { themeInlineScript } from '@/src/shared/lib/theme-inline-script';
 import { fontSans } from './fonts';
 import './globals.css';
 import { Inter } from 'next/font/google';
-import { cn } from '@/lib/utils';
+import { cn } from '@/src/shared/lib/utils';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
 
