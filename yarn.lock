@@ -590,6 +590,13 @@
   resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@hono/node-server/-/node-server-1.19.14.tgz#e30f844bc77e3ce7be442aac3b1f73ad8b58d181"
   integrity sha1-4w+ES8d+POe+RCqsOx9zrYtY0YE=
 
+"@hookform/resolvers@^5.2.2":
+  version "5.2.2"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@hookform/resolvers/-/resolvers-5.2.2.tgz#5ac16cd89501ca31671e6e9f0f5c5d762a99aa12"
+  integrity sha1-WsFs2JUByjFnHm6fD1xddiqZqhI=
+  dependencies:
+    "@standard-schema/utils" "^0.3.0"
+
 "@humanfs/core@^0.19.1":
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/@humanfs/core/-/core-0.19.1.tgz#17c55ca7d426733fe3c561906b8173c336b40a77"
@@ -2056,6 +2063,11 @@
   integrity sha1-9dt6tuD0+f5GRzImE3U8RUBCuoE=
   dependencies:
     "@sinonjs/commons" "^3.0.1"
+
+"@standard-schema/utils@^0.3.0":
+  version "0.3.0"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/@standard-schema/utils/-/utils-0.3.0.tgz#3d5e608f16c2390c10528e98e59aef6bf73cae7b"
+  integrity sha1-PV5gjxbCOQwQUo6Y5Zrva/c8rns=
 
 "@swc/core-darwin-arm64@1.15.24":
   version "1.15.24"
@@ -6540,6 +6552,11 @@ react-dom@19.2.4:
   dependencies:
     scheduler "^0.27.0"
 
+react-hook-form@^7.73.1:
+  version "7.73.1"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/react-hook-form/-/react-hook-form-7.73.1.tgz#ddd1a27cae48f6095529f6e2e0c581daaca5462a"
+  integrity sha1-3dGifK5I9glVKfbi4MWB2qylRio=
+
 react-is@^16.13.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -7941,6 +7958,11 @@ zod@^3.24.1:
   version "4.3.6"
   resolved "https://registry.yarnpkg.com/zod/-/zod-4.3.6.tgz#89c56e0aa7d2b05107d894412227087885ab112a"
   integrity sha512-rftlrkhHZOcjDwkGlnUtZZkvaPHCsDATp4pGpuOOMDaTdDDXF91wuVDJoWoPsKX/3YPQ5fHuF3STjcYyKr+Qhg==
+
+zod@^4.3.6:
+  version "4.3.6"
+  resolved "https://connectionseducation.pkgs.visualstudio.com/_packaging/ConnectionsEducationNpm/npm/registry/zod/-/zod-4.3.6.tgz#89c56e0aa7d2b05107d894412227087885ab112a"
+  integrity sha1-icVuCqfSsFEH2JRBIicIeIWrESo=
 
 zustand@^5.0.12:
   version "5.0.12"

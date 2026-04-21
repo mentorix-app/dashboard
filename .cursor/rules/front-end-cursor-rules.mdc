@@ -124,7 +124,7 @@ Rules:
   Dependency flow:
   src/
   ├── app/ ← nextjs root folder
-  ├── src/pages - fsd widgets export inside app nestjs folder
+  ├── src/views - fsd widgets export inside app nestjs folder eq pages in classic fsd
   ├── src/widgets ← fsd widgets
   ├── src/features/ ← fsd features
   ├── src/entities/ ← fsd entities

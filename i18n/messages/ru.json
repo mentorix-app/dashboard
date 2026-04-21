@@ -44,6 +44,11 @@
     "usernamePlaceholder": "Введите логин",
     "passwordLabel": "Пароль",
     "passwordPlaceholder": "Введите пароль",
-    "submit": "Войти"
+    "submit": "Войти",
+    "validation": {
+      "usernameRequired": "Укажите логин.",
+      "usernameMinLength": "Логин должен быть не короче 3 символов.",
+      "passwordRequired": "Укажите пароль."
+    }
   }
 }

@@ -44,6 +44,11 @@
     "usernamePlaceholder": "Enter your username",
     "passwordLabel": "Password",
     "passwordPlaceholder": "Enter your password",
-    "submit": "Sign in"
+    "submit": "Sign in",
+    "validation": {
+      "usernameRequired": "Username is required.",
+      "usernameMinLength": "Username must be at least 3 characters.",
+      "passwordRequired": "Password is required."
+    }
   }
 }
