@@ -1,29 +1,23 @@
+import Script from 'next/script';
 import type { ReactNode } from 'react';
-import { headers } from 'next/headers';
+
+import { fontSans } from '@/app/fonts';
+import '@/app/globals.css';
 import { routing } from '@/i18n';
-import { themeInlineScript } from '@/src/shared/lib/theme-inline-script';
-import { fontSans } from './fonts';
-import './globals.css';
-import { Inter } from 'next/font/google';
-import { cn } from '@/src/shared/lib/utils';
+import { cn, themeInlineScript } from '@/src/shared/lib';
 
-const inter = Inter({ subsets: ['latin'], variable: '--font-sans' });
-
-export default async function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
-  const headersList = await headers();
-  const locale =
-    headersList.get('x-next-intl-locale') ?? headersList.get('X-NEXT-INTL-LOCALE') ?? routing.defaultLocale;
-
+/**
+ * Root layout owns <html>/<body> so the theme init script and font CSS are
+ * hoisted by Next.js (required for `beforeInteractive`). The active locale is
+ * applied to <html lang> client-side by HtmlLangSync inside the [locale] layout.
+ */
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
-    <html
-      lang={locale}
-      className={cn('h-full', 'antialiased', fontSans.variable, 'font-sans', inter.variable)}
-      suppressHydrationWarning
-    >
-      <head>
-        <script dangerouslySetInnerHTML={{ __html: themeInlineScript }} />
-      </head>
-      <body className="min-h-full flex flex-col">{children}</body>
+    <html lang={routing.defaultLocale} className={cn('h-full antialiased', fontSans.variable)} suppressHydrationWarning>
+      <body className="bg-background text-foreground flex min-h-full flex-col font-sans">
+        <Script id="theme-init" strategy="beforeInteractive" dangerouslySetInnerHTML={{ __html: themeInlineScript }} />
+        {children}
+      </body>
     </html>
   );
 }

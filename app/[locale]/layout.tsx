@@ -1,39 +1,39 @@
 import type { Metadata } from 'next';
-import type { Locale } from 'next-intl';
+import { type Locale } from 'next-intl';
+import { cookies } from 'next/headers';
 import { notFound } from 'next/navigation';
 import { NextIntlClientProvider } from 'next-intl';
-import { getMessages, getTranslations, setRequestLocale } from '@/i18n/server';
-import { Suspense, type ReactNode } from 'react';
+import { type ReactNode } from 'react';
+
 import { Providers } from '@/app/providers';
-import { LanguageSwitcher } from '@/components/language-switcher';
-import { ThemeSwitcher } from '@/components/theme-switcher';
 import { routing } from '@/i18n';
+import { getMessages, getTranslations, setRequestLocale } from '@/i18n/server';
+import { HtmlLangSync, SidebarInset, SidebarProvider } from '@/src/shared/ui';
+import { AppHeader } from '@/src/widgets/app-header';
+import { AppSidebar } from '@/src/widgets/app-sidebar';
+
+const SIDEBAR_COOKIE = 'sidebar_state';
 
 type Props = {
   children: ReactNode;
   params: Promise<{ locale: string }>;
 };
 
-export function generateStaticParams() {
-  return routing.locales.map((locale) => ({ locale }));
-}
+export const generateStaticParams = () => routing.locales.map((locale) => ({ locale }));
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export const generateMetadata = async ({ params }: Props): Promise<Metadata> => {
   const { locale } = await params;
   const t = await getTranslations({ locale: locale as Locale, namespace: 'Metadata' });
   return {
     title: t('title'),
     description: t('description'),
     alternates: {
-      languages: {
-        en: '/en',
-        ru: '/ru',
-      },
+      languages: { en: '/en', ru: '/ru' },
     },
   };
-}
+};
 
-export default async function LocaleLayout({ children, params }: Props) {
+const LocaleLayout = async ({ children, params }: Props) => {
   const { locale } = await params;
 
   if (!routing.locales.includes(locale as (typeof routing.locales)[number])) {
@@ -41,19 +41,25 @@ export default async function LocaleLayout({ children, params }: Props) {
   }
 
   setRequestLocale(locale as Locale);
-  const messages = await getMessages();
+  const [messages, cookieStore] = await Promise.all([getMessages(), cookies()]);
+  const sidebarOpen = cookieStore.get(SIDEBAR_COOKIE)?.value !== 'false';
 
   return (
     <NextIntlClientProvider messages={messages}>
       <Providers>
-        <div className="flex justify-end gap-2 border-b border-zinc-200 px-4 py-2 dark:border-zinc-800">
-          <ThemeSwitcher />
-          <Suspense fallback={null}>
-            <LanguageSwitcher />
-          </Suspense>
-        </div>
-        {children}
+        <HtmlLangSync />
+        <SidebarProvider defaultOpen={sidebarOpen}>
+          <AppSidebar />
+          <SidebarInset className="min-h-dvh">
+            <AppHeader />
+            <main className="flex flex-1 flex-col px-[var(--app-content-px)] py-[var(--app-content-py)]">
+              {children}
+            </main>
+          </SidebarInset>
+        </SidebarProvider>
       </Providers>
     </NextIntlClientProvider>
   );
-}
+};
+
+export default LocaleLayout;

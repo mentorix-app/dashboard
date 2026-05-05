@@ -3,28 +3,16 @@
     "title": "Mentorix Dashboard",
     "description": "Mentorix admin dashboard for operating the platform."
   },
-  "Home": {
-    "logoAlt": "Next.js logo",
-    "heading": "To get started, edit the page.tsx file.",
-    "intro": "Looking for a starting point or more instructions? Head over to",
-    "templates": "Templates",
-    "or": "or the",
-    "learning": "Learning",
-    "center": "center.",
-    "deployAlt": "Vercel logomark",
-    "deployNow": "Deploy Now",
-    "documentation": "Documentation",
-    "rqDemoLink": "TanStack Query demo"
+  "AppSidebar": {
+    "label": "Primary navigation",
+    "groups": {
+      "main": "Navigation"
+    },
+    "dashboard": "Dashboard",
+    "exercises": "Exercises"
   },
-  "RqDemo": {
-    "backHome": "Back to home",
-    "title": "TanStack Query demo",
-    "refetch": "Refetch",
-    "refetching": "Refetching…",
-    "apiHint": "Public API: jsonplaceholder.typicode.com/posts/{id}",
-    "loading": "Loading…",
-    "errorFallback": "Something went wrong",
-    "postMeta": "Post id: {id} · userId: {userId}"
+  "AppHeader": {
+    "toggleSidebar": "Toggle sidebar"
   },
   "LanguageSwitcher": {
     "ru": "RU",
@@ -32,9 +20,29 @@
     "label": "Language"
   },
   "ThemeSwitcher": {
-    "groupLabel": "Theme",
-    "light": "Light mode",
-    "dark": "Dark mode"
+    "label": "Theme",
+    "switchToLight": "Switch to light theme",
+    "switchToDark": "Switch to dark theme"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "overviewWidget": {
+      "title": "Library overview",
+      "description": "Quick snapshot of your exercise library.",
+      "valueLabel": "{count, plural, one {# exercise} other {# exercises}}"
+    }
+  },
+  "Exercises": {
+    "title": "Exercises",
+    "searchPlaceholder": "Search exercises",
+    "createNew": "Create new exercise",
+    "selectAll": "Select all exercises",
+    "selectRow": "Select {name}",
+    "empty": "No exercises found.",
+    "columns": {
+      "name": "Name",
+      "addedBy": "Added by"
+    }
   },
   "Login": {
     "pageTitle": "Sign in · Mentorix",

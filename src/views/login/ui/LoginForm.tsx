@@ -1,11 +1,11 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useMemo, type FC } from 'react';
+import { useId, useMemo, type FC } from 'react';
 import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
-import * as z from 'zod';
 
 import { Button, FormMessage, Input, Label } from '@/src/shared/ui';
+import { createLoginSchema, type LoginFormValues, type LoginValidationMessages } from '../model/schema';
 
 export type LoginFormLabels = {
   usernameLabel: string;
@@ -15,41 +15,20 @@ export type LoginFormLabels = {
   submitLabel: string;
 };
 
-export type LoginFormValidationMessages = {
-  usernameRequired: string;
-  usernameMinLength: string;
-  passwordRequired: string;
-};
-
-type LoginFormValues = {
-  username: string;
-  password: string;
-};
-
-const usernameId = 'login-username';
-const usernameErrorId = 'login-username-error';
-const passwordId = 'login-password';
-const passwordErrorId = 'login-password-error';
-
 export const LoginForm: FC<{
   labels: LoginFormLabels;
-  validation: LoginFormValidationMessages;
+  validation: LoginValidationMessages;
 }> = ({ labels, validation }) => {
-  const schema = useMemo(
-    () =>
-      z.object({
-        username: z.string().trim().min(1, validation.usernameRequired).min(3, validation.usernameMinLength),
-        password: z.string().min(1, validation.passwordRequired),
-      }),
-    [validation.usernameMinLength, validation.usernameRequired, validation.passwordRequired]
-  );
+  const usernameId = useId();
+  const usernameErrorId = `${usernameId}-error`;
+  const passwordId = useId();
+  const passwordErrorId = `${passwordId}-error`;
+
+  const schema = useMemo(() => createLoginSchema(validation), [validation]);
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(schema),
-    defaultValues: {
-      username: '',
-      password: '',
-    },
+    defaultValues: { username: '', password: '' },
     mode: 'onSubmit',
   });
 

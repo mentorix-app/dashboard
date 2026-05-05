@@ -8,6 +8,14 @@ const eslintConfig = defineConfig([
   ...nextVitals,
   ...nextTs,
   ...pluginQuery.configs['flat/recommended'],
+  {
+    rules: {
+      '@typescript-eslint/consistent-type-imports': [
+        'error',
+        { prefer: 'type-imports', fixStyle: 'inline-type-imports' },
+      ],
+    },
+  },
   prettier,
   // Override default ignores of eslint-config-next.
   globalIgnores([

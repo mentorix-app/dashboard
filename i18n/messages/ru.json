@@ -3,28 +3,16 @@
     "title": "Mentorix Dashboard",
     "description": "Админ-панель Mentorix: управление платформой."
   },
-  "Home": {
-    "logoAlt": "Логотип Next.js",
-    "heading": "Для начала отредактируйте файл page.tsx.",
-    "intro": "Нужна отправная точка или инструкции? Перейдите в",
-    "templates": "Шаблоны",
-    "or": "или в",
-    "learning": "Обучение",
-    "center": "центр.",
-    "deployAlt": "Логотип Vercel",
-    "deployNow": "Задеплоить",
-    "documentation": "Документация",
-    "rqDemoLink": "Демо TanStack Query"
+  "AppSidebar": {
+    "label": "Основная навигация",
+    "groups": {
+      "main": "Навигация"
+    },
+    "dashboard": "Главная",
+    "exercises": "Упражнения"
   },
-  "RqDemo": {
-    "backHome": "На главную",
-    "title": "Демо TanStack Query",
-    "refetch": "Обновить",
-    "refetching": "Обновление…",
-    "apiHint": "Публичный API: jsonplaceholder.typicode.com/posts/{id}",
-    "loading": "Загрузка…",
-    "errorFallback": "Что-то пошло не так",
-    "postMeta": "Пост id: {id} · userId: {userId}"
+  "AppHeader": {
+    "toggleSidebar": "Свернуть боковую панель"
   },
   "LanguageSwitcher": {
     "ru": "RU",
@@ -32,9 +20,29 @@
     "label": "Язык"
   },
   "ThemeSwitcher": {
-    "groupLabel": "Тема",
-    "light": "Светлая тема",
-    "dark": "Тёмная тема"
+    "label": "Тема",
+    "switchToLight": "Включить светлую тему",
+    "switchToDark": "Включить тёмную тему"
+  },
+  "Dashboard": {
+    "title": "Главная",
+    "overviewWidget": {
+      "title": "Обзор библиотеки",
+      "description": "Краткая сводка по вашим упражнениям.",
+      "valueLabel": "{count, plural, one {# упражнение} few {# упражнения} many {# упражнений} other {# упражнения}}"
+    }
+  },
+  "Exercises": {
+    "title": "Упражнения",
+    "searchPlaceholder": "Поиск упражнений",
+    "createNew": "Создать упражнение",
+    "selectAll": "Выбрать все упражнения",
+    "selectRow": "Выбрать {name}",
+    "empty": "Упражнения не найдены.",
+    "columns": {
+      "name": "Название",
+      "addedBy": "Добавил"
+    }
   },
   "Login": {
     "pageTitle": "Вход · Mentorix",

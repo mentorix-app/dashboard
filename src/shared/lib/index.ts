@@ -1,2 +1,2 @@
-export * from './theme-inline-script';
-export * from './utils';
+export * from './styles';
+export * from './theme';

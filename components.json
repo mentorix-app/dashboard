@@ -1,6 +1,6 @@
 {
   "$schema": "https://ui.shadcn.com/schema.json",
-  "style": "radix-vega",
+  "style": "new-york",
   "rsc": true,
   "tsx": true,
   "tailwind": {
@@ -13,10 +13,10 @@
   "iconLibrary": "lucide",
   "rtl": false,
   "aliases": {
-    "utils": "@/src/shared/lib/utils",
+    "utils": "@/src/shared/lib/styles/cn",
     "ui": "@/src/shared/ui",
     "lib": "@/src/shared/lib",
-    "hooks": "/src/shared/hooks"
+    "hooks": "@/src/shared/hooks"
   },
   "menuColor": "default",
   "menuAccent": "subtle",
