@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl';
 import { useExercises } from '@/src/entities/exercise';
 import { useDebouncedValue } from '@/src/shared/hooks';
 import { Typography } from '@/src/shared/ui';
-import { ExercisesTable } from '@/src/widgets/exercises-table';
+import { ExercisesTable } from '@/src/widgets/ExercisesTable';
 
 import { ExercisesToolbar } from './ExercisesToolbar';
 

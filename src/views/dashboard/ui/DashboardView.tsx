@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl';
 
 import { Typography } from '@/src/shared/ui';
-import { DashboardOverviewCard } from '@/src/widgets/dashboard-overview-card';
+import { DashboardOverviewCard } from '@/src/widgets/DashboardOverviewCard';
 
 export const DashboardView = () => {
   const t = useTranslations('Dashboard');

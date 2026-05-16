@@ -1,61 +1,37 @@
 'use client';
 
-import { zodResolver } from '@hookform/resolvers/zod';
-import { useId, useMemo, type FC } from 'react';
-import { Controller, useForm, type SubmitHandler } from 'react-hook-form';
-
+import { type FC } from 'react';
+import { Controller } from 'react-hook-form';
+import { Loader2 } from 'lucide-react';
+import { Link } from '@/i18n';
 import { Button, FormMessage, Input, Label } from '@/src/shared/ui';
-import { createLoginSchema, type LoginFormValues, type LoginValidationMessages } from '../model/schema';
+import { useLoginFormConfig } from './LoginForm.conf';
+import type { LoginFormProps } from './LoginForm.types';
 
-export type LoginFormLabels = {
-  usernameLabel: string;
-  usernamePlaceholder: string;
-  passwordLabel: string;
-  passwordPlaceholder: string;
-  submitLabel: string;
-};
-
-export const LoginForm: FC<{
-  labels: LoginFormLabels;
-  validation: LoginValidationMessages;
-}> = ({ labels, validation }) => {
-  const usernameId = useId();
-  const usernameErrorId = `${usernameId}-error`;
-  const passwordId = useId();
-  const passwordErrorId = `${passwordId}-error`;
-
-  const schema = useMemo(() => createLoginSchema(validation), [validation]);
-
-  const form = useForm<LoginFormValues>({
-    resolver: zodResolver(schema),
-    defaultValues: { username: '', password: '' },
-    mode: 'onSubmit',
-  });
-
-  const handleValidSubmit: SubmitHandler<LoginFormValues> = () => {
-    // Credentials will be sent to the API in a follow-up change.
-  };
+export const LoginForm: FC<LoginFormProps> = ({ labels, validation }) => {
+  const { emailId, emailErrorId, passwordId, passwordErrorId, successId, errorId, form, loginMutation, handleSubmit } =
+    useLoginFormConfig(validation);
 
   return (
-    <form className="flex flex-col gap-5" onSubmit={form.handleSubmit(handleValidSubmit)} noValidate>
+    <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
       <div className="flex flex-col gap-2">
         <Controller
-          name="username"
+          name="email"
           control={form.control}
           render={({ field, fieldState }) => (
             <>
-              <Label htmlFor={usernameId}>{labels.usernameLabel}</Label>
+              <Label htmlFor={emailId}>{labels.emailLabel}</Label>
               <Input
                 {...field}
-                id={usernameId}
-                type="text"
-                autoComplete="username"
-                placeholder={labels.usernamePlaceholder}
+                id={emailId}
+                type="email"
+                autoComplete="email"
+                placeholder={labels.emailPlaceholder}
                 aria-invalid={fieldState.invalid}
                 aria-required="true"
-                aria-describedby={fieldState.invalid ? usernameErrorId : undefined}
+                aria-describedby={fieldState.invalid ? emailErrorId : undefined}
               />
-              <FormMessage id={usernameErrorId} message={fieldState.error?.message} />
+              <FormMessage id={emailErrorId} message={fieldState.error?.message} />
             </>
           )}
         />
@@ -66,7 +42,15 @@ export const LoginForm: FC<{
           control={form.control}
           render={({ field, fieldState }) => (
             <>
-              <Label htmlFor={passwordId}>{labels.passwordLabel}</Label>
+              <div className="flex items-center justify-between">
+                <Label htmlFor={passwordId}>{labels.passwordLabel}</Label>
+                <Link
+                  href="/forgot-password"
+                  className="text-muted-foreground hover:text-foreground text-xs transition-colors"
+                >
+                  {labels.forgotPasswordLabel}
+                </Link>
+              </div>
               <Input
                 {...field}
                 id={passwordId}
@@ -82,9 +66,38 @@ export const LoginForm: FC<{
           )}
         />
       </div>
-      <Button className="w-full" type="submit" size="lg">
+      {loginMutation.isSuccess && (
+        <p
+          id={successId}
+          role="status"
+          aria-live="polite"
+          className="text-sm font-medium text-emerald-700 dark:text-emerald-400"
+        >
+          {labels.loginSuccessMessage}
+        </p>
+      )}
+      {loginMutation.isError && (
+        <FormMessage
+          id={errorId}
+          message={loginMutation.error instanceof Error ? loginMutation.error.message : labels.loginErrorFallback}
+        />
+      )}
+      <Button
+        className="w-full"
+        type="submit"
+        size="lg"
+        disabled={loginMutation.isPending}
+        aria-busy={loginMutation.isPending}
+      >
+        {loginMutation.isPending && <Loader2 className="animate-spin" />}
         {labels.submitLabel}
       </Button>
+      <p className="text-muted-foreground text-center text-sm">
+        {labels.newToMentorix}{' '}
+        <Link href="/signup" className="text-foreground font-medium underline-offset-4 hover:underline">
+          {labels.createAccountLabel}
+        </Link>
+      </p>
     </form>
   );
 };

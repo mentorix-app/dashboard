@@ -42,7 +42,7 @@
   --app-header-height: 56px;
   --app-content-px: 1.5rem;
   --app-content-py: 1.25rem;
-  --sidebar-width: 16rem;
+  --sidebar-width: 15rem;
   --sidebar-width-icon: 4.5rem;
 
   /* Typography font-size tokens (rem-relative, retune root font-size to scale globally). */

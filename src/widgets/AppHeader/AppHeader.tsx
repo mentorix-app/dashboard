@@ -3,8 +3,8 @@
 import { Suspense } from 'react';
 import { useTranslations } from 'next-intl';
 
-import { LanguageSwitcher } from '@/src/features/language-switcher';
-import { ThemeSwitcher } from '@/src/features/theme-switcher';
+import { LanguageSwitcher } from '@/src/features/LanguageSwitcher';
+import { ThemeSwitcher } from '@/src/features/ThemeSwitcher';
 import { SidebarTrigger } from '@/src/shared/ui';
 
 export const AppHeader = () => {

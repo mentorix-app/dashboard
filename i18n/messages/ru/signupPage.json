@@ -1,0 +1,19 @@
+{
+  "pageTitle": "Регистрация · Mentorix",
+  "metadataDescription": "Создайте аккаунт Mentorix.",
+  "heading": "Создайте аккаунт",
+  "emailLabel": "Электронная почта",
+  "emailPlaceholder": "Введите электронную почту",
+  "passwordLabel": "Пароль",
+  "passwordPlaceholder": "Введите пароль",
+  "submit": "Создать аккаунт",
+  "signupSuccess": "Аккаунт успешно создан.",
+  "signupErrorFallback": "Не удалось зарегистрироваться. Попробуйте ещё раз.",
+  "alreadyHaveAccount": "Уже есть аккаунт?",
+  "signIn": "Войти",
+  "validation": {
+    "emailRequired": "Укажите электронную почту.",
+    "emailInvalid": "Введите корректный адрес электронной почты.",
+    "passwordRequired": "Укажите пароль."
+  }
+}

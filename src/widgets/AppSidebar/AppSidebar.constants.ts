@@ -1,6 +1,7 @@
 import { Dumbbell, LayoutDashboard, type LucideIcon } from 'lucide-react';
+import { ROUTES } from '@/src/shared/lib';
 
-import type messages from '@/i18n/messages/en.json';
+import type messages from '@/i18n/messages/en';
 
 type AppSidebarMessages = (typeof messages)['AppSidebar'];
 
@@ -27,8 +28,8 @@ export const navGroups: SidebarNavGroup[] = [
     id: 'main',
     i18nKey: 'groups.main',
     items: [
-      { id: 'dashboard', i18nKey: 'dashboard', href: '/dashboard', icon: LayoutDashboard },
-      { id: 'exercises', i18nKey: 'exercises', href: '/exercises', icon: Dumbbell },
+      { id: 'dashboard', i18nKey: 'dashboard', href: ROUTES.dashboard, icon: LayoutDashboard },
+      { id: 'exercises', i18nKey: 'exercises', href: ROUTES.exercises, icon: Dumbbell },
     ],
   },
 ];

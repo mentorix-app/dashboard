@@ -1,0 +1,8 @@
+{
+  "title": "Dashboard",
+  "overviewWidget": {
+    "title": "Library overview",
+    "description": "Quick snapshot of your exercise library.",
+    "valueLabel": "{count, plural, one {# exercise} other {# exercises}}"
+  }
+}

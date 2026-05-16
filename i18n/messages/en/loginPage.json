@@ -1,0 +1,20 @@
+{
+  "pageTitle": "Sign in · Mentorix",
+  "metadataDescription": "Sign in to the Mentorix dashboard.",
+  "heading": "Sign in to Mentorix",
+  "emailLabel": "Email",
+  "emailPlaceholder": "Enter your email",
+  "passwordLabel": "Password",
+  "passwordPlaceholder": "Enter your password",
+  "forgotPassword": "Forgot password?",
+  "submit": "Sign in",
+  "newToMentorix": "New to Mentorix?",
+  "createAccount": "Create an account",
+  "loginSuccess": "Signed in successfully.",
+  "loginErrorFallback": "Sign in failed. Please try again.",
+  "validation": {
+    "emailRequired": "Email is required.",
+    "emailInvalid": "Enter a valid email address.",
+    "passwordRequired": "Password is required."
+  }
+}

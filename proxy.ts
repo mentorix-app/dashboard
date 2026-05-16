@@ -36,13 +36,25 @@ function localeFromPathname(pathname: string): string {
   return i18n.defaultLocale;
 }
 
+const LOCALE_PATTERN = /^[a-z]{2,3}$/;
+
 export default function proxy(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
+  const segments = pathname.split('/').filter(Boolean);
+  const firstSegment = segments[0] ?? '';
+  const validLocales = i18n.locales as readonly string[];
 
   if (pathnameIsMissingLocale(pathname)) {
     const locale = getLocale(request);
+
+    const hasInvalidLocalePrefix =
+      !!firstSegment && LOCALE_PATTERN.test(firstSegment) && !validLocales.includes(firstSegment);
+    const targetPath = hasInvalidLocalePrefix ? '/' + segments.slice(1).join('/') : pathname;
+
     const target =
-      pathname === '/' ? new URL(`/${locale}`, request.url) : new URL(`/${locale}${pathname}`, request.url);
+      !targetPath || targetPath === '/'
+        ? new URL(`/${locale}`, request.url)
+        : new URL(`/${locale}${targetPath}`, request.url);
     target.search = request.nextUrl.search;
     return NextResponse.redirect(target);
   }

@@ -1,6 +1,5 @@
 import { type ComponentPropsWithoutRef, type ElementType, type ReactNode } from 'react';
 import { cva, type VariantProps } from 'class-variance-authority';
-
 import { cn } from '@/src/shared/lib/styles';
 
 export const typographyVariants = cva('text-foreground font-sans', {

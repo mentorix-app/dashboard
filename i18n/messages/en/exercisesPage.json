@@ -1,0 +1,12 @@
+{
+  "title": "Exercises",
+  "searchPlaceholder": "Search exercises",
+  "createNew": "Create new exercise",
+  "selectAll": "Select all exercises",
+  "selectRow": "Select {name}",
+  "empty": "No exercises found.",
+  "columns": {
+    "name": "Name",
+    "addedBy": "Added by"
+  }
+}

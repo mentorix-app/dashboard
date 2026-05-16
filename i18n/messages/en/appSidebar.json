@@ -1,0 +1,8 @@
+{
+  "label": "Primary navigation",
+  "groups": {
+    "main": "Navigation"
+  },
+  "dashboard": "Dashboard",
+  "exercises": "Exercises"
+}

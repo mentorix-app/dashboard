@@ -1,0 +1,19 @@
+{
+  "pageTitle": "Create account · Mentorix",
+  "metadataDescription": "Create your Mentorix account.",
+  "heading": "Create your account",
+  "emailLabel": "Email",
+  "emailPlaceholder": "Enter your email",
+  "passwordLabel": "Password",
+  "passwordPlaceholder": "Enter your password",
+  "submit": "Create account",
+  "signupSuccess": "Account created successfully.",
+  "signupErrorFallback": "Registration failed. Please try again.",
+  "alreadyHaveAccount": "Already have an account?",
+  "signIn": "Sign in",
+  "validation": {
+    "emailRequired": "Email is required.",
+    "emailInvalid": "Enter a valid email address.",
+    "passwordRequired": "Password is required."
+  }
+}
