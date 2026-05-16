@@ -1,4 +1,4 @@
-export type { RegisterPayload } from './api/useRegister';
-export { useRegister } from './api/useRegister';
-export type { LoginPayload } from './api/useLogin';
-export { useLogin } from './api/useLogin';
+// Client-safe barrel. Server-only helpers (getSession, requireSession, etc.)
+// must be imported directly from '@/src/entities/auth/server/dal'.
+export { loginAction, signupAction, logoutAction } from './server/actions';
+export type { AuthCredentials, AuthActionResult } from './server/actions';

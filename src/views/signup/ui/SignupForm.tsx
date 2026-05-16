@@ -9,17 +9,8 @@ import { useSignupFormConfig } from './SignupForm.conf';
 import type { SignupFormProps } from './SignupForm.types';
 
 export const SignupForm: FC<SignupFormProps> = ({ labels, validation }) => {
-  const {
-    emailId,
-    emailErrorId,
-    passwordId,
-    passwordErrorId,
-    successId,
-    errorId,
-    form,
-    registerMutation,
-    handleSubmit,
-  } = useSignupFormConfig(validation);
+  const { emailId, emailErrorId, passwordId, passwordErrorId, errorId, form, isPending, serverError, handleSubmit } =
+    useSignupFormConfig(validation);
 
   return (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
@@ -67,32 +58,9 @@ export const SignupForm: FC<SignupFormProps> = ({ labels, validation }) => {
           )}
         />
       </div>
-      {registerMutation.isSuccess && (
-        <p
-          id={successId}
-          role="status"
-          aria-live="polite"
-          className="text-sm font-medium text-emerald-700 dark:text-emerald-400"
-        >
-          {labels.signupSuccessMessage}
-        </p>
-      )}
-      {registerMutation.isError && (
-        <FormMessage
-          id={errorId}
-          message={
-            registerMutation.error instanceof Error ? registerMutation.error.message : labels.signupErrorFallback
-          }
-        />
-      )}
-      <Button
-        className="w-full"
-        type="submit"
-        size="lg"
-        disabled={registerMutation.isPending}
-        aria-busy={registerMutation.isPending}
-      >
-        {registerMutation.isPending && <Loader2 className="animate-spin" />}
+      {serverError && <FormMessage id={errorId} message={serverError} />}
+      <Button className="w-full" type="submit" size="lg" disabled={isPending} aria-busy={isPending}>
+        {isPending && <Loader2 className="animate-spin" />}
         {labels.submitLabel}
       </Button>
       <p className="text-muted-foreground text-center text-sm">

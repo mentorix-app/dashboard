@@ -1,11 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useId, useMemo } from 'react';
+import { useId, useMemo, useState, useTransition } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
-import { useRegister } from '@/src/entities/auth';
-import { useRouter } from '@/i18n';
+import { signupAction } from '@/src/entities/auth';
 
 import { createSignupSchema, type SignupFormValues, type SignupValidationMessages } from '../model/schema';
 
@@ -13,10 +12,10 @@ export const useSignupFormConfig = (validation: SignupValidationMessages) => {
   const emailId = useId();
   const passwordId = useId();
   const feedbackId = useId();
-  const router = useRouter();
 
   const schema = useMemo(() => createSignupSchema(validation), [validation]);
-  const registerMutation = useRegister();
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(schema),
@@ -25,8 +24,11 @@ export const useSignupFormConfig = (validation: SignupValidationMessages) => {
   });
 
   const handleValidSubmit: SubmitHandler<SignupFormValues> = (values) => {
-    registerMutation.reset();
-    registerMutation.mutate(values, { onSuccess: () => router.push('/login') });
+    setServerError(null);
+    startTransition(async () => {
+      const result = await signupAction(values);
+      if (result?.error) setServerError(result.error);
+    });
   };
 
   return {
@@ -37,7 +39,8 @@ export const useSignupFormConfig = (validation: SignupValidationMessages) => {
     successId: `${feedbackId}-success`,
     errorId: `${feedbackId}-error`,
     form,
-    registerMutation,
+    isPending,
+    serverError,
     handleSubmit: form.handleSubmit(handleValidSubmit),
   };
 };

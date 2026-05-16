@@ -33,6 +33,18 @@ Start the development server:
 yarn dev
 ```
 
+### Environment variables
+
+Create a local `.env` file with:
+
+```bash
+NEXT_PUBLIC_APP_URL=http://localhost:3000
+NEXT_PUBLIC_MENTORIX_API_URL=https://mentorix-backend.onrender.com
+# 32-byte base64 secret used to sign the auth session JWT. Generate with:
+#   node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
+SESSION_SECRET=replace-me
+```
+
 Open [http://localhost:3000/ru](http://localhost:3000/ru) (Russian, default) or [http://localhost:3000/en](http://localhost:3000/en) (English). The root URL redirects to the default locale.
 
 Routes use a **locale prefix** (e.g. [http://localhost:3000/ru/rq-demo](http://localhost:3000/ru/rq-demo)). If you open a path without a locale (e.g. `/rq-demo`), [`proxy.ts`](proxy.ts) picks a locale from `Accept-Language` via [negotiator](https://www.npmjs.com/package/negotiator) and [@formatjs/intl-localematcher](https://www.npmjs.com/package/@formatjs/intl-localematcher), then redirects to `/{locale}{path}`.

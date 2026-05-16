@@ -7,25 +7,34 @@ import {
   type UseQueryOptions,
   type UseQueryResult,
 } from '@tanstack/react-query';
-import { MENTORIX_API_BASE_URL, TIMEOUT_MS } from './base.constants';
+
+import { BFF_BASE_URL, TIMEOUT_MS } from './base.constants';
 import { messageFromErrorBody } from './base.utils';
 
 // ---------------------------------------------------------------------------
 // Axios instance
 // ---------------------------------------------------------------------------
 
+/**
+ * Browser-side HTTP client. Always targets the local BFF (`/api/bff/*`),
+ * which attaches the bearer token from the HttpOnly session cookie before
+ * forwarding to the upstream backend. The access token never reaches JS.
+ */
 export const http: AxiosInstance = axios.create({
-  baseURL: MENTORIX_API_BASE_URL.replace(/\/$/, ''),
+  baseURL: BFF_BASE_URL,
   timeout: TIMEOUT_MS,
   headers: { 'Content-Type': 'application/json' },
+  withCredentials: true,
 });
-
-/** Stub for future auth wiring — attach `Authorization` from a token store here. */
-http.interceptors.request.use((config) => config);
 
 http.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
+    if (error.response?.status === 401 && typeof window !== 'undefined') {
+      // Session is gone or expired. A full reload lets proxy.ts redirect to
+      // /login with the correct locale prefix.
+      window.location.reload();
+    }
     const message = messageFromErrorBody(error.response?.data) ?? error.message;
     return Promise.reject(new HttpError(message, error));
   }

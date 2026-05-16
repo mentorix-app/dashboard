@@ -9,7 +9,7 @@ import { useLoginFormConfig } from './LoginForm.conf';
 import type { LoginFormProps } from './LoginForm.types';
 
 export const LoginForm: FC<LoginFormProps> = ({ labels, validation }) => {
-  const { emailId, emailErrorId, passwordId, passwordErrorId, successId, errorId, form, loginMutation, handleSubmit } =
+  const { emailId, emailErrorId, passwordId, passwordErrorId, errorId, form, isPending, serverError, handleSubmit } =
     useLoginFormConfig(validation);
 
   return (
@@ -66,30 +66,9 @@ export const LoginForm: FC<LoginFormProps> = ({ labels, validation }) => {
           )}
         />
       </div>
-      {loginMutation.isSuccess && (
-        <p
-          id={successId}
-          role="status"
-          aria-live="polite"
-          className="text-sm font-medium text-emerald-700 dark:text-emerald-400"
-        >
-          {labels.loginSuccessMessage}
-        </p>
-      )}
-      {loginMutation.isError && (
-        <FormMessage
-          id={errorId}
-          message={loginMutation.error instanceof Error ? loginMutation.error.message : labels.loginErrorFallback}
-        />
-      )}
-      <Button
-        className="w-full"
-        type="submit"
-        size="lg"
-        disabled={loginMutation.isPending}
-        aria-busy={loginMutation.isPending}
-      >
-        {loginMutation.isPending && <Loader2 className="animate-spin" />}
+      {serverError && <FormMessage id={errorId} message={serverError} />}
+      <Button className="w-full" type="submit" size="lg" disabled={isPending} aria-busy={isPending}>
+        {isPending && <Loader2 className="animate-spin" />}
         {labels.submitLabel}
       </Button>
       <p className="text-muted-foreground text-center text-sm">

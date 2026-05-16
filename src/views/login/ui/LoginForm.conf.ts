@@ -1,10 +1,10 @@
 'use client';
 
 import { zodResolver } from '@hookform/resolvers/zod';
-import { useId, useMemo } from 'react';
+import { useId, useMemo, useState, useTransition } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
-import { useLogin } from '@/src/entities/auth';
+import { loginAction } from '@/src/entities/auth';
 
 import { createLoginSchema, type LoginFormValues, type LoginValidationMessages } from '../model/schema';
 
@@ -14,7 +14,8 @@ export const useLoginFormConfig = (validation: LoginValidationMessages) => {
   const feedbackId = useId();
 
   const schema = useMemo(() => createLoginSchema(validation), [validation]);
-  const loginMutation = useLogin();
+  const [serverError, setServerError] = useState<string | null>(null);
+  const [isPending, startTransition] = useTransition();
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(schema),
@@ -23,8 +24,11 @@ export const useLoginFormConfig = (validation: LoginValidationMessages) => {
   });
 
   const handleValidSubmit: SubmitHandler<LoginFormValues> = (values) => {
-    loginMutation.reset();
-    loginMutation.mutate(values, { onSuccess: () => form.reset() });
+    setServerError(null);
+    startTransition(async () => {
+      const result = await loginAction(values);
+      if (result?.error) setServerError(result.error);
+    });
   };
 
   return {
@@ -35,7 +39,8 @@ export const useLoginFormConfig = (validation: LoginValidationMessages) => {
     successId: `${feedbackId}-success`,
     errorId: `${feedbackId}-error`,
     form,
-    loginMutation,
+    isPending,
+    serverError,
     handleSubmit: form.handleSubmit(handleValidSubmit),
   };
 };
