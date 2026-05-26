@@ -1,7 +1,6 @@
 'use client';
 
-import { useTranslations } from 'next-intl';
-
+import { useTranslations } from '@/i18n';
 import {
   Logo,
   Sidebar,
@@ -13,8 +12,7 @@ import {
   SidebarMenu,
   SidebarRail,
 } from '@/src/shared/ui';
-
-import { AppSidebarItem } from './AppSidebarItem';
+import { AppSidebarItem } from './ui/AppSidebarItem';
 import { navGroups } from './AppSidebar.constants';
 
 export const AppSidebar = () => {

@@ -1,6 +1,6 @@
 import { type ReactNode } from 'react';
 
-import { AuthFooter } from '@/src/widgets/AuthFooter';
+import { AuthFooter } from '@/src/widgets/AuthFooter/AuthFooter';
 import { HtmlLangSync } from '@/src/shared/ui';
 
 type Props = {

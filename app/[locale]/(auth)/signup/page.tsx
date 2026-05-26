@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 
 import { getTranslations } from '@/i18n/server';
-import { SignupPage } from '@/src/views/signup';
+import { Signup } from '@/src/views/signup/Signup';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -19,5 +19,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function SignupRoutePage({ params }: Props) {
   const { locale } = await params;
-  return <SignupPage locale={locale} />;
+  return <Signup locale={locale} />;
 }

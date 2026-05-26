@@ -1,8 +1,7 @@
 'use client';
 
 import { useMemo, type FC } from 'react';
-import { useTranslations } from 'next-intl';
-
+import { useTranslations } from '@/i18n';
 import type { Exercise } from '@/src/entities/exercise';
 import {
   Checkbox,

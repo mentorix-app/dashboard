@@ -1,12 +1,9 @@
 'use client';
 
 import { type FC } from 'react';
-import { useTranslations } from 'next-intl';
-
-import { Link, usePathname } from '@/i18n';
+import { Link, usePathname, useTranslations } from '@/i18n';
 import { SidebarMenuButton, SidebarMenuItem, Typography, useSidebar } from '@/src/shared/ui';
-
-import type { SidebarNavItem } from './AppSidebar.constants';
+import type { SidebarNavItem } from '../AppSidebar.types';
 
 type Props = {
   item: SidebarNavItem;

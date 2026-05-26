@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 
-import { LoginPage } from '@/src/views/login';
+import { Login } from '@/src/views/login/Login';
 import { getTranslations } from '@/i18n/server';
 
 type Props = {
@@ -19,5 +19,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function LoginRoutePage({ params }: Props) {
   const { locale } = await params;
-  return <LoginPage locale={locale} />;
+  return <Login locale={locale} />;
 }

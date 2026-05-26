@@ -1,8 +1,6 @@
 import { Suspense } from 'react';
-
-import { LanguageSwitcher } from '@/src/features/LanguageSwitcher';
-import { ThemeSwitcher } from '@/src/features/ThemeSwitcher';
-
+import { LanguageSwitcher } from '@/src/features/LanguageSwitcher/LanguageSwitcher';
+import { ThemeSwitcher } from '@/src/features/ThemeSwitcher/ThemeSwitcher';
 import { FOOTER_COPYRIGHT, FOOTER_LINKS } from './AuthFooter.constants';
 
 export const AuthFooter = () => (

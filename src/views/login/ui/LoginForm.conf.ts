@@ -3,9 +3,7 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useId, useMemo, useState, useTransition } from 'react';
 import { useForm, type SubmitHandler } from 'react-hook-form';
-
 import { loginAction } from '@/src/entities/auth';
-
 import { createLoginSchema, type LoginFormValues, type LoginValidationMessages } from '../model/schema';
 
 export const useLoginFormConfig = (validation: LoginValidationMessages) => {

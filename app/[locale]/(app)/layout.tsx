@@ -2,8 +2,8 @@ import { cookies } from 'next/headers';
 import { type ReactNode } from 'react';
 
 import { HtmlLangSync, SidebarInset, SidebarProvider } from '@/src/shared/ui';
-import { AppHeader } from '@/src/widgets/AppHeader';
-import { AppSidebar } from '@/src/widgets/AppSidebar';
+import { AppHeader } from '@/src/widgets/AppHeader/AppHeader';
+import { AppSidebar } from '@/src/widgets/AppSidebar/AppSidebar';
 
 const SIDEBAR_COOKIE = 'sidebar_state';
 

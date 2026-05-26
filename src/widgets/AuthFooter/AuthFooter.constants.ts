@@ -1,7 +1,4 @@
-export type FooterLink = {
-  label: string;
-  href: string;
-};
+import type { FooterLink } from './AuthFooter.types';
 
 export const FOOTER_LINKS: FooterLink[] = [
   { label: 'Privacy Policy', href: '/privacy' },

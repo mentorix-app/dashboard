@@ -1,5 +1,4 @@
-import { useTranslations } from 'next-intl';
-
+import { useTranslations } from '@/i18n';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, Typography } from '@/src/shared/ui';
 
 const MOCK_TOTAL_EXERCISES = 12;

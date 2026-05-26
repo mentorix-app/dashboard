@@ -1,14 +1,12 @@
 'use client';
 
 import { useCallback, useMemo, useState } from 'react';
-import { useTranslations } from 'next-intl';
-
+import { useTranslations } from '@/i18n';
 import { useExercises } from '@/src/entities/exercise';
 import { useDebouncedValue } from '@/src/shared/hooks';
 import { Typography } from '@/src/shared/ui';
-import { ExercisesTable } from '@/src/widgets/ExercisesTable';
-
-import { ExercisesToolbar } from './ExercisesToolbar';
+import { ExercisesTable } from '@/src/widgets/ExercisesTable/ExercisesTable';
+import { ExercisesToolbar } from './ui/ExercisesToolbar';
 
 const SEARCH_DEBOUNCE_MS = 300;
 

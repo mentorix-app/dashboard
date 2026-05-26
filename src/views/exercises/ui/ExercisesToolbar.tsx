@@ -2,7 +2,7 @@
 
 import { Plus, Search } from 'lucide-react';
 import { type FC } from 'react';
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/i18n';
 
 import { Button, Input } from '@/src/shared/ui';
 

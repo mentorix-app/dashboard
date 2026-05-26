@@ -1,12 +1,11 @@
 import { getTranslations } from '@/i18n/server';
+import { LoginForm } from './ui/LoginForm';
 
-import { LoginForm } from './LoginForm';
-
-type LoginPageProps = {
+type LoginProps = {
   locale: string;
 };
 
-export async function LoginPage({ locale }: LoginPageProps) {
+export async function Login({ locale }: LoginProps) {
   const t = await getTranslations('Login');
 
   return (

@@ -1,5 +1,4 @@
 import { NextResponse, type NextRequest } from 'next/server';
-
 import { MENTORIX_API_BASE_URL } from '@/src/shared/api';
 import { refreshSessionIfNeeded } from '@/src/entities/auth/server/dal';
 

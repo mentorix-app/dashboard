@@ -1,10 +1,9 @@
 'use client';
 
 import { Suspense } from 'react';
-import { useTranslations } from 'next-intl';
-
-import { LanguageSwitcher } from '@/src/features/LanguageSwitcher';
-import { ThemeSwitcher } from '@/src/features/ThemeSwitcher';
+import { useTranslations } from '@/i18n';
+import { LanguageSwitcher } from '@/src/features/LanguageSwitcher/LanguageSwitcher';
+import { ThemeSwitcher } from '@/src/features/ThemeSwitcher/ThemeSwitcher';
 import { SidebarTrigger } from '@/src/shared/ui';
 
 export const AppHeader = () => {

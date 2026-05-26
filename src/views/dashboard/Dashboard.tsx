@@ -1,9 +1,9 @@
-import { useTranslations } from 'next-intl';
+import { useTranslations } from '@/i18n';
 
 import { Typography } from '@/src/shared/ui';
-import { DashboardOverviewCard } from '@/src/widgets/DashboardOverviewCard';
+import { DashboardOverviewCard } from '@/src/widgets/DashboardOverviewCard/DashboardOverviewCard';
 
-export const DashboardView = () => {
+export const Dashboard = () => {
   const t = useTranslations('Dashboard');
 
   return (
