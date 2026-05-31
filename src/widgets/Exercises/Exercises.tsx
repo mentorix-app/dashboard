@@ -4,6 +4,7 @@ import { type FC } from 'react';
 import { useTranslations } from '@/i18n';
 import { ConfirmationModal } from '@/src/shared/ui';
 import { useExercisesConfig } from './Exercises.conf';
+import { ExerciseForm } from './ui/ExerciseForm';
 import { ExercisesTable } from './ui/ExercisesTable/ExercisesTable';
 import { ExercisesToolbar } from './ui/ExercisesToolbar/ExercisesToolbar';
 
@@ -22,9 +23,11 @@ export const Exercises: FC = () => {
     selectedExercises,
     isDeleteDialogOpen,
     isDeleting,
+    isFormOpen,
     handleSearchChange,
     handleFiltersOpenChange,
     handleCreateNew,
+    handleFormOpenChange,
     handleToggleRow,
     handleToggleAllVisible,
     handleTypeFilterChange,
@@ -86,6 +89,7 @@ export const Exercises: FC = () => {
         onOpenChange={handleDeleteDialogOpenChange}
         onConfirm={handleConfirmDelete}
       />
+      <ExerciseForm open={isFormOpen} onOpenChange={handleFormOpenChange} />
     </>
   );
 };

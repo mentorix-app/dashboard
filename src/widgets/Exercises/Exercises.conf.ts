@@ -12,7 +12,8 @@ import { useExercisesSort } from './hooks/useExercisesSort';
 
 export const useExercisesConfig = (): ExercisesConfig => {
   const [filtersOpen, setFiltersOpen] = useState(false);
-  const handleCreateNew = useCallback(() => undefined, []);
+  const [isFormOpen, setIsFormOpen] = useState(false);
+  const handleCreateNew = useCallback(() => setIsFormOpen(true), []);
   const search = useExercisesSearch();
   const list = useExercisesList(search.listParams);
   const filters = useExercisesFilters(search);
@@ -37,9 +38,11 @@ export const useExercisesConfig = (): ExercisesConfig => {
     selectedExercises: selection.selectedExercises,
     isDeleteDialogOpen: deletion.isDeleteDialogOpen,
     isDeleting: deletion.isDeleting,
+    isFormOpen,
     handleSearchChange: search.handleSearchChange,
     handleFiltersOpenChange: setFiltersOpen,
     handleCreateNew,
+    handleFormOpenChange: setIsFormOpen,
     handleToggleRow: selection.handleToggleRow,
     handleToggleAllVisible: selection.handleToggleAllVisible,
     handleTypeFilterChange: filters.handleTypeFilterChange,

@@ -5,7 +5,7 @@ import { X } from 'lucide-react';
 import { useTranslations } from '@/i18n';
 import { Button } from '@/src/shared/ui';
 
-import type { ExercisesFilterChipsProps } from './ExercisesToolbar/ExercisesToolbar.types';
+import type { ExercisesFilterChipsProps } from '../ExercisesToolbar/ExercisesToolbar.types';
 
 export const ExercisesFilterChips: FC<ExercisesFilterChipsProps> = ({
   listParams,

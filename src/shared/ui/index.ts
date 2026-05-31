@@ -15,5 +15,7 @@ export * from './Sheet';
 export * from './Sidebar';
 export * from './Skeleton';
 export * from './Table';
+export * from './Tabs';
+export * from './Textarea';
 export * from './Tooltip';
 export * from './Typography';

@@ -6,17 +6,21 @@ import {
   type Exercise,
 } from '../model/types';
 import type {
+  CreateExerciseParams,
   DeleteExercisesParams,
   DeleteExercisesResponse,
   FetchExercisesParams,
   FetchExercisesResponse,
 } from './exercises.types';
 import { filterExercisesByName } from './exercises.utils';
+import { EXERCISE_RU } from './exercises.ru';
 
 const MOCK_DELAY_MS = 400;
 const MOCK_EXERCISES_COUNT = 120;
 
-const seedExercises: Exercise[] = [
+type SeedExercise = Omit<Exercise, 'nameRu' | 'descriptionRu'>;
+
+const seedExercisesBase: SeedExercise[] = [
   {
     id: 'ex-001',
     name: 'Back Squat',
@@ -467,6 +471,11 @@ const seedExercises: Exercise[] = [
   },
 ];
 
+const seedExercises: Exercise[] = seedExercisesBase.map((exercise) => ({
+  ...exercise,
+  ...(EXERCISE_RU[exercise.id] ?? { nameRu: exercise.name, descriptionRu: exercise.description }),
+}));
+
 const getSeedExercise = (index: number): Exercise => {
   const exercise = seedExercises[index % seedExercises.length];
   if (exercise) return exercise;
@@ -486,6 +495,7 @@ const mockExercises: Exercise[] = Array.from({ length: MOCK_EXERCISES_COUNT }, (
     ...base,
     id: `ex-${String(index + 1).padStart(3, '0')}`,
     name: `${base.name} ${copyNumber}`,
+    nameRu: `${base.nameRu} ${copyNumber}`,
     modifiedAt: modifiedAt.toISOString(),
     videoUrl: `${base.videoUrl}?variant=${copyNumber}`,
     previewImageUrl: `${base.previewImageUrl}?variant=${copyNumber}`,
@@ -515,3 +525,18 @@ export const deleteExercises = ({ ids }: DeleteExercisesParams): Promise<DeleteE
   new Promise((resolve) => {
     setTimeout(() => resolve({ deletedIds: ids }), MOCK_DELAY_MS);
   });
+
+export const createExercise = (params: CreateExerciseParams): Promise<Exercise> => {
+  const created: Exercise = {
+    ...params,
+    id: `ex-${Date.now()}`,
+    addedBy: 'You',
+    modifiedBy: 'You',
+    modifiedAt: new Date().toISOString(),
+  };
+  mockExercises.unshift(created);
+
+  return new Promise((resolve) => {
+    setTimeout(() => resolve(created), MOCK_DELAY_MS);
+  });
+};

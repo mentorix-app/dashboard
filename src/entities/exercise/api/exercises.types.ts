@@ -37,3 +37,7 @@ export type DeleteExercisesParams = {
 export type DeleteExercisesResponse = {
   deletedIds: string[];
 };
+
+export type CreateExerciseParams = Omit<Exercise, 'id' | 'addedBy' | 'modifiedBy' | 'modifiedAt'>;
+
+export type CreateExerciseResponse = Exercise;

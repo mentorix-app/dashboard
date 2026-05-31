@@ -2,8 +2,8 @@
 
 import { useInfiniteQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { queryKeys } from '@/src/shared/api';
-import { deleteExercises, fetchExercises } from './exercises.mock';
-import type { DeleteExercisesParams, FetchExercisesListParams } from './exercises.types';
+import { createExercise, deleteExercises, fetchExercises } from './exercises.mock';
+import type { CreateExerciseParams, DeleteExercisesParams, FetchExercisesListParams } from './exercises.types';
 
 const INITIAL_EXERCISES_LIMIT = 30;
 const NEXT_EXERCISES_LIMIT = 20;
@@ -26,6 +26,15 @@ export const useDeleteExercises = () => {
 
   return useMutation({
     mutationFn: (params: DeleteExercisesParams) => deleteExercises(params),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.exercises.all }),
+  });
+};
+
+export const useCreateExercise = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (params: CreateExerciseParams) => createExercise(params),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.exercises.all }),
   });
 };

@@ -22,9 +22,11 @@ export type ExercisesConfig = {
   selectedExercises: Exercise[];
   isDeleteDialogOpen: boolean;
   isDeleting: boolean;
+  isFormOpen: boolean;
   handleSearchChange: (value: string) => void;
   handleFiltersOpenChange: (open: boolean) => void;
   handleCreateNew: () => void;
+  handleFormOpenChange: (open: boolean) => void;
   handleToggleRow: (id: string) => void;
   handleToggleAllVisible: () => void;
   handleTypeFilterChange: (value: ExerciseType, checked: boolean) => void;

@@ -77,5 +77,31 @@
     "intermediate": "Средний",
     "advanced": "Продвинутый",
     "expert": "Эксперт"
+  },
+  "form": {
+    "title": "Создать упражнение",
+    "description": "Заполните поля ниже, чтобы добавить новое упражнение.",
+    "name": "Название",
+    "namePlaceholder": "Название упражнения",
+    "localeEn": "Английский",
+    "localeRu": "Русский",
+    "type": "Тип",
+    "muscleGroup": "Группа мышц",
+    "equipmentOptional": "Оборудование (необязательно)",
+    "difficulty": "Сложность",
+    "selectPlaceholder": "Выберите вариант",
+    "descriptionLabel": "Описание",
+    "descriptionPlaceholder": "Опишите, как выполнять упражнение",
+    "videoUrl": "Ссылка на видео",
+    "previewImageUrl": "Ссылка на изображение",
+    "urlPlaceholder": "https://example.com",
+    "submit": "Создать упражнение",
+    "cancel": "Отмена",
+    "validation": {
+      "nameMin": "Название должно содержать не менее 2 символов.",
+      "descriptionMin": "Описание должно содержать не менее 10 символов.",
+      "selectRequired": "Пожалуйста, выберите вариант.",
+      "urlInvalid": "Пожалуйста, введите корректную ссылку."
+    }
   }
 }

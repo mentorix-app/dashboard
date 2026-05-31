@@ -50,13 +50,15 @@ export enum ExerciseDifficulty {
 export type Exercise = {
   id: string;
   name: string;
+  nameRu: string;
   addedBy: string;
   modifiedBy: string;
   modifiedAt: string;
-  equipment: ExerciseEquipment;
+  equipment?: ExerciseEquipment;
   type: ExerciseType;
   muscleGroup: ExerciseMuscleGroup;
   description: string;
+  descriptionRu: string;
   difficulty: ExerciseDifficulty;
   videoUrl: string;
   previewImageUrl: string;

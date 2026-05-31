@@ -14,6 +14,6 @@ export const filterExercisesByName = (exercises: Exercise[], name?: string): Exe
       exercise.type,
       exercise.muscleGroup,
       exercise.difficulty,
-    ].some((value) => value.toLowerCase().includes(term))
+    ].some((value) => value?.toLowerCase().includes(term))
   );
 };

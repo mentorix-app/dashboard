@@ -77,5 +77,31 @@
     "intermediate": "Intermediate",
     "advanced": "Advanced",
     "expert": "Expert"
+  },
+  "form": {
+    "title": "Create new exercise",
+    "description": "Fill in the details below to add a new exercise.",
+    "name": "Name",
+    "namePlaceholder": "Exercise name",
+    "localeEn": "English",
+    "localeRu": "Russian",
+    "type": "Type",
+    "muscleGroup": "Muscle group",
+    "equipmentOptional": "Equipment (optional)",
+    "difficulty": "Difficulty",
+    "selectPlaceholder": "Select an option",
+    "descriptionLabel": "Description",
+    "descriptionPlaceholder": "Describe how to perform the exercise",
+    "videoUrl": "Video URL",
+    "previewImageUrl": "Preview image URL",
+    "urlPlaceholder": "https://example.com",
+    "submit": "Create exercise",
+    "cancel": "Cancel",
+    "validation": {
+      "nameMin": "Name must be at least 2 characters.",
+      "descriptionMin": "Description must be at least 10 characters.",
+      "selectRequired": "Please select an option.",
+      "urlInvalid": "Please enter a valid URL."
+    }
   }
 }

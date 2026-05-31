@@ -9,8 +9,8 @@ import {
   EXERCISE_EQUIPMENT_OPTIONS,
   EXERCISE_MUSCLE_GROUP_OPTIONS,
   EXERCISE_TYPE_OPTIONS,
-} from '../Exercises.constants';
-import type { ExercisesFilterPanelProps } from './ExercisesToolbar/ExercisesToolbar.types';
+} from '../../Exercises.constants';
+import type { ExercisesFilterPanelProps } from '../ExercisesToolbar/ExercisesToolbar.types';
 
 type FilterSectionProps<T extends string> = {
   title: string;
