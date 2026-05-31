@@ -7,6 +7,55 @@
   "empty": "Упражнения не найдены.",
   "columns": {
     "name": "Название",
-    "addedBy": "Кем добавлено"
+    "type": "Тип",
+    "muscleGroup": "Группа мышц",
+    "equipment": "Оборудование",
+    "difficulty": "Сложность",
+    "modifiedAt": "Изменено"
+  },
+  "types": {
+    "strength": "Сила",
+    "cardio": "Кардио",
+    "mixed-modal": "Смешанный формат",
+    "intervals": "Интервалы",
+    "stretching": "Растяжка",
+    "metcon": "Меткон",
+    "skill-work": "Навык",
+    "accessory": "Вспомогательное"
+  },
+  "muscleGroups": {
+    "compound": "Комплексное",
+    "chest": "Грудь",
+    "back": "Спина",
+    "legs": "Ноги",
+    "shoulders": "Плечи",
+    "arms": "Руки",
+    "core": "Кор",
+    "full-body": "Все тело"
+  },
+  "equipment": {
+    "barbell": "Штанга",
+    "dumbbells": "Гантели",
+    "kettlebell": "Гиря",
+    "pull-up-bar": "Турник",
+    "squat-rack": "Стойка для приседа",
+    "rowing-machine": "Гребной тренажер",
+    "assault-bike": "Assault bike",
+    "jump-rope": "Скакалка",
+    "plyo-box": "Плио-бокс",
+    "medicine-ball": "Медбол",
+    "wall-ball": "Wall ball",
+    "resistance-bands": "Резиновые петли",
+    "battle-ropes": "Канаты",
+    "gymnastic-rings": "Гимнастические кольца",
+    "sandbag": "Сэндбэг",
+    "sled": "Сани",
+    "weight-plates": "Блины"
+  },
+  "difficulty": {
+    "beginner": "Начальный",
+    "intermediate": "Средний",
+    "advanced": "Продвинутый",
+    "expert": "Эксперт"
   }
 }

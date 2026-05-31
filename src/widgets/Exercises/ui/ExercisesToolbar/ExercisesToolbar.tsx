@@ -1,18 +1,13 @@
 'use client';
 
-import { Plus, Search } from 'lucide-react';
 import { type FC } from 'react';
+import { Plus, Search } from 'lucide-react';
 import { useTranslations } from '@/i18n';
-
 import { Button, Input } from '@/src/shared/ui';
 
-type Props = {
-  search: string;
-  onSearchChange: (value: string) => void;
-  onCreateNew: () => void;
-};
+import type { ExercisesToolbarProps } from './ExercisesToolbar.types';
 
-export const ExercisesToolbar: FC<Props> = ({ search, onSearchChange, onCreateNew }) => {
+export const ExercisesToolbar: FC<ExercisesToolbarProps> = ({ search, onSearchChange, onCreateNew }) => {
   const t = useTranslations('Exercises');
 
   return (
