@@ -4,46 +4,69 @@ import { type FC } from 'react';
 import { Table, TableBody } from '@/src/shared/ui';
 
 import { useExercisesTableConfig } from './ExercisesTable.conf';
+import { NEXT_PAGE_SKELETON_ROW_COUNT, SKELETON_ROW_COUNT, TABLE_COLUMN_COUNT } from './ExercisesTable.constants';
 import type { ExercisesTableProps } from './ExercisesTable.types';
 import { ExercisesTableEmpty } from './ui/ExercisesTableEmpty';
 import { ExercisesTableHeader } from './ui/ExercisesTableHeader';
+import { ExercisesTableLoadMore } from './ui/ExercisesTableLoadMore';
 import { ExercisesTableLoading } from './ui/ExercisesTableLoading';
 import { ExercisesTableRow } from './ui/ExercisesTableRow';
-
-const SKELETON_ROW_COUNT = 5;
-const TABLE_COLUMN_COUNT = 7;
 
 export const ExercisesTable: FC<ExercisesTableProps> = ({
   exercises,
   isLoading,
+  isFetchingNextPage,
+  hasNextPage,
   selectedIds,
+  sortBy,
+  sortOrder,
   onToggleRow,
-  onToggleAll,
+  onToggleAllVisible,
+  onSortChange,
+  onLoadMore,
 }) => {
-  const { allSelected, someSelected, isSelectionDisabled } = useExercisesTableConfig({ exercises, selectedIds });
+  const { selectedState, isSelectionDisabled } = useExercisesTableConfig({
+    exercises,
+    isLoading,
+    isFetchingNextPage,
+    hasNextPage,
+    selectedIds,
+    sortBy,
+    sortOrder,
+    onToggleRow,
+    onToggleAllVisible,
+    onSortChange,
+    onLoadMore,
+  });
 
   return (
-    <Table>
-      <ExercisesTableHeader
-        allSelected={allSelected}
-        someSelected={someSelected}
-        isSelectionDisabled={isSelectionDisabled}
-        onToggleAll={onToggleAll}
-      />
-      <TableBody>
-        {isLoading ? <ExercisesTableLoading rowCount={SKELETON_ROW_COUNT} /> : null}
-        {!isLoading && exercises?.length === 0 ? <ExercisesTableEmpty colSpan={TABLE_COLUMN_COUNT} /> : null}
-        {!isLoading
-          ? exercises?.map((exercise) => (
-              <ExercisesTableRow
-                key={exercise.id}
-                exercise={exercise}
-                isSelected={selectedIds.has(exercise.id)}
-                onToggleRow={onToggleRow}
-              />
-            ))
-          : null}
-      </TableBody>
-    </Table>
+    <>
+      <Table>
+        <ExercisesTableHeader
+          sortBy={sortBy}
+          sortOrder={sortOrder}
+          selectedState={selectedState}
+          isSelectionDisabled={isSelectionDisabled}
+          onToggleAllVisible={onToggleAllVisible}
+          onSortChange={onSortChange}
+        />
+        <TableBody>
+          {isLoading ? <ExercisesTableLoading rowCount={SKELETON_ROW_COUNT} /> : null}
+          {!isLoading && exercises.length === 0 ? <ExercisesTableEmpty colSpan={TABLE_COLUMN_COUNT} /> : null}
+          {!isLoading
+            ? exercises.map((exercise) => (
+                <ExercisesTableRow
+                  key={exercise.id}
+                  exercise={exercise}
+                  isSelected={selectedIds.has(exercise.id)}
+                  onToggleRow={onToggleRow}
+                />
+              ))
+            : null}
+          {isFetchingNextPage ? <ExercisesTableLoading rowCount={NEXT_PAGE_SKELETON_ROW_COUNT} /> : null}
+        </TableBody>
+      </Table>
+      <ExercisesTableLoadMore disabled={!hasNextPage || isFetchingNextPage || isLoading} onLoadMore={onLoadMore} />
+    </>
   );
 };

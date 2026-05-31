@@ -2,9 +2,29 @@
   "title": "Упражнения",
   "searchPlaceholder": "Поиск упражнений",
   "createNew": "Создать упражнение",
+  "deleteSelected": "Удалить выбранные ({count})",
   "selectAll": "Выбрать все упражнения",
   "selectRow": "Выбрать {name}",
   "empty": "Упражнения не найдены.",
+  "filters": {
+    "show": "Показать фильтры",
+    "hide": "Скрыть фильтры",
+    "clearAll": "Очистить все",
+    "type": "Тип",
+    "muscleGroup": "Группа мышц",
+    "equipment": "Оборудование",
+    "difficulty": "Сложность"
+  },
+  "sort": {
+    "change": "Изменить сортировку по полю {column}"
+  },
+  "deleteConfirm": {
+    "title": "Удалить выбранные упражнения?",
+    "description": "Будут отправлены id выбранных упражнений в API: {names}. Количество: {count}.",
+    "selectedItems": "выбранные элементы",
+    "cancel": "Отмена",
+    "confirm": "Удалить"
+  },
   "columns": {
     "name": "Название",
     "type": "Тип",

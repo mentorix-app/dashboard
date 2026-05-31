@@ -1,56 +1,56 @@
 'use client';
 
-import { useCallback, useMemo, useState } from 'react';
-import { useExercises } from '@/src/entities/exercise';
-import { useDebouncedValue } from '@/src/shared/hooks';
+import { useCallback, useState } from 'react';
 
 import type { ExercisesConfig } from './Exercises.types';
-
-const SEARCH_DEBOUNCE_MS = 300;
+import { useExercisesDeletion } from './hooks/useExercisesDeletion';
+import { useExercisesFilters } from './hooks/useExercisesFilters';
+import { useExercisesList } from './hooks/useExercisesList';
+import { useExercisesSearch } from './hooks/useExercisesSearch';
+import { useExercisesSelection } from './hooks/useExercisesSelection';
+import { useExercisesSort } from './hooks/useExercisesSort';
 
 export const useExercisesConfig = (): ExercisesConfig => {
-  const [search, setSearch] = useState('');
-  const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
-  const debouncedSearch = useDebouncedValue(search, SEARCH_DEBOUNCE_MS);
-  const { data: exercises, isPending } = useExercises({ search: debouncedSearch || undefined });
-
-  const handleToggleRow = useCallback((id: string) => {
-    setSelectedIds((current) => {
-      const next = new Set(current);
-      if (next.has(id)) {
-        next.delete(id);
-        return next;
-      }
-
-      next.add(id);
-      return next;
-    });
-  }, []);
-
-  const handleToggleAll = useCallback(
-    (shouldSelectAll: boolean) => {
-      if (!exercises) return;
-
-      setSelectedIds(shouldSelectAll ? new Set(exercises.map((exercise) => exercise.id)) : new Set());
-    },
-    [exercises]
-  );
-
+  const [filtersOpen, setFiltersOpen] = useState(false);
   const handleCreateNew = useCallback(() => undefined, []);
-
-  const visibleSelected = useMemo(
-    () => new Set(Array.from(selectedIds).filter((id) => exercises?.some((exercise) => exercise.id === id))),
-    [selectedIds, exercises]
-  );
+  const search = useExercisesSearch();
+  const list = useExercisesList(search.listParams);
+  const filters = useExercisesFilters(search);
+  const sort = useExercisesSort(search);
+  const selection = useExercisesSelection(list.exercises);
+  const deletion = useExercisesDeletion({
+    exercises: list.exercises,
+    selectedIds: selection.selectedIds,
+    setSelectedIds: selection.setSelectedIds,
+  });
 
   return {
-    search,
-    exercises,
-    isPending,
-    visibleSelected,
-    handleSearchChange: setSearch,
+    search: search.search,
+    filtersOpen,
+    listParams: search.listParams,
+    exercises: list.exercises,
+    isPending: list.isPending,
+    isFetchingNextPage: list.isFetchingNextPage,
+    hasNextPage: list.hasNextPage,
+    activeFilterCount: filters.activeFilterCount,
+    visibleSelected: selection.visibleSelected,
+    selectedExercises: selection.selectedExercises,
+    isDeleteDialogOpen: deletion.isDeleteDialogOpen,
+    isDeleting: deletion.isDeleting,
+    handleSearchChange: search.handleSearchChange,
+    handleFiltersOpenChange: setFiltersOpen,
     handleCreateNew,
-    handleToggleRow,
-    handleToggleAll,
+    handleToggleRow: selection.handleToggleRow,
+    handleToggleAllVisible: selection.handleToggleAllVisible,
+    handleTypeFilterChange: filters.handleTypeFilterChange,
+    handleMuscleGroupFilterChange: filters.handleMuscleGroupFilterChange,
+    handleEquipmentFilterChange: filters.handleEquipmentFilterChange,
+    handleDifficultyFilterChange: filters.handleDifficultyFilterChange,
+    handleClearFilters: filters.handleClearFilters,
+    handleSortChange: sort.handleSortChange,
+    handleLoadMore: list.handleLoadMore,
+    handleDeleteClick: deletion.handleDeleteClick,
+    handleDeleteDialogOpenChange: deletion.handleDeleteDialogOpenChange,
+    handleConfirmDelete: deletion.handleConfirmDelete,
   };
 };

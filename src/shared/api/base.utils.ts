@@ -10,7 +10,7 @@ export const queryKeys = {
   },
   exercises: {
     all: [QUERY_KEY_EXERCISES] as const,
-    list: (params: { search?: string }) => [...queryKeys.exercises.all, 'list', params] as const,
+    list: (params: object) => [...queryKeys.exercises.all, 'list', params] as const,
   },
 } as const;
 

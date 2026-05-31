@@ -1,7 +1,7 @@
 import type { Exercise } from '../model/types';
 
-export const filterExercisesBySearch = (exercises: Exercise[], search?: string): Exercise[] => {
-  const term = search?.trim().toLowerCase() ?? '';
+export const filterExercisesByName = (exercises: Exercise[], name?: string): Exercise[] => {
+  const term = name?.trim().toLowerCase() ?? '';
   if (!term) return exercises;
 
   return exercises.filter((exercise) =>

@@ -1,26 +1,19 @@
-'use client';
-
 import { useMemo } from 'react';
 
-import type { ExercisesTableConfig, ExercisesTableConfigParams } from './ExercisesTable.types';
+import type { ExercisesTableConfig, ExercisesTableProps } from './ExercisesTable.types';
 
 export const useExercisesTableConfig = ({
   exercises,
+  isLoading,
   selectedIds,
-}: ExercisesTableConfigParams): ExercisesTableConfig => {
-  const allSelected = useMemo(
-    () => Boolean(exercises?.length) && (exercises?.every((exercise) => selectedIds.has(exercise.id)) ?? false),
+}: ExercisesTableProps): ExercisesTableConfig => {
+  const selectedCount = useMemo(
+    () => exercises.filter((exercise) => selectedIds.has(exercise.id)).length,
     [exercises, selectedIds]
   );
 
-  const someSelected = useMemo(
-    () => (exercises?.some((exercise) => selectedIds.has(exercise.id)) ?? false) && !allSelected,
-    [exercises, selectedIds, allSelected]
-  );
-
   return {
-    allSelected,
-    someSelected,
-    isSelectionDisabled: !exercises?.length,
+    selectedState: selectedCount === 0 ? false : selectedCount === exercises.length ? true : 'indeterminate',
+    isSelectionDisabled: exercises.length === 0 || isLoading,
   };
 };

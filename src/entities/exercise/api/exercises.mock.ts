@@ -5,12 +5,18 @@ import {
   ExerciseType,
   type Exercise,
 } from '../model/types';
-import type { FetchExercisesParams } from './exercises.types';
-import { filterExercisesBySearch } from './exercises.utils';
+import type {
+  DeleteExercisesParams,
+  DeleteExercisesResponse,
+  FetchExercisesParams,
+  FetchExercisesResponse,
+} from './exercises.types';
+import { filterExercisesByName } from './exercises.utils';
 
 const MOCK_DELAY_MS = 400;
+const MOCK_EXERCISES_COUNT = 120;
 
-const mockExercises: Exercise[] = [
+const seedExercises: Exercise[] = [
   {
     id: 'ex-001',
     name: 'Back Squat',
@@ -461,10 +467,51 @@ const mockExercises: Exercise[] = [
   },
 ];
 
-export const fetchExercises = ({ search }: FetchExercisesParams = {}): Promise<Exercise[]> => {
-  const result = filterExercisesBySearch(mockExercises, search);
+const getSeedExercise = (index: number): Exercise => {
+  const exercise = seedExercises[index % seedExercises.length];
+  if (exercise) return exercise;
+
+  throw new Error('Exercise seed data is empty.');
+};
+
+const mockExercises: Exercise[] = Array.from({ length: MOCK_EXERCISES_COUNT }, (_, index) => {
+  const base = getSeedExercise(index);
+  if (index < seedExercises.length) return base;
+
+  const copyNumber = Math.floor(index / seedExercises.length) + 1;
+  const modifiedAt = new Date(base.modifiedAt);
+  modifiedAt.setDate(modifiedAt.getDate() - index);
+
+  return {
+    ...base,
+    id: `ex-${String(index + 1).padStart(3, '0')}`,
+    name: `${base.name} ${copyNumber}`,
+    modifiedAt: modifiedAt.toISOString(),
+    videoUrl: `${base.videoUrl}?variant=${copyNumber}`,
+    previewImageUrl: `${base.previewImageUrl}?variant=${copyNumber}`,
+  };
+});
+
+export const fetchExercises = ({
+  name,
+  cursor = 0,
+  limit = 30,
+}: FetchExercisesParams = {}): Promise<FetchExercisesResponse> => {
+  const filtered = filterExercisesByName(mockExercises, name);
+  const items = filtered.slice(cursor, cursor + limit);
+  const nextCursor = cursor + limit < filtered.length ? cursor + limit : null;
+  const result = {
+    items,
+    nextCursor,
+    total: filtered.length,
+  };
 
   return new Promise((resolve) => {
     setTimeout(() => resolve(result), MOCK_DELAY_MS);
   });
 };
+
+export const deleteExercises = ({ ids }: DeleteExercisesParams): Promise<DeleteExercisesResponse> =>
+  new Promise((resolve) => {
+    setTimeout(() => resolve({ deletedIds: ids }), MOCK_DELAY_MS);
+  });

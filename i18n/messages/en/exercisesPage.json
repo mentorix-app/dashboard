@@ -2,9 +2,29 @@
   "title": "Exercises",
   "searchPlaceholder": "Search exercises",
   "createNew": "Create new exercise",
+  "deleteSelected": "Delete selected ({count})",
   "selectAll": "Select all exercises",
   "selectRow": "Select {name}",
   "empty": "No exercises found.",
+  "filters": {
+    "show": "Show filters",
+    "hide": "Hide filters",
+    "clearAll": "Clear all",
+    "type": "Type",
+    "muscleGroup": "Muscle group",
+    "equipment": "Equipment",
+    "difficulty": "Difficulty"
+  },
+  "sort": {
+    "change": "Change sorting by {column}"
+  },
+  "deleteConfirm": {
+    "title": "Delete selected exercises?",
+    "description": "This will send {count} selected exercise ids to the API: {names}.",
+    "selectedItems": "selected items",
+    "cancel": "Cancel",
+    "confirm": "Delete"
+  },
   "columns": {
     "name": "Name",
     "type": "Type",

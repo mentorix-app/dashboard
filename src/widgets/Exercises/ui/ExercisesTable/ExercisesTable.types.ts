@@ -1,27 +1,29 @@
-import type { Exercise } from '@/src/entities/exercise';
+import type { Exercise, ExerciseSortField, ExerciseSortOrder } from '@/src/entities/exercise';
 
 export type ExercisesTableProps = {
-  exercises: Exercise[] | undefined;
+  exercises: Exercise[];
   isLoading: boolean;
+  isFetchingNextPage: boolean;
+  hasNextPage: boolean;
   selectedIds: ReadonlySet<string>;
+  sortBy: ExerciseSortField | undefined;
+  sortOrder: ExerciseSortOrder | undefined;
   onToggleRow: (id: string) => void;
-  onToggleAll: (next: boolean) => void;
-};
-
-export type ExercisesTableConfigParams = Pick<ExercisesTableProps, 'exercises' | 'selectedIds'>;
-
-export type ExercisesTableConfig = {
-  allSelected: boolean;
-  someSelected: boolean;
-  isSelectionDisabled: boolean;
+  onToggleAllVisible: () => void;
+  onSortChange: (field: ExerciseSortField) => void;
+  onLoadMore: () => void;
 };
 
 export type ExercisesTableHeaderProps = {
-  allSelected: boolean;
-  someSelected: boolean;
+  sortBy: ExerciseSortField | undefined;
+  sortOrder: ExerciseSortOrder | undefined;
+  selectedState: boolean | 'indeterminate';
   isSelectionDisabled: boolean;
-  onToggleAll: (next: boolean) => void;
+  onToggleAllVisible: () => void;
+  onSortChange: (field: ExerciseSortField) => void;
 };
+
+export type ExercisesTableConfig = Pick<ExercisesTableHeaderProps, 'selectedState' | 'isSelectionDisabled'>;
 
 export type ExercisesTableRowProps = {
   exercise: Exercise;
@@ -35,4 +37,9 @@ export type ExercisesTableLoadingProps = {
 
 export type ExercisesTableEmptyProps = {
   colSpan: number;
+};
+
+export type ExercisesTableLoadMoreProps = {
+  disabled: boolean;
+  onLoadMore: () => void;
 };

@@ -1,16 +1,20 @@
 'use client';
 
 import { type FC } from 'react';
+import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
 import { useTranslations } from '@/i18n';
-import { Checkbox, TableHead, TableHeader, TableRow } from '@/src/shared/ui';
+import { Button, Checkbox, TableHead, TableHeader, TableRow } from '@/src/shared/ui';
 
+import { SORTABLE_COLUMNS } from '../ExercisesTable.constants';
 import type { ExercisesTableHeaderProps } from '../ExercisesTable.types';
 
 export const ExercisesTableHeader: FC<ExercisesTableHeaderProps> = ({
-  allSelected,
-  someSelected,
+  sortBy,
+  sortOrder,
+  selectedState,
   isSelectionDisabled,
-  onToggleAll,
+  onToggleAllVisible,
+  onSortChange,
 }) => {
   const t = useTranslations('Exercises');
 
@@ -19,18 +23,32 @@ export const ExercisesTableHeader: FC<ExercisesTableHeaderProps> = ({
       <TableRow>
         <TableHead className="w-10">
           <Checkbox
-            checked={allSelected ? true : someSelected ? 'indeterminate' : false}
-            onCheckedChange={(value) => onToggleAll(value === true)}
-            aria-label={t('selectAll')}
+            checked={selectedState}
             disabled={isSelectionDisabled}
+            onCheckedChange={onToggleAllVisible}
+            aria-label={t('selectAll')}
           />
         </TableHead>
-        <TableHead className="min-w-64">{t('columns.name')}</TableHead>
-        <TableHead>{t('columns.type')}</TableHead>
-        <TableHead>{t('columns.muscleGroup')}</TableHead>
-        <TableHead>{t('columns.equipment')}</TableHead>
-        <TableHead>{t('columns.difficulty')}</TableHead>
-        <TableHead>{t('columns.modifiedAt')}</TableHead>
+        {SORTABLE_COLUMNS.map((field) => {
+          const isActive = sortBy === field;
+          const SortIcon = isActive ? (sortOrder === 'desc' ? ArrowDown : ArrowUp) : ArrowUpDown;
+
+          return (
+            <TableHead key={field} className={field === 'name' ? 'min-w-64' : undefined}>
+              <Button
+                type="button"
+                variant="ghost"
+                size="sm"
+                className="-ml-2 h-8 justify-start px-2 font-medium"
+                onClick={() => onSortChange(field)}
+                aria-label={t('sort.change', { column: t(`columns.${field}`) })}
+              >
+                {t(`columns.${field}`)}
+                <SortIcon aria-hidden className={isActive ? 'text-foreground' : 'text-muted-foreground'} />
+              </Button>
+            </TableHead>
+          );
+        })}
       </TableRow>
     </TableHeader>
   );
