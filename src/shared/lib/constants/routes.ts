@@ -3,5 +3,6 @@ export const ROUTES = {
   exercises: '/exercises',
   login: '/login',
   signup: '/signup',
+  profile: '/profile',
   user: (id: string) => `/user/${id}`,
 } as const;

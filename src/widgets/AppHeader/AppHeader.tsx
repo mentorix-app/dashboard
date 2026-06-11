@@ -5,6 +5,7 @@ import { useTranslations } from '@/i18n';
 import { LanguageSwitcher } from '@/src/features/LanguageSwitcher/LanguageSwitcher';
 import { ThemeSwitcher } from '@/src/features/ThemeSwitcher/ThemeSwitcher';
 import { SidebarTrigger } from '@/src/shared/ui';
+import { UserAvatar } from './UserAvatar';
 
 export const AppHeader = () => {
   const t = useTranslations('AppHeader');
@@ -20,6 +21,7 @@ export const AppHeader = () => {
         <Suspense fallback={null}>
           <LanguageSwitcher />
         </Suspense>
+        <UserAvatar />
       </div>
     </header>
   );

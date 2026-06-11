@@ -16,6 +16,7 @@ const HOP_BY_HOP = new Set([
   'host',
   'content-length',
   'accept-encoding',
+  'content-encoding',
 ]);
 
 /**

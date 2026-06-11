@@ -7,6 +7,7 @@ export const TIMEOUT_MS = 15_000;
 
 export const QUERY_KEY_AUTH = 'auth' as const;
 export const QUERY_KEY_EXERCISES = 'exercises' as const;
+export const QUERY_KEY_USER = 'user' as const;
 
 export const AUTH_SESSION_COOKIE = 'auth_session';
 

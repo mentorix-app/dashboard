@@ -18,17 +18,9 @@ export type FetchExercisesParams = {
   difficulty?: ExerciseDifficulty[];
   sortBy?: ExerciseSortField;
   sortOrder?: ExerciseSortOrder;
-  limit?: number;
-  cursor?: number;
 };
 
-export type FetchExercisesListParams = Omit<FetchExercisesParams, 'limit' | 'cursor'>;
-
-export type FetchExercisesResponse = {
-  items: Exercise[];
-  nextCursor: number | null;
-  total: number;
-};
+export type FetchExercisesListParams = FetchExercisesParams;
 
 export type DeleteExercisesParams = {
   ids: string[];
