@@ -1,12 +1,11 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
-import { queryKeys, useDelete, useGet, usePost, type HttpError } from '@/src/shared/api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { http, queryKeys, useGet, usePost, type HttpError } from '@/src/shared/api';
 import type {
   CreateExerciseParams,
   CreateExerciseResponse,
   DeleteExercisesParams,
-  DeleteExercisesResponse,
   ExercisesListResult,
   FetchExercisesListParams,
 } from './exercises.types';
@@ -20,7 +19,12 @@ export const useExercises = (params: FetchExercisesListParams = {}) =>
 export const useDeleteExercises = () => {
   const queryClient = useQueryClient();
 
-  return useDelete<DeleteExercisesResponse, HttpError, DeleteExercisesParams>('/exercises', {
+  // Backend exposes single-id deletion (DELETE /exercises/:id, 204). Until bulk
+  // deletion lands, remove the selected ids one request at a time.
+  return useMutation<void, HttpError, DeleteExercisesParams>({
+    mutationFn: async ({ ids }) => {
+      await Promise.all(ids.map((id) => http.delete(`/exercises/${encodeURIComponent(id)}`)));
+    },
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.exercises.all }),
   });
 };

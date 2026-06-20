@@ -5,7 +5,6 @@ export type {
   CreateExerciseParams,
   CreateExerciseResponse,
   DeleteExercisesParams,
-  DeleteExercisesResponse,
   ExerciseSortField,
   ExerciseSortOrder,
   ExercisesListResult,

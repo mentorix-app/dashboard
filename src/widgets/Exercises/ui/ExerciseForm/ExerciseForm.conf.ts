@@ -33,9 +33,12 @@ export const useExerciseFormConfig = ({ onOpenChange }: Pick<ExerciseFormProps, 
   });
 
   const handleValidSubmit: SubmitHandler<ExerciseFormValues> = (values) => {
-    mutate(toCreateExerciseParams(values));
-    onOpenChange(false);
-    form.reset();
+    mutate(toCreateExerciseParams(values), {
+      onSuccess: () => {
+        onOpenChange(false);
+        form.reset();
+      },
+    });
   };
 
   return { form, isPending, handleSubmit: form.handleSubmit(handleValidSubmit) };
