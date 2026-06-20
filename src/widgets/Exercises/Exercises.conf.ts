@@ -13,7 +13,19 @@ import { useExercisesSort } from './hooks/useExercisesSort';
 export const useExercisesConfig = (): ExercisesConfig => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const handleCreateNew = useCallback(() => setIsFormOpen(true), []);
+  const [editingId, setEditingId] = useState<string | undefined>(undefined);
+  const handleCreateNew = useCallback(() => {
+    setEditingId(undefined);
+    setIsFormOpen(true);
+  }, []);
+  const handleRowClick = useCallback((id: string) => {
+    setEditingId(id);
+    setIsFormOpen(true);
+  }, []);
+  const handleFormOpenChange = useCallback((open: boolean) => {
+    setIsFormOpen(open);
+    if (!open) setEditingId(undefined);
+  }, []);
   const search = useExercisesSearch();
   const list = useExercisesList(search.listParams);
   const filters = useExercisesFilters(search);
@@ -39,10 +51,12 @@ export const useExercisesConfig = (): ExercisesConfig => {
     isDeleteDialogOpen: deletion.isDeleteDialogOpen,
     isDeleting: deletion.isDeleting,
     isFormOpen,
+    editingId,
     handleSearchChange: search.handleSearchChange,
     handleFiltersOpenChange: setFiltersOpen,
     handleCreateNew,
-    handleFormOpenChange: setIsFormOpen,
+    handleRowClick,
+    handleFormOpenChange,
     handleToggleRow: selection.handleToggleRow,
     handleToggleAllVisible: selection.handleToggleAllVisible,
     handleTypeFilterChange: filters.handleTypeFilterChange,

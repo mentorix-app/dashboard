@@ -23,9 +23,11 @@ export type ExercisesConfig = {
   isDeleteDialogOpen: boolean;
   isDeleting: boolean;
   isFormOpen: boolean;
+  editingId: string | undefined;
   handleSearchChange: (value: string) => void;
   handleFiltersOpenChange: (open: boolean) => void;
   handleCreateNew: () => void;
+  handleRowClick: (id: string) => void;
   handleFormOpenChange: (open: boolean) => void;
   handleToggleRow: (id: string) => void;
   handleToggleAllVisible: () => void;

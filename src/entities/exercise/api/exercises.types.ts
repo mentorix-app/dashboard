@@ -41,3 +41,12 @@ export type DeleteExercisesParams = {
 export type CreateExerciseParams = Omit<Exercise, 'id' | 'addedBy' | 'modifiedBy' | 'modifiedAt'>;
 
 export type CreateExerciseResponse = Exercise;
+
+export type UpdateExerciseParams = CreateExerciseParams;
+
+export type UpdateExerciseVariables = {
+  id: string;
+  params: UpdateExerciseParams;
+};
+
+export type UpdateExerciseResponse = Exercise;

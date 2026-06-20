@@ -15,5 +15,6 @@ export type ExerciseFormValues = {
 
 export type ExerciseFormProps = {
   open: boolean;
+  exerciseId?: string;
   onOpenChange: (open: boolean) => void;
 };

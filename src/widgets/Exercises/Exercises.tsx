@@ -24,9 +24,11 @@ export const Exercises: FC = () => {
     isDeleteDialogOpen,
     isDeleting,
     isFormOpen,
+    editingId,
     handleSearchChange,
     handleFiltersOpenChange,
     handleCreateNew,
+    handleRowClick,
     handleFormOpenChange,
     handleToggleRow,
     handleToggleAllVisible,
@@ -68,10 +70,12 @@ export const Exercises: FC = () => {
           isFetchingNextPage={isFetchingNextPage}
           hasNextPage={hasNextPage}
           selectedIds={visibleSelected}
+          activeId={isFormOpen ? editingId : undefined}
           sortBy={listParams.sortBy}
           sortOrder={listParams.sortOrder}
           onToggleRow={handleToggleRow}
           onToggleAllVisible={handleToggleAllVisible}
+          onRowClick={handleRowClick}
           onSortChange={handleSortChange}
           onLoadMore={handleLoadMore}
         />
@@ -89,7 +93,7 @@ export const Exercises: FC = () => {
         onOpenChange={handleDeleteDialogOpenChange}
         onConfirm={handleConfirmDelete}
       />
-      <ExerciseForm open={isFormOpen} onOpenChange={handleFormOpenChange} />
+      <ExerciseForm open={isFormOpen} exerciseId={editingId} onOpenChange={handleFormOpenChange} />
     </>
   );
 };

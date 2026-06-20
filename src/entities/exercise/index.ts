@@ -11,5 +11,14 @@ export type {
   ExercisesPagination,
   FetchExercisesListParams,
   FetchExercisesParams,
+  UpdateExerciseParams,
+  UpdateExerciseResponse,
+  UpdateExerciseVariables,
 } from './api/exercises.types';
-export { useCreateExercise, useDeleteExercises, useExercises } from './api/useExercises';
+export {
+  useCreateExercise,
+  useDeleteExercises,
+  useExercise,
+  useExercises,
+  useUpdateExercise,
+} from './api/useExercises';

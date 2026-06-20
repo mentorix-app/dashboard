@@ -11,6 +11,7 @@ export const queryKeys = {
   exercises: {
     all: [QUERY_KEY_EXERCISES] as const,
     list: (params: object) => [...queryKeys.exercises.all, 'list', params] as const,
+    detail: (id: string) => [...queryKeys.exercises.all, 'detail', id] as const,
   },
   user: {
     all: [QUERY_KEY_USER] as const,

@@ -1,4 +1,4 @@
-import type { CreateExerciseParams } from '@/src/entities/exercise';
+import type { CreateExerciseParams, Exercise } from '@/src/entities/exercise';
 
 import type { ExerciseFormValues } from './ExerciseForm.types';
 
@@ -20,4 +20,17 @@ export const toCreateExerciseParams = (values: ExerciseFormValues): CreateExerci
   difficulty: values.difficulty as Exclude<ExerciseFormValues['difficulty'], ''>,
   videoUrl: values.videoUrl.trim(),
   previewImageUrl: values.previewImageUrl.trim(),
+});
+
+export const toExerciseFormValues = (exercise: Exercise): ExerciseFormValues => ({
+  name: exercise.name,
+  nameRu: exercise.nameRu,
+  description: exercise.description,
+  descriptionRu: exercise.descriptionRu,
+  type: exercise.type,
+  muscleGroup: exercise.muscleGroup,
+  equipment: exercise.equipment ?? '',
+  difficulty: exercise.difficulty,
+  videoUrl: exercise.videoUrl,
+  previewImageUrl: exercise.previewImageUrl,
 });

@@ -1,22 +1,51 @@
 'use client';
 
-import { type FC } from 'react';
+import { type FC, type KeyboardEvent, type MouseEvent } from 'react';
 import { useLocale, useTranslations } from '@/i18n';
 import { getExerciseDescription, getExerciseName } from '@/src/entities/exercise';
 import { Checkbox, TableCell, TableRow } from '@/src/shared/ui';
+import { cn } from '@/src/shared/lib/styles';
 
 import type { ExercisesTableRowProps } from '../ExercisesTable.types';
 import { formatModifiedAt } from '../ExercisesTable.utils';
 
-export const ExercisesTableRow: FC<ExercisesTableRowProps> = ({ exercise, isSelected, onToggleRow }) => {
+export const ExercisesTableRow: FC<ExercisesTableRowProps> = ({
+  exercise,
+  isSelected,
+  isActive,
+  onToggleRow,
+  onRowClick,
+}) => {
   const locale = useLocale();
   const t = useTranslations('Exercises');
   const name = getExerciseName(exercise, locale);
   const description = getExerciseDescription(exercise, locale);
 
+  const handleRowClick = () => onRowClick(exercise.id);
+
+  const handleRowKeyDown = (event: KeyboardEvent<HTMLTableRowElement>) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return;
+    event.preventDefault();
+    onRowClick(exercise.id);
+  };
+
+  const handleSelectCellClick = (event: MouseEvent<HTMLTableCellElement>) => event.stopPropagation();
+
   return (
-    <TableRow data-state={isSelected ? 'selected' : undefined}>
-      <TableCell>
+    <TableRow
+      role="button"
+      tabIndex={0}
+      aria-pressed={isActive}
+      aria-label={t('editRow', { name })}
+      data-state={isSelected ? 'selected' : undefined}
+      onClick={handleRowClick}
+      onKeyDown={handleRowKeyDown}
+      className={cn(
+        'focus-visible:ring-ring cursor-pointer focus-visible:ring-2 focus-visible:outline-none focus-visible:ring-inset',
+        isActive && 'bg-accent/60 hover:bg-accent/60 border-l-primary border-l-2'
+      )}
+    >
+      <TableCell onClick={handleSelectCellClick}>
         <Checkbox
           checked={isSelected}
           onCheckedChange={() => onToggleRow(exercise.id)}

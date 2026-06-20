@@ -16,10 +16,12 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
   isFetchingNextPage,
   hasNextPage,
   selectedIds,
+  activeId,
   sortBy,
   sortOrder,
   onToggleRow,
   onToggleAllVisible,
+  onRowClick,
   onSortChange,
   onLoadMore,
 }) => {
@@ -29,10 +31,12 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
     isFetchingNextPage,
     hasNextPage,
     selectedIds,
+    activeId,
     sortBy,
     sortOrder,
     onToggleRow,
     onToggleAllVisible,
+    onRowClick,
     onSortChange,
     onLoadMore,
   });
@@ -57,7 +61,9 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
                   key={exercise.id}
                   exercise={exercise}
                   isSelected={selectedIds.has(exercise.id)}
+                  isActive={activeId === exercise.id}
                   onToggleRow={onToggleRow}
+                  onRowClick={onRowClick}
                 />
               ))
             : null}
