@@ -6,10 +6,10 @@ import { http, type HttpError } from './base.http';
 export function useGet<TData, TError = HttpError>(
   url: string,
   queryKey: readonly unknown[],
-  options?: Omit<UseQueryOptions<TData, TError>, 'queryKey' | 'queryFn'>,
+  options?: Omit<UseQueryOptions<TData, TError, TData>, 'queryKey' | 'queryFn'>,
   config?: AxiosRequestConfig
 ): UseQueryResult<TData, TError> {
-  return useQuery<TData, TError>({
+  return useQuery<TData, TError, TData>({
     queryKey: [...queryKey, url, config],
     queryFn: () => http.get<TData>(url, config).then((response) => response.data),
     ...options,

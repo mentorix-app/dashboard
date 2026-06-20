@@ -4,10 +4,9 @@ import { useExercises, type FetchExercisesListParams } from '@/src/entities/exer
 
 export const useExercisesList = (listParams: FetchExercisesListParams) => {
   const { data, isPending } = useExercises(listParams);
-  console.log(data);
 
   return {
-    exercises: data ?? [],
+    exercises: data?.items ?? [],
     isPending,
     isFetchingNextPage: false,
     hasNextPage: false,

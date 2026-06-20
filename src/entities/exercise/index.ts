@@ -8,6 +8,8 @@ export type {
   DeleteExercisesResponse,
   ExerciseSortField,
   ExerciseSortOrder,
+  ExercisesListResult,
+  ExercisesPagination,
   FetchExercisesListParams,
   FetchExercisesParams,
 } from './api/exercises.types';

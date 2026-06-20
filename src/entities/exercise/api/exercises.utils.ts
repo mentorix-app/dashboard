@@ -1,19 +1,29 @@
-import type { Exercise } from '../model/types';
+import type { ExerciseSortField, FetchExercisesListParams } from './exercises.types';
 
-export const filterExercisesByName = (exercises: Exercise[], name?: string): Exercise[] => {
-  const term = name?.trim().toLowerCase() ?? '';
-  if (!term) return exercises;
+const SORT_FIELD_TO_QUERY: Record<ExerciseSortField, string> = {
+  name: 'name',
+  type: 'type',
+  muscleGroup: 'muscle_group',
+  difficulty: 'difficulty',
+  modifiedAt: 'modified_at',
+};
 
-  return exercises.filter((exercise) =>
-    [
-      exercise.name,
-      exercise.description,
-      exercise.addedBy,
-      exercise.modifiedBy,
-      exercise.equipment,
-      exercise.type,
-      exercise.muscleGroup,
-      exercise.difficulty,
-    ].some((value) => value?.toLowerCase().includes(term))
-  );
+/**
+ * Translates FE list params (camelCase) into the snake_case query the backend expects.
+ * Filters are array-shaped to stay multi-select ready; today the UI sends at most one value each.
+ */
+export const buildExercisesQuery = (params: FetchExercisesListParams): Record<string, string | string[]> => {
+  const query: Record<string, string | string[]> = {};
+
+  if (params.name) query.q = params.name;
+  if (params.type?.length) query.type = [...params.type];
+  if (params.muscleGroup?.length) query.muscle_group = [...params.muscleGroup];
+  if (params.equipment?.length) query.equipment = [...params.equipment];
+  if (params.difficulty?.length) query.difficulty = [...params.difficulty];
+  if (params.sortBy) {
+    query.sort_by = SORT_FIELD_TO_QUERY[params.sortBy];
+    query.sort_order = params.sortOrder ?? 'asc';
+  }
+
+  return query;
 };

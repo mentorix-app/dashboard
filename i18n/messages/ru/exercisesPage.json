@@ -10,6 +10,7 @@
     "show": "Показать фильтры",
     "hide": "Скрыть фильтры",
     "clearAll": "Очистить все",
+    "all": "Все",
     "type": "Тип",
     "muscleGroup": "Группа мышц",
     "equipment": "Оборудование",
@@ -36,11 +37,11 @@
   "types": {
     "strength": "Сила",
     "cardio": "Кардио",
-    "mixed-modal": "Смешанный формат",
+    "mixed_modal": "Смешанный формат",
     "intervals": "Интервалы",
     "stretching": "Растяжка",
     "metcon": "Меткон",
-    "skill-work": "Навык",
+    "skill_work": "Навык",
     "accessory": "Вспомогательное"
   },
   "muscleGroups": {
@@ -51,26 +52,26 @@
     "shoulders": "Плечи",
     "arms": "Руки",
     "core": "Кор",
-    "full-body": "Все тело"
+    "full_body": "Все тело"
   },
   "equipment": {
     "barbell": "Штанга",
     "dumbbells": "Гантели",
     "kettlebell": "Гиря",
-    "pull-up-bar": "Турник",
-    "squat-rack": "Стойка для приседа",
-    "rowing-machine": "Гребной тренажер",
-    "assault-bike": "Assault bike",
-    "jump-rope": "Скакалка",
-    "plyo-box": "Плио-бокс",
-    "medicine-ball": "Медбол",
-    "wall-ball": "Wall ball",
-    "resistance-bands": "Резиновые петли",
-    "battle-ropes": "Канаты",
-    "gymnastic-rings": "Гимнастические кольца",
+    "pull_up_bar": "Турник",
+    "squat_rack": "Стойка для приседа",
+    "rowing_machine": "Гребной тренажер",
+    "assault_bike": "Assault bike",
+    "jump_rope": "Скакалка",
+    "plyo_box": "Плио-бокс",
+    "medicine_ball": "Медбол",
+    "wall_ball": "Wall ball",
+    "resistance_bands": "Резиновые петли",
+    "battle_ropes": "Канаты",
+    "gymnastic_rings": "Гимнастические кольца",
     "sandbag": "Сэндбэг",
     "sled": "Сани",
-    "weight-plates": "Блины"
+    "weight_plates": "Блины"
   },
   "difficulty": {
     "beginner": "Начальный",

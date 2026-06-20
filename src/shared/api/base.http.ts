@@ -20,6 +20,8 @@ export const http: AxiosInstance = axios.create({
   timeout: TIMEOUT_MS,
   headers: { 'Content-Type': 'application/json' },
   withCredentials: true,
+  // Serialize array params as repeated keys (e.g. `type=a&type=b`) for the Go backend.
+  paramsSerializer: { indexes: null },
 });
 
 http.interceptors.response.use(

@@ -54,7 +54,6 @@ export const EXERCISE_SORT_FIELDS: readonly ExerciseSortField[] = [
   'name',
   'type',
   'muscleGroup',
-  'equipment',
   'difficulty',
   'modifiedAt',
 ];

@@ -10,6 +10,7 @@
     "show": "Show filters",
     "hide": "Hide filters",
     "clearAll": "Clear all",
+    "all": "All",
     "type": "Type",
     "muscleGroup": "Muscle group",
     "equipment": "Equipment",
@@ -36,11 +37,11 @@
   "types": {
     "strength": "Strength",
     "cardio": "Cardio",
-    "mixed-modal": "Mixed modal",
+    "mixed_modal": "Mixed modal",
     "intervals": "Intervals",
     "stretching": "Stretching",
     "metcon": "Metcon",
-    "skill-work": "Skill work",
+    "skill_work": "Skill work",
     "accessory": "Accessory"
   },
   "muscleGroups": {
@@ -51,26 +52,26 @@
     "shoulders": "Shoulders",
     "arms": "Arms",
     "core": "Core",
-    "full-body": "Full body"
+    "full_body": "Full body"
   },
   "equipment": {
     "barbell": "Barbell",
     "dumbbells": "Dumbbells",
     "kettlebell": "Kettlebell",
-    "pull-up-bar": "Pull-up bar",
-    "squat-rack": "Squat rack",
-    "rowing-machine": "Rowing machine",
-    "assault-bike": "Assault bike",
-    "jump-rope": "Jump rope",
-    "plyo-box": "Plyo box",
-    "medicine-ball": "Medicine ball",
-    "wall-ball": "Wall ball",
-    "resistance-bands": "Resistance bands",
-    "battle-ropes": "Battle ropes",
-    "gymnastic-rings": "Gymnastic rings",
+    "pull_up_bar": "Pull-up bar",
+    "squat_rack": "Squat rack",
+    "rowing_machine": "Rowing machine",
+    "assault_bike": "Assault bike",
+    "jump_rope": "Jump rope",
+    "plyo_box": "Plyo box",
+    "medicine_ball": "Medicine ball",
+    "wall_ball": "Wall ball",
+    "resistance_bands": "Resistance bands",
+    "battle_ropes": "Battle ropes",
+    "gymnastic_rings": "Gymnastic rings",
     "sandbag": "Sandbag",
     "sled": "Sled",
-    "weight-plates": "Weight plates"
+    "weight_plates": "Weight plates"
   },
   "difficulty": {
     "beginner": "Beginner",

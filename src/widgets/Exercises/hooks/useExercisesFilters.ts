@@ -8,44 +8,30 @@ import type { ExercisesSearchParamsController } from '../Exercises.types';
 export const useExercisesFilters = ({ listParams, updateSearchParams }: ExercisesSearchParamsController) => {
   const handleTypeFilterChange = useCallback(
     (value: ExerciseType, checked: boolean) => {
-      updateSearchParams({
-        type: checked ? [...(listParams.type ?? []), value] : listParams.type?.filter((item) => item !== value),
-      });
+      updateSearchParams({ type: checked ? [value] : [] });
     },
-    [listParams.type, updateSearchParams]
+    [updateSearchParams]
   );
 
   const handleMuscleGroupFilterChange = useCallback(
     (value: ExerciseMuscleGroup, checked: boolean) => {
-      updateSearchParams({
-        muscleGroup: checked
-          ? [...(listParams.muscleGroup ?? []), value]
-          : listParams.muscleGroup?.filter((item) => item !== value),
-      });
+      updateSearchParams({ muscleGroup: checked ? [value] : [] });
     },
-    [listParams.muscleGroup, updateSearchParams]
+    [updateSearchParams]
   );
 
   const handleEquipmentFilterChange = useCallback(
     (value: ExerciseEquipment, checked: boolean) => {
-      updateSearchParams({
-        equipment: checked
-          ? [...(listParams.equipment ?? []), value]
-          : listParams.equipment?.filter((item) => item !== value),
-      });
+      updateSearchParams({ equipment: checked ? [value] : [] });
     },
-    [listParams.equipment, updateSearchParams]
+    [updateSearchParams]
   );
 
   const handleDifficultyFilterChange = useCallback(
     (value: ExerciseDifficulty, checked: boolean) => {
-      updateSearchParams({
-        difficulty: checked
-          ? [...(listParams.difficulty ?? []), value]
-          : listParams.difficulty?.filter((item) => item !== value),
-      });
+      updateSearchParams({ difficulty: checked ? [value] : [] });
     },
-    [listParams.difficulty, updateSearchParams]
+    [updateSearchParams]
   );
 
   const handleClearFilters = useCallback(() => {

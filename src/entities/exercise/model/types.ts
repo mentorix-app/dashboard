@@ -6,17 +6,17 @@ export enum ExerciseMuscleGroup {
   Shoulders = 'shoulders',
   Arms = 'arms',
   Core = 'core',
-  FullBody = 'full-body',
+  FullBody = 'full_body',
 }
 
 export enum ExerciseType {
   Strength = 'strength',
   Cardio = 'cardio',
-  MixedModal = 'mixed-modal',
+  MixedModal = 'mixed_modal',
   Intervals = 'intervals',
   Stretching = 'stretching',
   Metcon = 'metcon',
-  SkillWork = 'skill-work',
+  SkillWork = 'skill_work',
   Accessory = 'accessory',
 }
 
@@ -24,20 +24,20 @@ export enum ExerciseEquipment {
   Barbell = 'barbell',
   Dumbbells = 'dumbbells',
   Kettlebell = 'kettlebell',
-  PullUpBar = 'pull-up-bar',
-  SquatRack = 'squat-rack',
-  RowingMachine = 'rowing-machine',
-  AssaultBike = 'assault-bike',
-  JumpRope = 'jump-rope',
-  PlyoBox = 'plyo-box',
-  MedicineBall = 'medicine-ball',
-  WallBall = 'wall-ball',
-  ResistanceBands = 'resistance-bands',
-  BattleRopes = 'battle-ropes',
-  GymnasticRings = 'gymnastic-rings',
+  PullUpBar = 'pull_up_bar',
+  SquatRack = 'squat_rack',
+  RowingMachine = 'rowing_machine',
+  AssaultBike = 'assault_bike',
+  JumpRope = 'jump_rope',
+  PlyoBox = 'plyo_box',
+  MedicineBall = 'medicine_ball',
+  WallBall = 'wall_ball',
+  ResistanceBands = 'resistance_bands',
+  BattleRopes = 'battle_ropes',
+  GymnasticRings = 'gymnastic_rings',
   Sandbag = 'sandbag',
   Sled = 'sled',
-  WeightPlates = 'weight-plates',
+  WeightPlates = 'weight_plates',
 }
 
 export enum ExerciseDifficulty {

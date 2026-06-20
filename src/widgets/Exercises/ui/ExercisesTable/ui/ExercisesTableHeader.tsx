@@ -3,9 +3,10 @@
 import { type FC } from 'react';
 import { ArrowDown, ArrowUp, ArrowUpDown } from 'lucide-react';
 import { useTranslations } from '@/i18n';
+import type { ExerciseSortField } from '@/src/entities/exercise';
 import { Button, Checkbox, TableHead, TableHeader, TableRow } from '@/src/shared/ui';
 
-import { SORTABLE_COLUMNS } from '../ExercisesTable.constants';
+import { SORTABLE_COLUMNS, TABLE_COLUMNS } from '../ExercisesTable.constants';
 import type { ExercisesTableHeaderProps } from '../ExercisesTable.types';
 
 export const ExercisesTableHeader: FC<ExercisesTableHeaderProps> = ({
@@ -29,18 +30,30 @@ export const ExercisesTableHeader: FC<ExercisesTableHeaderProps> = ({
             aria-label={t('selectAll')}
           />
         </TableHead>
-        {SORTABLE_COLUMNS.map((field) => {
-          const isActive = sortBy === field;
+        {TABLE_COLUMNS.map((field) => {
+          const isSortable = (SORTABLE_COLUMNS as readonly string[]).includes(field);
+          const className = field === 'name' ? 'min-w-64' : undefined;
+
+          if (!isSortable) {
+            return (
+              <TableHead key={field} className={className}>
+                <span className="px-2 font-medium">{t(`columns.${field}`)}</span>
+              </TableHead>
+            );
+          }
+
+          const sortField = field as ExerciseSortField;
+          const isActive = sortBy === sortField;
           const SortIcon = isActive ? (sortOrder === 'desc' ? ArrowDown : ArrowUp) : ArrowUpDown;
 
           return (
-            <TableHead key={field} className={field === 'name' ? 'min-w-64' : undefined}>
+            <TableHead key={field} className={className}>
               <Button
                 type="button"
                 variant="ghost"
                 size="sm"
                 className="-ml-2 h-8 justify-start px-2 font-medium"
-                onClick={() => onSortChange(field)}
+                onClick={() => onSortChange(sortField)}
                 aria-label={t('sort.change', { column: t(`columns.${field}`) })}
               >
                 {t(`columns.${field}`)}
