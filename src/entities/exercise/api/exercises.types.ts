@@ -6,7 +6,7 @@ import type {
   ExerciseType,
 } from '../model/types';
 
-export type ExerciseSortField = 'name' | 'type' | 'muscleGroup' | 'difficulty' | 'modifiedAt';
+export type ExerciseSortField = 'name' | 'type' | 'muscleGroup' | 'equipment' | 'difficulty' | 'modifiedAt';
 
 export type ExerciseSortOrder = 'asc' | 'desc';
 

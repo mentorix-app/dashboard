@@ -1,14 +1,19 @@
+export enum UserRole {
+  Admin = 'admin',
+  Trainer = 'trainer',
+}
+
 /**
- * Provisional shape of the GET /auth/me response. Fields are intentionally
- * permissive until the real backend payload is observed; tighten after that.
+ * Shape of the GET /auth/me response. Backend-confirmed fields are required;
+ * UI-only fields (name, avatar, …) stay optional until the backend returns them.
  */
 export type User = {
-  id: string;
+  userId: string;
   email: string;
+  createdAt: string;
+  roles: UserRole[];
   name?: string;
   firstName?: string;
   lastName?: string;
   avatarUrl?: string;
-  role?: string;
-  createdAt?: string;
 };

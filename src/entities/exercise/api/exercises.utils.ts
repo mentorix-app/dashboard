@@ -4,6 +4,7 @@ const SORT_FIELD_TO_QUERY: Record<ExerciseSortField, string> = {
   name: 'name',
   type: 'type',
   muscleGroup: 'muscle_group',
+  equipment: 'equipment',
   difficulty: 'difficulty',
   modifiedAt: 'modified_at',
 };

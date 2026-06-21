@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers';
 import { type ReactNode } from 'react';
 
+import { UserHydrator } from '@/src/entities/user';
 import { HtmlLangSync, SidebarInset, SidebarProvider } from '@/src/shared/ui';
 import { AppHeader } from '@/src/widgets/AppHeader/AppHeader';
 import { AppSidebar } from '@/src/widgets/AppSidebar/AppSidebar';
@@ -18,13 +19,17 @@ const AppLayout = async ({ children }: Props) => {
   return (
     <>
       <HtmlLangSync />
-      <SidebarProvider defaultOpen={sidebarOpen}>
-        <AppSidebar />
-        <SidebarInset className="min-h-dvh">
-          <AppHeader />
-          <main className="flex flex-1 flex-col px-[var(--app-content-px)] py-[var(--app-content-py)]">{children}</main>
-        </SidebarInset>
-      </SidebarProvider>
+      <UserHydrator>
+        <SidebarProvider defaultOpen={sidebarOpen}>
+          <AppSidebar />
+          <SidebarInset className="min-h-dvh">
+            <AppHeader />
+            <main className="flex flex-1 flex-col px-[var(--app-content-px)] py-[var(--app-content-py)]">
+              {children}
+            </main>
+          </SidebarInset>
+        </SidebarProvider>
+      </UserHydrator>
     </>
   );
 };

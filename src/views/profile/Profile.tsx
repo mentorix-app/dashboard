@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations } from '@/i18n';
-import { useGetMe } from '@/src/entities/user';
+import { useCurrentUser } from '@/src/entities/user';
 import { Avatar, AvatarFallback, AvatarImage, Card, Typography } from '@/src/shared/ui';
 
 const MOCK = {
@@ -15,12 +15,12 @@ const MOCK = {
 
 export const Profile = () => {
   const t = useTranslations('Profile');
-  const { data: user } = useGetMe();
+  const user = useCurrentUser();
 
   const fullName = user?.name ?? [user?.firstName, user?.lastName].filter(Boolean).join(' ').trim();
   const name = fullName || MOCK.name;
   const email = user?.email ?? MOCK.email;
-  const role = user?.role ?? MOCK.role;
+  const role = user?.roles?.join(', ') || MOCK.role;
   const avatarUrl = user?.avatarUrl ?? MOCK.avatarUrl;
   const initials = (
     name

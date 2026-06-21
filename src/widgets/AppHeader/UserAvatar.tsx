@@ -1,7 +1,7 @@
 'use client';
 
 import { useTranslations, Link } from '@/i18n';
-import { useGetMe, type User } from '@/src/entities/user';
+import { useCurrentUser, type User } from '@/src/entities/user';
 import { ROUTES } from '@/src/shared/lib';
 import { Avatar, AvatarFallback, AvatarImage, Skeleton } from '@/src/shared/ui';
 
@@ -18,9 +18,9 @@ const getInitials = (user: User): string => {
 
 export const UserAvatar = () => {
   const t = useTranslations('AppHeader');
-  const { data: user, isPending } = useGetMe();
+  const user = useCurrentUser();
 
-  if (isPending || !user) {
+  if (!user) {
     return <Skeleton className="size-8 rounded-full" />;
   }
 
