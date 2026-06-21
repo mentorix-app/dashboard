@@ -10,6 +10,7 @@ type ExerciseTextFieldProps<T extends FieldValues> = {
   label: string;
   placeholder?: string;
   type?: string;
+  disabled?: boolean;
 };
 
 export const ExerciseTextField = <T extends FieldValues>({
@@ -18,6 +19,7 @@ export const ExerciseTextField = <T extends FieldValues>({
   label,
   placeholder,
   type = 'text',
+  disabled = false,
 }: ExerciseTextFieldProps<T>) => {
   const id = useId();
   const errorId = `${id}-error`;
@@ -33,6 +35,7 @@ export const ExerciseTextField = <T extends FieldValues>({
             {...field}
             id={id}
             type={type}
+            disabled={disabled}
             placeholder={placeholder}
             aria-invalid={fieldState.invalid}
             aria-describedby={fieldState.invalid ? errorId : undefined}

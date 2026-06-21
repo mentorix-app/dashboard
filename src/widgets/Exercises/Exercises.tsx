@@ -14,6 +14,7 @@ export const Exercises: FC = () => {
     search,
     filtersOpen,
     listParams,
+    canManage,
     exercises,
     isPending,
     isFetchingNextPage,
@@ -53,6 +54,7 @@ export const Exercises: FC = () => {
         listParams={listParams}
         activeFilterCount={activeFilterCount}
         selectedCount={visibleSelected.size}
+        canManage={canManage}
         onSearchChange={handleSearchChange}
         onFiltersOpenChange={handleFiltersOpenChange}
         onCreateNew={handleCreateNew}
@@ -71,6 +73,7 @@ export const Exercises: FC = () => {
           hasNextPage={hasNextPage}
           selectedIds={visibleSelected}
           activeId={isFormOpen ? editingId : undefined}
+          canSelect={canManage}
           sortBy={listParams.sortBy}
           sortOrder={listParams.sortOrder}
           onToggleRow={handleToggleRow}
@@ -93,7 +96,12 @@ export const Exercises: FC = () => {
         onOpenChange={handleDeleteDialogOpenChange}
         onConfirm={handleConfirmDelete}
       />
-      <ExerciseForm open={isFormOpen} exerciseId={editingId} onOpenChange={handleFormOpenChange} />
+      <ExerciseForm
+        open={isFormOpen}
+        exerciseId={editingId}
+        readOnly={!canManage}
+        onOpenChange={handleFormOpenChange}
+      />
     </>
   );
 };

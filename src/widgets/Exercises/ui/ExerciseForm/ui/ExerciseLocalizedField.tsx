@@ -15,6 +15,7 @@ type ExerciseLocalizedFieldProps<T extends FieldValues> = {
   label: string;
   placeholder?: string;
   multiline?: boolean;
+  disabled?: boolean;
   fields: [LocaleField<T>, LocaleField<T>];
 };
 
@@ -23,6 +24,7 @@ export const ExerciseLocalizedField = <T extends FieldValues>({
   label,
   placeholder,
   multiline = false,
+  disabled = false,
   fields,
 }: ExerciseLocalizedFieldProps<T>) => {
   const baseId = useId();
@@ -61,6 +63,7 @@ export const ExerciseLocalizedField = <T extends FieldValues>({
                         {...controllerField}
                         id={fieldId}
                         rows={4}
+                        disabled={disabled}
                         placeholder={placeholder}
                         aria-invalid={fieldState.invalid}
                         aria-describedby={fieldState.invalid ? errorId : undefined}
@@ -69,6 +72,7 @@ export const ExerciseLocalizedField = <T extends FieldValues>({
                       <Input
                         {...controllerField}
                         id={fieldId}
+                        disabled={disabled}
                         placeholder={placeholder}
                         aria-invalid={fieldState.invalid}
                         aria-describedby={fieldState.invalid ? errorId : undefined}

@@ -13,6 +13,7 @@ export type ExercisesConfig = {
   search: string;
   filtersOpen: boolean;
   listParams: FetchExercisesListParams;
+  canManage: boolean;
   exercises: Exercise[];
   isPending: boolean;
   isFetchingNextPage: boolean;

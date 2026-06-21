@@ -1,0 +1,59 @@
+'use client';
+
+import { useMemo } from 'react';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
+import { useTranslations } from '@/i18n';
+import { useCreateExercise, useUpdateExercise, type Exercise } from '@/src/entities/exercise';
+
+import { EXERCISE_FORM_DEFAULT_VALUES } from '../../ExerciseForm.constants';
+import { createExerciseSchema } from '../../ExerciseForm.schema';
+import type { ExerciseFormValues } from '../../ExerciseForm.types';
+import { toCreateExerciseParams, toExerciseFormValues } from '../../ExerciseForm.utils';
+
+type UseExerciseFormFieldsConfigParams = {
+  exerciseId?: string;
+  exercise?: Exercise;
+  onSuccess: () => void;
+};
+
+export const useExerciseFormFieldsConfig = ({ exerciseId, exercise, onSuccess }: UseExerciseFormFieldsConfigParams) => {
+  const t = useTranslations('Exercises');
+
+  const createMutation = useCreateExercise();
+  const updateMutation = useUpdateExercise();
+
+  const schema = useMemo(
+    () =>
+      createExerciseSchema({
+        nameMin: t('form.validation.nameMin'),
+        descriptionMin: t('form.validation.descriptionMin'),
+        selectRequired: t('form.validation.selectRequired'),
+        urlInvalid: t('form.validation.urlInvalid'),
+      }),
+    [t]
+  );
+
+  const form = useForm<ExerciseFormValues>({
+    resolver: zodResolver(schema) as Resolver<ExerciseFormValues>,
+    defaultValues: exercise ? toExerciseFormValues(exercise) : EXERCISE_FORM_DEFAULT_VALUES,
+    mode: 'onSubmit',
+  });
+
+  const handleValidSubmit: SubmitHandler<ExerciseFormValues> = (values) => {
+    const params = toCreateExerciseParams(values);
+
+    if (exerciseId) {
+      updateMutation.mutate({ id: exerciseId, params }, { onSuccess });
+      return;
+    }
+
+    createMutation.mutate(params, { onSuccess });
+  };
+
+  return {
+    form,
+    isPending: createMutation.isPending || updateMutation.isPending,
+    handleSubmit: form.handleSubmit(handleValidSubmit),
+  };
+};

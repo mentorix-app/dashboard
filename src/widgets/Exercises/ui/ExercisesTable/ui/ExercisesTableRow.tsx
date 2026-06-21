@@ -13,6 +13,7 @@ export const ExercisesTableRow: FC<ExercisesTableRowProps> = ({
   exercise,
   isSelected,
   isActive,
+  canSelect,
   onToggleRow,
   onRowClick,
 }) => {
@@ -45,13 +46,15 @@ export const ExercisesTableRow: FC<ExercisesTableRowProps> = ({
         isActive && 'bg-accent/60 hover:bg-accent/60 border-l-primary border-l-2'
       )}
     >
-      <TableCell onClick={handleSelectCellClick}>
-        <Checkbox
-          checked={isSelected}
-          onCheckedChange={() => onToggleRow(exercise.id)}
-          aria-label={t('selectRow', { name })}
-        />
-      </TableCell>
+      {canSelect ? (
+        <TableCell onClick={handleSelectCellClick}>
+          <Checkbox
+            checked={isSelected}
+            onCheckedChange={() => onToggleRow(exercise.id)}
+            aria-label={t('selectRow', { name })}
+          />
+        </TableCell>
+      ) : null}
       <TableCell className="min-w-64">
         <div className="flex flex-col gap-1">
           <span className="text-foreground font-medium">{name}</span>

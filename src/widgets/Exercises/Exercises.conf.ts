@@ -2,6 +2,8 @@
 
 import { useCallback, useState } from 'react';
 
+import { Permission, usePermissions } from '@/src/entities/user';
+
 import type { ExercisesConfig } from './Exercises.types';
 import { useExercisesDeletion } from './hooks/useExercisesDeletion';
 import { useExercisesFilters } from './hooks/useExercisesFilters';
@@ -11,6 +13,8 @@ import { useExercisesSelection } from './hooks/useExercisesSelection';
 import { useExercisesSort } from './hooks/useExercisesSort';
 
 export const useExercisesConfig = (): ExercisesConfig => {
+  const { can } = usePermissions();
+  const canManage = can(Permission.ExerciseManage);
   const [filtersOpen, setFiltersOpen] = useState(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingId, setEditingId] = useState<string | undefined>(undefined);
@@ -41,6 +45,7 @@ export const useExercisesConfig = (): ExercisesConfig => {
     search: search.search,
     filtersOpen,
     listParams: search.listParams,
+    canManage,
     exercises: list.exercises,
     isPending: list.isPending,
     isFetchingNextPage: list.isFetchingNextPage,

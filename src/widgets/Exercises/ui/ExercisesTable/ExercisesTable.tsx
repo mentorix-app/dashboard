@@ -17,6 +17,7 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
   hasNextPage,
   selectedIds,
   activeId,
+  canSelect,
   sortBy,
   sortOrder,
   onToggleRow,
@@ -32,6 +33,7 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
     hasNextPage,
     selectedIds,
     activeId,
+    canSelect,
     sortBy,
     sortOrder,
     onToggleRow,
@@ -41,6 +43,8 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
     onLoadMore,
   });
 
+  const columnCount = canSelect ? TABLE_COLUMN_COUNT : TABLE_COLUMN_COUNT - 1;
+
   return (
     <>
       <Table>
@@ -49,12 +53,13 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
           sortOrder={sortOrder}
           selectedState={selectedState}
           isSelectionDisabled={isSelectionDisabled}
+          canSelect={canSelect}
           onToggleAllVisible={onToggleAllVisible}
           onSortChange={onSortChange}
         />
         <TableBody>
-          {isLoading ? <ExercisesTableLoading rowCount={SKELETON_ROW_COUNT} /> : null}
-          {!isLoading && exercises.length === 0 ? <ExercisesTableEmpty colSpan={TABLE_COLUMN_COUNT} /> : null}
+          {isLoading ? <ExercisesTableLoading rowCount={SKELETON_ROW_COUNT} showSelect={canSelect} /> : null}
+          {!isLoading && exercises.length === 0 ? <ExercisesTableEmpty colSpan={columnCount} /> : null}
           {!isLoading
             ? exercises.map((exercise) => (
                 <ExercisesTableRow
@@ -62,12 +67,15 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
                   exercise={exercise}
                   isSelected={selectedIds.has(exercise.id)}
                   isActive={activeId === exercise.id}
+                  canSelect={canSelect}
                   onToggleRow={onToggleRow}
                   onRowClick={onRowClick}
                 />
               ))
             : null}
-          {isFetchingNextPage ? <ExercisesTableLoading rowCount={NEXT_PAGE_SKELETON_ROW_COUNT} /> : null}
+          {isFetchingNextPage ? (
+            <ExercisesTableLoading rowCount={NEXT_PAGE_SKELETON_ROW_COUNT} showSelect={canSelect} />
+          ) : null}
         </TableBody>
       </Table>
       <ExercisesTableLoadMore disabled={!hasNextPage || isFetchingNextPage || isLoading} onLoadMore={onLoadMore} />

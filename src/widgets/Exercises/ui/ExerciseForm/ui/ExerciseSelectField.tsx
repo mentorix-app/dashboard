@@ -12,6 +12,7 @@ type ExerciseSelectFieldProps<T extends FieldValues> = {
   label: string;
   placeholder: string;
   options: ExerciseFormOption[];
+  disabled?: boolean;
 };
 
 export const ExerciseSelectField = <T extends FieldValues>({
@@ -20,6 +21,7 @@ export const ExerciseSelectField = <T extends FieldValues>({
   label,
   placeholder,
   options,
+  disabled = false,
 }: ExerciseSelectFieldProps<T>) => {
   const id = useId();
   const errorId = `${id}-error`;
@@ -31,7 +33,7 @@ export const ExerciseSelectField = <T extends FieldValues>({
       render={({ field, fieldState }) => (
         <div className="flex flex-col gap-2">
           <Label htmlFor={id}>{label}</Label>
-          <Select value={field.value || undefined} onValueChange={field.onChange}>
+          <Select value={field.value || undefined} onValueChange={field.onChange} disabled={disabled}>
             <SelectTrigger
               id={id}
               className="w-full"

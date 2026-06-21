@@ -7,6 +7,7 @@ export type ExercisesTableProps = {
   hasNextPage: boolean;
   selectedIds: ReadonlySet<string>;
   activeId: string | undefined;
+  canSelect: boolean;
   sortBy: ExerciseSortField | undefined;
   sortOrder: ExerciseSortOrder | undefined;
   onToggleRow: (id: string) => void;
@@ -21,6 +22,7 @@ export type ExercisesTableHeaderProps = {
   sortOrder: ExerciseSortOrder | undefined;
   selectedState: boolean | 'indeterminate';
   isSelectionDisabled: boolean;
+  canSelect: boolean;
   onToggleAllVisible: () => void;
   onSortChange: (field: ExerciseSortField) => void;
 };
@@ -31,12 +33,14 @@ export type ExercisesTableRowProps = {
   exercise: Exercise;
   isSelected: boolean;
   isActive: boolean;
+  canSelect: boolean;
   onToggleRow: (id: string) => void;
   onRowClick: (id: string) => void;
 };
 
 export type ExercisesTableLoadingProps = {
   rowCount: number;
+  showSelect: boolean;
 };
 
 export type ExercisesTableEmptyProps = {

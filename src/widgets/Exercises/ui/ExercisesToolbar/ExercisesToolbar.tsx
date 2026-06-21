@@ -15,6 +15,7 @@ export const ExercisesToolbar: FC<ExercisesToolbarProps> = ({
   listParams,
   activeFilterCount,
   selectedCount,
+  canManage,
   onSearchChange,
   onFiltersOpenChange,
   onCreateNew,
@@ -63,16 +64,18 @@ export const ExercisesToolbar: FC<ExercisesToolbarProps> = ({
           />
         </div>
         <div className="flex flex-wrap gap-2">
-          {selectedCount > 0 ? (
+          {canManage && selectedCount > 0 ? (
             <Button type="button" variant="destructive" onClick={onDeleteSelected}>
               <Trash2 aria-hidden />
               {t('deleteSelected', { count: selectedCount })}
             </Button>
           ) : null}
-          <Button type="button" onClick={onCreateNew}>
-            <Plus aria-hidden />
-            {t('createNew')}
-          </Button>
+          {canManage ? (
+            <Button type="button" onClick={onCreateNew}>
+              <Plus aria-hidden />
+              {t('createNew')}
+            </Button>
+          ) : null}
         </div>
       </div>
       <CollapsibleContent>

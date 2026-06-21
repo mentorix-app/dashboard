@@ -14,6 +14,7 @@ export const ExercisesTableHeader: FC<ExercisesTableHeaderProps> = ({
   sortOrder,
   selectedState,
   isSelectionDisabled,
+  canSelect,
   onToggleAllVisible,
   onSortChange,
 }) => {
@@ -22,14 +23,16 @@ export const ExercisesTableHeader: FC<ExercisesTableHeaderProps> = ({
   return (
     <TableHeader>
       <TableRow>
-        <TableHead className="w-10">
-          <Checkbox
-            checked={selectedState}
-            disabled={isSelectionDisabled}
-            onCheckedChange={onToggleAllVisible}
-            aria-label={t('selectAll')}
-          />
-        </TableHead>
+        {canSelect ? (
+          <TableHead className="w-10">
+            <Checkbox
+              checked={selectedState}
+              disabled={isSelectionDisabled}
+              onCheckedChange={onToggleAllVisible}
+              aria-label={t('selectAll')}
+            />
+          </TableHead>
+        ) : null}
         {TABLE_COLUMNS.map((field) => {
           const isSortable = (SORTABLE_COLUMNS as readonly string[]).includes(field);
           const className = field === 'name' ? 'min-w-64' : undefined;

@@ -12,6 +12,7 @@ export type ExercisesToolbarProps = {
   listParams: FetchExercisesListParams;
   activeFilterCount: number;
   selectedCount: number;
+  canManage: boolean;
   onSearchChange: (value: string) => void;
   onFiltersOpenChange: (open: boolean) => void;
   onCreateNew: () => void;
