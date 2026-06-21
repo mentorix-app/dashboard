@@ -42,7 +42,7 @@ export type DeleteExercisesResponse = {
   deletedCount: number;
 };
 
-export type CreateExerciseParams = Omit<Exercise, 'id' | 'addedBy' | 'modifiedBy' | 'modifiedAt'>;
+export type CreateExerciseParams = Omit<Exercise, 'id' | 'addedBy' | 'modifiedBy' | 'modifiedAt' | 'createdAt'>;
 
 export type CreateExerciseResponse = Exercise;
 

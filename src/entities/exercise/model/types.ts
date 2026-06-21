@@ -54,6 +54,7 @@ export type Exercise = {
   addedBy: string;
   modifiedBy: string;
   modifiedAt: string;
+  createdAt: string;
   equipment?: ExerciseEquipment;
   type: ExerciseType;
   muscleGroup: ExerciseMuscleGroup;
