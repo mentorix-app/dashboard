@@ -7,6 +7,7 @@ import type {
   CreateExerciseParams,
   CreateExerciseResponse,
   DeleteExercisesParams,
+  DeleteExercisesResponse,
   ExercisesListResult,
   FetchExercisesListParams,
   UpdateExerciseResponse,
@@ -30,12 +31,10 @@ export const useExercise = (id: string | undefined) =>
 export const useDeleteExercises = () => {
   const queryClient = useQueryClient();
 
-  // Backend exposes single-id deletion (DELETE /exercises/:id, 204). Until bulk
-  // deletion lands, remove the selected ids one request at a time.
-  return useMutation<void, HttpError, DeleteExercisesParams>({
-    mutationFn: async ({ ids }) => {
-      await Promise.all(ids.map((id) => http.delete(`/exercises/${encodeURIComponent(id)}`)));
-    },
+  // Backend bulk endpoint handles both single (one id) and bulk deletion.
+  return useMutation<DeleteExercisesResponse, HttpError, DeleteExercisesParams>({
+    mutationFn: ({ ids }) =>
+      http.delete<DeleteExercisesResponse>('/exercises', { data: { ids } }).then((response) => response.data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.exercises.all }),
   });
 };
