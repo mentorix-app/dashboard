@@ -1,7 +1,7 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { http, queryKeys, useGet, usePost, type HttpError } from '@/src/shared/api';
+import { http, queryKeys, useGet, useInfiniteGet, usePost, type HttpError } from '@/src/shared/api';
 import type { Exercise } from '../model/types';
 import type {
   CreateExerciseParams,
@@ -14,10 +14,15 @@ import type {
 } from './exercises.types';
 import { buildExercisesQuery } from './exercises.utils';
 
-export const useExercises = (params: FetchExercisesListParams = {}) =>
-  useGet<ExercisesListResult>('/exercises', queryKeys.exercises.list(params), undefined, {
-    params: buildExercisesQuery(params),
-  });
+const EXERCISES_PAGE_SIZE = 20;
+
+export const useExercisesInfinite = (params: FetchExercisesListParams = {}) =>
+  useInfiniteGet<ExercisesListResult>(
+    '/exercises',
+    queryKeys.exercises.list(params),
+    (page) => ({ ...buildExercisesQuery(params), page, limit: EXERCISES_PAGE_SIZE }),
+    (lastPage) => (lastPage.pagination.page < lastPage.pagination.totalPages ? lastPage.pagination.page + 1 : undefined)
+  );
 
 export const useExercise = (id: string | undefined) =>
   useGet<Exercise>(`/exercises/${id ?? ''}`, queryKeys.exercises.detail(id ?? ''), { enabled: Boolean(id) });

@@ -19,6 +19,6 @@ export {
   useCreateExercise,
   useDeleteExercises,
   useExercise,
-  useExercises,
+  useExercisesInfinite,
   useUpdateExercise,
 } from './api/useExercises';
