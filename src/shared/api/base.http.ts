@@ -27,8 +27,11 @@ export const http: AxiosInstance = axios.create({
 http.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
+    // Silent refresh is handled server-side by the BFF. A 401 here means the
+    // refresh token is gone/expired, so send the user to login gracefully.
+    // The locale prefix is added by the middleware.
     if (error.response?.status === 401 && typeof window !== 'undefined') {
-      window.location.reload();
+      window.location.assign('/login');
     }
     const message = messageFromErrorBody(error.response?.data) ?? error.message;
     return Promise.reject(new HttpError(message, error));

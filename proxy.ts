@@ -1,5 +1,5 @@
 import { match } from '@formatjs/intl-localematcher';
-import { jwtVerify } from 'jose';
+import { jwtDecrypt } from 'jose';
 import Negotiator from 'negotiator';
 import createMiddleware from 'next-intl/middleware';
 import type { NextRequest } from 'next/server';
@@ -16,18 +16,38 @@ const AUTH_PATHS = new Set(['/login', '/signup', '/forgot-password']);
 const AUTH_SESSION_COOKIE = 'auth_session';
 
 const SESSION_SECRET = process.env.SESSION_SECRET;
-const SESSION_KEY = SESSION_SECRET ? new TextEncoder().encode(SESSION_SECRET) : null;
 
 /**
- * Optimistic check: verifies the cookie is a valid, non-expired JWT signed
- * with SESSION_SECRET. Returns `false` for missing, malformed, or expired
- * cookies so the user is redirected to /login. Cheap enough for every request
- * (no DB calls, no upstream calls) — see Next.js auth guide §"Optimistic checks".
+ * Derives the same 32-byte key used to encrypt the session in
+ * session.crypto.ts (SHA-256 of SESSION_SECRET). Memoised; uses Web Crypto so
+ * it runs in the Edge middleware runtime.
+ */
+let sessionKeyPromise: Promise<Uint8Array> | null = null;
+const getSessionKey = (): Promise<Uint8Array> | null => {
+  if (!SESSION_SECRET) return null;
+  if (!sessionKeyPromise) {
+    sessionKeyPromise = crypto.subtle
+      .digest('SHA-256', new TextEncoder().encode(SESSION_SECRET))
+      .then((buffer) => new Uint8Array(buffer));
+  }
+  return sessionKeyPromise;
+};
+
+/**
+ * Optimistic check: verifies the cookie is a valid, non-expired JWE encrypted
+ * with the SESSION_SECRET-derived key. Returns `false` for missing, malformed,
+ * or expired cookies so the user is redirected to /login. Cheap enough for
+ * every request (no DB calls, no upstream calls) — see Next.js auth guide
+ * §"Optimistic checks".
  */
 async function hasValidSession(token: string | undefined): Promise<boolean> {
-  if (!token || !SESSION_KEY) return false;
+  const key = getSessionKey();
+  if (!token || !key) return false;
   try {
-    await jwtVerify(token, SESSION_KEY, { algorithms: ['HS256'] });
+    await jwtDecrypt(token, await key, {
+      contentEncryptionAlgorithms: ['A256GCM'],
+      keyManagementAlgorithms: ['dir'],
+    });
     return true;
   } catch {
     return false;

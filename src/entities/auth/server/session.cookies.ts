@@ -16,7 +16,7 @@ export const writeSessionCookie = async (session: AuthSession): Promise<void> =>
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
     path: '/',
-    expires: new Date(session.expiresAt),
+    expires: new Date(session.refreshExpiresAt),
   });
 };
 

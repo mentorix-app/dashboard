@@ -1,6 +1,6 @@
 import 'server-only';
 
-import { SignJWT, jwtVerify } from 'jose';
+import { EncryptJWT, jwtDecrypt } from 'jose';
 
 import type { AuthSession } from './session.types';
 
@@ -9,30 +9,55 @@ if (!SECRET) {
   throw new Error('SESSION_SECRET env var is required');
 }
 
-const KEY = new TextEncoder().encode(SECRET);
-const ALG = 'HS256';
+/** Direct symmetric encryption (JWE): the derived key encrypts the payload itself. */
+const ALG = 'dir';
+const ENC = 'A256GCM';
+
+/**
+ * Derives a 32-byte (256-bit) key from SESSION_SECRET via SHA-256 so the secret
+ * can be any length. Uses Web Crypto so the same derivation works in the Node
+ * and Edge runtimes. Memoised after the first call.
+ */
+let keyPromise: Promise<Uint8Array> | null = null;
+const getKey = (): Promise<Uint8Array> => {
+  if (!keyPromise) {
+    keyPromise = crypto.subtle
+      .digest('SHA-256', new TextEncoder().encode(SECRET))
+      .then((buffer) => new Uint8Array(buffer));
+  }
+  return keyPromise;
+};
 
 export const encryptSession = async (session: AuthSession): Promise<string> => {
-  const expSeconds = Math.floor(new Date(session.expiresAt).getTime() / 1000);
-  return new SignJWT({ ...session })
-    .setProtectedHeader({ alg: ALG })
+  const key = await getKey();
+  const expSeconds = Math.floor(new Date(session.refreshExpiresAt).getTime() / 1000);
+  return new EncryptJWT({ ...session })
+    .setProtectedHeader({ alg: ALG, enc: ENC })
     .setIssuedAt()
     .setExpirationTime(expSeconds)
-    .sign(KEY);
+    .encrypt(key);
 };
 
 export const decryptSession = async (token: string): Promise<AuthSession | null> => {
   try {
-    const { payload } = await jwtVerify(token, KEY, { algorithms: [ALG] });
+    const key = await getKey();
+    const { payload } = await jwtDecrypt(token, key, {
+      contentEncryptionAlgorithms: [ENC],
+      keyManagementAlgorithms: [ALG],
+    });
     if (
       typeof payload.accessToken === 'string' &&
-      typeof payload.expiresAt === 'string' &&
+      typeof payload.accessExpiresAt === 'string' &&
+      typeof payload.refreshToken === 'string' &&
+      typeof payload.refreshExpiresAt === 'string' &&
       typeof payload.userId === 'string' &&
       typeof payload.email === 'string'
     ) {
       return {
         accessToken: payload.accessToken,
-        expiresAt: payload.expiresAt,
+        accessExpiresAt: payload.accessExpiresAt,
+        refreshToken: payload.refreshToken,
+        refreshExpiresAt: payload.refreshExpiresAt,
         userId: payload.userId,
         email: payload.email,
       };
