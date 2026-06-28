@@ -1,4 +1,6 @@
 {
   "toggleSidebar": "Переключить боковую панель",
-  "avatarLabel": "Открыть профиль"
+  "avatarLabel": "Открыть профиль",
+  "profile": "Профиль",
+  "logout": "Выйти"
 }

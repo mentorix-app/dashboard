@@ -2,7 +2,7 @@
 
 import { type FC } from 'react';
 import { Link, usePathname, useTranslations } from '@/i18n';
-import { SidebarMenuButton, SidebarMenuItem, Typography, useSidebar } from '@/src/shared/ui';
+import { SidebarMenuButton, SidebarMenuItem } from '@/src/shared/ui';
 import type { SidebarNavItem } from '../AppSidebar.types';
 
 type Props = {
@@ -12,29 +12,16 @@ type Props = {
 export const AppSidebarItem: FC<Props> = ({ item }) => {
   const t = useTranslations('AppSidebar');
   const pathname = usePathname();
-  const { state } = useSidebar();
   const Icon = item.icon;
   const label = t(item.i18nKey);
   const isActive = pathname === item.href || pathname.startsWith(`${item.href}/`);
-  const isCollapsed = state === 'collapsed';
 
   return (
     <SidebarMenuItem>
-      <SidebarMenuButton
-        asChild
-        isActive={isActive}
-        tooltip={label}
-        className="group-data-[collapsible=icon]:h-auto group-data-[collapsible=icon]:py-2"
-      >
+      <SidebarMenuButton asChild isActive={isActive} tooltip={label}>
         <Link href={item.href} aria-current={isActive ? 'page' : undefined}>
           <Icon aria-hidden />
-          {isCollapsed ? (
-            <Typography variant="tag" as="span" className="text-[10px] leading-tight">
-              {label}
-            </Typography>
-          ) : (
-            <span className="truncate">{label}</span>
-          )}
+          <span className="truncate">{label}</span>
         </Link>
       </SidebarMenuButton>
     </SidebarMenuItem>

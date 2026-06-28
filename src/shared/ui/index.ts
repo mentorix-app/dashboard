@@ -5,6 +5,7 @@ export * from './Checkbox';
 export * from './Collapsible';
 export * from './ConfirmationModal';
 export * from './Dialog';
+export * from './DropdownMenu';
 export * from './FormMessage';
 export * from './HtmlLangSync';
 export * from './Input';

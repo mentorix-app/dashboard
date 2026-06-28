@@ -1,9 +1,23 @@
 'use client';
 
+import { useTransition } from 'react';
+import { LogOut, User as UserIcon } from 'lucide-react';
+
 import { useTranslations, Link } from '@/i18n';
+import { logoutAction } from '@/src/entities/auth';
 import { useCurrentUser, type User } from '@/src/entities/user';
 import { ROUTES } from '@/src/shared/lib';
-import { Avatar, AvatarFallback, AvatarImage, Skeleton } from '@/src/shared/ui';
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+  Skeleton,
+} from '@/src/shared/ui';
 
 const getInitials = (user: User): string => {
   const full = user.name ?? [user.firstName, user.lastName].filter(Boolean).join(' ').trim();
@@ -19,21 +33,42 @@ const getInitials = (user: User): string => {
 export const UserAvatar = () => {
   const t = useTranslations('AppHeader');
   const user = useCurrentUser();
+  const [isLoggingOut, startTransition] = useTransition();
 
   if (!user) {
     return <Skeleton className="size-8 rounded-full" />;
   }
 
+  const handleLogout = () => {
+    startTransition(() => {
+      void logoutAction();
+    });
+  };
+
   return (
-    <Link
-      href={ROUTES.profile}
-      aria-label={t('avatarLabel')}
-      className="focus-visible:ring-ring/50 rounded-full outline-none focus-visible:ring-2"
-    >
-      <Avatar>
-        {user.avatarUrl ? <AvatarImage src={user.avatarUrl} alt="" /> : null}
-        <AvatarFallback>{getInitials(user)}</AvatarFallback>
-      </Avatar>
-    </Link>
+    <DropdownMenu>
+      <DropdownMenuTrigger
+        aria-label={t('avatarLabel')}
+        className="focus-visible:ring-ring/50 cursor-pointer rounded-full outline-none focus-visible:ring-2"
+      >
+        <Avatar>
+          {user.avatarUrl ? <AvatarImage src={user.avatarUrl} alt="" /> : null}
+          <AvatarFallback>{getInitials(user)}</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="end" className="min-w-44">
+        <DropdownMenuItem asChild>
+          <Link href={ROUTES.profile}>
+            <UserIcon />
+            {t('profile')}
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuSeparator />
+        <DropdownMenuItem variant="destructive" disabled={isLoggingOut} onSelect={handleLogout}>
+          <LogOut />
+          {t('logout')}
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   );
 };

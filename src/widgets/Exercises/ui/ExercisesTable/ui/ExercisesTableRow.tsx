@@ -56,9 +56,9 @@ export const ExercisesTableRow: FC<ExercisesTableRowProps> = ({
         </TableCell>
       ) : null}
       <TableCell className="min-w-64">
-        <div className="flex flex-col gap-1">
-          <span className="text-foreground font-medium">{name}</span>
-          <span className="text-muted-foreground line-clamp-2 text-xs">{description}</span>
+        <div className="flex max-w-[28rem] min-w-0 flex-col gap-1">
+          <span className="text-foreground truncate font-medium">{name}</span>
+          <span className="text-muted-foreground line-clamp-2 text-xs whitespace-normal">{description}</span>
         </div>
       </TableCell>
       <TableCell className="whitespace-nowrap">{t(`types.${exercise.type}`)}</TableCell>

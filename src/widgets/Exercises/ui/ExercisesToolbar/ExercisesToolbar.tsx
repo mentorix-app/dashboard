@@ -30,8 +30,8 @@ export const ExercisesToolbar: FC<ExercisesToolbarProps> = ({
 
   return (
     <Collapsible open={filtersOpen} onOpenChange={onFiltersOpenChange} className="flex flex-col gap-3">
-      <div className="flex flex-col gap-3 lg:flex-row lg:items-start lg:justify-between">
-        <div className="flex w-full flex-col gap-2 lg:max-w-3xl">
+      <div className="flex flex-col gap-3 lg:flex-row lg:flex-wrap lg:items-start lg:justify-between">
+        <div className="flex w-full min-w-0 flex-col gap-2 lg:max-w-3xl lg:flex-1">
           <div className="flex flex-col gap-2 sm:flex-row">
             <div className="relative w-full sm:max-w-sm">
               <Search
@@ -63,15 +63,15 @@ export const ExercisesToolbar: FC<ExercisesToolbarProps> = ({
             onClearFilters={onClearFilters}
           />
         </div>
-        <div className="flex flex-wrap gap-2">
+        <div className="flex w-full flex-col gap-2 sm:flex-row lg:w-auto lg:shrink-0">
           {canManage && selectedCount > 0 ? (
-            <Button type="button" variant="destructive" onClick={onDeleteSelected}>
+            <Button type="button" variant="destructive" className="w-full sm:w-auto" onClick={onDeleteSelected}>
               <Trash2 aria-hidden />
               {t('deleteSelected', { count: selectedCount })}
             </Button>
           ) : null}
           {canManage ? (
-            <Button type="button" onClick={onCreateNew}>
+            <Button type="button" className="w-full sm:w-auto" onClick={onCreateNew}>
               <Plus aria-hidden />
               {t('createNew')}
             </Button>

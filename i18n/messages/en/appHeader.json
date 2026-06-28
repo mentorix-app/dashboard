@@ -1,4 +1,6 @@
 {
   "toggleSidebar": "Toggle sidebar",
-  "avatarLabel": "Open profile"
+  "avatarLabel": "Open profile",
+  "profile": "Profile",
+  "logout": "Log out"
 }
