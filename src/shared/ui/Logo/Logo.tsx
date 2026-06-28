@@ -1,25 +1,58 @@
+import Image from 'next/image';
 import { type FC } from 'react';
 
 import { cn } from '@/src/shared/lib/styles';
 
 export type LogoProps = {
+  /** When true, render the full wordmark logo; otherwise render the compact mark only. */
   showWordmark?: boolean;
   className?: string;
   ariaLabel?: string;
 };
 
-export const Logo: FC<LogoProps> = ({ showWordmark = true, className, ariaLabel = 'Mentorix' }) => (
-  <span
-    role="img"
-    aria-label={ariaLabel}
-    className={cn('inline-flex items-center gap-2 select-none', className)}
-    data-slot="logo"
-  >
-    <svg viewBox="0 0 24 24" aria-hidden className="text-primary size-6" fill="none">
-      <rect x="2" y="2" width="20" height="20" rx="6" className="fill-primary/10" />
-      <path d="M6 17V8l4 5 4-5v9" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-      <path d="M18 17V8" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
-    </svg>
-    {showWordmark ? <span className="text-foreground text-base font-semibold tracking-tight">Mentorix</span> : null}
-  </span>
-);
+export const Logo: FC<LogoProps> = ({ showWordmark = true, className, ariaLabel = 'Mentorix' }) => {
+  if (!showWordmark) {
+    return (
+      <Image
+        src="/mini-logo.svg"
+        alt={ariaLabel}
+        width={40}
+        height={40}
+        priority
+        unoptimized
+        data-slot="logo"
+        className={cn('size-7 shrink-0 select-none', className)}
+      />
+    );
+  }
+
+  return (
+    <span
+      role="img"
+      aria-label={ariaLabel}
+      data-slot="logo"
+      className={cn('inline-flex items-center select-none', className)}
+    >
+      <Image
+        src="/full-logo.svg"
+        alt=""
+        aria-hidden
+        width={460}
+        height={108}
+        priority
+        unoptimized
+        className="h-10 w-auto dark:hidden"
+      />
+      <Image
+        src="/full-logo-dark.svg"
+        alt=""
+        aria-hidden
+        width={460}
+        height={108}
+        priority
+        unoptimized
+        className="hidden h-10 w-auto dark:block"
+      />
+    </span>
+  );
+};

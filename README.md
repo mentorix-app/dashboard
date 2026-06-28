@@ -38,6 +38,8 @@ yarn dev
 Create a local `.env` file with:
 
 ```bash
+# Public base URL of the dashboard. Used for metadata (metadataBase, canonical,
+# Open Graph / Twitter image URLs). Set to the deployed origin in production.
 NEXT_PUBLIC_APP_URL=http://localhost:3000
 NEXT_PUBLIC_MENTORIX_API_URL=https://mentorix-backend.onrender.com
 # 32-byte base64 secret used to sign the auth session JWT. Generate with:

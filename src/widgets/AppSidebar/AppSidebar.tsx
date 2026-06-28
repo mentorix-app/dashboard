@@ -22,7 +22,8 @@ export const AppSidebar = () => {
     <Sidebar collapsible="icon" aria-label={t('label')}>
       <SidebarHeader>
         <div className="flex items-center justify-center px-1 py-2 group-data-[state=expanded]:justify-start">
-          <Logo showWordmark className="group-data-[collapsible=icon]:[&>span:last-child]:hidden" />
+          <Logo showWordmark className="group-data-[collapsible=icon]:hidden" />
+          <Logo showWordmark={false} className="hidden group-data-[collapsible=icon]:block" />
         </div>
       </SidebarHeader>
       <SidebarContent>

@@ -1,9 +1,14 @@
 import Script from 'next/script';
+import type { Metadata } from 'next';
 import type { ReactNode } from 'react';
 import { fontSans } from './fonts';
 import './globals.css';
 import { routing } from '@/i18n';
-import { cn, themeInlineScript } from '@/src/shared/lib';
+import { SITE_URL, cn, themeInlineScript } from '@/src/shared/lib';
+
+export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+};
 
 export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (

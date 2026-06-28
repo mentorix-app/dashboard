@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Reset password · Mentorix',
+  title: 'Reset password',
   description: 'Reset your Mentorix account password.',
 };
 
