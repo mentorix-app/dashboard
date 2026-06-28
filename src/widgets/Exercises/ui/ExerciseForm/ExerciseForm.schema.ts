@@ -2,7 +2,6 @@ import * as z from 'zod';
 
 export type ExerciseValidationMessages = {
   nameMin: string;
-  descriptionMin: string;
   selectRequired: string;
   urlInvalid: string;
 };
@@ -14,8 +13,8 @@ export function createExerciseSchema(messages: ExerciseValidationMessages) {
   return z.object({
     name: z.string().trim().min(2, messages.nameMin),
     nameRu: z.string().trim().min(2, messages.nameMin),
-    description: z.string().trim().min(10, messages.descriptionMin),
-    descriptionRu: z.string().trim().min(10, messages.descriptionMin),
+    description: z.string().trim(),
+    descriptionRu: z.string().trim(),
     type: requiredSelect,
     muscleGroup: requiredSelect,
     equipment: z.string(),

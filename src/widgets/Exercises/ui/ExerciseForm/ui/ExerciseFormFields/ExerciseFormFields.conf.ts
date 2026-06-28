@@ -29,7 +29,6 @@ export const useExerciseFormFieldsConfig = ({ exerciseId, exercise, onSuccess }:
     () =>
       createExerciseSchema({
         nameMin: t('form.validation.nameMin'),
-        descriptionMin: t('form.validation.descriptionMin'),
         selectRequired: t('form.validation.selectRequired'),
         urlInvalid: t('form.validation.urlInvalid'),
       }),
