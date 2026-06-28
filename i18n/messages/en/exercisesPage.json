@@ -20,9 +20,17 @@
   "sort": {
     "change": "Change sorting by {column}"
   },
+  "toast": {
+    "createSuccess": "Exercise created successfully.",
+    "createError": "Could not create the exercise. Please try again.",
+    "updateSuccess": "Exercise updated successfully.",
+    "updateError": "Could not update the exercise. Please try again.",
+    "deleteSuccess": "{count, plural, one {Exercise deleted successfully.} other {# exercises deleted successfully.}}",
+    "deleteError": "Could not delete the selected exercises. Please try again."
+  },
   "deleteConfirm": {
-    "title": "Delete selected exercises?",
-    "description": "This will send {count} selected exercise ids to the API: {names}.",
+    "title": "{count, plural, one {Delete this exercise?} other {Delete # exercises?}}",
+    "description": "{count, plural, one {This will permanently delete {names}. This action can't be undone.} other {This will permanently delete # exercises: {names}. This action can't be undone.}}",
     "selectedItems": "selected items",
     "cancel": "Cancel",
     "confirm": "Delete"

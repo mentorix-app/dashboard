@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools';
 import { useState, type ReactNode } from 'react';
 import { MINUTE, MS } from '@/src/shared/lib/constants';
+import { Toaster } from '@/src/shared/ui';
 
 const defaultQueryOptions = {
   queries: {
@@ -22,6 +23,7 @@ export function Providers({ children }: { children: ReactNode }) {
   return (
     <QueryClientProvider client={queryClient}>
       {children}
+      <Toaster />
       {process.env.NODE_ENV === 'development' ? (
         <ReactQueryDevtools buttonPosition="bottom-right" initialIsOpen={false} />
       ) : null}

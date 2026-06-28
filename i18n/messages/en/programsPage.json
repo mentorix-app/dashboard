@@ -18,6 +18,12 @@
   "sort": {
     "change": "Change sorting by {column}"
   },
+  "toast": {
+    "createSuccess": "Program created successfully.",
+    "createError": "Could not create the program. Please try again.",
+    "deleteSuccess": "{count, plural, one {Program deleted successfully.} other {# programs deleted successfully.}}",
+    "deleteError": "Could not delete the selected programs. Please try again."
+  },
   "deleteConfirm": {
     "title": "Delete selected programs?",
     "description": "This will delete {count} selected program(s): {names}.",

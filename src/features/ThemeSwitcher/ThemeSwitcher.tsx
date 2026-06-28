@@ -1,36 +1,16 @@
 'use client';
 
 import { Moon, Sun } from 'lucide-react';
-import { useCallback, useSyncExternalStore } from 'react';
+import { useCallback } from 'react';
 
 import { useTranslations } from '@/i18n';
+import { useResolvedTheme } from '@/src/shared/hooks';
 import { THEME_STORAGE_KEY } from '@/src/shared/lib/theme';
 import { Button } from '@/src/shared/ui';
 
-type ResolvedTheme = 'light' | 'dark';
-
-const getThemeSnapshot = (): ResolvedTheme => (document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-
-const getServerSnapshot = (): ResolvedTheme => 'light';
-
-const subscribeToTheme = (onChange: () => void) => {
-  const observer = new MutationObserver(onChange);
-  observer.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] });
-
-  const handleStorage = (event: StorageEvent) => {
-    if (event.key === THEME_STORAGE_KEY || event.key === null) onChange();
-  };
-  window.addEventListener('storage', handleStorage);
-
-  return () => {
-    observer.disconnect();
-    window.removeEventListener('storage', handleStorage);
-  };
-};
-
 export const ThemeSwitcher = () => {
   const t = useTranslations('ThemeSwitcher');
-  const resolved = useSyncExternalStore(subscribeToTheme, getThemeSnapshot, getServerSnapshot);
+  const resolved = useResolvedTheme();
   const isDark = resolved === 'dark';
 
   const handleToggle = useCallback(() => {

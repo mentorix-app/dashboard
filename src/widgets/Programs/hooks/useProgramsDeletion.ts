@@ -1,7 +1,9 @@
 'use client';
 
 import { useCallback, useState, type Dispatch, type SetStateAction } from 'react';
+import { useTranslations } from '@/i18n';
 import { useDeleteProgram, type Program } from '@/src/entities/program';
+import { useToast } from '@/src/shared/hooks';
 
 type UseProgramsDeletionParams = {
   programs: Program[];
@@ -10,6 +12,8 @@ type UseProgramsDeletionParams = {
 };
 
 export const useProgramsDeletion = ({ programs, selectedIds, setSelectedIds }: UseProgramsDeletionParams) => {
+  const t = useTranslations('Programs');
+  const { showSuccessToast, showErrorToast } = useToast();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const [isDeleting, setIsDeleting] = useState(false);
   const deleteProgram = useDeleteProgram();
@@ -29,8 +33,13 @@ export const useProgramsDeletion = ({ programs, selectedIds, setSelectedIds }: U
 
     setSelectedIds(new Set(failedIds));
     setIsDeleting(false);
-    if (failedIds.length === 0) setIsDeleteDialogOpen(false);
-  }, [deleteProgram, programs, selectedIds, setSelectedIds]);
+    if (failedIds.length === 0) {
+      showSuccessToast(t('toast.deleteSuccess', { count: ids.length }));
+      setIsDeleteDialogOpen(false);
+    } else {
+      showErrorToast(t('toast.deleteError'));
+    }
+  }, [deleteProgram, programs, selectedIds, setSelectedIds, showSuccessToast, showErrorToast, t]);
 
   return {
     isDeleteDialogOpen,

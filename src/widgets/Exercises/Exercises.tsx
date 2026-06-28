@@ -85,7 +85,7 @@ export const Exercises: FC = () => {
       </div>
       <ConfirmationModal
         open={isDeleteDialogOpen}
-        title={t('deleteConfirm.title')}
+        title={t('deleteConfirm.title', { count: visibleSelected.size })}
         description={t('deleteConfirm.description', {
           count: visibleSelected.size,
           names: selectedNames || t('deleteConfirm.selectedItems'),

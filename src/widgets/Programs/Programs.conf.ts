@@ -2,8 +2,10 @@
 
 import { useCallback, useMemo, useState } from 'react';
 
+import { useTranslations } from '@/i18n';
 import { useCreateProgram, type Program } from '@/src/entities/program';
 import { useCurrentUser, UserRole } from '@/src/entities/user';
+import { useToast } from '@/src/shared/hooks';
 
 import type { ProgramsConfig } from './Programs.types';
 import { useProgramsDeletion } from './hooks/useProgramsDeletion';
@@ -14,6 +16,8 @@ import { useProgramsSelection } from './hooks/useProgramsSelection';
 import { useProgramsSort } from './hooks/useProgramsSort';
 
 export const useProgramsConfig = (): ProgramsConfig => {
+  const t = useTranslations('Programs');
+  const { showSuccessToast, showErrorToast } = useToast();
   const currentUser = useCurrentUser();
   const isAdmin = currentUser?.roles.includes(UserRole.Admin) ?? false;
   const userId = currentUser?.userId;
@@ -28,8 +32,11 @@ export const useProgramsConfig = (): ProgramsConfig => {
   const [filtersOpen, setFiltersOpen] = useState(false);
   const createProgram = useCreateProgram();
   const handleCreateNew = useCallback(() => {
-    createProgram.mutate();
-  }, [createProgram]);
+    createProgram.mutate(undefined, {
+      onSuccess: () => showSuccessToast(t('toast.createSuccess')),
+      onError: () => showErrorToast(t('toast.createError')),
+    });
+  }, [createProgram, showSuccessToast, showErrorToast, t]);
 
   const search = useProgramsSearch();
   const list = useProgramsList(search.listParams);

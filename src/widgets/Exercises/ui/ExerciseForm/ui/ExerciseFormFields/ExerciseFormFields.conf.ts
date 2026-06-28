@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
 import { useTranslations } from '@/i18n';
 import { useCreateExercise, useUpdateExercise, type Exercise } from '@/src/entities/exercise';
+import { useToast } from '@/src/shared/hooks';
 
 import { EXERCISE_FORM_DEFAULT_VALUES } from '../../ExerciseForm.constants';
 import { createExerciseSchema } from '../../ExerciseForm.schema';
@@ -19,6 +20,7 @@ type UseExerciseFormFieldsConfigParams = {
 
 export const useExerciseFormFieldsConfig = ({ exerciseId, exercise, onSuccess }: UseExerciseFormFieldsConfigParams) => {
   const t = useTranslations('Exercises');
+  const { showSuccessToast, showErrorToast } = useToast();
 
   const createMutation = useCreateExercise();
   const updateMutation = useUpdateExercise();
@@ -44,11 +46,26 @@ export const useExerciseFormFieldsConfig = ({ exerciseId, exercise, onSuccess }:
     const params = toCreateExerciseParams(values);
 
     if (exerciseId) {
-      updateMutation.mutate({ id: exerciseId, params }, { onSuccess });
+      updateMutation.mutate(
+        { id: exerciseId, params },
+        {
+          onSuccess: () => {
+            showSuccessToast(t('toast.updateSuccess'));
+            onSuccess();
+          },
+          onError: () => showErrorToast(t('toast.updateError')),
+        }
+      );
       return;
     }
 
-    createMutation.mutate(params, { onSuccess });
+    createMutation.mutate(params, {
+      onSuccess: () => {
+        showSuccessToast(t('toast.createSuccess'));
+        onSuccess();
+      },
+      onError: () => showErrorToast(t('toast.createError')),
+    });
   };
 
   return {

@@ -1,7 +1,9 @@
 'use client';
 
 import { useCallback, useState, type Dispatch, type SetStateAction } from 'react';
+import { useTranslations } from '@/i18n';
 import { useDeleteExercises, type Exercise } from '@/src/entities/exercise';
+import { useToast } from '@/src/shared/hooks';
 
 type UseExercisesDeletionParams = {
   exercises: Exercise[];
@@ -10,6 +12,8 @@ type UseExercisesDeletionParams = {
 };
 
 export const useExercisesDeletion = ({ exercises, selectedIds, setSelectedIds }: UseExercisesDeletionParams) => {
+  const t = useTranslations('Exercises');
+  const { showSuccessToast, showErrorToast } = useToast();
   const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
   const deleteExercises = useDeleteExercises();
 
@@ -23,12 +27,14 @@ export const useExercisesDeletion = ({ exercises, selectedIds, setSelectedIds }:
       { ids },
       {
         onSuccess: () => {
+          showSuccessToast(t('toast.deleteSuccess', { count: ids.length }));
           setSelectedIds(new Set());
           setIsDeleteDialogOpen(false);
         },
+        onError: () => showErrorToast(t('toast.deleteError')),
       }
     );
-  }, [deleteExercises, exercises, selectedIds, setSelectedIds]);
+  }, [deleteExercises, exercises, selectedIds, setSelectedIds, showSuccessToast, showErrorToast, t]);
 
   return {
     isDeleteDialogOpen,

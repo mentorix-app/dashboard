@@ -16,6 +16,7 @@ export * from './Select';
 export * from './Sheet';
 export * from './Sidebar';
 export * from './Skeleton';
+export * from './Sonner';
 export * from './Table';
 export * from './Tabs';
 export * from './Textarea';
