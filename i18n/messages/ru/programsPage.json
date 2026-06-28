@@ -1,0 +1,35 @@
+{
+  "title": "Программы",
+  "searchPlaceholder": "Поиск программ",
+  "createNew": "Новая программа",
+  "empty": "Программы не найдены.",
+  "columns": {
+    "name": "Название",
+    "status": "Статус",
+    "category": "Категория",
+    "difficulty": "Сложность",
+    "exercisesCount": "Упражнения",
+    "weeksCount": "Недели",
+    "createdBy": "Создал",
+    "enrolledUsers": "Участники",
+    "modifiedAt": "Обновлено"
+  },
+  "status": {
+    "draft": "Черновик",
+    "published": "Опубликовано",
+    "archived": "В архиве"
+  },
+  "categories": {
+    "weight_loss": "Снижение веса",
+    "muscle_gain": "Набор массы",
+    "rehabilitation": "Реабилитация",
+    "endurance": "Выносливость",
+    "functional": "Функциональная"
+  },
+  "difficulty": {
+    "beginner": "Начальный",
+    "intermediate": "Средний",
+    "advanced": "Продвинутый",
+    "expert": "Эксперт"
+  }
+}

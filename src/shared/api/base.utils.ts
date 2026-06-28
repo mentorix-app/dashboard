@@ -1,4 +1,4 @@
-import { QUERY_KEY_AUTH, QUERY_KEY_EXERCISES, QUERY_KEY_USER } from './base.constants';
+import { QUERY_KEY_AUTH, QUERY_KEY_EXERCISES, QUERY_KEY_PROGRAMS, QUERY_KEY_USER } from './base.constants';
 
 /**
  * Central query keys for TanStack Query. Extend per feature/widget.
@@ -12,6 +12,11 @@ export const queryKeys = {
     all: [QUERY_KEY_EXERCISES] as const,
     list: (params: object) => [...queryKeys.exercises.all, 'list', params] as const,
     detail: (id: string) => [...queryKeys.exercises.all, 'detail', id] as const,
+  },
+  programs: {
+    all: [QUERY_KEY_PROGRAMS] as const,
+    list: (params: object) => [...queryKeys.programs.all, 'list', params] as const,
+    detail: (id: string) => [...queryKeys.programs.all, 'detail', id] as const,
   },
   user: {
     all: [QUERY_KEY_USER] as const,

@@ -1,0 +1,35 @@
+{
+  "title": "Programs",
+  "searchPlaceholder": "Search programs",
+  "createNew": "New program",
+  "empty": "No programs found.",
+  "columns": {
+    "name": "Name",
+    "status": "Status",
+    "category": "Category",
+    "difficulty": "Difficulty",
+    "exercisesCount": "Exercises",
+    "weeksCount": "Weeks",
+    "createdBy": "Created by",
+    "enrolledUsers": "Enrolled",
+    "modifiedAt": "Updated"
+  },
+  "status": {
+    "draft": "Draft",
+    "published": "Published",
+    "archived": "Archived"
+  },
+  "categories": {
+    "weight_loss": "Weight loss",
+    "muscle_gain": "Muscle gain",
+    "rehabilitation": "Rehabilitation",
+    "endurance": "Endurance",
+    "functional": "Functional"
+  },
+  "difficulty": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "expert": "Expert"
+  }
+}
