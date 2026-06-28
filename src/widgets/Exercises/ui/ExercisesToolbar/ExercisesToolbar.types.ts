@@ -1,10 +1,10 @@
 import type {
-  ExerciseDifficulty,
   ExerciseEquipment,
   ExerciseMuscleGroup,
   ExerciseType,
   FetchExercisesListParams,
 } from '@/src/entities/exercise';
+import type { Difficulty } from '@/src/shared/types';
 
 export type ExercisesToolbarProps = {
   search: string;
@@ -20,7 +20,7 @@ export type ExercisesToolbarProps = {
   onTypeFilterChange: (value: ExerciseType, checked: boolean) => void;
   onMuscleGroupFilterChange: (value: ExerciseMuscleGroup, checked: boolean) => void;
   onEquipmentFilterChange: (value: ExerciseEquipment, checked: boolean) => void;
-  onDifficultyFilterChange: (value: ExerciseDifficulty, checked: boolean) => void;
+  onDifficultyFilterChange: (value: Difficulty, checked: boolean) => void;
   onClearFilters: () => void;
 };
 

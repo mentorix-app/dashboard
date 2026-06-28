@@ -1,4 +1,5 @@
-export type { User, UserRole } from './model/types';
+export type { User } from './model/types';
+export { UserRole } from './model/types';
 export { useUserStore } from './model/store';
 export { useCurrentUser } from './model/useCurrentUser';
 export { Permission, hasPermission } from './model/permissions';

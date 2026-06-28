@@ -1,5 +1,5 @@
 export type { Exercise } from './model/types';
-export { ExerciseDifficulty, ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from './model/types';
+export { ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from './model/types';
 export { getExerciseDescription, getExerciseName } from './model/utils';
 export type {
   CreateExerciseParams,

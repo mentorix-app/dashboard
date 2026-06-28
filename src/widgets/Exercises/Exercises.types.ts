@@ -1,6 +1,5 @@
 import type {
   Exercise,
-  ExerciseDifficulty,
   ExerciseEquipment,
   ExerciseMuscleGroup,
   ExerciseSortField,
@@ -8,6 +7,7 @@ import type {
   ExerciseType,
   FetchExercisesListParams,
 } from '@/src/entities/exercise';
+import type { Difficulty } from '@/src/shared/types';
 
 export type ExercisesConfig = {
   search: string;
@@ -35,7 +35,7 @@ export type ExercisesConfig = {
   handleTypeFilterChange: (value: ExerciseType, checked: boolean) => void;
   handleMuscleGroupFilterChange: (value: ExerciseMuscleGroup, checked: boolean) => void;
   handleEquipmentFilterChange: (value: ExerciseEquipment, checked: boolean) => void;
-  handleDifficultyFilterChange: (value: ExerciseDifficulty, checked: boolean) => void;
+  handleDifficultyFilterChange: (value: Difficulty, checked: boolean) => void;
   handleClearFilters: () => void;
   handleSortChange: (field: ExerciseSortField) => void;
   handleLoadMore: () => void;
@@ -51,7 +51,7 @@ export type ExercisesSearchParamUpdates = {
   type?: readonly ExerciseType[];
   muscleGroup?: readonly ExerciseMuscleGroup[];
   equipment?: readonly ExerciseEquipment[];
-  difficulty?: readonly ExerciseDifficulty[];
+  difficulty?: readonly Difficulty[];
   sortBy?: ExerciseSortField;
   sortOrder?: ExerciseSortOrder;
 };

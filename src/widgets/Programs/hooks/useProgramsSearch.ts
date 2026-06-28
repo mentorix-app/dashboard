@@ -4,7 +4,7 @@ import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useDebouncedValue } from '@/src/shared/hooks';
 
-import type { ProgramsSearchParamsController } from '../Programs.types';
+import type { ProgramsSearchParamUpdateMode, ProgramsSearchParamsController } from '../Programs.types';
 import { createProgramsSearchParams, parseProgramsSearchParams } from '../Programs.utils';
 
 const SEARCH_DEBOUNCE_MS = 300;
@@ -16,12 +16,18 @@ export const useProgramsSearch = (): ProgramsSearchParamsController => {
   const [search, setSearch] = useState(listParams.name ?? '');
   const debouncedSearch = useDebouncedValue(search, SEARCH_DEBOUNCE_MS);
 
-  const updateName = useCallback(
-    (name: string | undefined) => {
-      const next = createProgramsSearchParams(searchParamsKey, { name });
+  const updateSearchParams = useCallback(
+    (updates: Parameters<typeof createProgramsSearchParams>[1], mode: ProgramsSearchParamUpdateMode = 'push') => {
+      const next = createProgramsSearchParams(searchParamsKey, updates);
       const query = next.toString();
       const nextUrl = query ? `${window.location.pathname}?${query}` : window.location.pathname;
-      window.history.replaceState(null, '', nextUrl);
+
+      if (mode === 'replace') {
+        window.history.replaceState(null, '', nextUrl);
+        return;
+      }
+
+      window.history.pushState(null, '', nextUrl);
     },
     [searchParamsKey]
   );
@@ -30,12 +36,13 @@ export const useProgramsSearch = (): ProgramsSearchParamsController => {
     const nextName = debouncedSearch.trim() || undefined;
     if (nextName === listParams.name) return;
 
-    updateName(nextName);
-  }, [debouncedSearch, listParams.name, updateName]);
+    updateSearchParams({ name: nextName }, 'replace');
+  }, [debouncedSearch, listParams.name, updateSearchParams]);
 
   return {
     search,
     listParams: { ...listParams, name: debouncedSearch.trim() || undefined },
+    updateSearchParams,
     handleSearchChange: setSearch,
   };
 };

@@ -2,7 +2,29 @@
   "title": "Programs",
   "searchPlaceholder": "Search programs",
   "createNew": "New program",
+  "deleteSelected": "Delete selected ({count})",
+  "selectAll": "Select all programs",
+  "selectRow": "Select {name}",
   "empty": "No programs found.",
+  "filters": {
+    "show": "Show filters",
+    "hide": "Hide filters",
+    "clearAll": "Clear all",
+    "all": "All",
+    "status": "Status",
+    "category": "Category",
+    "difficulty": "Difficulty"
+  },
+  "sort": {
+    "change": "Change sorting by {column}"
+  },
+  "deleteConfirm": {
+    "title": "Delete selected programs?",
+    "description": "This will delete {count} selected program(s): {names}.",
+    "selectedItems": "selected items",
+    "cancel": "Cancel",
+    "confirm": "Delete"
+  },
   "columns": {
     "name": "Name",
     "status": "Status",

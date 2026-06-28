@@ -2,18 +2,35 @@
 
 import { type FC } from 'react';
 import { useLocale, useTranslations } from '@/i18n';
-import { TableCell, TableRow } from '@/src/shared/ui';
+import { Checkbox, TableCell, TableRow } from '@/src/shared/ui';
 
 import { PLACEHOLDER_COUNT } from '../ProgramsTable.constants';
 import type { ProgramsTableRowProps } from '../ProgramsTable.types';
 import { formatModifiedAt } from '../ProgramsTable.utils';
 
-export const ProgramsTableRow: FC<ProgramsTableRowProps> = ({ program }) => {
+export const ProgramsTableRow: FC<ProgramsTableRowProps> = ({
+  program,
+  isSelected,
+  canSelect,
+  canManage,
+  onToggleRow,
+}) => {
   const locale = useLocale();
   const t = useTranslations('Programs');
 
   return (
-    <TableRow>
+    <TableRow data-state={isSelected ? 'selected' : undefined}>
+      {canSelect ? (
+        <TableCell>
+          {canManage ? (
+            <Checkbox
+              checked={isSelected}
+              onCheckedChange={() => onToggleRow(program.id)}
+              aria-label={t('selectRow', { name: program.name })}
+            />
+          ) : null}
+        </TableCell>
+      ) : null}
       <TableCell className="min-w-64">
         <span className="text-foreground truncate font-medium">{program.name}</span>
       </TableCell>

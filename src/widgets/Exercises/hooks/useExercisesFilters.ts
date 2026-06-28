@@ -1,7 +1,8 @@
 'use client';
 
 import { useCallback } from 'react';
-import type { ExerciseDifficulty, ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from '@/src/entities/exercise';
+import type { ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from '@/src/entities/exercise';
+import type { Difficulty } from '@/src/shared/types';
 
 import type { ExercisesSearchParamsController } from '../Exercises.types';
 
@@ -28,7 +29,7 @@ export const useExercisesFilters = ({ listParams, updateSearchParams }: Exercise
   );
 
   const handleDifficultyFilterChange = useCallback(
-    (value: ExerciseDifficulty, checked: boolean) => {
+    (value: Difficulty, checked: boolean) => {
       updateSearchParams({ difficulty: checked ? [value] : [] });
     },
     [updateSearchParams]

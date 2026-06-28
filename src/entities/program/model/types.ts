@@ -1,3 +1,5 @@
+import type { Difficulty } from '@/src/shared/types';
+
 export enum ProgramStatus {
   Draft = 'draft',
   Published = 'published',
@@ -12,13 +14,6 @@ export enum ProgramCategory {
   Functional = 'functional',
 }
 
-export enum ProgramDifficulty {
-  Beginner = 'beginner',
-  Intermediate = 'intermediate',
-  Advanced = 'advanced',
-  Expert = 'expert',
-}
-
 export type Program = {
   id: string;
   createdBy: string;
@@ -27,7 +22,7 @@ export type Program = {
   name: string;
   description: string;
   category: ProgramCategory | null;
-  difficulty: ProgramDifficulty | null;
+  difficulty: Difficulty | null;
   previewImageUrl: string;
   createdAt: string;
   modifiedAt: string;

@@ -1,3 +1,5 @@
+import type { Difficulty } from '@/src/shared/types';
+
 export enum ExerciseMuscleGroup {
   Compound = 'compound',
   Chest = 'chest',
@@ -40,13 +42,6 @@ export enum ExerciseEquipment {
   WeightPlates = 'weight_plates',
 }
 
-export enum ExerciseDifficulty {
-  Beginner = 'beginner',
-  Intermediate = 'intermediate',
-  Advanced = 'advanced',
-  Expert = 'expert',
-}
-
 export type Exercise = {
   id: string;
   name: string;
@@ -60,7 +55,7 @@ export type Exercise = {
   muscleGroup: ExerciseMuscleGroup;
   description: string;
   descriptionRu: string;
-  difficulty: ExerciseDifficulty;
+  difficulty: Difficulty;
   videoUrl: string;
   previewImageUrl: string;
 };

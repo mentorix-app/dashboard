@@ -1,10 +1,6 @@
-import type {
-  Exercise,
-  ExerciseDifficulty,
-  ExerciseEquipment,
-  ExerciseMuscleGroup,
-  ExerciseType,
-} from '../model/types';
+import type { Difficulty } from '@/src/shared/types';
+
+import type { Exercise, ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from '../model/types';
 
 export type ExerciseSortField = 'name' | 'type' | 'muscleGroup' | 'equipment' | 'difficulty' | 'modifiedAt';
 
@@ -15,7 +11,7 @@ export type FetchExercisesParams = {
   type?: ExerciseType[];
   muscleGroup?: ExerciseMuscleGroup[];
   equipment?: ExerciseEquipment[];
-  difficulty?: ExerciseDifficulty[];
+  difficulty?: Difficulty[];
   sortBy?: ExerciseSortField;
   sortOrder?: ExerciseSortOrder;
 };

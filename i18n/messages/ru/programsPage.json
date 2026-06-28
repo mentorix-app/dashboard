@@ -2,7 +2,29 @@
   "title": "Программы",
   "searchPlaceholder": "Поиск программ",
   "createNew": "Новая программа",
+  "deleteSelected": "Удалить выбранные ({count})",
+  "selectAll": "Выбрать все программы",
+  "selectRow": "Выбрать {name}",
   "empty": "Программы не найдены.",
+  "filters": {
+    "show": "Показать фильтры",
+    "hide": "Скрыть фильтры",
+    "clearAll": "Очистить всё",
+    "all": "Все",
+    "status": "Статус",
+    "category": "Категория",
+    "difficulty": "Сложность"
+  },
+  "sort": {
+    "change": "Изменить сортировку по «{column}»"
+  },
+  "deleteConfirm": {
+    "title": "Удалить выбранные программы?",
+    "description": "Будет удалено программ: {count} ({names}).",
+    "selectedItems": "выбранные элементы",
+    "cancel": "Отмена",
+    "confirm": "Удалить"
+  },
   "columns": {
     "name": "Название",
     "status": "Статус",

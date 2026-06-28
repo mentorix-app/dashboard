@@ -1,4 +1,6 @@
-import type { Program, ProgramCategory, ProgramDifficulty, ProgramStatus } from '../model/types';
+import type { Difficulty } from '@/src/shared/types';
+
+import type { Program, ProgramCategory, ProgramStatus } from '../model/types';
 
 export type ProgramSortField = 'name' | 'status' | 'category' | 'difficulty' | 'createdAt' | 'modifiedAt';
 
@@ -8,7 +10,7 @@ export type FetchProgramsParams = {
   name?: string;
   status?: ProgramStatus[];
   category?: ProgramCategory[];
-  difficulty?: ProgramDifficulty[];
+  difficulty?: Difficulty[];
   sortBy?: ProgramSortField;
   sortOrder?: ProgramSortOrder;
 };

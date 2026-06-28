@@ -1,4 +1,5 @@
-import type { ExerciseDifficulty, ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from '@/src/entities/exercise';
+import type { ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from '@/src/entities/exercise';
+import type { Difficulty } from '@/src/shared/types';
 
 export type ExerciseFormValues = {
   name: string;
@@ -8,7 +9,7 @@ export type ExerciseFormValues = {
   type: ExerciseType | '';
   muscleGroup: ExerciseMuscleGroup | '';
   equipment: ExerciseEquipment | '';
-  difficulty: ExerciseDifficulty | '';
+  difficulty: Difficulty | '';
   videoUrl: string;
   previewImageUrl: string;
 };

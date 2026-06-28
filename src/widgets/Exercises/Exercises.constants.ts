@@ -1,5 +1,6 @@
-import { ExerciseDifficulty, ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from '@/src/entities/exercise';
+import { ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from '@/src/entities/exercise';
 import type { ExerciseSortField } from '@/src/entities/exercise';
+import { Difficulty } from '@/src/shared/types';
 
 export const EXERCISE_TYPE_OPTIONS: readonly ExerciseType[] = [
   ExerciseType.Strength,
@@ -43,11 +44,11 @@ export const EXERCISE_EQUIPMENT_OPTIONS: readonly ExerciseEquipment[] = [
   ExerciseEquipment.WeightPlates,
 ];
 
-export const EXERCISE_DIFFICULTY_OPTIONS: readonly ExerciseDifficulty[] = [
-  ExerciseDifficulty.Beginner,
-  ExerciseDifficulty.Intermediate,
-  ExerciseDifficulty.Advanced,
-  ExerciseDifficulty.Expert,
+export const EXERCISE_DIFFICULTY_OPTIONS: readonly Difficulty[] = [
+  Difficulty.Beginner,
+  Difficulty.Intermediate,
+  Difficulty.Advanced,
+  Difficulty.Expert,
 ];
 
 export const EXERCISE_SORT_FIELDS: readonly ExerciseSortField[] = [

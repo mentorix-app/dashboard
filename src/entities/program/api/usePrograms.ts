@@ -1,7 +1,7 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
-import { queryKeys, useGet, useInfiniteGet, usePost, type HttpError } from '@/src/shared/api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { http, queryKeys, useGet, useInfiniteGet, usePost, type HttpError } from '@/src/shared/api';
 import type { Program } from '../model/types';
 import type { CreateProgramResponse, FetchProgramsListParams, ProgramsListResult } from './programs.types';
 import { buildProgramsQuery } from './programs.utils';
@@ -24,6 +24,17 @@ export const useCreateProgram = () => {
 
   // POST /programs takes no body: it creates a draft program with day 1.
   return usePost<CreateProgramResponse, HttpError, void>('/programs', {
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
+  });
+};
+
+export const useDeleteProgram = () => {
+  const queryClient = useQueryClient();
+
+  // Backend exposes a single soft-delete endpoint (DELETE /programs/{id}, 204).
+  // Bulk delete in the UI fans out to one request per selected program.
+  return useMutation<void, HttpError, string>({
+    mutationFn: (id) => http.delete<void>(`/programs/${id}`).then(() => undefined),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
   });
 };
