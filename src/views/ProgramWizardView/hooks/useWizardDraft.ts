@@ -7,7 +7,7 @@ import {
   getProgramName,
   ProgramStatus,
   useProgramBasicsDraftStore,
-  type Program,
+  type ProgramDetail,
 } from '@/src/entities/program';
 
 import { getCompletionPercent, getMissingRequiredFields } from '../ProgramWizardView.utils';
@@ -17,7 +17,7 @@ import { getCompletionPercent, getMissingRequiredFields } from '../ProgramWizard
  * draft (when present) or the persisted program, and clears the shared draft on
  * unmount so a later program never reads the previous one's values.
  */
-export const useWizardDraft = (programId: string, program: Program | undefined) => {
+export const useWizardDraft = (programId: string, program: ProgramDetail | undefined) => {
   const locale = useLocale();
   const draftProgramId = useProgramBasicsDraftStore((state) => state.programId);
   const draftFields = useProgramBasicsDraftStore((state) => state.fields);
@@ -30,7 +30,7 @@ export const useWizardDraft = (programId: string, program: Program | undefined) 
   // they react instantly to typing instead of waiting for a save round-trip.
   const progressSource = fields ?? program;
   const missingFields = getMissingRequiredFields(progressSource);
-  const completionPercent = getCompletionPercent(progressSource);
+  const completionPercent = getCompletionPercent(progressSource, program?.weeks);
 
   const status = program?.status ?? ProgramStatus.Draft;
   const isDraft = status === ProgramStatus.Draft;
