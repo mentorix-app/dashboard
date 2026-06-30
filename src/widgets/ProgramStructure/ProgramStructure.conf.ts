@@ -23,6 +23,7 @@ export const useProgramStructureConfig = (programId: string) => {
   // added, removed, or reordered without syncing state inside an effect.
   const activeWeekId =
     selectedWeekId && weeks.some((week) => week.id === selectedWeekId) ? selectedWeekId : (weeks[0]?.id ?? null);
+  const selectedWeek = weeks.find((week) => week.id === activeWeekId) ?? null;
 
   const handleConfirmDelete = () => {
     if (!weekPendingDeletion) return;
@@ -37,8 +38,10 @@ export const useProgramStructureConfig = (programId: string) => {
   return {
     t,
     isLoading,
+    isDraft,
     weeks,
     selectedWeekId: activeWeekId,
+    selectedWeek,
     canAddWeek,
     isBusy: isMutating,
     isDeleteModalOpen: weekPendingDeletion !== null,

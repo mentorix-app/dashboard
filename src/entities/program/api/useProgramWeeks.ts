@@ -1,8 +1,8 @@
 'use client';
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { http, queryKeys, type HttpError } from '@/src/shared/api';
-import type { ProgramDetail } from '../model/structure.types';
+import { http, type HttpError } from '@/src/shared/api';
+import { writeProgramDetail } from './programs.utils';
 import type {
   AddProgramWeekResponse,
   AddProgramWeekVariables,
@@ -11,14 +11,6 @@ import type {
   ReorderProgramWeeksResponse,
   ReorderProgramWeeksVariables,
 } from './programWeeks.types';
-
-// Every week mutation returns the full updated program, so we write it straight
-// into the detail cache instead of refetching, then mark sibling queries stale
-// without firing a request.
-const writeDetail = (queryClient: ReturnType<typeof useQueryClient>, program: ProgramDetail) => {
-  queryClient.setQueriesData<ProgramDetail>({ queryKey: queryKeys.programs.detail(program.id) }, program);
-  queryClient.invalidateQueries({ queryKey: queryKeys.programs.all, refetchType: 'none' });
-};
 
 export const useAddProgramWeek = () => {
   const queryClient = useQueryClient();
@@ -29,7 +21,7 @@ export const useAddProgramWeek = () => {
       http
         .post<AddProgramWeekResponse>(`/programs/${encodeURIComponent(programId)}/weeks`)
         .then((response) => response.data),
-    onSuccess: (program) => writeDetail(queryClient, program),
+    onSuccess: (program) => writeProgramDetail(queryClient, program),
   });
 };
 
@@ -42,7 +34,7 @@ export const useReorderProgramWeeks = () => {
       http
         .put<ReorderProgramWeeksResponse>(`/programs/${encodeURIComponent(programId)}/weeks/reorder`, { weekIds })
         .then((response) => response.data),
-    onSuccess: (program) => writeDetail(queryClient, program),
+    onSuccess: (program) => writeProgramDetail(queryClient, program),
   });
 };
 
@@ -58,6 +50,6 @@ export const useDeleteProgramWeek = () => {
           `/programs/${encodeURIComponent(programId)}/weeks/${encodeURIComponent(weekId)}`
         )
         .then((response) => response.data),
-    onSuccess: (program) => writeDetail(queryClient, program),
+    onSuccess: (program) => writeProgramDetail(queryClient, program),
   });
 };

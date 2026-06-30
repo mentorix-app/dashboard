@@ -4,14 +4,17 @@ import { Card, CardContent, ConfirmationModal, Skeleton, Typography } from '@/sr
 
 import { useProgramStructureConfig } from './ProgramStructure.conf';
 import type { ProgramStructureProps } from './ProgramStructure.types';
+import { DaysTable } from './ui/DaysTable';
 import { WeeksSidebar } from './ui/WeeksSidebar';
 
 export const ProgramStructure = ({ programId }: ProgramStructureProps) => {
   const {
     t,
     isLoading,
+    isDraft,
     weeks,
     selectedWeekId,
+    selectedWeek,
     canAddWeek,
     isBusy,
     isDeleteModalOpen,
@@ -41,11 +44,15 @@ export const ProgramStructure = ({ programId }: ProgramStructureProps) => {
           onAddWeek={onAddWeek}
         />
 
-        <div className="flex min-h-64 flex-1 items-center justify-center rounded-md border border-dashed">
-          <Typography variant="p-sm" className="text-muted-foreground">
-            {t('structure.emptyMain')}
-          </Typography>
-        </div>
+        {selectedWeek ? (
+          <DaysTable programId={programId} isDraft={isDraft} weeks={weeks} week={selectedWeek} />
+        ) : (
+          <div className="flex min-h-64 flex-1 items-center justify-center rounded-md border border-dashed">
+            <Typography variant="p-sm" className="text-muted-foreground">
+              {t('structure.emptyMain')}
+            </Typography>
+          </div>
+        )}
       </CardContent>
 
       <ConfirmationModal

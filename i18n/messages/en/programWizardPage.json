@@ -71,10 +71,21 @@
     "reorderWeek": "Reorder week {number}",
     "maxWeeksReached": "You can add up to {max} weeks.",
     "emptyMain": "Select a week to edit its days and exercises.",
+    "addDay": "Add day",
+    "dayLabel": "Day {number}",
+    "selectDay": "Open day {number}",
+    "deleteDay": "Delete day {number}",
+    "reorderDay": "Reorder day {number}",
+    "maxDaysReached": "You can add up to {max} days.",
+    "dayExercisesPlaceholder": "Exercises coming soon.",
     "deleteConfirmTitle": "Delete this week?",
     "deleteConfirmDescription": "This removes the week along with all of its days and exercises. This action can't be undone.",
     "deleteConfirm": "Delete week",
     "deleteCancel": "Cancel",
+    "deleteDayConfirmTitle": "Delete this day?",
+    "deleteDayConfirmDescription": "This removes the day along with all of its exercises. This action can't be undone.",
+    "deleteDayConfirm": "Delete day",
+    "deleteDayCancel": "Cancel",
     "toast": {
       "weekAdded": "Week added.",
       "weekDeleted": "Week deleted.",
@@ -82,7 +93,14 @@
       "addError": "Could not add the week. Please try again.",
       "deleteError": "Could not delete the week. Please try again.",
       "lastWeekError": "A program must keep at least one week.",
-      "reorderError": "Could not reorder the weeks. Please try again."
+      "reorderError": "Could not reorder the weeks. Please try again.",
+      "dayAdded": "Day added.",
+      "dayDeleted": "Day deleted.",
+      "daysReordered": "Days reordered.",
+      "dayAddError": "Could not add the day. Please try again.",
+      "dayDeleteError": "Could not delete the day. Please try again.",
+      "lastDayError": "A week must keep at least one day.",
+      "dayReorderError": "Could not reorder the days. Please try again."
     }
   },
   "categories": {

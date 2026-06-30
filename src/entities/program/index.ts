@@ -32,3 +32,9 @@ export type {
   ReorderProgramWeeksVariables,
 } from './api/programWeeks.types';
 export { useAddProgramWeek, useDeleteProgramWeek, useReorderProgramWeeks } from './api/useProgramWeeks';
+export type {
+  AddProgramDayVariables,
+  DeleteProgramDayVariables,
+  ReorderProgramDaysVariables,
+} from './api/programDays.types';
+export { useAddProgramDay, useDeleteProgramDay, useReorderProgramDays } from './api/useProgramDays';

@@ -22,7 +22,7 @@ export const WeeksSidebar = ({
   const weekIds = weeks.map((week) => week.id);
 
   return (
-    <aside className="flex w-full flex-col gap-3 lg:w-64 lg:shrink-0">
+    <aside className="flex w-full flex-col gap-3 rounded-lg border p-3 lg:w-64 lg:shrink-0">
       <Typography as="h2" variant="caption" className="text-muted-foreground px-1">
         {t('structure.weeksHeading')}
       </Typography>
