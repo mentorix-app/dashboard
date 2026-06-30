@@ -1,7 +1,7 @@
 'use client';
 
 import { type FC } from 'react';
-import { Filter, Plus, Search, Trash2 } from 'lucide-react';
+import { Filter, Loader2, Plus, Search, Trash2 } from 'lucide-react';
 import { useTranslations } from '@/i18n';
 import { Button, Collapsible, CollapsibleContent, Input } from '@/src/shared/ui';
 
@@ -15,6 +15,7 @@ export const ProgramsToolbar: FC<ProgramsToolbarProps> = ({
   listParams,
   activeFilterCount,
   selectedCount,
+  isCreating,
   onSearchChange,
   onFiltersOpenChange,
   onCreateNew,
@@ -67,8 +68,8 @@ export const ProgramsToolbar: FC<ProgramsToolbarProps> = ({
               {t('deleteSelected', { count: selectedCount })}
             </Button>
           ) : null}
-          <Button type="button" className="w-full sm:w-auto" onClick={onCreateNew}>
-            <Plus aria-hidden />
+          <Button type="button" className="w-full sm:w-auto" onClick={onCreateNew} disabled={isCreating}>
+            {isCreating ? <Loader2 className="animate-spin" aria-hidden /> : <Plus aria-hidden />}
             {t('createNew')}
           </Button>
         </div>

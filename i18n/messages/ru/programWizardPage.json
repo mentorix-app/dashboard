@@ -1,0 +1,94 @@
+{
+  "metaTitle": "Создание программы",
+  "title": "Программа: {name}",
+  "titleUntitled": "Без названия",
+  "unsavedChanges": "Несохранённые изменения",
+  "progress": "Шаг {current} из {total} · заполнено {percent}%",
+  "progressLabel": "Готовность программы",
+  "status": {
+    "draft": "Черновик",
+    "published": "Опубликована",
+    "archived": "В архиве"
+  },
+  "saveModal": {
+    "title": "Сохранить изменения в опубликованной программе?",
+    "description": "Эта программа активна. Сохранение сразу обновит содержимое, расписание и детали для всех записанных пользователей и может повлиять на их текущие тренировки. Продолжить?",
+    "titleArchived": "Сохранить изменения в архивной программе?",
+    "descriptionArchived": "Эта программа в архиве и сейчас не видна пользователям. Изменения будут сохранены, и как только вы снова опубликуете программу, все увидят обновлённую версию. Сохранить изменения?",
+    "confirm": "Сохранить",
+    "cancel": "Отмена"
+  },
+  "steps": {
+    "basics": "Основное",
+    "structure": "Структура"
+  },
+  "nav": {
+    "back": "Назад",
+    "next": "Далее",
+    "publish": "Опубликовать",
+    "publishing": "Публикуем…"
+  },
+  "incompleteTitle": "Завершите шаг 1 перед публикацией",
+  "incompleteDescription": "Заполните обязательные поля: {fields}.",
+  "fields": {
+    "name": "Название (EN)",
+    "nameRu": "Название (RU)",
+    "description": "Описание (EN)",
+    "descriptionRu": "Описание (RU)",
+    "category": "Категория",
+    "difficulty": "Сложность",
+    "previewImageUrl": "Превью"
+  },
+  "basics": {
+    "sectionTitle": "Общая информация",
+    "name": "Название программы",
+    "namePlaceholder": "напр. Набор массы — база",
+    "description": "Описание",
+    "descriptionPlaceholder": "Опишите цель и структуру программы",
+    "category": "Категория",
+    "categoryPlaceholder": "Выберите категорию",
+    "difficulty": "Сложность",
+    "difficultyPlaceholder": "Выберите уровень",
+    "previewImageUrl": "Ссылка на превью",
+    "previewImageUrlPlaceholder": "https://…",
+    "localeEn": "Английский",
+    "localeRu": "Русский"
+  },
+  "preview": {
+    "title": "Предпросмотр",
+    "namePlaceholder": "Название программы",
+    "level": "Уровень: {value}",
+    "category": "Категория: {value}",
+    "empty": "—"
+  },
+  "structure": {
+    "title": "Структура программы",
+    "comingSoon": "Конструктор недель и дней скоро появится."
+  },
+  "categories": {
+    "weight_loss": "Похудение",
+    "muscle_gain": "Набор массы",
+    "rehabilitation": "Реабилитация",
+    "endurance": "Выносливость",
+    "functional": "Функциональная"
+  },
+  "difficulty": {
+    "beginner": "Начинающий",
+    "intermediate": "Средний",
+    "advanced": "Продвинутый",
+    "expert": "Эксперт"
+  },
+  "validation": {
+    "nameRequired": "Введите название.",
+    "descriptionRequired": "Введите описание.",
+    "selectRequired": "Выберите вариант.",
+    "imageRequired": "Добавьте ссылку на превью.",
+    "urlInvalid": "Введите корректную ссылку."
+  },
+  "toast": {
+    "publishSuccess": "Программа успешно опубликована.",
+    "publishError": "Не удалось опубликовать программу. Попробуйте снова.",
+    "saveSuccess": "Изменения успешно сохранены.",
+    "saveError": "Не удалось сохранить изменения."
+  }
+}

@@ -6,6 +6,7 @@ import themeSwitcher from './themeSwitcher.json';
 import dashboardPage from './dashboardPage.json';
 import exercisesPage from './exercisesPage.json';
 import programsPage from './programsPage.json';
+import programWizardPage from './programWizardPage.json';
 import loginPage from './loginPage.json';
 import signupPage from './signupPage.json';
 import profilePage from './profilePage.json';
@@ -19,6 +20,7 @@ export default {
   Dashboard: dashboardPage,
   Exercises: exercisesPage,
   Programs: programsPage,
+  ProgramWizard: programWizardPage,
   Login: loginPage,
   Signup: signupPage,
   Profile: profilePage,

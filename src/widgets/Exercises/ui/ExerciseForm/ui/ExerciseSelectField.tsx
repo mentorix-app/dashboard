@@ -33,7 +33,7 @@ export const ExerciseSelectField = <T extends FieldValues>({
       render={({ field, fieldState }) => (
         <div className="flex flex-col gap-2">
           <Label htmlFor={id}>{label}</Label>
-          <Select value={field.value || undefined} onValueChange={field.onChange} disabled={disabled}>
+          <Select value={field.value ?? ''} onValueChange={field.onChange} disabled={disabled}>
             <SelectTrigger
               id={id}
               className="w-full"

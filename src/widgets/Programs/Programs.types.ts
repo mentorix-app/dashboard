@@ -21,6 +21,7 @@ export type ProgramsConfig = {
   selectedPrograms: Program[];
   isDeleteDialogOpen: boolean;
   isDeleting: boolean;
+  isCreating: boolean;
   canManageProgram: (program: Program) => boolean;
   handleSearchChange: (value: string) => void;
   handleFiltersOpenChange: (open: boolean) => void;

@@ -23,6 +23,7 @@ export const Programs: FC = () => {
     selectedPrograms,
     isDeleteDialogOpen,
     isDeleting,
+    isCreating,
     canManageProgram,
     handleSearchChange,
     handleFiltersOpenChange,
@@ -49,6 +50,7 @@ export const Programs: FC = () => {
         listParams={listParams}
         activeFilterCount={activeFilterCount}
         selectedCount={visibleSelected.size}
+        isCreating={isCreating}
         onSearchChange={handleSearchChange}
         onFiltersOpenChange={handleFiltersOpenChange}
         onCreateNew={handleCreateNew}

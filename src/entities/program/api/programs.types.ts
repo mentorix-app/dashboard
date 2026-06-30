@@ -30,3 +30,22 @@ export type ProgramsListResult = {
 };
 
 export type CreateProgramResponse = Program;
+
+export type UpdateProgramParams = Partial<{
+  name: string;
+  nameRu: string;
+  description: string;
+  descriptionRu: string;
+  category: ProgramCategory;
+  difficulty: Difficulty;
+  previewImageUrl: string;
+}>;
+
+export type UpdateProgramVariables = {
+  id: string;
+  params: UpdateProgramParams;
+};
+
+export type UpdateProgramResponse = Program;
+
+export type PublishProgramResponse = Program;

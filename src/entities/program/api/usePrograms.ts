@@ -3,7 +3,14 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { http, queryKeys, useGet, useInfiniteGet, usePost, type HttpError } from '@/src/shared/api';
 import type { Program } from '../model/types';
-import type { CreateProgramResponse, FetchProgramsListParams, ProgramsListResult } from './programs.types';
+import type {
+  CreateProgramResponse,
+  FetchProgramsListParams,
+  ProgramsListResult,
+  PublishProgramResponse,
+  UpdateProgramResponse,
+  UpdateProgramVariables,
+} from './programs.types';
 import { buildProgramsQuery } from './programs.utils';
 
 const PROGRAMS_PAGE_SIZE = 20;
@@ -24,6 +31,39 @@ export const useCreateProgram = () => {
 
   // POST /programs takes no body: it creates a draft program with day 1.
   return usePost<CreateProgramResponse, HttpError, void>('/programs', {
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
+  });
+};
+
+export const useUpdateProgram = () => {
+  const queryClient = useQueryClient();
+
+  // PATCH /programs/{id} returns the full updated program, so we write it
+  // straight into the detail cache (prefix match covers useGet's url-suffixed
+  // key) instead of refetching. Other program queries are only marked stale
+  // (refetchType: 'none') so the list refreshes the next time it mounts rather
+  // than firing a request on every autosave.
+  return useMutation<UpdateProgramResponse, HttpError, UpdateProgramVariables>({
+    mutationFn: ({ id, params }) =>
+      http
+        .patch<UpdateProgramResponse>(`/programs/${encodeURIComponent(id)}`, params)
+        .then((response) => response.data),
+    onSuccess: (program, { id }) => {
+      queryClient.setQueriesData<Program>({ queryKey: queryKeys.programs.detail(id) }, program);
+      queryClient.invalidateQueries({ queryKey: queryKeys.programs.all, refetchType: 'none' });
+    },
+  });
+};
+
+export const usePublishProgram = () => {
+  const queryClient = useQueryClient();
+
+  // POST /programs/{id}/publish validates required fields server-side.
+  return useMutation<PublishProgramResponse, HttpError, string>({
+    mutationFn: (id) =>
+      http
+        .post<PublishProgramResponse>(`/programs/${encodeURIComponent(id)}/publish`)
+        .then((response) => response.data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
   });
 };

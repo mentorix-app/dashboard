@@ -7,6 +7,7 @@ export type ProgramsToolbarProps = {
   listParams: FetchProgramsListParams;
   activeFilterCount: number;
   selectedCount: number;
+  isCreating: boolean;
   onSearchChange: (value: string) => void;
   onFiltersOpenChange: (open: boolean) => void;
   onCreateNew: () => void;

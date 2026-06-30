@@ -2,7 +2,7 @@
 
 import { useCallback, useMemo, useState } from 'react';
 
-import { useTranslations } from '@/i18n';
+import { useTranslations, useLocale, useRouter } from '@/i18n';
 import { useCreateProgram, type Program } from '@/src/entities/program';
 import { useCurrentUser, UserRole } from '@/src/entities/user';
 import { useToast } from '@/src/shared/hooks';
@@ -18,6 +18,8 @@ import { useProgramsSort } from './hooks/useProgramsSort';
 export const useProgramsConfig = (): ProgramsConfig => {
   const t = useTranslations('Programs');
   const { showSuccessToast, showErrorToast } = useToast();
+  const router = useRouter();
+  const locale = useLocale();
   const currentUser = useCurrentUser();
   const isAdmin = currentUser?.roles.includes(UserRole.Admin) ?? false;
   const userId = currentUser?.userId;
@@ -31,12 +33,17 @@ export const useProgramsConfig = (): ProgramsConfig => {
 
   const [filtersOpen, setFiltersOpen] = useState(false);
   const createProgram = useCreateProgram();
+  // Creating a draft program immediately opens its setup wizard so the trainer
+  // can fill in the details, while a toast confirms the draft was created.
   const handleCreateNew = useCallback(() => {
     createProgram.mutate(undefined, {
-      onSuccess: () => showSuccessToast(t('toast.createSuccess')),
+      onSuccess: (program) => {
+        showSuccessToast(t('toast.draftCreated'));
+        router.push(`/programs/${program.id}/basics`, { locale });
+      },
       onError: () => showErrorToast(t('toast.createError')),
     });
-  }, [createProgram, showSuccessToast, showErrorToast, t]);
+  }, [createProgram, router, locale, showSuccessToast, showErrorToast, t]);
 
   const search = useProgramsSearch();
   const list = useProgramsList(search.listParams);
@@ -63,6 +70,7 @@ export const useProgramsConfig = (): ProgramsConfig => {
       selectedPrograms: selection.selectedPrograms,
       isDeleteDialogOpen: deletion.isDeleteDialogOpen,
       isDeleting: deletion.isDeleting,
+      isCreating: createProgram.isPending,
       canManageProgram,
       handleSearchChange: search.handleSearchChange,
       handleFiltersOpenChange: setFiltersOpen,
@@ -79,6 +87,17 @@ export const useProgramsConfig = (): ProgramsConfig => {
       handleDeleteDialogOpenChange: deletion.handleDeleteDialogOpenChange,
       handleConfirmDelete: deletion.handleConfirmDelete,
     }),
-    [search, filtersOpen, list, filters, selection, deletion, sort, canManageProgram, handleCreateNew]
+    [
+      search,
+      filtersOpen,
+      list,
+      filters,
+      selection,
+      deletion,
+      sort,
+      canManageProgram,
+      handleCreateNew,
+      createProgram.isPending,
+    ]
   );
 };

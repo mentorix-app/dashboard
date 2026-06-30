@@ -5,6 +5,7 @@
   "deleteSelected": "Delete selected ({count})",
   "selectAll": "Select all programs",
   "selectRow": "Select {name}",
+  "openRow": "Open {name}",
   "empty": "No programs found.",
   "filters": {
     "show": "Show filters",
@@ -20,6 +21,7 @@
   },
   "toast": {
     "createSuccess": "Program created successfully.",
+    "draftCreated": "Draft program created. Let’s set it up.",
     "createError": "Could not create the program. Please try again.",
     "deleteSuccess": "{count, plural, one {Program deleted successfully.} other {# programs deleted successfully.}}",
     "deleteError": "Could not delete the selected programs. Please try again."

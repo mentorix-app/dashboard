@@ -1,0 +1,94 @@
+{
+  "metaTitle": "Create program",
+  "title": "Program: {name}",
+  "titleUntitled": "Untitled program",
+  "unsavedChanges": "Unsaved changes",
+  "progress": "Step {current} of {total} · {percent}% complete",
+  "progressLabel": "Program completion",
+  "status": {
+    "draft": "Draft",
+    "published": "Published",
+    "archived": "Archived"
+  },
+  "saveModal": {
+    "title": "Save changes to a published program?",
+    "description": "This program is live. Saving will immediately update the content, schedule, and details for every enrolled user and may affect their in-progress training. Are you sure you want to continue?",
+    "titleArchived": "Save changes to an archived program?",
+    "descriptionArchived": "This program is archived and not visible to users right now. Your changes will be saved, and the moment you republish it, everyone will see the updated version. Do you want to save these changes?",
+    "confirm": "Save changes",
+    "cancel": "Cancel"
+  },
+  "steps": {
+    "basics": "General",
+    "structure": "Structure"
+  },
+  "nav": {
+    "back": "Back",
+    "next": "Next",
+    "publish": "Publish",
+    "publishing": "Publishing…"
+  },
+  "incompleteTitle": "Finish step 1 before publishing",
+  "incompleteDescription": "Please fill in the required fields: {fields}.",
+  "fields": {
+    "name": "Name (EN)",
+    "nameRu": "Name (RU)",
+    "description": "Description (EN)",
+    "descriptionRu": "Description (RU)",
+    "category": "Category",
+    "difficulty": "Difficulty",
+    "previewImageUrl": "Preview image"
+  },
+  "basics": {
+    "sectionTitle": "General information",
+    "name": "Program name",
+    "namePlaceholder": "e.g. Mass gain — base",
+    "description": "Description",
+    "descriptionPlaceholder": "Describe the goal and structure of the program",
+    "category": "Category",
+    "categoryPlaceholder": "Select a category",
+    "difficulty": "Difficulty",
+    "difficultyPlaceholder": "Select a level",
+    "previewImageUrl": "Preview image URL",
+    "previewImageUrlPlaceholder": "https://…",
+    "localeEn": "English",
+    "localeRu": "Russian"
+  },
+  "preview": {
+    "title": "Preview",
+    "namePlaceholder": "Program name",
+    "level": "Level: {value}",
+    "category": "Category: {value}",
+    "empty": "—"
+  },
+  "structure": {
+    "title": "Program structure",
+    "comingSoon": "The weeks and days builder is coming soon."
+  },
+  "categories": {
+    "weight_loss": "Weight loss",
+    "muscle_gain": "Muscle gain",
+    "rehabilitation": "Rehabilitation",
+    "endurance": "Endurance",
+    "functional": "Functional"
+  },
+  "difficulty": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "expert": "Expert"
+  },
+  "validation": {
+    "nameRequired": "Enter a name.",
+    "descriptionRequired": "Enter a description.",
+    "selectRequired": "Select an option.",
+    "imageRequired": "Add a preview image URL.",
+    "urlInvalid": "Enter a valid URL."
+  },
+  "toast": {
+    "publishSuccess": "Program published successfully.",
+    "publishError": "Could not publish the program. Please try again.",
+    "saveSuccess": "Changes saved successfully.",
+    "saveError": "Could not save your changes."
+  }
+}

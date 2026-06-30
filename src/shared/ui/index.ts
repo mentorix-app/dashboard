@@ -1,4 +1,5 @@
 export * from './Avatar';
+export * from './Badge';
 export * from './Button';
 export * from './Card';
 export * from './Checkbox';
@@ -12,6 +13,7 @@ export * from './Input';
 export * from './Label';
 export * from './Logo';
 export * from './MultiSelect';
+export * from './Progress';
 export * from './Select';
 export * from './Sheet';
 export * from './Sidebar';
