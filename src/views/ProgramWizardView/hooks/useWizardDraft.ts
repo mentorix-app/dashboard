@@ -6,7 +6,7 @@ import {
   buildProgramPatch,
   getProgramName,
   ProgramStatus,
-  useProgramDraftStore,
+  useProgramBasicsDraftStore,
   type Program,
 } from '@/src/entities/program';
 
@@ -19,9 +19,9 @@ import { getCompletionPercent, getMissingRequiredFields } from '../ProgramWizard
  */
 export const useWizardDraft = (programId: string, program: Program | undefined) => {
   const locale = useLocale();
-  const draftProgramId = useProgramDraftStore((state) => state.programId);
-  const draftFields = useProgramDraftStore((state) => state.fields);
-  const clearDraft = useProgramDraftStore((state) => state.clear);
+  const draftProgramId = useProgramBasicsDraftStore((state) => state.programId);
+  const draftFields = useProgramBasicsDraftStore((state) => state.fields);
+  const clearDraft = useProgramBasicsDraftStore((state) => state.clear);
   const fields = draftProgramId === programId ? draftFields : null;
 
   useEffect(() => clearDraft, [clearDraft]);

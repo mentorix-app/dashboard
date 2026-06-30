@@ -1,5 +1,6 @@
 import type { Difficulty } from '@/src/shared/types';
 
+import type { ProgramDetail } from '../model/structure.types';
 import type { Program, ProgramCategory, ProgramStatus } from '../model/types';
 
 export type ProgramSortField = 'name' | 'status' | 'category' | 'difficulty' | 'createdAt' | 'modifiedAt';
@@ -29,7 +30,7 @@ export type ProgramsListResult = {
   pagination: ProgramsPagination;
 };
 
-export type CreateProgramResponse = Program;
+export type CreateProgramResponse = ProgramDetail;
 
 export type UpdateProgramParams = Partial<{
   name: string;
@@ -46,6 +47,6 @@ export type UpdateProgramVariables = {
   params: UpdateProgramParams;
 };
 
-export type UpdateProgramResponse = Program;
+export type UpdateProgramResponse = ProgramDetail;
 
-export type PublishProgramResponse = Program;
+export type PublishProgramResponse = ProgramDetail;

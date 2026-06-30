@@ -14,7 +14,7 @@ export const useProgramWizardConfig = (programId: string) => {
 
   const navigation = useWizardNavigation(programId);
   const draft = useWizardDraft(programId, program);
-  const save = useWizardSave(programId, draft.pendingPatch);
+  const save = useWizardSave();
   const publish = useWizardPublish(programId, draft.missingFields, navigation.goToStep);
 
   const progressText = t('progress', {

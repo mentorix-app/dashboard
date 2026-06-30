@@ -63,7 +63,27 @@
   },
   "structure": {
     "title": "Program structure",
-    "comingSoon": "The weeks and days builder is coming soon."
+    "weeksHeading": "Weeks",
+    "addWeek": "Add week",
+    "weekLabel": "Week {number}",
+    "selectWeek": "Open week {number}",
+    "deleteWeek": "Delete week {number}",
+    "reorderWeek": "Reorder week {number}",
+    "maxWeeksReached": "You can add up to {max} weeks.",
+    "emptyMain": "Select a week to edit its days and exercises.",
+    "deleteConfirmTitle": "Delete this week?",
+    "deleteConfirmDescription": "This removes the week along with all of its days and exercises. This action can't be undone.",
+    "deleteConfirm": "Delete week",
+    "deleteCancel": "Cancel",
+    "toast": {
+      "weekAdded": "Week added.",
+      "weekDeleted": "Week deleted.",
+      "weeksReordered": "Weeks reordered.",
+      "addError": "Could not add the week. Please try again.",
+      "deleteError": "Could not delete the week. Please try again.",
+      "lastWeekError": "A program must keep at least one week.",
+      "reorderError": "Could not reorder the weeks. Please try again."
+    }
   },
   "categories": {
     "weight_loss": "Weight loss",

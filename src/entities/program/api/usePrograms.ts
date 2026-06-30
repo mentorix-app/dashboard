@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { http, queryKeys, useGet, useInfiniteGet, usePost, type HttpError } from '@/src/shared/api';
-import type { Program } from '../model/types';
+import type { ProgramDetail } from '../model/structure.types';
 import type {
   CreateProgramResponse,
   FetchProgramsListParams,
@@ -24,7 +24,7 @@ export const useProgramsInfinite = (params: FetchProgramsListParams = {}) =>
   );
 
 export const useProgram = (id: string | undefined) =>
-  useGet<Program>(`/programs/${id ?? ''}`, queryKeys.programs.detail(id ?? ''), { enabled: Boolean(id) });
+  useGet<ProgramDetail>(`/programs/${id ?? ''}`, queryKeys.programs.detail(id ?? ''), { enabled: Boolean(id) });
 
 export const useCreateProgram = () => {
   const queryClient = useQueryClient();
@@ -49,7 +49,7 @@ export const useUpdateProgram = () => {
         .patch<UpdateProgramResponse>(`/programs/${encodeURIComponent(id)}`, params)
         .then((response) => response.data),
     onSuccess: (program, { id }) => {
-      queryClient.setQueriesData<Program>({ queryKey: queryKeys.programs.detail(id) }, program);
+      queryClient.setQueriesData<ProgramDetail>({ queryKey: queryKeys.programs.detail(id) }, program);
       queryClient.invalidateQueries({ queryKey: queryKeys.programs.all, refetchType: 'none' });
     },
   });

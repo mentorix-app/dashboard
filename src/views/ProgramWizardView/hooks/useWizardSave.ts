@@ -1,38 +1,21 @@
 'use client';
 
 import { useState } from 'react';
-import { useTranslations } from '@/i18n';
-import { useUpdateProgram, type UpdateProgramParams } from '@/src/entities/program';
-import { useToast } from '@/src/shared/hooks';
 
 /**
- * Owns the "save changes" confirmation modal and the patch mutation for an
- * already-published or archived program.
+ * Owns the "save changes" confirmation modal for an already-published or
+ * archived program. The combined structure-save endpoint is not defined yet,
+ * so confirming simply closes the modal — basics changes autosave on their own
+ * and structure edits persist through their per-action mutations.
  */
-export const useWizardSave = (programId: string, pendingPatch: UpdateProgramParams) => {
-  const t = useTranslations('ProgramWizard');
-  const { showSuccessToast, showErrorToast } = useToast();
-  const updateMutation = useUpdateProgram();
+export const useWizardSave = () => {
   const [isSaveModalOpen, setIsSaveModalOpen] = useState(false);
-
-  const confirmSaveChanges = () => {
-    updateMutation.mutate(
-      { id: programId, params: pendingPatch },
-      {
-        onSuccess: () => {
-          setIsSaveModalOpen(false);
-          showSuccessToast(t('toast.saveSuccess'));
-        },
-        onError: () => showErrorToast(t('toast.saveError')),
-      }
-    );
-  };
 
   return {
     isSaveModalOpen,
     openSaveModal: () => setIsSaveModalOpen(true),
     setSaveModalOpen: setIsSaveModalOpen,
-    confirmSaveChanges,
-    isSaving: updateMutation.isPending,
+    confirmSaveChanges: () => setIsSaveModalOpen(false),
+    isSaving: false,
   };
 };

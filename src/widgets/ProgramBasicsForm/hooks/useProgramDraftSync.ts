@@ -2,7 +2,7 @@
 
 import { useEffect } from 'react';
 import { type UseFormReturn } from 'react-hook-form';
-import { useProgramDraftStore } from '@/src/entities/program';
+import { useProgramBasicsDraftStore } from '@/src/entities/program';
 
 import type { ProgramBasicsFormValues } from '../ProgramBasicsForm.types';
 
@@ -16,7 +16,7 @@ export const useProgramDraftSync = (
   form: UseFormReturn<ProgramBasicsFormValues>,
   values: Partial<ProgramBasicsFormValues>
 ) => {
-  const setDraft = useProgramDraftStore((state) => state.setDraft);
+  const setDraft = useProgramBasicsDraftStore((state) => state.setDraft);
 
   useEffect(() => {
     setDraft(programId, form.getValues());
