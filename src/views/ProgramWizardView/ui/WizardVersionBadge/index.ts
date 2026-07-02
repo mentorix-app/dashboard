@@ -1,0 +1,1 @@
+export { WizardVersionBadge } from './WizardVersionBadge';

@@ -1,4 +1,4 @@
-import type { ProgramDetail } from '../model/structure.types';
+import type { ProgramDetail } from './structure';
 
 /** Shared editable fields for a program-day exercise (camelCase → snake_case at the BFF). */
 export type ProgramDayExerciseInput = {

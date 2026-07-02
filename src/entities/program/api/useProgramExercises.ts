@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { http, type HttpError } from '@/src/shared/api';
-import { writeProgramDetail } from './programs.utils';
+import { writeProgramDetail } from '../lib';
 import type {
   AddProgramDayExerciseResponse,
   AddProgramDayExerciseVariables,
@@ -12,7 +12,7 @@ import type {
   ReorderProgramWeekExercisesVariables,
   UpdateProgramDayExerciseResponse,
   UpdateProgramDayExerciseVariables,
-} from './programExercises.types';
+} from '../model/programExercises';
 
 const dayExercisesPath = (programId: string, weekId: string, dayId: string) =>
   `/programs/${encodeURIComponent(programId)}/weeks/${encodeURIComponent(weekId)}/days/${encodeURIComponent(dayId)}/exercises`;

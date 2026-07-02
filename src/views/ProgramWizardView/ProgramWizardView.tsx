@@ -6,8 +6,10 @@ import { Button, Progress, Typography } from '@/src/shared/ui';
 
 import { useProgramWizardConfig } from './ProgramWizardView.conf';
 import type { ProgramWizardViewProps } from './ProgramWizardView.types';
+import { WizardHeaderActions } from './ui/WizardHeaderActions';
 import { WizardSkeleton } from './ui/WizardSkeleton';
 import { WizardStepper } from './ui/WizardStepper';
+import { WizardVersionBadge } from './ui/WizardVersionBadge';
 
 export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProps) => {
   const {
@@ -22,6 +24,7 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
     structureErrors,
     status,
     isDraft,
+    isArchived,
     title,
     progressText,
     showMissingBanner,
@@ -41,18 +44,23 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
     <section className="flex flex-1 flex-col gap-6">
       <header className="flex flex-col gap-4">
         <div className="flex flex-wrap items-start justify-between gap-4">
+          <div className="flex flex-wrap items-center gap-3">
+            <Typography variant="h1">{title}</Typography>
+            <ProgramStatusBadge status={status} label={t(`status.${status}`)} size="lg" />
+            <WizardVersionBadge programId={programId} />
+          </div>
+          <WizardHeaderActions programId={programId} />
+        </div>
+
+        {!isArchived ? (
           <div className="flex flex-col gap-2">
-            <div className="flex flex-wrap items-center gap-3">
-              <Typography variant="h1">{title}</Typography>
-              <ProgramStatusBadge status={status} label={t(`status.${status}`)} size="lg" />
-            </div>
             <Typography variant="p-sm" className="text-muted-foreground" aria-live="polite">
               {progressText}
             </Typography>
+            <Progress value={completionPercent} label={t('progressLabel')} />
           </div>
-        </div>
+        ) : null}
 
-        <Progress value={completionPercent} label={t('progressLabel')} />
         <div className="flex justify-center">
           <WizardStepper
             steps={steps}

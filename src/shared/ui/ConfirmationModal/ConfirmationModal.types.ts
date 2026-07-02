@@ -5,6 +5,7 @@ export type ConfirmationModalProps = {
   cancelLabel: string;
   confirmLabel: string;
   isPending?: boolean;
+  confirmVariant?: 'default' | 'destructive';
   onOpenChange: (open: boolean) => void;
   onConfirm: () => void;
 };

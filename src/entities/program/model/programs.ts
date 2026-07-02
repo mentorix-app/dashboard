@@ -1,7 +1,7 @@
 import type { Difficulty } from '@/src/shared/types';
 
-import type { ProgramDetail } from '../model/structure.types';
-import type { Program, ProgramCategory, ProgramStatus } from '../model/types';
+import type { ProgramDetail } from './structure';
+import type { Program, ProgramCategory, ProgramStatus } from './types';
 
 export type ProgramSortField = 'name' | 'status' | 'category' | 'difficulty' | 'createdAt' | 'modifiedAt';
 
@@ -50,3 +50,7 @@ export type UpdateProgramVariables = {
 export type UpdateProgramResponse = ProgramDetail;
 
 export type PublishProgramResponse = ProgramDetail;
+
+export type ArchiveProgramResponse = ProgramDetail;
+
+export type PublishProgramUpdateResponse = ProgramDetail;

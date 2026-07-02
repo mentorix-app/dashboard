@@ -14,6 +14,7 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
   cancelLabel,
   confirmLabel,
   isPending = false,
+  confirmVariant = 'destructive',
   onOpenChange,
   onConfirm,
 }) => (
@@ -27,7 +28,7 @@ export const ConfirmationModal: FC<ConfirmationModalProps> = ({
         <Button type="button" variant="outline" onClick={() => onOpenChange(false)} disabled={isPending}>
           {cancelLabel}
         </Button>
-        <Button type="button" variant="destructive" onClick={onConfirm} disabled={isPending} aria-busy={isPending}>
+        <Button type="button" variant={confirmVariant} onClick={onConfirm} disabled={isPending} aria-busy={isPending}>
           {isPending && <Loader2 className="animate-spin" />}
           {confirmLabel}
         </Button>

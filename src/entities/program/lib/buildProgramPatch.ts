@@ -1,26 +1,7 @@
 import type { Difficulty } from '@/src/shared/types';
 
-import type { UpdateProgramParams } from '../api/programs.types';
-import type { Program, ProgramCategory, ProgramDraftFields } from './types';
-
-/**
- * Resolves the program name for the active locale, falling back to the other
- * locale so a row/title never renders blank when only one language is filled.
- */
-export const getProgramName = (program: Pick<Program, 'name' | 'nameRu'>, locale: string): string => {
-  const isRu = locale.startsWith('ru');
-  return isRu ? program.nameRu || program.name : program.name || program.nameRu;
-};
-
-export const toProgramDraftFields = (program: Program): ProgramDraftFields => ({
-  name: program.name ?? '',
-  nameRu: program.nameRu ?? '',
-  description: program.description ?? '',
-  descriptionRu: program.descriptionRu ?? '',
-  category: program.category ?? '',
-  difficulty: program.difficulty ?? '',
-  previewImageUrl: program.previewImageUrl ?? '',
-});
+import type { UpdateProgramParams } from '../model/programs';
+import type { Program, ProgramCategory, ProgramDraftFields } from '../model/types';
 
 /**
  * Diffs the draft fields against the persisted program and returns only the
@@ -49,6 +30,3 @@ export const buildProgramPatch = (fields: ProgramDraftFields, program: Program):
 
   return patch;
 };
-
-export const isProgramDirty = (fields: ProgramDraftFields, program: Program): boolean =>
-  Object.keys(buildProgramPatch(fields, program)).length > 0;

@@ -2,7 +2,7 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { http, type HttpError } from '@/src/shared/api';
-import { writeProgramDetail } from './programs.utils';
+import { writeProgramDetail } from '../lib';
 import type {
   AddProgramWeekResponse,
   AddProgramWeekVariables,
@@ -10,7 +10,7 @@ import type {
   DeleteProgramWeekVariables,
   ReorderProgramWeeksResponse,
   ReorderProgramWeeksVariables,
-} from './programWeeks.types';
+} from '../model/programWeeks';
 
 export const useAddProgramWeek = () => {
   const queryClient = useQueryClient();

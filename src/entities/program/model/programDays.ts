@@ -1,4 +1,4 @@
-import type { ProgramDetail } from '../model/structure.types';
+import type { ProgramDetail } from './structure';
 
 export type AddProgramDayVariables = {
   programId: string;

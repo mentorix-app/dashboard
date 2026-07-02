@@ -1,7 +1,7 @@
 import { Difficulty } from '@/src/shared/types';
 
 import { ProgramCategory, ProgramStatus, type Program } from '@/src/entities/program/model/types';
-import type { ProgramDay, ProgramWeek } from '@/src/entities/program/model/structure.types';
+import type { ProgramDay, ProgramWeek } from '@/src/entities/program/model/structure';
 
 import { getCompletionPercent, getMissingRequiredFields, getStructureUnits } from '../ProgramWizardView.utils';
 
@@ -18,6 +18,10 @@ const buildProgram = (overrides: Partial<Program> = {}): Program => ({
   category: ProgramCategory.MuscleGain,
   difficulty: Difficulty.Intermediate,
   previewImageUrl: 'https://example.com/cover.jpg',
+  latestProgramVersionId: null,
+  latestClientPlanAt: null,
+  hasUnpublishedChanges: false,
+  assignmentCount: 0,
   createdAt: '2024-01-01T00:00:00Z',
   modifiedAt: '2024-01-01T00:00:00Z',
   deletedAt: null,

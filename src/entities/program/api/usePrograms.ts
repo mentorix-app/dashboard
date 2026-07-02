@@ -2,16 +2,18 @@
 
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { http, queryKeys, useGet, useInfiniteGet, usePost, type HttpError } from '@/src/shared/api';
-import type { ProgramDetail } from '../model/structure.types';
+import type { ProgramDetail } from '../model/structure';
 import type {
+  ArchiveProgramResponse,
   CreateProgramResponse,
   FetchProgramsListParams,
   ProgramsListResult,
   PublishProgramResponse,
+  PublishProgramUpdateResponse,
   UpdateProgramResponse,
   UpdateProgramVariables,
-} from './programs.types';
-import { buildProgramsQuery } from './programs.utils';
+} from '../model/programs';
+import { buildProgramsQuery } from '../lib';
 
 const PROGRAMS_PAGE_SIZE = 20;
 
@@ -63,6 +65,35 @@ export const usePublishProgram = () => {
     mutationFn: (id) =>
       http
         .post<PublishProgramResponse>(`/programs/${encodeURIComponent(id)}/publish`)
+        .then((response) => response.data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
+  });
+};
+
+export const useArchiveProgram = () => {
+  const queryClient = useQueryClient();
+
+  // POST /programs/{id}/archive moves a published program to archived, after
+  // which its structure is read-only until it is published again.
+  return useMutation<ArchiveProgramResponse, HttpError, string>({
+    mutationFn: (id) =>
+      http
+        .post<ArchiveProgramResponse>(`/programs/${encodeURIComponent(id)}/archive`)
+        .then((response) => response.data),
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
+  });
+};
+
+export const usePublishProgramUpdate = () => {
+  const queryClient = useQueryClient();
+
+  // POST /programs/{id}/publish-update freezes the current tree as a new version
+  // (v2, v3, …). Existing assignments stay on their version until synced, so we
+  // invalidate the whole program tree to refresh versions and assignment state.
+  return useMutation<PublishProgramUpdateResponse, HttpError, string>({
+    mutationFn: (id) =>
+      http
+        .post<PublishProgramUpdateResponse>(`/programs/${encodeURIComponent(id)}/publish-update`)
         .then((response) => response.data),
     onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
   });

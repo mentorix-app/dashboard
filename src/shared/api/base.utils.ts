@@ -17,6 +17,8 @@ export const queryKeys = {
     all: [QUERY_KEY_PROGRAMS] as const,
     list: (params: object) => [...queryKeys.programs.all, 'list', params] as const,
     detail: (id: string) => [...queryKeys.programs.all, 'detail', id] as const,
+    versions: (id: string) => [...queryKeys.programs.all, 'versions', id] as const,
+    assignments: (id: string) => [...queryKeys.programs.all, 'assignments', id] as const,
   },
   user: {
     all: [QUERY_KEY_USER] as const,

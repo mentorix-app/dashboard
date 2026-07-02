@@ -19,6 +19,53 @@
     "publish": "Publish",
     "publishing": "Publishing…"
   },
+  "actions": {
+    "archive": "Archive",
+    "republish": "Publish",
+    "publishUpdate": "Publish update",
+    "sync": "Sync program",
+    "versionBadge": "v{version}",
+    "archiveModal": {
+      "title": "Archive this program?",
+      "description": "It will be removed from your active programs list, but clients who are already assigned keep using it. You can publish it again at any time.",
+      "confirm": "Archive",
+      "cancel": "Cancel"
+    },
+    "republishModal": {
+      "title": "Publish this program again?",
+      "description": "It becomes active again and reappears in your active programs list, ready to assign to new clients.",
+      "confirm": "Publish",
+      "cancel": "Cancel"
+    },
+    "publishUpdateModal": {
+      "title": "Publish a new version?",
+      "description": "This freezes your current changes as a new version of the program. Clients who are already assigned keep their current version and are not affected — only newly assigned clients get this version. After publishing, you can sync existing clients to the latest version.",
+      "confirm": "Publish update",
+      "cancel": "Cancel"
+    },
+    "syncModal": {
+      "title": "Sync clients to the latest version?",
+      "description": "{count, plural, one {# client is} other {# clients are}} on an older version and will be moved to the latest published version of this program. This updates the plan they see.",
+      "confirm": "Sync program",
+      "cancel": "Cancel"
+    },
+    "versionsModal": {
+      "title": "Program versions",
+      "description": "Each published update creates a new version. Below is how many clients are on each one.",
+      "versionLabel": "Version {version}",
+      "userCount": "{count, plural, =0 {No clients} one {# client} other {# clients}}"
+    },
+    "toast": {
+      "archiveSuccess": "Program archived.",
+      "archiveError": "Could not archive the program. Please try again.",
+      "republishSuccess": "Program published.",
+      "republishError": "Could not publish the program. Please try again.",
+      "publishUpdateSuccess": "New program version published.",
+      "publishUpdateError": "Could not publish the update. Please try again.",
+      "syncSuccess": "Clients synced to the latest version.",
+      "syncError": "Could not sync clients. Please try again."
+    }
+  },
   "incompleteTitle": "Finish step 1 before publishing",
   "incompleteDescription": "Please fill in the required fields: {fields}.",
   "structureIncompleteTitle": "Finish the program structure before publishing",

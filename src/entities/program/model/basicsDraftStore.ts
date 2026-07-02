@@ -11,8 +11,9 @@ type ProgramBasicsDraftState = {
 
 /**
  * Holds the live step-1 (basics) field values so the wizard shell can reflect
- * completion and unsaved-change state instantly, without waiting for a server
- * round-trip. Scoped by programId so values never leak between programs.
+ * completion instantly, without waiting for a server round-trip. Structure is
+ * saved directly via the API, so only the basics fields live here. Scoped by
+ * programId so values never leak between programs.
  */
 export const useProgramBasicsDraftStore = create<ProgramBasicsDraftState>((set) => ({
   programId: null,

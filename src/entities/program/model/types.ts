@@ -27,6 +27,14 @@ export type Program = {
   category: ProgramCategory | null;
   difficulty: Difficulty | null;
   previewImageUrl: string;
+  /** Latest frozen plan clients receive; null before the first publish. */
+  latestProgramVersionId: string | null;
+  /** When the latest frozen plan was published; null before the first publish. */
+  latestClientPlanAt: string | null;
+  /** True when the draft has edits not yet released in a published version. */
+  hasUnpublishedChanges: boolean;
+  /** Number of active client assignments on this program. */
+  assignmentCount: number;
   createdAt: string;
   modifiedAt: string;
   deletedAt: string | null;

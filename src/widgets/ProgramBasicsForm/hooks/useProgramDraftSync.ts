@@ -8,8 +8,8 @@ import type { ProgramBasicsFormValues } from '../ProgramBasicsForm.types';
 
 /**
  * Mirrors the live form values into the shared draft store so the wizard shell
- * can reflect completion and unsaved-change state without a server round-trip.
- * Receives the already-watched values so the form is only subscribed once.
+ * can reflect completion without a server round-trip. Receives the already
+ * watched values so the form is only subscribed once.
  */
 export const useProgramDraftSync = (
   programId: string,

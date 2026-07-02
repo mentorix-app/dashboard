@@ -7,9 +7,10 @@ import { getProgramName, ProgramStatus, useProgramBasicsDraftStore, type Program
 import { getCompletionPercent, getMissingRequiredFields, getStructureErrors } from '../ProgramWizardView.utils';
 
 /**
- * Derives the wizard's progress and status from the live draft (when present)
- * or the persisted program, and clears the shared draft on unmount so a later
- * program never reads the previous one's values.
+ * Derives the wizard's progress and status from the live basics draft (when
+ * present) or the persisted program, and clears the shared draft on unmount so
+ * a later program never reads the previous one's values. Structure progress
+ * always comes from the persisted program since it is saved directly.
  */
 export const useWizardDraft = (programId: string, program: ProgramDetail | undefined) => {
   const locale = useLocale();
