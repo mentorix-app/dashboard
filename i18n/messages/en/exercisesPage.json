@@ -116,7 +116,8 @@
       "nameMin": "Name must be at least 2 characters.",
       "descriptionMin": "Description must be at least 10 characters.",
       "selectRequired": "Please select an option.",
-      "urlInvalid": "Please enter a valid URL."
+      "urlInvalid": "Please enter a valid URL.",
+      "youtubeUrlInvalid": "Please enter a valid YouTube link."
     }
   }
 }

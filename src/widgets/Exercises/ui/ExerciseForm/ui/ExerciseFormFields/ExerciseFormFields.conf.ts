@@ -31,6 +31,7 @@ export const useExerciseFormFieldsConfig = ({ exerciseId, exercise, onSuccess }:
         nameMin: t('form.validation.nameMin'),
         selectRequired: t('form.validation.selectRequired'),
         urlInvalid: t('form.validation.urlInvalid'),
+        youtubeUrlInvalid: t('form.validation.youtubeUrlInvalid'),
       }),
     [t]
   );
