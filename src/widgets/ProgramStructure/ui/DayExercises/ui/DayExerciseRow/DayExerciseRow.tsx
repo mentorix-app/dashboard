@@ -30,7 +30,7 @@ export const DayExerciseRow = ({
 }: DayExerciseRowProps) => {
   const t = useTranslations('ProgramWizard');
   const { sets, reps, weight, instruction, onSetsChange, onRepsChange, onWeightChange, onInstructionChange, onBlur } =
-    useDayExerciseRowConfig({ exercise, onUpdate });
+    useDayExerciseRowConfig({ exercise, canEdit, onUpdate });
 
   return (
     <>
@@ -84,7 +84,7 @@ export const DayExerciseRow = ({
       />
 
       {canEdit ? (
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <Button type="button" variant="ghost" size="icon-sm" aria-label={t('structure.exercises.rowActions')}>
               <MoreVertical className="size-4" />

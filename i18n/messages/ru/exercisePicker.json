@@ -9,5 +9,16 @@
   "loading": "Загрузка…",
   "cancel": "Отмена",
   "add": "Добавить ({count})",
-  "addNone": "Добавить упражнения"
+  "addNone": "Добавить упражнения",
+  "columns": {
+    "exercise": "Упражнение",
+    "description": "Описание",
+    "difficulty": "Сложность"
+  },
+  "difficulty": {
+    "beginner": "Начальный",
+    "intermediate": "Средний",
+    "advanced": "Продвинутый",
+    "expert": "Эксперт"
+  }
 }

@@ -19,7 +19,7 @@ export const parseWeightField = (value: string): number | null => {
 };
 
 /** Render a nullable numeric field value back into its input string. */
-export const formatNumberField = (value: number | null): string => (value === null ? '' : String(value));
+export const formatNumberField = (value: number | null | undefined): string => (value == null ? '' : String(value));
 
 /** True when two exercise inputs carry the same editable values. */
 export const isSameExerciseInput = (a: ProgramDayExerciseInput, b: ProgramDayExerciseInput): boolean =>

@@ -13,7 +13,7 @@ export const useProgramWizardConfig = (programId: string) => {
 
   const navigation = useWizardNavigation(programId);
   const draft = useWizardDraft(programId, program);
-  const publish = useWizardPublish(programId, draft.missingFields, navigation.goToStep);
+  const publish = useWizardPublish(programId, draft.missingFields, draft.structureErrors, navigation.goToStep);
 
   const progressText = t('progress', {
     current: navigation.currentIndex + 1,
@@ -32,12 +32,14 @@ export const useProgramWizardConfig = (programId: string) => {
     isLoading: isProgramLoading && !program,
     completionPercent: draft.completionPercent,
     missingFields: draft.missingFields,
+    structureErrors: draft.structureErrors,
     status: draft.status,
     isDraft: draft.isDraft,
     isArchived,
     title,
     progressText,
     showMissingBanner: publish.showMissingBanner,
+    showStructureBanner: publish.showStructureBanner,
     isPublishing: publish.isPublishing,
     goToStep: navigation.goToStep,
     handleBack: navigation.handleBack,

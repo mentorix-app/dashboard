@@ -5,15 +5,17 @@ import { useLocale, useRouter, useTranslations } from '@/i18n';
 import { usePublishProgram } from '@/src/entities/program';
 import { useToast } from '@/src/shared/hooks';
 
-import type { ProgramRequiredField, ProgramWizardStep } from '../ProgramWizardView.types';
+import type { ProgramRequiredField, ProgramWizardStep, StructureErrorKey } from '../ProgramWizardView.types';
 
 /**
  * Owns the publish flow: routes back to step 1 with the validation flag when
- * required fields are missing, otherwise publishes and returns to the list.
+ * required fields are missing, keeps the user on the structure step when the
+ * program layout is incomplete, otherwise publishes and returns to the list.
  */
 export const useWizardPublish = (
   programId: string,
   missingFields: ProgramRequiredField[],
+  structureErrors: StructureErrorKey[],
   goToStep: (step: ProgramWizardStep, search?: string) => void
 ) => {
   const t = useTranslations('ProgramWizard');
@@ -30,6 +32,12 @@ export const useWizardPublish = (
       return;
     }
 
+    if (structureErrors.length > 0) {
+      setPublishAttempted(true);
+      goToStep('structure');
+      return;
+    }
+
     publishMutation.mutate(programId, {
       onSuccess: () => {
         showSuccessToast(t('toast.publishSuccess'));
@@ -43,5 +51,6 @@ export const useWizardPublish = (
     handlePublish,
     isPublishing: publishMutation.isPending,
     showMissingBanner: publishAttempted && missingFields.length > 0,
+    showStructureBanner: publishAttempted && missingFields.length === 0 && structureErrors.length > 0,
   };
 };

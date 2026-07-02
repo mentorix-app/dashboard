@@ -11,6 +11,8 @@ export type ProgramRequiredField =
   | 'difficulty'
   | 'previewImageUrl';
 
+export type StructureErrorKey = 'weekWithoutExercises' | 'exerciseMissingCount';
+
 export type ProgramWizardViewProps = {
   programId: string;
   children: ReactNode;

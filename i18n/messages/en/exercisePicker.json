@@ -9,5 +9,16 @@
   "loading": "Loading…",
   "cancel": "Cancel",
   "add": "Add {count} exercise(s)",
-  "addNone": "Add exercises"
+  "addNone": "Add exercises",
+  "columns": {
+    "exercise": "Exercise",
+    "description": "Description",
+    "difficulty": "Difficulty"
+  },
+  "difficulty": {
+    "beginner": "Beginner",
+    "intermediate": "Intermediate",
+    "advanced": "Advanced",
+    "expert": "Expert"
+  }
 }

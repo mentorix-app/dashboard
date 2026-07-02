@@ -21,7 +21,8 @@ export const DayTab = ({
   <SortableItem
     id={id}
     className={cn(
-      'bg-card flex shrink-0 items-center gap-1 rounded-md border px-1 transition-colors',
+      'bg-card flex shrink-0 items-center gap-1 rounded-md border transition-colors',
+      canEdit ? 'px-1' : 'px-2',
       isSelected ? 'border-border bg-muted' : 'hover:bg-muted/60 border-transparent'
     )}
   >
@@ -32,9 +33,7 @@ export const DayTab = ({
       >
         <GripVertical className="size-4" />
       </SortableItemHandle>
-    ) : (
-      <span aria-hidden className="size-7 shrink-0" />
-    )}
+    ) : null}
 
     <button
       type="button"

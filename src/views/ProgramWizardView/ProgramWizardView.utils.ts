@@ -1,7 +1,7 @@
 import type { ProgramDay, ProgramWeek } from '@/src/entities/program';
 
 import { PROGRAM_REQUIRED_FIELDS } from './ProgramWizardView.constants';
-import type { ProgramRequiredField, ProgramWizardStep } from './ProgramWizardView.types';
+import type { ProgramRequiredField, ProgramWizardStep, StructureErrorKey } from './ProgramWizardView.types';
 
 type ProgramRequiredSource = Partial<Record<ProgramRequiredField, string | null>>;
 
@@ -49,4 +49,24 @@ export const getCompletionPercent = (source?: ProgramRequiredSource, weeks?: Pro
   const filled = basicsFilled + structure.filled;
   if (total === 0) return 0;
   return Math.round((filled / total) * 100);
+};
+
+/**
+ * Validates the structure against the backend publish rules: every week needs at
+ * least one day with exercises, and every exercise needs both sets and reps.
+ * Returns the distinct rule keys that are currently violated.
+ */
+export const getStructureErrors = (weeks?: ProgramWeek[]): StructureErrorKey[] => {
+  const list = weeks ?? [];
+  const errors: StructureErrorKey[] = [];
+
+  const everyWeekHasExercises = list.length > 0 && list.every((week) => week.days.some(isDayFilled));
+  if (!everyWeekHasExercises) errors.push('weekWithoutExercises');
+
+  const hasIncompleteExercise = list.some((week) =>
+    week.days.some((day) => day.exercises.some((exercise) => exercise.sets == null || exercise.reps == null))
+  );
+  if (hasIncompleteExercise) errors.push('exerciseMissingCount');
+
+  return errors;
 };

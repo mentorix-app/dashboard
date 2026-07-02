@@ -19,11 +19,13 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
     isLoading,
     completionPercent,
     missingFields,
+    structureErrors,
     status,
     isDraft,
     title,
     progressText,
     showMissingBanner,
+    showStructureBanner,
     isPublishing,
     goToStep,
     handleBack,
@@ -74,6 +76,26 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
               fields: missingFields.map((field) => t(`fields.${field}`)).join(', '),
             })}
           </Typography>
+        </div>
+      ) : null}
+
+      {showStructureBanner ? (
+        <div
+          role="alert"
+          className="border-destructive/40 bg-destructive/10 text-destructive flex flex-col gap-1 rounded-lg border px-4 py-3"
+        >
+          <Typography variant="label-sm" className="text-destructive">
+            {t('structureIncompleteTitle')}
+          </Typography>
+          <ul className="list-inside list-disc">
+            {structureErrors.map((error) => (
+              <li key={error}>
+                <Typography variant="p-sm" as="span" className="text-destructive">
+                  {t(`structureErrors.${error}`)}
+                </Typography>
+              </li>
+            ))}
+          </ul>
         </div>
       ) : null}
 

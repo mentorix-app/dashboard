@@ -21,6 +21,11 @@
   },
   "incompleteTitle": "Finish step 1 before publishing",
   "incompleteDescription": "Please fill in the required fields: {fields}.",
+  "structureIncompleteTitle": "Finish the program structure before publishing",
+  "structureErrors": {
+    "weekWithoutExercises": "Each week must have at least one day with exercises.",
+    "exerciseMissingCount": "Every exercise needs sets and reps."
+  },
   "fields": {
     "name": "Name (EN)",
     "nameRu": "Name (RU)",

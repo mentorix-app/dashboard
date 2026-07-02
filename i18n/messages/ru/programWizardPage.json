@@ -21,6 +21,11 @@
   },
   "incompleteTitle": "Завершите шаг 1 перед публикацией",
   "incompleteDescription": "Заполните обязательные поля: {fields}.",
+  "structureIncompleteTitle": "Завершите структуру программы перед публикацией",
+  "structureErrors": {
+    "weekWithoutExercises": "В каждой неделе должен быть хотя бы один день с упражнениями.",
+    "exerciseMissingCount": "Для каждого упражнения нужно указать подходы и повторения."
+  },
   "fields": {
     "name": "Название (EN)",
     "nameRu": "Название (RU)",

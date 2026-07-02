@@ -3,7 +3,7 @@
 import { useMemo, useState } from 'react';
 
 import { useLocale, useTranslations } from '@/i18n';
-import { getExerciseName, useExercisesInfinite, type Exercise } from '@/src/entities/exercise';
+import { getExerciseDescription, getExerciseName, useExercisesInfinite, type Exercise } from '@/src/entities/exercise';
 import { useDebouncedValue } from '@/src/shared/hooks';
 
 import { MAX_PICK, PICKER_SEARCH_DEBOUNCE_MS } from './ExercisePicker.constants';
@@ -73,6 +73,7 @@ export const useExercisePickerConfig = ({ open, onOpenChange, onConfirm, exclude
     onSearchChange: setSearch,
     exercises,
     getName: (exercise: Exercise) => getExerciseName(exercise, locale),
+    getDescription: (exercise: Exercise) => getExerciseDescription(exercise, locale),
     isPending,
     isFetchingNextPage,
     hasNextPage: Boolean(hasNextPage),

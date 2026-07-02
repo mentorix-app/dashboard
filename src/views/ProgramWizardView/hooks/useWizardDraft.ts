@@ -4,7 +4,7 @@ import { useEffect } from 'react';
 import { useLocale } from '@/i18n';
 import { getProgramName, ProgramStatus, useProgramBasicsDraftStore, type ProgramDetail } from '@/src/entities/program';
 
-import { getCompletionPercent, getMissingRequiredFields } from '../ProgramWizardView.utils';
+import { getCompletionPercent, getMissingRequiredFields, getStructureErrors } from '../ProgramWizardView.utils';
 
 /**
  * Derives the wizard's progress and status from the live draft (when present)
@@ -25,6 +25,7 @@ export const useWizardDraft = (programId: string, program: ProgramDetail | undef
   const progressSource = fields ?? program;
   const missingFields = getMissingRequiredFields(progressSource);
   const completionPercent = getCompletionPercent(progressSource, program?.weeks);
+  const structureErrors = getStructureErrors(program?.weeks);
 
   const status = program?.status ?? ProgramStatus.Draft;
   const isDraft = status === ProgramStatus.Draft;
@@ -36,5 +37,6 @@ export const useWizardDraft = (programId: string, program: ProgramDetail | undef
     status,
     isDraft,
     displayName,
+    structureErrors,
   };
 };
