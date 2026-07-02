@@ -2,21 +2,12 @@
   "metaTitle": "Create program",
   "title": "Program: {name}",
   "titleUntitled": "Untitled program",
-  "unsavedChanges": "Unsaved changes",
   "progress": "Step {current} of {total} · {percent}% complete",
   "progressLabel": "Program completion",
   "status": {
     "draft": "Draft",
     "published": "Published",
     "archived": "Archived"
-  },
-  "saveModal": {
-    "title": "Save changes to a published program?",
-    "description": "This program is live. Saving will immediately update the content, schedule, and details for every enrolled user and may affect their in-progress training. Are you sure you want to continue?",
-    "titleArchived": "Save changes to an archived program?",
-    "descriptionArchived": "This program is archived and not visible to users right now. Your changes will be saved, and the moment you republish it, everyone will see the updated version. Do you want to save these changes?",
-    "confirm": "Save changes",
-    "cancel": "Cancel"
   },
   "steps": {
     "basics": "General",
@@ -101,6 +92,39 @@
       "dayDeleteError": "Could not delete the day. Please try again.",
       "lastDayError": "A week must keep at least one day.",
       "dayReorderError": "Could not reorder the days. Please try again."
+    },
+    "exercises": {
+      "heading": "Exercises",
+      "addExercise": "Add exercise",
+      "empty": "No exercises yet. Add exercises to build this day.",
+      "reorderExercise": "Reorder exercise",
+      "deleteExercise": "Delete",
+      "rowActions": "Exercise actions",
+      "moveToDay": "Move to day",
+      "moveToDayLabel": "Day {number}",
+      "columns": {
+        "exercise": "Exercise",
+        "sets": "Sets",
+        "reps": "Reps",
+        "weight": "Weight, kg",
+        "instruction": "Instruction"
+      },
+      "deleteExerciseConfirmTitle": "Remove this exercise?",
+      "deleteExerciseConfirmDescription": "This removes the exercise from this day. This action can't be undone.",
+      "deleteExerciseConfirm": "Remove exercise",
+      "deleteExerciseCancel": "Cancel",
+      "toast": {
+        "exerciseAdded": "Exercises added.",
+        "exerciseUpdated": "Exercise updated.",
+        "exerciseDeleted": "Exercise removed.",
+        "exerciseMoved": "Exercise moved.",
+        "exerciseReordered": "Exercises reordered.",
+        "exerciseAddError": "Could not add the exercises. Please try again.",
+        "exerciseUpdateError": "Could not save the exercise. Please try again.",
+        "exerciseDeleteError": "Could not remove the exercise. Please try again.",
+        "exerciseMoveError": "Could not move the exercise. Please try again.",
+        "exerciseReorderError": "Could not reorder the exercises. Please try again."
+      }
     }
   },
   "categories": {
@@ -126,7 +150,6 @@
   "toast": {
     "publishSuccess": "Program published successfully.",
     "publishError": "Could not publish the program. Please try again.",
-    "saveSuccess": "Changes saved successfully.",
     "saveError": "Could not save your changes."
   }
 }

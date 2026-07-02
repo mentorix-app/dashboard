@@ -1,8 +1,8 @@
 'use client';
 
-import { ArrowLeft, ArrowRight, Check, Loader2, TriangleAlert } from 'lucide-react';
+import { ArrowLeft, ArrowRight, Check, Loader2 } from 'lucide-react';
 import { ProgramStatusBadge } from '@/src/entities/program';
-import { Button, ConfirmationModal, Progress, Typography } from '@/src/shared/ui';
+import { Button, Progress, Typography } from '@/src/shared/ui';
 
 import { useProgramWizardConfig } from './ProgramWizardView.conf';
 import type { ProgramWizardViewProps } from './ProgramWizardView.types';
@@ -21,15 +21,8 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
     missingFields,
     status,
     isDraft,
-    isArchived,
     title,
     progressText,
-    hasUnsavedChanges,
-    isSaveModalOpen,
-    isSaving,
-    openSaveModal,
-    setSaveModalOpen,
-    confirmSaveChanges,
     showMissingBanner,
     isPublishing,
     goToStep,
@@ -55,14 +48,6 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
               {progressText}
             </Typography>
           </div>
-
-          {hasUnsavedChanges ? (
-            <Button type="button" variant="outline" onClick={openSaveModal}>
-              <span className="size-2 rounded-full bg-amber-500" aria-hidden />
-              <TriangleAlert aria-hidden />
-              {t('unsavedChanges')}
-            </Button>
-          ) : null}
         </div>
 
         <Progress value={completionPercent} label={t('progressLabel')} />
@@ -112,17 +97,6 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
           </Button>
         ) : null}
       </footer>
-
-      <ConfirmationModal
-        open={isSaveModalOpen}
-        onOpenChange={setSaveModalOpen}
-        title={isArchived ? t('saveModal.titleArchived') : t('saveModal.title')}
-        description={isArchived ? t('saveModal.descriptionArchived') : t('saveModal.description')}
-        confirmLabel={t('saveModal.confirm')}
-        cancelLabel={t('saveModal.cancel')}
-        isPending={isSaving}
-        onConfirm={confirmSaveChanges}
-      />
     </section>
   );
 };

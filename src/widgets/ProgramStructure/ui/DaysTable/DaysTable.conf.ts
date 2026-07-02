@@ -11,13 +11,11 @@ import type { DaysTableProps } from './DaysTable.types';
  * Logic for the days table: resolves day actions for the selected week and owns
  * the day-delete confirmation state so the parent widget stays focused on weeks.
  */
-export const useDaysTableConfig = ({ programId, isDraft, weeks, week }: DaysTableProps) => {
+export const useDaysTableConfig = ({ programId, canEdit, week }: DaysTableProps) => {
   const t = useTranslations('ProgramWizard');
   const { canAddDay, handleAddDay, handleDeleteDay, handleReorderDays, isMutating } = useDaysActions({
     programId,
     weekId: week.id,
-    isDraft,
-    weeks,
     days: week.days,
   });
 
@@ -42,10 +40,13 @@ export const useDaysTableConfig = ({ programId, isDraft, weeks, week }: DaysTabl
 
   return {
     t,
+    programId,
+    week,
     days: week.days,
     dayIds: week.days.map((day) => day.id),
     selectedDayId: activeDayId,
     selectedDay,
+    canEdit,
     canAddDay,
     isBusy: isMutating,
     isDeleteModalOpen: dayPendingDeletion !== null,

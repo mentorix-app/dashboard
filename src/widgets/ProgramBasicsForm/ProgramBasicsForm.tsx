@@ -10,10 +10,11 @@ import { ProgramSelectField } from './ui/ProgramSelectField';
 import { ProgramTextField } from './ui/ProgramTextField';
 
 export const ProgramBasicsForm = ({ programId }: ProgramBasicsFormProps) => {
-  const { t, form, isLoading, categoryOptions, difficultyOptions, preview } = useProgramBasicsFormConfig(programId);
+  const { t, form, isFieldDisabled, onBlur, categoryOptions, difficultyOptions, preview } =
+    useProgramBasicsFormConfig(programId);
 
   return (
-    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]">
+    <div className="grid gap-6 lg:grid-cols-[minmax(0,1fr)_22rem]" onBlur={onBlur}>
       <Card>
         <CardHeader>
           <CardTitle>{t('basics.sectionTitle')}</CardTitle>
@@ -23,7 +24,7 @@ export const ProgramBasicsForm = ({ programId }: ProgramBasicsFormProps) => {
             control={form.control}
             label={t('basics.name')}
             placeholder={t('basics.namePlaceholder')}
-            disabled={isLoading}
+            disabled={isFieldDisabled}
             fields={[
               { locale: 'en', label: t('basics.localeEn'), name: 'name' },
               { locale: 'ru', label: t('basics.localeRu'), name: 'nameRu' },
@@ -34,7 +35,7 @@ export const ProgramBasicsForm = ({ programId }: ProgramBasicsFormProps) => {
             label={t('basics.description')}
             placeholder={t('basics.descriptionPlaceholder')}
             multiline
-            disabled={isLoading}
+            disabled={isFieldDisabled}
             fields={[
               { locale: 'en', label: t('basics.localeEn'), name: 'description' },
               { locale: 'ru', label: t('basics.localeRu'), name: 'descriptionRu' },
@@ -47,7 +48,7 @@ export const ProgramBasicsForm = ({ programId }: ProgramBasicsFormProps) => {
               label={t('basics.category')}
               placeholder={t('basics.categoryPlaceholder')}
               options={categoryOptions}
-              disabled={isLoading}
+              disabled={isFieldDisabled}
             />
             <ProgramSelectField
               control={form.control}
@@ -55,7 +56,7 @@ export const ProgramBasicsForm = ({ programId }: ProgramBasicsFormProps) => {
               label={t('basics.difficulty')}
               placeholder={t('basics.difficultyPlaceholder')}
               options={difficultyOptions}
-              disabled={isLoading}
+              disabled={isFieldDisabled}
             />
           </div>
           <ProgramTextField
@@ -64,7 +65,7 @@ export const ProgramBasicsForm = ({ programId }: ProgramBasicsFormProps) => {
             label={t('basics.previewImageUrl')}
             placeholder={t('basics.previewImageUrlPlaceholder')}
             type="url"
-            disabled={isLoading}
+            disabled={isFieldDisabled}
           />
         </CardContent>
       </Card>

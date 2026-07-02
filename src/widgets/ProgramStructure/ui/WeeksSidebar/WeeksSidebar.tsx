@@ -11,6 +11,7 @@ import type { WeeksSidebarProps } from './WeeksSidebar.types';
 export const WeeksSidebar = ({
   weeks,
   selectedWeekId,
+  canEdit,
   canAddWeek,
   isBusy,
   onSelectWeek,
@@ -38,6 +39,7 @@ export const WeeksSidebar = ({
                 deleteLabel={t('structure.deleteWeek', { number: week.weekNumber })}
                 reorderLabel={t('structure.reorderWeek', { number: week.weekNumber })}
                 isSelected={week.id === selectedWeekId}
+                canEdit={canEdit}
                 onSelect={() => onSelectWeek(week.id)}
                 onDelete={() => onDeleteWeek(week.id)}
               />
@@ -46,10 +48,12 @@ export const WeeksSidebar = ({
         </Sortable>
       </ul>
 
-      <Button type="button" variant="outline" onClick={onAddWeek} disabled={!canAddWeek || isBusy}>
-        <Plus className="size-4" />
-        {t('structure.addWeek')}
-      </Button>
+      {canEdit ? (
+        <Button type="button" variant="outline" onClick={onAddWeek} disabled={!canAddWeek || isBusy}>
+          <Plus className="size-4" />
+          {t('structure.addWeek')}
+        </Button>
+      ) : null}
     </aside>
   );
 };

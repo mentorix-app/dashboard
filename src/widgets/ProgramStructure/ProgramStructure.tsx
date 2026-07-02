@@ -11,7 +11,7 @@ export const ProgramStructure = ({ programId }: ProgramStructureProps) => {
   const {
     t,
     isLoading,
-    isDraft,
+    canEdit,
     weeks,
     selectedWeekId,
     selectedWeek,
@@ -36,6 +36,7 @@ export const ProgramStructure = ({ programId }: ProgramStructureProps) => {
         <WeeksSidebar
           weeks={weeks}
           selectedWeekId={selectedWeekId}
+          canEdit={canEdit}
           canAddWeek={canAddWeek}
           isBusy={isBusy}
           onSelectWeek={onSelectWeek}
@@ -45,7 +46,7 @@ export const ProgramStructure = ({ programId }: ProgramStructureProps) => {
         />
 
         {selectedWeek ? (
-          <DaysTable programId={programId} isDraft={isDraft} weeks={weeks} week={selectedWeek} />
+          <DaysTable programId={programId} canEdit={canEdit} week={selectedWeek} />
         ) : (
           <div className="flex min-h-64 flex-1 items-center justify-center rounded-md border border-dashed">
             <Typography variant="p-sm" className="text-muted-foreground">

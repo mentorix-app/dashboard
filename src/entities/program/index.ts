@@ -3,7 +3,6 @@ export { ProgramCategory, ProgramStatus } from './model/types';
 export type { ProgramDay, ProgramDayExercise, ProgramDetail, ProgramWeek } from './model/structure.types';
 export { buildProgramPatch, getProgramName, isProgramDirty, toProgramDraftFields } from './model/program.utils';
 export { useProgramBasicsDraftStore } from './model/basicsDraftStore';
-export { useProgramStructureStore } from './model/structureStore';
 export { ProgramStatusBadge } from './ui/ProgramStatusBadge';
 export type {
   CreateProgramResponse,
@@ -38,3 +37,17 @@ export type {
   ReorderProgramDaysVariables,
 } from './api/programDays.types';
 export { useAddProgramDay, useDeleteProgramDay, useReorderProgramDays } from './api/useProgramDays';
+export type {
+  AddProgramDayExerciseVariables,
+  DeleteProgramDayExerciseVariables,
+  ProgramDayExerciseInput,
+  ProgramWeekExerciseDayOrder,
+  ReorderProgramWeekExercisesVariables,
+  UpdateProgramDayExerciseVariables,
+} from './api/programExercises.types';
+export {
+  useAddProgramDayExercise,
+  useDeleteProgramDayExercise,
+  useReorderProgramWeekExercises,
+  useUpdateProgramDayExercise,
+} from './api/useProgramExercises';

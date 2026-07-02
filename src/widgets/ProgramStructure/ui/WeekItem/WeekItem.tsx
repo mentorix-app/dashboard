@@ -14,6 +14,7 @@ export const WeekItem = ({
   deleteLabel,
   reorderLabel,
   isSelected,
+  canEdit,
   onSelect,
   onDelete,
 }: WeekItemProps) => (
@@ -24,12 +25,16 @@ export const WeekItem = ({
       isSelected ? 'border-border bg-muted' : 'hover:bg-muted/60'
     )}
   >
-    <SortableItemHandle
-      aria-label={reorderLabel}
-      className="text-muted-foreground focus-visible:ring-ring/50 flex size-7 shrink-0 cursor-grab touch-none items-center justify-center rounded-md outline-none focus-visible:ring-2 active:cursor-grabbing"
-    >
-      <GripVertical className="size-4" />
-    </SortableItemHandle>
+    {canEdit ? (
+      <SortableItemHandle
+        aria-label={reorderLabel}
+        className="text-muted-foreground focus-visible:ring-ring/50 flex size-7 shrink-0 cursor-grab touch-none items-center justify-center rounded-md outline-none focus-visible:ring-2 active:cursor-grabbing"
+      >
+        <GripVertical className="size-4" />
+      </SortableItemHandle>
+    ) : (
+      <span aria-hidden className="size-7 shrink-0" />
+    )}
 
     <button
       type="button"
@@ -43,8 +48,10 @@ export const WeekItem = ({
       </Typography>
     </button>
 
-    <Button type="button" variant="ghost" size="icon-sm" aria-label={deleteLabel} onClick={onDelete}>
-      <Trash2 className="size-4" />
-    </Button>
+    {canEdit ? (
+      <Button type="button" variant="ghost" size="icon-sm" aria-label={deleteLabel} onClick={onDelete}>
+        <Trash2 className="size-4" />
+      </Button>
+    ) : null}
   </SortableItem>
 );

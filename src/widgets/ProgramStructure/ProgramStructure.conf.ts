@@ -9,10 +9,9 @@ import { useWeeksActions } from './hooks/useWeeksActions';
 
 export const useProgramStructureConfig = (programId: string) => {
   const t = useTranslations('ProgramWizard');
-  const { isLoading, isDraft, weeks } = useStructureState(programId);
+  const { isLoading, canEdit, weeks } = useStructureState(programId);
   const { canAddWeek, handleAddWeek, handleDeleteWeek, handleReorderWeeks, isMutating } = useWeeksActions({
     programId,
-    isDraft,
     weeks,
   });
 
@@ -38,7 +37,7 @@ export const useProgramStructureConfig = (programId: string) => {
   return {
     t,
     isLoading,
-    isDraft,
+    canEdit,
     weeks,
     selectedWeekId: activeWeekId,
     selectedWeek,

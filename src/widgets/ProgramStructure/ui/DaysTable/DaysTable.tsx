@@ -2,8 +2,9 @@
 
 import { Plus } from 'lucide-react';
 
-import { Button, ConfirmationModal, Sortable, Typography } from '@/src/shared/ui';
+import { Button, ConfirmationModal, Sortable } from '@/src/shared/ui';
 
+import { DayExercises } from '../DayExercises';
 import { DayTab } from '../DayTab';
 import { useDaysTableConfig } from './DaysTable.conf';
 import type { DaysTableProps } from './DaysTable.types';
@@ -11,10 +12,13 @@ import type { DaysTableProps } from './DaysTable.types';
 export const DaysTable = (props: DaysTableProps) => {
   const {
     t,
+    programId,
+    week,
     days,
     dayIds,
     selectedDayId,
     selectedDay,
+    canEdit,
     canAddDay,
     isBusy,
     isDeleteModalOpen,
@@ -39,24 +43,29 @@ export const DaysTable = (props: DaysTableProps) => {
               deleteLabel={t('structure.deleteDay', { number: day.dayNumber })}
               reorderLabel={t('structure.reorderDay', { number: day.dayNumber })}
               isSelected={day.id === selectedDayId}
+              canEdit={canEdit}
               onSelect={() => onSelectDay(day.id)}
               onDelete={() => onRequestDeleteDay(day.id)}
             />
           ))}
         </Sortable>
 
-        <Button type="button" variant="outline" className="shrink-0" onClick={onAddDay} disabled={!canAddDay || isBusy}>
-          <Plus className="size-4" />
-          {t('structure.addDay')}
-        </Button>
+        {canEdit ? (
+          <Button
+            type="button"
+            variant="outline"
+            className="shrink-0"
+            onClick={onAddDay}
+            disabled={!canAddDay || isBusy}
+          >
+            <Plus className="size-4" />
+            {t('structure.addDay')}
+          </Button>
+        ) : null}
       </div>
 
       {selectedDay ? (
-        <div className="flex min-h-48 flex-1 items-center justify-center p-6">
-          <Typography variant="p-sm" className="text-muted-foreground text-center">
-            {t('structure.dayExercisesPlaceholder')}
-          </Typography>
-        </div>
+        <DayExercises programId={programId} weekId={week.id} day={selectedDay} week={week} canEdit={canEdit} />
       ) : null}
 
       <ConfirmationModal

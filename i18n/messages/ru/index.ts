@@ -5,6 +5,7 @@ import languageSwitcher from './languageSwitcher.json';
 import themeSwitcher from './themeSwitcher.json';
 import dashboardPage from './dashboardPage.json';
 import exercisesPage from './exercisesPage.json';
+import exercisePicker from './exercisePicker.json';
 import programsPage from './programsPage.json';
 import programWizardPage from './programWizardPage.json';
 import loginPage from './loginPage.json';
@@ -19,6 +20,7 @@ export default {
   ThemeSwitcher: themeSwitcher,
   Dashboard: dashboardPage,
   Exercises: exercisesPage,
+  ExercisePicker: exercisePicker,
   Programs: programsPage,
   ProgramWizard: programWizardPage,
   Login: loginPage,

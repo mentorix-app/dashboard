@@ -5,6 +5,7 @@ export type WeekItemProps = {
   deleteLabel: string;
   reorderLabel: string;
   isSelected: boolean;
+  canEdit: boolean;
   onSelect: () => void;
   onDelete: () => void;
 };

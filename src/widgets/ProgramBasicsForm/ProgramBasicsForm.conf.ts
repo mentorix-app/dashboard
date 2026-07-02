@@ -2,6 +2,8 @@
 
 import { useWatch } from 'react-hook-form';
 
+import { ProgramStatus } from '@/src/entities/program';
+
 import { useProgramAutosave } from './hooks/useProgramAutosave';
 import { useProgramBasicsForm } from './hooks/useProgramBasicsForm';
 import { useProgramBasicsPreview } from './hooks/useProgramBasicsPreview';
@@ -14,8 +16,11 @@ export const useProgramBasicsFormConfig = (programId: string) => {
 
   useProgramValidateOnPublish(form, hydratedRef, program);
   useProgramDraftSync(programId, form, values);
-  const { isSaving } = useProgramAutosave(programId, form, program, hydratedRef);
+  const { isSaving, onBlur } = useProgramAutosave(programId, form, program, hydratedRef);
   const { categoryOptions, difficultyOptions, preview } = useProgramBasicsPreview(values);
 
-  return { t, form, isLoading, isSaving, categoryOptions, difficultyOptions, preview };
+  const isArchived = program?.status === ProgramStatus.Archived;
+  const isFieldDisabled = isLoading || isArchived;
+
+  return { t, form, isLoading, isSaving, onBlur, isFieldDisabled, categoryOptions, difficultyOptions, preview };
 };

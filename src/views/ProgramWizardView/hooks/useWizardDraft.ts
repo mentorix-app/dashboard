@@ -2,20 +2,14 @@
 
 import { useEffect } from 'react';
 import { useLocale } from '@/i18n';
-import {
-  buildProgramPatch,
-  getProgramName,
-  ProgramStatus,
-  useProgramBasicsDraftStore,
-  type ProgramDetail,
-} from '@/src/entities/program';
+import { getProgramName, ProgramStatus, useProgramBasicsDraftStore, type ProgramDetail } from '@/src/entities/program';
 
 import { getCompletionPercent, getMissingRequiredFields } from '../ProgramWizardView.utils';
 
 /**
- * Derives the wizard's progress, status, and unsaved-change state from the live
- * draft (when present) or the persisted program, and clears the shared draft on
- * unmount so a later program never reads the previous one's values.
+ * Derives the wizard's progress and status from the live draft (when present)
+ * or the persisted program, and clears the shared draft on unmount so a later
+ * program never reads the previous one's values.
  */
 export const useWizardDraft = (programId: string, program: ProgramDetail | undefined) => {
   const locale = useLocale();
@@ -36,16 +30,11 @@ export const useWizardDraft = (programId: string, program: ProgramDetail | undef
   const isDraft = status === ProgramStatus.Draft;
   const displayName = getProgramName(fields ?? program ?? { name: '', nameRu: '' }, locale);
 
-  const pendingPatch = program && fields ? buildProgramPatch(fields, program) : {};
-  const hasUnsavedChanges = !isDraft && Object.keys(pendingPatch).length > 0;
-
   return {
     missingFields,
     completionPercent,
     status,
     isDraft,
     displayName,
-    pendingPatch,
-    hasUnsavedChanges,
   };
 };

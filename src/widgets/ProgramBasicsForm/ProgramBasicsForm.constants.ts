@@ -23,6 +23,4 @@ export const PROGRAM_CATEGORY_VALUES: readonly ProgramCategory[] = [
 
 export const PROGRAM_DIFFICULTY_VALUES = DIFFICULTY_OPTIONS;
 
-export const AUTOSAVE_DELAY_MS = 600;
-
 export const PUBLISH_VALIDATE_PARAM = 'validate';

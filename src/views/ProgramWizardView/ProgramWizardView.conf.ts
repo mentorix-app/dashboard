@@ -6,7 +6,6 @@ import { ProgramStatus, useProgram } from '@/src/entities/program';
 import { useWizardDraft } from './hooks/useWizardDraft';
 import { useWizardNavigation } from './hooks/useWizardNavigation';
 import { useWizardPublish } from './hooks/useWizardPublish';
-import { useWizardSave } from './hooks/useWizardSave';
 
 export const useProgramWizardConfig = (programId: string) => {
   const t = useTranslations('ProgramWizard');
@@ -14,7 +13,6 @@ export const useProgramWizardConfig = (programId: string) => {
 
   const navigation = useWizardNavigation(programId);
   const draft = useWizardDraft(programId, program);
-  const save = useWizardSave();
   const publish = useWizardPublish(programId, draft.missingFields, navigation.goToStep);
 
   const progressText = t('progress', {
@@ -39,12 +37,6 @@ export const useProgramWizardConfig = (programId: string) => {
     isArchived,
     title,
     progressText,
-    hasUnsavedChanges: draft.hasUnsavedChanges,
-    isSaveModalOpen: save.isSaveModalOpen,
-    isSaving: save.isSaving,
-    openSaveModal: save.openSaveModal,
-    setSaveModalOpen: save.setSaveModalOpen,
-    confirmSaveChanges: save.confirmSaveChanges,
     showMissingBanner: publish.showMissingBanner,
     isPublishing: publish.isPublishing,
     goToStep: navigation.goToStep,

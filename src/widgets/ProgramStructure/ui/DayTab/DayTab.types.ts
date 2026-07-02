@@ -5,6 +5,7 @@ export type DayTabProps = {
   deleteLabel: string;
   reorderLabel: string;
   isSelected: boolean;
+  canEdit: boolean;
   onSelect: () => void;
   onDelete: () => void;
 };

@@ -1,0 +1,13 @@
+{
+  "title": "Add exercises",
+  "description": "Search the catalog and select up to {max} exercises to add to this day.",
+  "searchPlaceholder": "Search by name…",
+  "selectedCount": "{count} of {max} selected",
+  "maxReached": "You can select up to {max} exercises at a time.",
+  "empty": "No exercises match your search.",
+  "loadMore": "Load more",
+  "loading": "Loading…",
+  "cancel": "Cancel",
+  "add": "Add {count} exercise(s)",
+  "addNone": "Add exercises"
+}
