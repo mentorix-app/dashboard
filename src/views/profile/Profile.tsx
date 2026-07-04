@@ -4,6 +4,8 @@ import { useTranslations } from '@/i18n';
 import { useCurrentUser } from '@/src/entities/user';
 import { Avatar, AvatarFallback, AvatarImage, Card, Typography } from '@/src/shared/ui';
 
+import { ProfileForm } from './ui/ProfileForm';
+
 const MOCK = {
   name: 'Alex Morgan',
   email: 'alex.morgan@example.com',
@@ -20,7 +22,9 @@ export const Profile = () => {
   const fullName = user?.name ?? [user?.firstName, user?.lastName].filter(Boolean).join(' ').trim();
   const name = fullName || MOCK.name;
   const email = user?.email ?? MOCK.email;
-  const role = user?.roles?.join(', ') || MOCK.role;
+  const roles = user?.roles ?? [];
+  const role = roles.join(', ') || MOCK.role;
+  const rolesLabel = roles.length > 1 ? t('roles') : t('role');
   const avatarUrl = user?.avatarUrl ?? MOCK.avatarUrl;
   const initials = (
     name
@@ -46,12 +50,26 @@ export const Profile = () => {
             {email}
           </Typography>
           <Typography variant="p-sm" className="text-muted-foreground">
-            {t('role')}: {role}
+            {rolesLabel}: {role}
           </Typography>
           <Typography variant="p-sm" className="text-muted-foreground">
             {t('joined')}: {MOCK.joinedAt}
           </Typography>
         </div>
+      </Card>
+
+      <Card className="flex flex-col gap-4 p-6">
+        <Typography variant="h3">{t('editHeading')}</Typography>
+        <ProfileForm
+          defaultName={user?.name ?? ''}
+          labels={{
+            displayedNameLabel: t('displayedNameLabel'),
+            displayedNamePlaceholder: t('displayedNamePlaceholder'),
+            saveLabel: t('save'),
+          }}
+          validation={{ nameRequired: t('validation.nameRequired'), nameMinLength: t('validation.nameMinLength') }}
+          messages={{ updateSuccess: t('updateSuccess'), updateError: t('updateError') }}
+        />
       </Card>
 
       <Card className="p-6">

@@ -17,6 +17,10 @@ export type AuthCredentials = {
   password: string;
 };
 
+export type SignupInput = AuthCredentials & {
+  name: string;
+};
+
 export type AuthActionResult = { error: string } | undefined;
 
 const INVALID_CREDENTIALS = 'Invalid email or password.';
@@ -29,6 +33,14 @@ const validateCredentials = (input: unknown): AuthCredentials | null => {
   if (typeof obj.email !== 'string' || typeof obj.password !== 'string') return null;
   if (obj.email.trim().length === 0 || obj.password.length === 0) return null;
   return { email: obj.email.trim(), password: obj.password };
+};
+
+const validateSignupInput = (input: unknown): SignupInput | null => {
+  const credentials = validateCredentials(input);
+  if (!credentials) return null;
+  const obj = input as Record<string, unknown>;
+  if (typeof obj.name !== 'string' || obj.name.trim().length === 0) return null;
+  return { ...credentials, name: obj.name.trim() };
 };
 
 /**
@@ -72,8 +84,8 @@ export async function loginAction(input: AuthCredentials): Promise<AuthActionRes
  * cookie on registration, so the user is logged in immediately and redirected
  * to the dashboard.
  */
-export async function signupAction(input: AuthCredentials): Promise<AuthActionResult> {
-  const credentials = validateCredentials(input);
+export async function signupAction(input: SignupInput): Promise<AuthActionResult> {
+  const credentials = validateSignupInput(input);
   if (!credentials) return { error: GENERIC_ERROR };
 
   try {

@@ -1,6 +1,8 @@
 import type { SignupValidationMessages } from '../model/schema';
 
 export type SignupFormLabels = {
+  nameLabel: string;
+  namePlaceholder: string;
   emailLabel: string;
   emailPlaceholder: string;
   passwordLabel: string;

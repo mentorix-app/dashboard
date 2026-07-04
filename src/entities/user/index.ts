@@ -5,4 +5,5 @@ export { useCurrentUser } from './model/useCurrentUser';
 export { Permission, hasPermission } from './model/permissions';
 export { usePermissions } from './model/usePermissions';
 export { useGetMe } from './api/useGetMe';
+export { useUpdateMe, type UpdateMeVariables } from './api/useUpdateMe';
 export { UserHydrator } from './ui/UserHydrator';

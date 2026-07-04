@@ -9,11 +9,44 @@ import { useSignupFormConfig } from './SignupForm.conf';
 import type { SignupFormProps } from './SignupForm.types';
 
 export const SignupForm: FC<SignupFormProps> = ({ labels, validation }) => {
-  const { emailId, emailErrorId, passwordId, passwordErrorId, errorId, form, isPending, serverError, handleSubmit } =
-    useSignupFormConfig(validation);
+  const {
+    nameId,
+    nameErrorId,
+    emailId,
+    emailErrorId,
+    passwordId,
+    passwordErrorId,
+    errorId,
+    form,
+    isPending,
+    serverError,
+    handleSubmit,
+  } = useSignupFormConfig(validation);
 
   return (
     <form className="flex flex-col gap-5" onSubmit={handleSubmit} noValidate>
+      <div className="flex flex-col gap-2">
+        <Controller
+          name="name"
+          control={form.control}
+          render={({ field, fieldState }) => (
+            <>
+              <Label htmlFor={nameId}>{labels.nameLabel}</Label>
+              <Input
+                {...field}
+                id={nameId}
+                type="text"
+                autoComplete="name"
+                placeholder={labels.namePlaceholder}
+                aria-invalid={fieldState.invalid}
+                aria-required="true"
+                aria-describedby={fieldState.invalid ? nameErrorId : undefined}
+              />
+              <FormMessage id={nameErrorId} message={fieldState.error?.message} />
+            </>
+          )}
+        />
+      </div>
       <div className="flex flex-col gap-2">
         <Controller
           name="email"

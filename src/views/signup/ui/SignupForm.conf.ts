@@ -9,6 +9,7 @@ import { signupAction } from '@/src/entities/auth';
 import { createSignupSchema, type SignupFormValues, type SignupValidationMessages } from '../model/schema';
 
 export const useSignupFormConfig = (validation: SignupValidationMessages) => {
+  const nameId = useId();
   const emailId = useId();
   const passwordId = useId();
   const feedbackId = useId();
@@ -19,7 +20,7 @@ export const useSignupFormConfig = (validation: SignupValidationMessages) => {
 
   const form = useForm<SignupFormValues>({
     resolver: zodResolver(schema),
-    defaultValues: { email: '', password: '' },
+    defaultValues: { name: '', email: '', password: '' },
     mode: 'onSubmit',
   });
 
@@ -32,6 +33,8 @@ export const useSignupFormConfig = (validation: SignupValidationMessages) => {
   };
 
   return {
+    nameId,
+    nameErrorId: `${nameId}-error`,
     emailId,
     emailErrorId: `${emailId}-error`,
     passwordId,

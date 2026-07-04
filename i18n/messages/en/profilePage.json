@@ -1,6 +1,17 @@
 {
   "title": "Profile",
   "role": "Role",
+  "roles": "Roles",
   "joined": "Joined",
-  "about": "About"
+  "about": "About",
+  "editHeading": "Edit profile",
+  "displayedNameLabel": "Displayed name",
+  "displayedNamePlaceholder": "Enter your displayed name",
+  "save": "Save changes",
+  "updateSuccess": "Profile updated.",
+  "updateError": "Could not update profile. Please try again.",
+  "validation": {
+    "nameRequired": "Displayed name is required.",
+    "nameMinLength": "Displayed name must be at least 2 characters."
+  }
 }
