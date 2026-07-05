@@ -4,10 +4,9 @@ import { type FC, type KeyboardEvent, type MouseEvent } from 'react';
 import { useLocale, useTranslations } from '@/i18n';
 import { getExerciseDescription, getExerciseName } from '@/src/entities/exercise';
 import { Checkbox, TableCell, TableRow } from '@/src/shared/ui';
-import { cn } from '@/src/shared/lib/styles';
+import { cn, formatDate } from '@/src/shared/lib';
 
 import type { ExercisesTableRowProps } from '../ExercisesTable.types';
-import { formatModifiedAt } from '../ExercisesTable.utils';
 
 export const ExercisesTableRow: FC<ExercisesTableRowProps> = ({
   exercise,
@@ -68,7 +67,7 @@ export const ExercisesTableRow: FC<ExercisesTableRowProps> = ({
       </TableCell>
       <TableCell className="whitespace-nowrap">{t(`difficulty.${exercise.difficulty}`)}</TableCell>
       <TableCell className="text-muted-foreground whitespace-nowrap">
-        {formatModifiedAt(exercise.modifiedAt, locale)}
+        {formatDate(exercise.modifiedAt, locale, 'shortDate')}
       </TableCell>
     </TableRow>
   );

@@ -21,6 +21,19 @@ export const parseWeightField = (value: string): number | null => {
 /** Render a nullable numeric field value back into its input string. */
 export const formatNumberField = (value: number | null | undefined): string => (value == null ? '' : String(value));
 
+/**
+ * Canonicalize an exercise input the same way the row's live edits are derived
+ * (number round-trip + trimmed instruction), so server data that never changed
+ * compares equal and the row does not persist a no-op PUT.
+ */
+export const normalizeExerciseInput = (input: ProgramDayExerciseInput): ProgramDayExerciseInput => ({
+  exerciseId: input.exerciseId,
+  sets: parseCountField(formatNumberField(input.sets)),
+  reps: parseCountField(formatNumberField(input.reps)),
+  weightKg: parseWeightField(formatNumberField(input.weightKg)),
+  instruction: (input.instruction ?? '').trim(),
+});
+
 /** True when two exercise inputs carry the same editable values. */
 export const isSameExerciseInput = (a: ProgramDayExerciseInput, b: ProgramDayExerciseInput): boolean =>
   a.sets === b.sets && a.reps === b.reps && a.weightKg === b.weightKg && a.instruction === b.instruction;

@@ -4,7 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { ProgramDayExercise, ProgramDayExerciseInput } from '@/src/entities/program';
 
-import { formatNumberField, isSameExerciseInput, parseCountField, parseWeightField } from '../../DayExercises.utils';
+import {
+  formatNumberField,
+  isSameExerciseInput,
+  normalizeExerciseInput,
+  parseCountField,
+  parseWeightField,
+} from '../../DayExercises.utils';
 
 type UseDayExerciseRowConfigParams = {
   exercise: ProgramDayExercise;
@@ -24,13 +30,15 @@ export const useDayExerciseRowConfig = ({ exercise, canEdit, onUpdate }: UseDayE
   const [weight, setWeight] = useState(() => formatNumberField(exercise.weightKg));
   const [instruction, setInstruction] = useState(exercise.instruction);
 
-  const savedRef = useRef<ProgramDayExerciseInput>({
-    exerciseId: exercise.exerciseId,
-    sets: exercise.sets,
-    reps: exercise.reps,
-    weightKg: exercise.weightKg,
-    instruction: exercise.instruction,
-  });
+  const savedRef = useRef<ProgramDayExerciseInput>(
+    normalizeExerciseInput({
+      exerciseId: exercise.exerciseId,
+      sets: exercise.sets,
+      reps: exercise.reps,
+      weightKg: exercise.weightKg,
+      instruction: exercise.instruction,
+    })
+  );
 
   const currentInput: ProgramDayExerciseInput = {
     exerciseId: exercise.exerciseId,

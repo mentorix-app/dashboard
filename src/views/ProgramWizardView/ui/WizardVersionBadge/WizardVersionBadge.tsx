@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { History } from 'lucide-react';
 import { useLocale, useTranslations } from '@/i18n';
 import { ProgramStatus, useProgram, useProgramVersions } from '@/src/entities/program';
+import { formatDate } from '@/src/shared/lib';
 import {
   Button,
   Dialog,
@@ -38,9 +39,6 @@ export const WizardVersionBadge = ({ programId }: WizardVersionBadgeProps) => {
     return null;
   }
 
-  const formatDate = (value: string) =>
-    new Intl.DateTimeFormat(locale, { dateStyle: 'medium' }).format(new Date(value));
-
   return (
     <>
       <Button type="button" variant="outline" size="sm" onClick={() => setVersionsOpen(true)}>
@@ -64,7 +62,7 @@ export const WizardVersionBadge = ({ programId }: WizardVersionBadgeProps) => {
                       {t('actions.versionsModal.versionLabel', { version: version.versionNumber })}
                     </Typography>
                     <Typography variant="p-sm" className="text-muted-foreground">
-                      {formatDate(version.publishedAt)}
+                      {formatDate(version.publishedAt, locale, 'shortDate')}
                     </Typography>
                   </div>
                   <Typography variant="p-sm" className="text-muted-foreground">

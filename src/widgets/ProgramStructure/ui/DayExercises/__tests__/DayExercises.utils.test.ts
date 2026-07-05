@@ -1,6 +1,13 @@
 import type { ProgramDay, ProgramWeek } from '@/src/entities/program';
 
-import { parseCountField, parseWeightField, withMovedExercise, withReorderedDay } from '../DayExercises.utils';
+import {
+  isSameExerciseInput,
+  normalizeExerciseInput,
+  parseCountField,
+  parseWeightField,
+  withMovedExercise,
+  withReorderedDay,
+} from '../DayExercises.utils';
 
 const buildDay = (id: string, exerciseIds: string[]): ProgramDay => ({
   id,
@@ -56,6 +63,45 @@ describe('DayExercises utils', () => {
       expect(parseWeightField('')).toBeNull();
       expect(parseWeightField('heavy')).toBeNull();
       expect(parseWeightField('-1')).toBeNull();
+    });
+  });
+
+  describe('normalizeExerciseInput', () => {
+    it('trims instruction and coerces nullish instruction to an empty string', () => {
+      expect(
+        normalizeExerciseInput({
+          exerciseId: 'ex-1',
+          sets: 3,
+          reps: 10,
+          weightKg: 20,
+          instruction: '  keep back straight  ',
+        })
+      ).toEqual({ exerciseId: 'ex-1', sets: 3, reps: 10, weightKg: 20, instruction: 'keep back straight' });
+
+      expect(
+        normalizeExerciseInput({
+          exerciseId: 'ex-1',
+          sets: null,
+          reps: null,
+          weightKg: null,
+          instruction: null as unknown as string,
+        }).instruction
+      ).toBe('');
+    });
+
+    it('produces a baseline equal to freshly parsed row input for unchanged server data', () => {
+      const server = { exerciseId: 'ex-1', sets: 3, reps: 10, weightKg: 20.5, instruction: 'go slow' };
+
+      const baseline = normalizeExerciseInput(server);
+      const liveInput = {
+        exerciseId: server.exerciseId,
+        sets: parseCountField('3'),
+        reps: parseCountField('10'),
+        weightKg: parseWeightField('20.5'),
+        instruction: 'go slow'.trim(),
+      };
+
+      expect(isSameExerciseInput(liveInput, baseline)).toBe(true);
     });
   });
 

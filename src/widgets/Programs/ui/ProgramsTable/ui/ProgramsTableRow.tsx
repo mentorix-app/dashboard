@@ -4,10 +4,10 @@ import { type FC, type KeyboardEvent } from 'react';
 import { useLocale, useRouter, useTranslations } from '@/i18n';
 import { getProgramName, ProgramStatusBadge } from '@/src/entities/program';
 import { Checkbox, TableCell, TableRow } from '@/src/shared/ui';
+import { formatDate } from '@/src/shared/lib';
 
 import { PLACEHOLDER_COUNT } from '../ProgramsTable.constants';
 import type { ProgramsTableRowProps } from '../ProgramsTable.types';
-import { formatModifiedAt } from '../ProgramsTable.utils';
 
 export const ProgramsTableRow: FC<ProgramsTableRowProps> = ({
   program,
@@ -69,7 +69,7 @@ export const ProgramsTableRow: FC<ProgramsTableRowProps> = ({
       <TableCell className="text-muted-foreground max-w-[16rem] truncate">{program.createdByName}</TableCell>
       <TableCell className="whitespace-nowrap">{PLACEHOLDER_COUNT}</TableCell>
       <TableCell className="text-muted-foreground whitespace-nowrap">
-        {formatModifiedAt(program.modifiedAt, locale)}
+        {formatDate(program.modifiedAt, locale, 'shortDate')}
       </TableCell>
     </TableRow>
   );

@@ -1,7 +1,8 @@
 'use client';
 
-import { useTranslations } from '@/i18n';
+import { useLocale, useTranslations } from '@/i18n';
 import { useCurrentUser } from '@/src/entities/user';
+import { formatDate } from '@/src/shared/lib';
 import { Avatar, AvatarFallback, AvatarImage, Card, Typography } from '@/src/shared/ui';
 
 import { ProfileForm } from './ui/ProfileForm';
@@ -17,6 +18,7 @@ const MOCK = {
 
 export const Profile = () => {
   const t = useTranslations('Profile');
+  const locale = useLocale();
   const user = useCurrentUser();
 
   const fullName = user?.name ?? [user?.firstName, user?.lastName].filter(Boolean).join(' ').trim();
@@ -26,6 +28,7 @@ export const Profile = () => {
   const role = roles.join(', ') || MOCK.role;
   const rolesLabel = roles.length > 1 ? t('roles') : t('role');
   const avatarUrl = user?.avatarUrl ?? MOCK.avatarUrl;
+  const joinedAt = user?.createdAt ? formatDate(user.createdAt, locale, 'monthYear') : MOCK.joinedAt;
   const initials = (
     name
       .split(/\s+/)
@@ -53,7 +56,7 @@ export const Profile = () => {
             {rolesLabel}: {role}
           </Typography>
           <Typography variant="p-sm" className="text-muted-foreground">
-            {t('joined')}: {MOCK.joinedAt}
+            {t('joined')}: {joinedAt}
           </Typography>
         </div>
       </Card>
