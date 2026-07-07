@@ -1,5 +1,6 @@
 'use client';
 
+import { Fragment } from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { GripVertical } from 'lucide-react';
@@ -44,37 +45,47 @@ export const GroupBlockExercises = ({
   const exercises = useRenderedExercises(block);
   const importGhost = useSingleImportGhost(block);
   const exerciseDndIds = exercises.map((exercise) => `${EXERCISE_DND_PREFIX}${exercise.id}`);
+  const ghostIndex = importGhost ? Math.min(Math.max(importGhost.index, 0), exercises.length) : -1;
+
+  const ghostRow = importGhost ? (
+    <div className="flex items-center gap-2 rounded-md border border-dashed px-2 py-1 opacity-70">
+      <GripVertical className="text-muted-foreground size-4" />
+      <Typography variant="p-sm" className="truncate">
+        {getExerciseLabel(importGhost.exercise)}
+      </Typography>
+    </div>
+  ) : null;
 
   return (
     <div ref={setNodeRef} className="flex flex-col gap-1">
       <SortableContext items={exerciseDndIds} strategy={verticalListSortingStrategy}>
-        {exercises.map((exercise) => (
-          <SortableItem
-            key={exercise.id}
-            id={`${EXERCISE_DND_PREFIX}${exercise.id}`}
-            className={cn(GROUP_ROW_GRID, 'rounded-md px-1 py-1')}
-          >
-            <GroupExerciseRow
-              block={block}
-              exercise={exercise}
-              exerciseName={getExerciseLabel(exercise)}
-              canEdit={canEdit}
-              dragHandle={<RowDragHandle canEdit={canEdit} label={t('structure.exercises.reorderExercise')} />}
-              moveTargets={moveTargets}
-              onUpdate={(itemId, input) => onUpdateExercise(block.id, itemId, input)}
-              onRequestDelete={onRequestDeleteExercise}
-              onExtract={onExtractExercise}
-              onMoveToBlock={onMoveExerciseToBlock}
-            />
-          </SortableItem>
+        {exercises.map((exercise, index) => (
+          <Fragment key={exercise.id}>
+            {index === ghostIndex ? ghostRow : null}
+            <SortableItem
+              id={`${EXERCISE_DND_PREFIX}${exercise.id}`}
+              className={cn(GROUP_ROW_GRID, 'rounded-md px-1 py-1')}
+            >
+              <GroupExerciseRow
+                block={block}
+                exercise={exercise}
+                exerciseName={getExerciseLabel(exercise)}
+                canEdit={canEdit}
+                dragHandle={<RowDragHandle canEdit={canEdit} label={t('structure.exercises.reorderExercise')} />}
+                moveTargets={moveTargets}
+                onUpdate={(itemId, input) => onUpdateExercise(block.id, itemId, input)}
+                onRequestDelete={onRequestDeleteExercise}
+                onExtract={onExtractExercise}
+                onMoveToBlock={onMoveExerciseToBlock}
+              />
+            </SortableItem>
+          </Fragment>
         ))}
       </SortableContext>
-      {importGhost ? (
-        <div className="flex items-center gap-2 rounded-md border border-dashed px-2 py-1 opacity-70">
-          <GripVertical className="text-muted-foreground size-4" />
-          <Typography variant="p-sm" className="truncate">
-            {getExerciseLabel(importGhost)}
-          </Typography>
+      {ghostIndex === exercises.length ? ghostRow : null}
+      {exercises.length === 0 && !ghostRow ? (
+        <div className="border-muted-foreground/30 text-muted-foreground/60 flex min-h-9 items-center justify-center rounded-md border border-dashed px-2 py-1">
+          <Typography variant="p-sm">{t('structure.exercises.dropHere')}</Typography>
         </div>
       ) : null}
     </div>

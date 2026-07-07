@@ -34,6 +34,7 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
     handleBack,
     handleNext,
     handlePublish,
+    validateBeforePublish,
   } = useProgramWizardConfig(programId);
 
   if (isLoading) {
@@ -49,7 +50,7 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
             <ProgramStatusBadge status={status} label={t(`status.${status}`)} size="lg" />
             <WizardVersionBadge programId={programId} />
           </div>
-          <WizardHeaderActions programId={programId} />
+          <WizardHeaderActions programId={programId} validateBeforePublish={validateBeforePublish} />
         </div>
 
         {!isArchived ? (

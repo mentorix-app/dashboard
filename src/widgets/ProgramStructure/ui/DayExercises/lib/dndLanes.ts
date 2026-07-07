@@ -65,3 +65,26 @@ export const groupTargetId = (blocks: ProgramDayBlock[], overId: string): string
   }
   return null;
 };
+
+/**
+ * Position an exercise would land at inside a group, derived from the hovered
+ * target: over a sibling exercise inserts before it, over the bare container
+ * appends. Used by both the drop resolver and the live drag preview.
+ */
+export const groupInsertIndex = (blocks: ProgramDayBlock[], targetBlockId: string, overId: string): number => {
+  const block = findBlock(blocks, targetBlockId);
+  if (!block) return 0;
+  if (overId.startsWith(EXERCISE_DND_PREFIX)) {
+    const index = block.exercises.findIndex((exercise) => exercise.id === overId.slice(2));
+    return index === -1 ? block.exercises.length : index;
+  }
+  return block.exercises.length;
+};
+
+/** The group's exercise ids with `itemId` (re)inserted at `index`, for a positioned move. */
+export const insertExerciseAt = (block: ProgramDayBlock, itemId: string, index: number): string[] => {
+  const ids = block.exercises.map((exercise) => exercise.id).filter((id) => id !== itemId);
+  const clamped = Math.min(Math.max(index, 0), ids.length);
+  ids.splice(clamped, 0, itemId);
+  return ids;
+};

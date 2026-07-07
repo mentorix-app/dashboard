@@ -22,6 +22,7 @@ import {
   buildCollisionDetection,
   buildGroupLanes,
   findBlock,
+  groupInsertIndex,
   groupTargetId,
   isGroupBlock,
   resolveDragEnd,
@@ -32,21 +33,24 @@ type UseDayDndParams = {
   blocks: ProgramDayBlock[];
   onReorderBlocks: (blockIds: string[]) => void;
   onReorderBlockExercises: (blockId: string, exerciseItemIds: string[]) => void;
-  onMoveExerciseToBlock: (blockId: string, itemId: string, targetBlockId: string) => void;
+  onMoveExerciseToBlock: (blockId: string, itemId: string, targetBlockId: string, targetItemIds: string[]) => void;
+  onExtractExercise: (blockId: string, itemId: string, sortOrder: number) => void;
 };
 
 /**
  * Drag-and-drop orchestration for one day. A single DndContext spans two planes:
  * blocks (reordered among themselves, and a single dropped into a group) and
- * grouped exercises (reordered within a group or moved to another). Local lane
- * state drives only the cross-group gap preview; the drop is resolved from the
- * server tree and the mutation response re-renders the final order.
+ * grouped exercises (reordered within a group, moved to another, or extracted
+ * back onto the block plane). Local lane state drives only the cross-group gap
+ * preview; the drop is resolved from the server tree and the mutation response
+ * re-renders the final order.
  */
 export const useDayDnd = ({
   blocks,
   onReorderBlocks,
   onReorderBlockExercises,
   onMoveExerciseToBlock,
+  onExtractExercise,
 }: UseDayDndParams) => {
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 8 } }),
@@ -55,7 +59,7 @@ export const useDayDnd = ({
 
   const [activeExerciseId, setActiveExerciseId] = useState<string | null>(null);
   const [singleImportExerciseId, setSingleImportExerciseId] = useState<string | null>(null);
-  const [singleImportTargetId, setSingleImportTargetId] = useState<string | null>(null);
+  const [singleImportTarget, setSingleImportTarget] = useState<{ blockId: string; index: number } | null>(null);
   const [lanes, setLanes] = useState<GroupLanes | null>(null);
 
   const collisionDetection = useMemo(() => buildCollisionDetection(blocks), [blocks]);
@@ -68,7 +72,7 @@ export const useDayDnd = ({
   const reset = () => {
     setActiveExerciseId(null);
     setSingleImportExerciseId(null);
-    setSingleImportTargetId(null);
+    setSingleImportTarget(null);
     setLanes(null);
   };
 
@@ -89,7 +93,10 @@ export const useDayDnd = ({
     const overId = String(over.id);
     if (singleImportExerciseId) {
       const target = groupTargetId(blocks, overId);
-      setSingleImportTargetId((current) => (current === target ? current : target));
+      const next = target ? { blockId: target, index: groupInsertIndex(blocks, target, overId) } : null;
+      setSingleImportTarget((current) =>
+        current?.blockId === next?.blockId && current?.index === next?.index ? current : next
+      );
       return;
     }
     setLanes((current) => (current ? applyDragOver(current, String(active.id), overId) : current));
@@ -101,7 +108,9 @@ export const useDayDnd = ({
     if (action.type === 'reorderBlocks') onReorderBlocks(action.blockIds);
     else if (action.type === 'reorderExercises') onReorderBlockExercises(action.blockId, action.itemIds);
     else if (action.type === 'moveExercise')
-      onMoveExerciseToBlock(action.sourceBlockId, action.itemId, action.targetBlockId);
+      onMoveExerciseToBlock(action.sourceBlockId, action.itemId, action.targetBlockId, action.targetItemIds);
+    else if (action.type === 'extractExercise')
+      onExtractExercise(action.sourceBlockId, action.itemId, action.sortOrder);
   };
 
   const getBlockExercises = (block: ProgramDayBlock): ProgramDayExercise[] => {
@@ -114,8 +123,8 @@ export const useDayDnd = ({
 
   const singleImportExercise = singleImportExerciseId ? exerciseById.get(singleImportExerciseId) : undefined;
   const singleImport: SingleImportPreview | null =
-    singleImportTargetId && singleImportExercise
-      ? { blockId: singleImportTargetId, exercise: singleImportExercise }
+    singleImportTarget && singleImportExercise
+      ? { blockId: singleImportTarget.blockId, exercise: singleImportExercise, index: singleImportTarget.index }
       : null;
 
   return {

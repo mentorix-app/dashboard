@@ -49,7 +49,13 @@ export const DayExercises = (props: DayExercisesProps) => {
     onConfirmDelete,
   } = useDayExercisesConfig(props);
 
-  const dnd = useDayDnd({ blocks, onReorderBlocks, onReorderBlockExercises, onMoveExerciseToBlock });
+  const dnd = useDayDnd({
+    blocks,
+    onReorderBlocks,
+    onReorderBlockExercises,
+    onMoveExerciseToBlock,
+    onExtractExercise,
+  });
   const blockDndIds = blocks.map((block) => `${BLOCK_DND_PREFIX}${block.id}`);
 
   return (

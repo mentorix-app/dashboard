@@ -49,15 +49,17 @@ const setup = () => {
   const onReorderBlocks = jest.fn();
   const onReorderBlockExercises = jest.fn();
   const onMoveExerciseToBlock = jest.fn();
+  const onExtractExercise = jest.fn();
   const { result } = renderHook(() =>
     useDayDnd({
       blocks: buildBlocks(),
       onReorderBlocks,
       onReorderBlockExercises,
       onMoveExerciseToBlock,
+      onExtractExercise,
     })
   );
-  return { result, onReorderBlocks, onReorderBlockExercises, onMoveExerciseToBlock };
+  return { result, onReorderBlocks, onReorderBlockExercises, onMoveExerciseToBlock, onExtractExercise };
 };
 
 describe('useDayDnd handleDragEnd', () => {
@@ -88,21 +90,21 @@ describe('useDayDnd handleDragEnd', () => {
     expect(onReorderBlockExercises).toHaveBeenCalledWith('blk-b', ['exb2', 'exb3', 'exb1']);
   });
 
-  it('moves an exercise to another group when dropped over a foreign exercise', () => {
+  it('moves an exercise to another group at the hovered slot when dropped over a foreign exercise', () => {
     const { result, onMoveExerciseToBlock, onReorderBlockExercises } = setup();
 
     result.current.handleDragEnd(dragEnd('E:exb1', 'E:exc1'));
 
-    expect(onMoveExerciseToBlock).toHaveBeenCalledWith('blk-b', 'exb1', 'blk-c');
+    expect(onMoveExerciseToBlock).toHaveBeenCalledWith('blk-b', 'exb1', 'blk-c', ['exb1', 'exc1']);
     expect(onReorderBlockExercises).not.toHaveBeenCalled();
   });
 
-  it('moves an exercise to another group when dropped over a foreign container', () => {
+  it('moves an exercise to the end of another group when dropped over its container', () => {
     const { result, onMoveExerciseToBlock } = setup();
 
     result.current.handleDragEnd(dragEnd('E:exb1', 'C:blk-c'));
 
-    expect(onMoveExerciseToBlock).toHaveBeenCalledWith('blk-b', 'exb1', 'blk-c');
+    expect(onMoveExerciseToBlock).toHaveBeenCalledWith('blk-b', 'exb1', 'blk-c', ['exc1', 'exb1']);
   });
 
   it('ignores a drop with no target', () => {
@@ -123,21 +125,21 @@ describe('useDayDnd handleDragEnd', () => {
     expect(onReorderBlocks).not.toHaveBeenCalled();
   });
 
-  it('moves a single exercise into a group when the single is dropped over a group exercise', () => {
+  it('moves a single exercise into a group at the hovered slot when dropped over a group exercise', () => {
     const { result, onMoveExerciseToBlock, onReorderBlocks } = setup();
 
     result.current.handleDragEnd(dragEnd('B:blk-a', 'E:exb1'));
 
-    expect(onMoveExerciseToBlock).toHaveBeenCalledWith('blk-a', 'exa1', 'blk-b');
+    expect(onMoveExerciseToBlock).toHaveBeenCalledWith('blk-a', 'exa1', 'blk-b', ['exa1', 'exb1', 'exb2', 'exb3']);
     expect(onReorderBlocks).not.toHaveBeenCalled();
   });
 
-  it('moves a single exercise into a group when the single is dropped over a group container', () => {
+  it('moves a single exercise to the end of a group when dropped over its container', () => {
     const { result, onMoveExerciseToBlock } = setup();
 
     result.current.handleDragEnd(dragEnd('B:blk-a', 'C:blk-c'));
 
-    expect(onMoveExerciseToBlock).toHaveBeenCalledWith('blk-a', 'exa1', 'blk-c');
+    expect(onMoveExerciseToBlock).toHaveBeenCalledWith('blk-a', 'exa1', 'blk-c', ['exc1', 'exa1']);
   });
 
   it('keeps a group block on the block plane: dropped over an exercise it does nothing', () => {
@@ -150,11 +152,12 @@ describe('useDayDnd handleDragEnd', () => {
     expect(onMoveExerciseToBlock).not.toHaveBeenCalled();
   });
 
-  it('keeps planes separate: an exercise dropped onto the block plane does nothing', () => {
-    const { result, onMoveExerciseToBlock, onReorderBlockExercises } = setup();
+  it('extracts a grouped exercise into a new single block when dropped onto the block plane', () => {
+    const { result, onExtractExercise, onMoveExerciseToBlock, onReorderBlockExercises } = setup();
 
     result.current.handleDragEnd(dragEnd('E:exb1', 'B:blk-a'));
 
+    expect(onExtractExercise).toHaveBeenCalledWith('blk-b', 'exb1', 0);
     expect(onMoveExerciseToBlock).not.toHaveBeenCalled();
     expect(onReorderBlockExercises).not.toHaveBeenCalled();
   });

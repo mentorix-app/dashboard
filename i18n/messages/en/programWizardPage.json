@@ -149,6 +149,7 @@
       "heading": "Exercises",
       "addExercise": "Add exercise",
       "empty": "No exercises yet. Add exercises to build this day.",
+      "dropHere": "Drop an exercise here",
       "reorderExercise": "Reorder exercise",
       "deleteExercise": "Delete",
       "rowActions": "Exercise actions",

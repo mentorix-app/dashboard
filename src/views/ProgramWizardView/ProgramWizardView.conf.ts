@@ -45,5 +45,6 @@ export const useProgramWizardConfig = (programId: string) => {
     handleBack: navigation.handleBack,
     handleNext: navigation.handleNext,
     handlePublish: publish.handlePublish,
+    validateBeforePublish: publish.validateBeforePublish,
   };
 };

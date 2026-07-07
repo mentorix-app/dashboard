@@ -14,14 +14,16 @@ export const useRenderedExercises = (block: ProgramDayBlock): ProgramDayExercise
   return resolve ? resolve(block) : block.exercises;
 };
 
-// A single block dragged over a group shows a non-droppable ghost row at the end
-// of that group (the drop appends). Keeping it out of the droppable graph avoids
-// an onDragOver feedback loop that a real preview row would cause.
-export type SingleImportPreview = { blockId: string; exercise: ProgramDayExercise };
+// A single block dragged over a group shows a non-droppable ghost row at the
+// hovered slot of that group (the drop lands there). Keeping it out of the
+// droppable graph avoids an onDragOver feedback loop a real preview row causes.
+export type SingleImportPreview = { blockId: string; exercise: ProgramDayExercise; index: number };
 const SingleImportContext = createContext<SingleImportPreview | null>(null);
 export const SingleImportProvider = SingleImportContext.Provider;
 
-export const useSingleImportGhost = (block: ProgramDayBlock): ProgramDayExercise | null => {
+export const useSingleImportGhost = (
+  block: ProgramDayBlock
+): { exercise: ProgramDayExercise; index: number } | null => {
   const preview = useContext(SingleImportContext);
-  return preview && preview.blockId === block.id ? preview.exercise : null;
+  return preview && preview.blockId === block.id ? { exercise: preview.exercise, index: preview.index } : null;
 };

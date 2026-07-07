@@ -7,6 +7,7 @@ import {
   useDeleteProgramBlockExercise,
   useExtractProgramBlockExercise,
   useMoveProgramExerciseToBlock,
+  useReorderProgramBlockExercises,
   useUpdateProgramBlockExercise,
   type ProgramDayExerciseInput,
 } from '@/src/entities/program';
@@ -41,6 +42,7 @@ export const useDayExerciseActions = ({ programId, weekId, dayId }: UseDayExerci
   const deleteExercise = useDeleteProgramBlockExercise();
   const extractExercise = useExtractProgramBlockExercise();
   const moveExercise = useMoveProgramExerciseToBlock();
+  const reorderExercises = useReorderProgramBlockExercises();
 
   const handleAddSingles = async (exerciseIds: string[]) => {
     const ids = exerciseIds.slice(0, MAX_PICK);
@@ -85,9 +87,9 @@ export const useDayExerciseActions = ({ programId, weekId, dayId }: UseDayExerci
     );
   };
 
-  const handleExtractExercise = (blockId: string, itemId: string) => {
+  const handleExtractExercise = (blockId: string, itemId: string, sortOrder?: number) => {
     extractExercise.mutate(
-      { programId, weekId, blockId, itemId },
+      { programId, weekId, blockId, itemId, sortOrder },
       {
         onSuccess: () => showSuccessToast(t('structure.exercises.toast.exerciseExtracted')),
         onError: () => showErrorToast(t('structure.exercises.toast.exerciseExtractError')),
@@ -95,14 +97,28 @@ export const useDayExerciseActions = ({ programId, weekId, dayId }: UseDayExerci
     );
   };
 
-  const handleMoveExerciseToBlock = (blockId: string, itemId: string, targetBlockId: string) => {
-    moveExercise.mutate(
-      { programId, weekId, blockId, itemId, targetBlockId },
-      {
-        onSuccess: () => showSuccessToast(t('structure.exercises.toast.exerciseMoved')),
-        onError: () => showErrorToast(t('structure.exercises.toast.exerciseMoveError')),
+  // The move endpoint appends to the target; when a drop specifies a slot we chase
+  // it with a reorder so the exercise lands where the user dropped it.
+  const handleMoveExerciseToBlock = async (
+    blockId: string,
+    itemId: string,
+    targetBlockId: string,
+    targetItemIds?: string[]
+  ) => {
+    try {
+      await moveExercise.mutateAsync({ programId, weekId, blockId, itemId, targetBlockId });
+      if (targetItemIds && targetItemIds.length > 0) {
+        await reorderExercises.mutateAsync({
+          programId,
+          weekId,
+          blockId: targetBlockId,
+          exerciseItemIds: targetItemIds,
+        });
       }
-    );
+      showSuccessToast(t('structure.exercises.toast.exerciseMoved'));
+    } catch {
+      showErrorToast(t('structure.exercises.toast.exerciseMoveError'));
+    }
   };
 
   return {

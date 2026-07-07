@@ -8,9 +8,15 @@ import { useWizardActions } from '../../hooks/useWizardActions';
 
 type WizardHeaderActionsProps = {
   programId: string;
+  /**
+   * Client-side publish gate shared with the draft publish flow. Returns false
+   * (and surfaces the inline validation banners) when the program is not
+   * publishable, so publish-update never opens its confirm modal in that case.
+   */
+  validateBeforePublish: () => boolean;
 };
 
-export const WizardHeaderActions = ({ programId }: WizardHeaderActionsProps) => {
+export const WizardHeaderActions = ({ programId, validateBeforePublish }: WizardHeaderActionsProps) => {
   const t = useTranslations('ProgramWizard');
   const {
     canArchive,
@@ -26,6 +32,10 @@ export const WizardHeaderActions = ({ programId }: WizardHeaderActionsProps) => 
     activeModal,
   } = useWizardActions(programId);
 
+  const handlePublishUpdateClick = () => {
+    if (validateBeforePublish()) openAction('publishUpdate');
+  };
+
   return (
     <div className="flex flex-wrap items-center gap-2">
       {canSync ? (
@@ -36,7 +46,7 @@ export const WizardHeaderActions = ({ programId }: WizardHeaderActionsProps) => 
       ) : null}
 
       {canPublishUpdate ? (
-        <Button type="button" size="sm" onClick={() => openAction('publishUpdate')} disabled={isPublishingUpdate}>
+        <Button type="button" size="sm" onClick={handlePublishUpdateClick} disabled={isPublishingUpdate}>
           {isPublishingUpdate ? <Loader2 className="animate-spin" aria-hidden /> : <UploadCloud aria-hidden />}
           {t('actions.publishUpdate')}
         </Button>

@@ -62,7 +62,10 @@ export const useWizardActions = (programId: string) => {
         showSuccessToast(t('actions.toast.archiveSuccess'));
         closeAction();
       },
-      onError: () => showErrorToast(t('actions.toast.archiveError')),
+      onError: (error) => {
+        showErrorToast(t('actions.toast.archiveError'), { description: error.message });
+        closeAction();
+      },
     });
 
   const handleConfirmRepublish = () =>
@@ -71,7 +74,10 @@ export const useWizardActions = (programId: string) => {
         showSuccessToast(t('actions.toast.republishSuccess'));
         closeAction();
       },
-      onError: () => showErrorToast(t('actions.toast.republishError')),
+      onError: (error) => {
+        showErrorToast(t('actions.toast.republishError'), { description: error.message });
+        closeAction();
+      },
     });
 
   const handleConfirmPublishUpdate = () =>
@@ -80,7 +86,10 @@ export const useWizardActions = (programId: string) => {
         showSuccessToast(t('actions.toast.publishUpdateSuccess'));
         closeAction();
       },
-      onError: () => showErrorToast(t('actions.toast.publishUpdateError')),
+      onError: (error) => {
+        showErrorToast(t('actions.toast.publishUpdateError'), { description: error.message });
+        closeAction();
+      },
     });
 
   const handleConfirmSync = () =>
@@ -91,7 +100,10 @@ export const useWizardActions = (programId: string) => {
           showSuccessToast(t('actions.toast.syncSuccess'));
           closeAction();
         },
-        onError: () => showErrorToast(t('actions.toast.syncError')),
+        onError: (error) => {
+          showErrorToast(t('actions.toast.syncError'), { description: error.message });
+          closeAction();
+        },
       }
     );
 
