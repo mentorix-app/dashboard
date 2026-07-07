@@ -6,7 +6,6 @@ import { getProgramName, ProgramStatusBadge } from '@/src/entities/program';
 import { Checkbox, TableCell, TableRow } from '@/src/shared/ui';
 import { formatDate } from '@/src/shared/lib';
 
-import { PLACEHOLDER_COUNT } from '../ProgramsTable.constants';
 import type { ProgramsTableRowProps } from '../ProgramsTable.types';
 
 export const ProgramsTableRow: FC<ProgramsTableRowProps> = ({
@@ -64,10 +63,10 @@ export const ProgramsTableRow: FC<ProgramsTableRowProps> = ({
       <TableCell className="whitespace-nowrap">
         {program.difficulty ? t(`difficulty.${program.difficulty}`) : '—'}
       </TableCell>
-      <TableCell className="whitespace-nowrap">{PLACEHOLDER_COUNT}</TableCell>
-      <TableCell className="whitespace-nowrap">{PLACEHOLDER_COUNT}</TableCell>
+      <TableCell className="whitespace-nowrap">{program.exercisesCount}</TableCell>
+      <TableCell className="whitespace-nowrap">{program.weeksCount}</TableCell>
       <TableCell className="text-muted-foreground max-w-[16rem] truncate">{program.createdByName}</TableCell>
-      <TableCell className="whitespace-nowrap">{PLACEHOLDER_COUNT}</TableCell>
+      <TableCell className="whitespace-nowrap">{program.assignmentCount}</TableCell>
       <TableCell className="text-muted-foreground whitespace-nowrap">
         {formatDate(program.modifiedAt, locale, 'shortDate')}
       </TableCell>

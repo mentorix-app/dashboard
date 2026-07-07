@@ -24,7 +24,7 @@ export const getMissingRequiredFields = (source?: ProgramRequiredSource): Progra
 };
 
 /** A day counts as complete once it holds at least one exercise. */
-const isDayFilled = (day: ProgramDay): boolean => day.exercises.length > 0;
+const isDayFilled = (day: ProgramDay): boolean => day.blocks.some((block) => block.exercises.length > 0);
 
 /**
  * Counts the structure progress units: one per day across every week, with a
@@ -64,7 +64,9 @@ export const getStructureErrors = (weeks?: ProgramWeek[]): StructureErrorKey[] =
   if (!everyWeekHasExercises) errors.push('weekWithoutExercises');
 
   const hasIncompleteExercise = list.some((week) =>
-    week.days.some((day) => day.exercises.some((exercise) => exercise.sets == null || exercise.reps == null))
+    week.days.some((day) =>
+      day.blocks.some((block) => block.exercises.some((exercise) => exercise.sets == null || exercise.reps == null))
+    )
   );
   if (hasIncompleteExercise) errors.push('exerciseMissingCount');
 

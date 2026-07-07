@@ -16,3 +16,9 @@ export type MoveTargetDay = {
   id: string;
   label: string;
 };
+
+/** A group block an exercise can be moved into, labeled by its block type. */
+export type BlockMoveTarget = {
+  id: string;
+  label: string;
+};

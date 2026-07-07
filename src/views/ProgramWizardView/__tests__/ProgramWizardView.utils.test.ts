@@ -1,7 +1,7 @@
 import { Difficulty } from '@/src/shared/types';
 
 import { ProgramCategory, ProgramStatus, type Program } from '@/src/entities/program/model/types';
-import type { ProgramDay, ProgramWeek } from '@/src/entities/program/model/structure';
+import { ProgramBlockType, type ProgramDay, type ProgramWeek } from '@/src/entities/program/model/structure';
 
 import { getCompletionPercent, getMissingRequiredFields, getStructureUnits } from '../ProgramWizardView.utils';
 
@@ -21,6 +21,8 @@ const buildProgram = (overrides: Partial<Program> = {}): Program => ({
   latestProgramVersionId: null,
   latestClientPlanAt: null,
   hasUnpublishedChanges: false,
+  weeksCount: 0,
+  exercisesCount: 0,
   assignmentCount: 0,
   createdAt: '2024-01-01T00:00:00Z',
   modifiedAt: '2024-01-01T00:00:00Z',
@@ -32,18 +34,26 @@ const buildDay = (filled: boolean): ProgramDay => ({
   id: 'day-1',
   dayNumber: 1,
   sortOrder: 1,
-  exercises: filled
+  blocks: filled
     ? [
         {
-          id: 'exercise-1',
-          exerciseId: 'lib-1',
-          exerciseName: 'Squat',
-          exerciseNameRu: 'Присед',
-          sortOrder: 1,
-          sets: 3,
-          reps: 10,
-          weightKg: null,
+          id: 'block-1',
+          blockType: ProgramBlockType.Single,
           instruction: '',
+          sortOrder: 1,
+          exercises: [
+            {
+              id: 'exercise-1',
+              exerciseId: 'lib-1',
+              exerciseName: 'Squat',
+              exerciseNameRu: 'Присед',
+              sortOrder: 1,
+              sets: 3,
+              reps: 10,
+              instruction: '',
+              createdAt: '2024-01-01T00:00:00Z',
+            },
+          ],
           createdAt: '2024-01-01T00:00:00Z',
         },
       ]

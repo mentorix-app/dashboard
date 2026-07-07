@@ -1,10 +1,19 @@
 export type { Program, ProgramDraftFields } from './model/types';
 export { ProgramCategory, ProgramStatus } from './model/types';
 export { useProgramBasicsDraftStore } from './model/basicsDraftStore';
-export type { ProgramDay, ProgramDayExercise, ProgramDetail, ProgramWeek } from './model/structure';
+export type {
+  ProgramBlockGroupType,
+  ProgramDay,
+  ProgramDayBlock,
+  ProgramDayExercise,
+  ProgramDetail,
+  ProgramWeek,
+} from './model/structure';
+export { GROUP_BLOCK_TYPES, ProgramBlockType } from './model/structure';
 export type { ProgramAssignment, ProgramVersionSummary } from './model/versioning';
 export { ProgramAssignmentStatus } from './model/versioning';
 export { buildProgramPatch, getProgramName, isProgramDirty, toProgramDraftFields } from './lib';
+export { BlockTypeBadge } from './ui/BlockTypeBadge';
 export { ProgramStatusBadge } from './ui/ProgramStatusBadge';
 export type {
   ArchiveProgramResponse,
@@ -54,16 +63,39 @@ export type {
 } from './model/programDays';
 export { useAddProgramDay, useDeleteProgramDay, useReorderProgramDays } from './api/useProgramDays';
 export type {
-  AddProgramDayExerciseVariables,
-  DeleteProgramDayExerciseVariables,
+  AddProgramBlockExerciseVariables,
+  CreateProgramDayBlockVariables,
+  DeleteProgramBlockExerciseVariables,
   ProgramDayExerciseInput,
-  ProgramWeekExerciseDayOrder,
-  ReorderProgramWeekExercisesVariables,
-  UpdateProgramDayExerciseVariables,
+  UpdateProgramBlockExerciseVariables,
 } from './model/programExercises';
 export {
-  useAddProgramDayExercise,
-  useDeleteProgramDayExercise,
-  useReorderProgramWeekExercises,
-  useUpdateProgramDayExercise,
+  useAddProgramBlockExercise,
+  useCreateProgramDayBlock,
+  useDeleteProgramBlockExercise,
+  useUpdateProgramBlockExercise,
 } from './api/useProgramExercises';
+export type {
+  DeleteProgramDayBlockVariables,
+  ExtractProgramBlockExerciseVariables,
+  MergeProgramDayBlocksVariables,
+  MoveProgramDayBlockVariables,
+  MoveProgramExerciseToBlockVariables,
+  PatchProgramDayBlockVariables,
+  ReorderProgramBlockExercisesVariables,
+  ReorderProgramDayBlocksVariables,
+  UngroupProgramDayBlockVariables,
+} from './model/programBlocks';
+export {
+  useDeleteProgramDayBlock,
+  useMergeProgramDayBlocks,
+  usePatchProgramDayBlock,
+  useUngroupProgramDayBlock,
+} from './api/useProgramBlocks';
+export {
+  useExtractProgramBlockExercise,
+  useMoveProgramDayBlock,
+  useMoveProgramExerciseToBlock,
+  useReorderProgramBlockExercises,
+  useReorderProgramDayBlocks,
+} from './api/useProgramBlockOrder';

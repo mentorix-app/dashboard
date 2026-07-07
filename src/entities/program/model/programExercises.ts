@@ -1,47 +1,43 @@
 import type { ProgramDetail } from './structure';
 
-/** Shared editable fields for a program-day exercise (camelCase → snake_case at the BFF). */
+/** Shared editable fields for a program exercise (camelCase → snake_case at the BFF). */
 export type ProgramDayExerciseInput = {
   exerciseId: string;
   sets: number | null;
   reps: number | null;
-  weightKg: number | null;
   instruction: string;
 };
 
-export type AddProgramDayExerciseVariables = {
+/** Create a `single` block holding one exercise on a day. */
+export type CreateProgramDayBlockVariables = {
   programId: string;
   weekId: string;
   dayId: string;
+  exercise: ProgramDayExerciseInput;
+};
+
+/** Append an exercise to an existing (group) block. */
+export type AddProgramBlockExerciseVariables = {
+  programId: string;
+  weekId: string;
+  blockId: string;
 } & ProgramDayExerciseInput;
 
-export type UpdateProgramDayExerciseVariables = {
+export type UpdateProgramBlockExerciseVariables = {
   programId: string;
   weekId: string;
-  dayId: string;
+  blockId: string;
   itemId: string;
 } & ProgramDayExerciseInput;
 
-export type DeleteProgramDayExerciseVariables = {
+export type DeleteProgramBlockExerciseVariables = {
   programId: string;
   weekId: string;
-  dayId: string;
+  blockId: string;
   itemId: string;
 };
 
-/** One day's full, ordered list of exercise item ids for the week-level reorder/move. */
-export type ProgramWeekExerciseDayOrder = {
-  dayId: string;
-  exerciseItemIds: string[];
-};
-
-export type ReorderProgramWeekExercisesVariables = {
-  programId: string;
-  weekId: string;
-  days: ProgramWeekExerciseDayOrder[];
-};
-
-export type AddProgramDayExerciseResponse = ProgramDetail;
-export type UpdateProgramDayExerciseResponse = ProgramDetail;
-export type DeleteProgramDayExerciseResponse = ProgramDetail;
-export type ReorderProgramWeekExercisesResponse = ProgramDetail;
+export type CreateProgramDayBlockResponse = ProgramDetail;
+export type AddProgramBlockExerciseResponse = ProgramDetail;
+export type UpdateProgramBlockExerciseResponse = ProgramDetail;
+export type DeleteProgramBlockExerciseResponse = ProgramDetail;

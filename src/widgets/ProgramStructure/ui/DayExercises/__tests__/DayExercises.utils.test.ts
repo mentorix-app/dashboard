@@ -1,40 +1,6 @@
-import type { ProgramDay, ProgramWeek } from '@/src/entities/program';
+import type { ProgramDayExerciseInput } from '@/src/entities/program';
 
-import {
-  isSameExerciseInput,
-  normalizeExerciseInput,
-  parseCountField,
-  parseWeightField,
-  withMovedExercise,
-  withReorderedDay,
-} from '../DayExercises.utils';
-
-const buildDay = (id: string, exerciseIds: string[]): ProgramDay => ({
-  id,
-  dayNumber: 1,
-  sortOrder: 1,
-  exercises: exerciseIds.map((exerciseItemId, index) => ({
-    id: exerciseItemId,
-    exerciseId: `ex-${exerciseItemId}`,
-    exerciseName: exerciseItemId,
-    exerciseNameRu: exerciseItemId,
-    sortOrder: index + 1,
-    sets: null,
-    reps: null,
-    weightKg: null,
-    instruction: '',
-    createdAt: '2024-01-01T00:00:00Z',
-  })),
-  createdAt: '2024-01-01T00:00:00Z',
-});
-
-const buildWeek = (days: ProgramDay[]): ProgramWeek => ({
-  id: 'week-1',
-  weekNumber: 1,
-  sortOrder: 1,
-  days,
-  createdAt: '2024-01-01T00:00:00Z',
-});
+import { formatNumberField, isSameExerciseInput, normalizeExerciseInput, parseCountField } from '../lib';
 
 describe('DayExercises utils', () => {
   describe('parseCountField', () => {
@@ -54,15 +20,12 @@ describe('DayExercises utils', () => {
     });
   });
 
-  describe('parseWeightField', () => {
-    it('parses a float', () => {
-      expect(parseWeightField('22.5')).toBe(22.5);
-    });
-
-    it('treats blank, invalid, and negative input as null', () => {
-      expect(parseWeightField('')).toBeNull();
-      expect(parseWeightField('heavy')).toBeNull();
-      expect(parseWeightField('-1')).toBeNull();
+  describe('formatNumberField', () => {
+    it('renders numbers and blanks nullish values', () => {
+      expect(formatNumberField(5)).toBe('5');
+      expect(formatNumberField(0)).toBe('0');
+      expect(formatNumberField(null)).toBe('');
+      expect(formatNumberField(undefined)).toBe('');
     });
   });
 
@@ -73,31 +36,28 @@ describe('DayExercises utils', () => {
           exerciseId: 'ex-1',
           sets: 3,
           reps: 10,
-          weightKg: 20,
           instruction: '  keep back straight  ',
         })
-      ).toEqual({ exerciseId: 'ex-1', sets: 3, reps: 10, weightKg: 20, instruction: 'keep back straight' });
+      ).toEqual({ exerciseId: 'ex-1', sets: 3, reps: 10, instruction: 'keep back straight' });
 
       expect(
         normalizeExerciseInput({
           exerciseId: 'ex-1',
           sets: null,
           reps: null,
-          weightKg: null,
           instruction: null as unknown as string,
         }).instruction
       ).toBe('');
     });
 
     it('produces a baseline equal to freshly parsed row input for unchanged server data', () => {
-      const server = { exerciseId: 'ex-1', sets: 3, reps: 10, weightKg: 20.5, instruction: 'go slow' };
+      const server: ProgramDayExerciseInput = { exerciseId: 'ex-1', sets: 3, reps: 10, instruction: 'go slow' };
 
       const baseline = normalizeExerciseInput(server);
-      const liveInput = {
+      const liveInput: ProgramDayExerciseInput = {
         exerciseId: server.exerciseId,
         sets: parseCountField('3'),
         reps: parseCountField('10'),
-        weightKg: parseWeightField('20.5'),
         instruction: 'go slow'.trim(),
       };
 
@@ -105,29 +65,13 @@ describe('DayExercises utils', () => {
     });
   });
 
-  describe('withReorderedDay', () => {
-    it('replaces only the target day order and leaves others untouched', () => {
-      const week = buildWeek([buildDay('day-1', ['a', 'b', 'c']), buildDay('day-2', ['x', 'y'])]);
+  describe('isSameExerciseInput', () => {
+    it('detects a changed editable field', () => {
+      const base: ProgramDayExerciseInput = { exerciseId: 'ex-1', sets: 3, reps: 10, instruction: '' };
 
-      const result = withReorderedDay(week, 'day-1', ['c', 'a', 'b']);
-
-      expect(result).toEqual([
-        { dayId: 'day-1', exerciseItemIds: ['c', 'a', 'b'] },
-        { dayId: 'day-2', exerciseItemIds: ['x', 'y'] },
-      ]);
-    });
-  });
-
-  describe('withMovedExercise', () => {
-    it('removes the item from its day and appends it to the target day', () => {
-      const week = buildWeek([buildDay('day-1', ['a', 'b', 'c']), buildDay('day-2', ['x', 'y'])]);
-
-      const result = withMovedExercise(week, 'day-1', 'day-2', 'b');
-
-      expect(result).toEqual([
-        { dayId: 'day-1', exerciseItemIds: ['a', 'c'] },
-        { dayId: 'day-2', exerciseItemIds: ['x', 'y', 'b'] },
-      ]);
+      expect(isSameExerciseInput(base, { ...base, reps: 12 })).toBe(false);
+      expect(isSameExerciseInput(base, { ...base, instruction: 'slow' })).toBe(false);
+      expect(isSameExerciseInput(base, { ...base })).toBe(true);
     });
   });
 });

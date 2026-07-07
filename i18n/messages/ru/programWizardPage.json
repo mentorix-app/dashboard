@@ -154,11 +154,14 @@
       "rowActions": "Действия с упражнением",
       "moveToDay": "Переместить в день",
       "moveToDayLabel": "День {number}",
+      "moveToBlock": "Переместить в блок",
+      "moveToBlockLabel": "Блок {type}",
+      "extractToSingle": "Вынести в отдельный блок",
+      "selectForMerge": "Выбрать упражнение для группировки",
       "columns": {
         "exercise": "Упражнение",
         "sets": "Подходы",
         "reps": "Повторы",
-        "weight": "Вес, кг",
         "instruction": "Инструкция"
       },
       "deleteExerciseConfirmTitle": "Удалить это упражнение?",
@@ -175,7 +178,61 @@
         "exerciseUpdateError": "Не удалось сохранить упражнение. Попробуйте ещё раз.",
         "exerciseDeleteError": "Не удалось удалить упражнение. Попробуйте ещё раз.",
         "exerciseMoveError": "Не удалось переместить упражнение. Попробуйте ещё раз.",
-        "exerciseReorderError": "Не удалось переупорядочить упражнения. Попробуйте ещё раз."
+        "exerciseReorderError": "Не удалось переупорядочить упражнения. Попробуйте ещё раз.",
+        "exerciseExtracted": "Упражнение вынесено в отдельный блок.",
+        "exerciseExtractError": "Не удалось вынести упражнение. Попробуйте ещё раз."
+      }
+    },
+    "blocks": {
+      "types": {
+        "single": "Одиночный",
+        "emom": "EMOM",
+        "amrap": "AMRAP",
+        "for_time": "На время",
+        "intervals": "Интервалы",
+        "chipper": "Chipper",
+        "ladder": "Лесенка",
+        "death_by": "Death By",
+        "superset": "Суперсет",
+        "complex": "Комплекс"
+      },
+      "selectionCount": "Выбрано: {count}",
+      "merge": "Сгруппировать",
+      "clearSelection": "Сбросить",
+      "selectForMerge": "Выбрать блок для группировки",
+      "addExerciseToBlock": "Добавить упражнение в {type}",
+      "blockActions": "Действия с блоком",
+      "editBlock": "Изменить блок",
+      "noDescription": "Инструкция: нет данных",
+      "ungroup": "Разгруппировать",
+      "deleteBlock": "Удалить блок",
+      "reorderBlock": "Изменить порядок блока",
+      "moveBlockToDay": "Переместить блок в день",
+      "editDialog": {
+        "title": "Изменить блок",
+        "typeLabel": "Тип блока",
+        "instructionLabel": "Инструкция",
+        "instructionPlaceholder": "Добавьте инструкцию для этого блока…",
+        "save": "Сохранить",
+        "cancel": "Отмена"
+      },
+      "deleteBlockConfirmTitle": "Удалить этот блок?",
+      "deleteBlockConfirmDescription": "Блок и все его упражнения будут удалены из этого дня. Это действие нельзя отменить.",
+      "deleteBlockConfirm": "Удалить блок",
+      "deleteBlockCancel": "Отмена",
+      "toast": {
+        "blocksMerged": "Упражнения сгруппированы.",
+        "blockUngrouped": "Блок разгруппирован.",
+        "blockUpdated": "Блок обновлён.",
+        "blockDeleted": "Блок удалён.",
+        "blocksReordered": "Порядок блоков изменён.",
+        "blockMoved": "Блок перемещён.",
+        "mergeError": "Не удалось сгруппировать упражнения. Попробуйте ещё раз.",
+        "ungroupError": "Не удалось разгруппировать блок. Попробуйте ещё раз.",
+        "blockUpdateError": "Не удалось обновить блок. Попробуйте ещё раз.",
+        "blockDeleteError": "Не удалось удалить блок. Попробуйте ещё раз.",
+        "blockReorderError": "Не удалось переупорядочить блоки. Попробуйте ещё раз.",
+        "blockMoveError": "Не удалось переместить блок. Попробуйте ещё раз."
       }
     }
   },

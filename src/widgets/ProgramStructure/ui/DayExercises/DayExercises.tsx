@@ -1,126 +1,130 @@
 'use client';
 
+import { DndContext, DragOverlay } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { GripVertical, Plus } from 'lucide-react';
 
 import { ExercisePicker } from '@/src/features/ExercisePicker';
-import { Button, ConfirmationModal, Sortable, SortableItem, SortableItemHandle, Typography } from '@/src/shared/ui';
+import { Button, ConfirmationModal, Typography } from '@/src/shared/ui';
 
 import { useDayExercisesConfig } from './DayExercises.conf';
-import { EXERCISE_ROW_GRID } from './DayExercises.constants';
+import { RenderedExercisesProvider, SingleImportProvider } from './context';
+import { useDayDnd } from './hooks';
+import { BLOCK_DND_PREFIX } from './lib';
 import type { DayExercisesProps } from './DayExercises.types';
-import { DayExerciseRow } from './ui/DayExerciseRow';
+import { DayBlock } from './ui/DayBlock';
+import { MergeBar } from './ui/MergeBar';
 
 export const DayExercises = (props: DayExercisesProps) => {
   const {
     t,
-    exercises,
-    exerciseIds,
+    blocks,
     canEdit,
-    moveTargets,
     getExerciseLabel,
+    selectedBlockIds,
+    dayMoveTargets,
+    exerciseMoveTargets,
+    selectionCount,
+    showMergeBar,
+    onSelectChange,
+    onClearSelection,
+    onMerge,
     isPickerOpen,
     onOpenPicker,
     onPickerOpenChange,
-    onConfirmAdd,
+    onConfirmAddSingles,
     onUpdateExercise,
-    onReorderExercises,
-    onMoveExercise,
+    onRequestDeleteExercise,
+    onExtractExercise,
+    onMoveExerciseToBlock,
+    onAddExercise,
+    onPatchBlock,
+    onUngroupBlock,
+    onDeleteBlock,
+    onMoveBlockToDay,
+    onReorderBlocks,
+    onReorderBlockExercises,
     isDeleteModalOpen,
-    onRequestDelete,
     onDeleteModalOpenChange,
     onConfirmDelete,
   } = useDayExercisesConfig(props);
 
+  const dnd = useDayDnd({ blocks, onReorderBlocks, onReorderBlockExercises, onMoveExerciseToBlock });
+  const blockDndIds = blocks.map((block) => `${BLOCK_DND_PREFIX}${block.id}`);
+
   return (
     <div className="flex min-h-48 flex-1 flex-col gap-3 p-3">
-      <div className="flex items-center justify-between gap-2">
-        <Typography variant="p-sm" className="text-muted-foreground font-medium">
-          {t('structure.exercises.heading')}
-        </Typography>
-        {canEdit ? (
+      {canEdit ? (
+        <div className="flex items-center justify-end">
           <Button type="button" variant="outline" size="sm" onClick={onOpenPicker}>
             <Plus className="size-4" />
             {t('structure.exercises.addExercise')}
           </Button>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
 
-      {exercises.length === 0 ? (
+      {showMergeBar ? <MergeBar count={selectionCount} onMerge={onMerge} onClear={onClearSelection} /> : null}
+
+      {blocks.length === 0 ? (
         <div className="flex flex-1 items-center justify-center p-6">
           <Typography variant="p-sm" className="text-muted-foreground text-center">
             {t('structure.exercises.empty')}
           </Typography>
         </div>
       ) : (
-        <div className="flex flex-col gap-1">
-          <div className={`${EXERCISE_ROW_GRID} px-1 pb-1`}>
-            <span />
-            <Typography variant="p-xs" className="text-muted-foreground">
-              {t('structure.exercises.columns.exercise')}
-            </Typography>
-            <Typography variant="p-xs" className="text-muted-foreground text-center">
-              {t('structure.exercises.columns.sets')}
-            </Typography>
-            <Typography variant="p-xs" className="text-muted-foreground text-center">
-              {t('structure.exercises.columns.reps')}
-            </Typography>
-            <Typography variant="p-xs" className="text-muted-foreground text-center">
-              {t('structure.exercises.columns.weight')}
-            </Typography>
-            <Typography variant="p-xs" className="text-muted-foreground">
-              {t('structure.exercises.columns.instruction')}
-            </Typography>
-            <span />
-          </div>
-
-          {canEdit ? (
-            <Sortable items={exerciseIds} onReorder={onReorderExercises} orientation="vertical">
-              {exercises.map((exercise) => (
-                <SortableItem
-                  key={exercise.id}
-                  id={exercise.id}
-                  className={`${EXERCISE_ROW_GRID} bg-card rounded-md border px-1 py-1`}
-                >
-                  <DayExerciseRow
-                    exercise={exercise}
-                    exerciseName={getExerciseLabel(exercise)}
-                    canEdit
-                    moveTargets={moveTargets}
-                    dragHandle={
-                      <SortableItemHandle
-                        aria-label={t('structure.exercises.reorderExercise')}
-                        className="text-muted-foreground focus-visible:ring-ring/50 flex size-7 cursor-grab touch-none items-center justify-center rounded-md outline-none focus-visible:ring-2 active:cursor-grabbing"
-                      >
-                        <GripVertical className="size-4" />
-                      </SortableItemHandle>
-                    }
-                    onUpdate={onUpdateExercise}
-                    onDelete={onRequestDelete}
-                    onMove={onMoveExercise}
-                  />
-                </SortableItem>
-              ))}
-            </Sortable>
-          ) : (
-            exercises.map((exercise) => (
-              <div key={exercise.id} className={`${EXERCISE_ROW_GRID} bg-card rounded-md border px-1 py-1`}>
-                <DayExerciseRow
-                  exercise={exercise}
-                  exerciseName={getExerciseLabel(exercise)}
-                  canEdit={false}
-                  moveTargets={[]}
-                  dragHandle={<span aria-hidden className="size-7" />}
-                  onUpdate={onUpdateExercise}
-                  onDelete={onRequestDelete}
-                  onMove={onMoveExercise}
-                />
-              </div>
-            ))
-          )}
+        <div className="flex flex-col gap-2">
+          <DndContext
+            sensors={dnd.sensors}
+            collisionDetection={dnd.collisionDetection}
+            onDragStart={dnd.handleDragStart}
+            onDragOver={dnd.handleDragOver}
+            onDragEnd={dnd.handleDragEnd}
+            onDragCancel={dnd.handleDragCancel}
+          >
+            <RenderedExercisesProvider value={dnd.getBlockExercises}>
+              <SingleImportProvider value={dnd.singleImport}>
+                <SortableContext items={blockDndIds} strategy={verticalListSortingStrategy}>
+                  <div className="flex flex-col gap-2">
+                    {blocks.map((block) => (
+                      <DayBlock
+                        key={block.id}
+                        block={block}
+                        canEdit={canEdit}
+                        getExerciseLabel={getExerciseLabel}
+                        selectedBlockIds={selectedBlockIds}
+                        exerciseMoveTargets={exerciseMoveTargets}
+                        dayMoveTargets={dayMoveTargets}
+                        onSelectChange={onSelectChange}
+                        onUpdateExercise={onUpdateExercise}
+                        onRequestDeleteExercise={onRequestDeleteExercise}
+                        onExtractExercise={onExtractExercise}
+                        onMoveExerciseToBlock={onMoveExerciseToBlock}
+                        onAddExercise={onAddExercise}
+                        onPatchBlock={onPatchBlock}
+                        onUngroupBlock={onUngroupBlock}
+                        onDeleteBlock={onDeleteBlock}
+                        onMoveBlockToDay={onMoveBlockToDay}
+                      />
+                    ))}
+                  </div>
+                </SortableContext>
+              </SingleImportProvider>
+            </RenderedExercisesProvider>
+            <DragOverlay>
+              {dnd.activeExercise ? (
+                <div className="bg-card flex items-center gap-2 rounded-md border px-2 py-1 shadow-lg">
+                  <GripVertical className="text-muted-foreground size-4" />
+                  <Typography variant="p-sm" className="truncate">
+                    {getExerciseLabel(dnd.activeExercise)}
+                  </Typography>
+                </div>
+              ) : null}
+            </DragOverlay>
+          </DndContext>
         </div>
       )}
 
-      <ExercisePicker open={isPickerOpen} onOpenChange={onPickerOpenChange} onConfirm={onConfirmAdd} />
+      <ExercisePicker open={isPickerOpen} onOpenChange={onPickerOpenChange} onConfirm={onConfirmAddSingles} />
 
       <ConfirmationModal
         open={isDeleteModalOpen}

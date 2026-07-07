@@ -29,5 +29,3 @@ export const TABLE_COLUMNS: readonly ProgramColumn[] = [
 export const SORTABLE_COLUMNS: readonly ProgramSortField[] = ['name', 'status', 'category', 'difficulty', 'modifiedAt'];
 
 export const TABLE_COLUMN_COUNT = TABLE_COLUMNS.length;
-
-export const PLACEHOLDER_COUNT = 0;

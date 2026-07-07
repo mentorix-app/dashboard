@@ -154,11 +154,14 @@
       "rowActions": "Exercise actions",
       "moveToDay": "Move to day",
       "moveToDayLabel": "Day {number}",
+      "moveToBlock": "Move to block",
+      "moveToBlockLabel": "{type} block",
+      "extractToSingle": "Extract to its own block",
+      "selectForMerge": "Select exercise to group",
       "columns": {
         "exercise": "Exercise",
         "sets": "Sets",
         "reps": "Reps",
-        "weight": "Weight, kg",
         "instruction": "Instruction"
       },
       "deleteExerciseConfirmTitle": "Remove this exercise?",
@@ -175,7 +178,61 @@
         "exerciseUpdateError": "Could not save the exercise. Please try again.",
         "exerciseDeleteError": "Could not remove the exercise. Please try again.",
         "exerciseMoveError": "Could not move the exercise. Please try again.",
-        "exerciseReorderError": "Could not reorder the exercises. Please try again."
+        "exerciseReorderError": "Could not reorder the exercises. Please try again.",
+        "exerciseExtracted": "Exercise moved to its own block.",
+        "exerciseExtractError": "Could not extract the exercise. Please try again."
+      }
+    },
+    "blocks": {
+      "types": {
+        "single": "Single",
+        "emom": "EMOM",
+        "amrap": "AMRAP",
+        "for_time": "For Time",
+        "intervals": "Intervals",
+        "chipper": "Chipper",
+        "ladder": "Ladder",
+        "death_by": "Death By",
+        "superset": "Superset",
+        "complex": "Complex"
+      },
+      "selectionCount": "{count, plural, one {# selected} other {# selected}}",
+      "merge": "Group",
+      "clearSelection": "Clear",
+      "selectForMerge": "Select block to group",
+      "addExerciseToBlock": "Add exercise to {type}",
+      "blockActions": "Block actions",
+      "editBlock": "Edit block",
+      "noDescription": "Instruction: No data",
+      "ungroup": "Ungroup",
+      "deleteBlock": "Delete block",
+      "reorderBlock": "Reorder block",
+      "moveBlockToDay": "Move block to day",
+      "editDialog": {
+        "title": "Edit block",
+        "typeLabel": "Block type",
+        "instructionLabel": "Instruction",
+        "instructionPlaceholder": "Add an instruction for this block…",
+        "save": "Save",
+        "cancel": "Cancel"
+      },
+      "deleteBlockConfirmTitle": "Delete this block?",
+      "deleteBlockConfirmDescription": "This removes the block and all of its exercises from this day. This action can't be undone.",
+      "deleteBlockConfirm": "Delete block",
+      "deleteBlockCancel": "Cancel",
+      "toast": {
+        "blocksMerged": "Exercises grouped.",
+        "blockUngrouped": "Block ungrouped.",
+        "blockUpdated": "Block updated.",
+        "blockDeleted": "Block deleted.",
+        "blocksReordered": "Blocks reordered.",
+        "blockMoved": "Block moved.",
+        "mergeError": "Could not group the exercises. Please try again.",
+        "ungroupError": "Could not ungroup the block. Please try again.",
+        "blockUpdateError": "Could not update the block. Please try again.",
+        "blockDeleteError": "Could not delete the block. Please try again.",
+        "blockReorderError": "Could not reorder the blocks. Please try again.",
+        "blockMoveError": "Could not move the block. Please try again."
       }
     }
   },

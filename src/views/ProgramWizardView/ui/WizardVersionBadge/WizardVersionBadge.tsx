@@ -62,7 +62,7 @@ export const WizardVersionBadge = ({ programId }: WizardVersionBadgeProps) => {
                       {t('actions.versionsModal.versionLabel', { version: version.versionNumber })}
                     </Typography>
                     <Typography variant="p-sm" className="text-muted-foreground">
-                      {formatDate(version.publishedAt, locale, 'shortDate')}
+                      {formatDate(version.createdAt, locale, 'shortDate')}
                     </Typography>
                   </div>
                   <Typography variant="p-sm" className="text-muted-foreground">

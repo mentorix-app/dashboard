@@ -7,6 +7,7 @@ export type ProgramVersionSummary = {
   id: string;
   versionNumber: number;
   publishedAt: string;
+  createdAt: string;
   assignmentCount: number;
   canDelete: boolean;
 };

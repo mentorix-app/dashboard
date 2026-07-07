@@ -2,32 +2,23 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-import type { ProgramDayExercise, ProgramDayExerciseInput } from '@/src/entities/program';
+import type { ProgramDayExerciseInput } from '@/src/entities/program';
 
-import {
-  formatNumberField,
-  isSameExerciseInput,
-  normalizeExerciseInput,
-  parseCountField,
-  parseWeightField,
-} from '../../DayExercises.utils';
+import { formatNumberField, isSameExerciseInput, normalizeExerciseInput, parseCountField } from '../../lib';
+import type { ExerciseFieldsProps } from './ExerciseFields.types';
 
-type UseDayExerciseRowConfigParams = {
-  exercise: ProgramDayExercise;
-  canEdit: boolean;
-  onUpdate: (itemId: string, input: ProgramDayExerciseInput) => void;
-};
+type UseExerciseFieldsConfigParams = Pick<ExerciseFieldsProps, 'exercise' | 'canEdit' | 'onUpdate'>;
 
 /**
- * Holds the row's editable fields locally and persists them via PUT on blur and
- * once more on unmount (e.g. when the day changes) if anything is still dirty.
- * A ref carries the latest values so the unmount flush stays current without an
- * effect that re-subscribes on every render. Read-only rows never persist.
+ * Holds the row's editable fields locally and persists them via update on blur
+ * and once more on unmount (e.g. when the day changes) if anything is still
+ * dirty. A ref carries the latest values so the unmount flush stays current
+ * without an effect that re-subscribes on every render. Read-only rows never
+ * persist.
  */
-export const useDayExerciseRowConfig = ({ exercise, canEdit, onUpdate }: UseDayExerciseRowConfigParams) => {
+export const useExerciseFieldsConfig = ({ exercise, canEdit, onUpdate }: UseExerciseFieldsConfigParams) => {
   const [sets, setSets] = useState(() => formatNumberField(exercise.sets));
   const [reps, setReps] = useState(() => formatNumberField(exercise.reps));
-  const [weight, setWeight] = useState(() => formatNumberField(exercise.weightKg));
   const [instruction, setInstruction] = useState(exercise.instruction);
 
   const savedRef = useRef<ProgramDayExerciseInput>(
@@ -35,7 +26,6 @@ export const useDayExerciseRowConfig = ({ exercise, canEdit, onUpdate }: UseDayE
       exerciseId: exercise.exerciseId,
       sets: exercise.sets,
       reps: exercise.reps,
-      weightKg: exercise.weightKg,
       instruction: exercise.instruction,
     })
   );
@@ -44,7 +34,6 @@ export const useDayExerciseRowConfig = ({ exercise, canEdit, onUpdate }: UseDayE
     exerciseId: exercise.exerciseId,
     sets: parseCountField(sets),
     reps: parseCountField(reps),
-    weightKg: parseWeightField(weight),
     instruction: instruction.trim(),
   };
 
@@ -64,11 +53,9 @@ export const useDayExerciseRowConfig = ({ exercise, canEdit, onUpdate }: UseDayE
   return {
     sets,
     reps,
-    weight,
     instruction,
     onSetsChange: setSets,
     onRepsChange: setReps,
-    onWeightChange: setWeight,
     onInstructionChange: setInstruction,
     onBlur: flush,
   };
