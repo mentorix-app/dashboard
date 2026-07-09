@@ -4,7 +4,6 @@ export type ProgramBasicsValidationMessages = {
   nameRequired: string;
   descriptionRequired: string;
   selectRequired: string;
-  imageRequired: string;
 };
 
 export const createProgramBasicsSchema = (messages: ProgramBasicsValidationMessages) =>
@@ -15,5 +14,5 @@ export const createProgramBasicsSchema = (messages: ProgramBasicsValidationMessa
     descriptionRu: z.string().trim().min(1, messages.descriptionRequired),
     category: z.string().trim().min(1, messages.selectRequired),
     difficulty: z.string().trim().min(1, messages.selectRequired),
-    previewImageUrl: z.string().trim().min(1, messages.imageRequired),
+    previewImageUrl: z.string().trim(),
   });

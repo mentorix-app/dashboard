@@ -53,8 +53,8 @@ export const getCompletionPercent = (source?: ProgramRequiredSource, weeks?: Pro
 
 /**
  * Validates the structure against the backend publish rules: every week needs at
- * least one day with exercises, and every exercise needs both sets and reps.
- * Returns the distinct rule keys that are currently violated.
+ * least one day with exercises. Returns the distinct rule keys that are
+ * currently violated.
  */
 export const getStructureErrors = (weeks?: ProgramWeek[]): StructureErrorKey[] => {
   const list = weeks ?? [];
@@ -62,13 +62,6 @@ export const getStructureErrors = (weeks?: ProgramWeek[]): StructureErrorKey[] =
 
   const everyWeekHasExercises = list.length > 0 && list.every((week) => week.days.some(isDayFilled));
   if (!everyWeekHasExercises) errors.push('weekWithoutExercises');
-
-  const hasIncompleteExercise = list.some((week) =>
-    week.days.some((day) =>
-      day.blocks.some((block) => block.exercises.some((exercise) => exercise.sets == null || exercise.reps == null))
-    )
-  );
-  if (hasIncompleteExercise) errors.push('exerciseMissingCount');
 
   return errors;
 };

@@ -79,7 +79,6 @@ describe('ProgramWizardView utils', () => {
         'descriptionRu',
         'category',
         'difficulty',
-        'previewImageUrl',
       ]);
     });
 
@@ -103,15 +102,15 @@ describe('ProgramWizardView utils', () => {
     });
 
     it('rounds partial completion to the nearest percent', () => {
-      // 5 of 7 filled → 71.43% → 71
-      const program = buildProgram({ difficulty: null, previewImageUrl: '' });
-      expect(getCompletionPercent(program)).toBe(71);
+      // 5 of 6 filled → 83.33% → 83
+      const program = buildProgram({ difficulty: null });
+      expect(getCompletionPercent(program)).toBe(83);
     });
 
     it('counts every day across the weeks once structure is provided', () => {
-      // 7 fields + 2 days = 9 units; basics filled, days empty → 7/9 → 78
+      // 6 fields + 2 days = 8 units; basics filled, days empty → 6/8 → 75
       const weeks = [buildWeek([buildDay(false), buildDay(false)])];
-      expect(getCompletionPercent(buildProgram(), weeks)).toBe(78);
+      expect(getCompletionPercent(buildProgram(), weeks)).toBe(75);
     });
 
     it('reaches 100% only when every day is filled', () => {

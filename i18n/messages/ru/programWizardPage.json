@@ -70,8 +70,7 @@
   "incompleteDescription": "Заполните обязательные поля: {fields}.",
   "structureIncompleteTitle": "Завершите структуру программы перед публикацией",
   "structureErrors": {
-    "weekWithoutExercises": "В каждой неделе должен быть хотя бы один день с упражнениями.",
-    "exerciseMissingCount": "Для каждого упражнения нужно указать подходы и повторения."
+    "weekWithoutExercises": "В каждой неделе должен быть хотя бы один день с упражнениями."
   },
   "fields": {
     "name": "Название (EN)",
@@ -254,7 +253,6 @@
     "nameRequired": "Введите название.",
     "descriptionRequired": "Введите описание.",
     "selectRequired": "Выберите вариант.",
-    "imageRequired": "Добавьте ссылку на превью.",
     "urlInvalid": "Введите корректную ссылку."
   },
   "toast": {

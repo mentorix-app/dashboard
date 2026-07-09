@@ -9,5 +9,4 @@ export const PROGRAM_REQUIRED_FIELDS: readonly ProgramRequiredField[] = [
   'descriptionRu',
   'category',
   'difficulty',
-  'previewImageUrl',
 ];

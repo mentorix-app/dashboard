@@ -42,7 +42,7 @@ export const GroupBlockCard = (props: GroupBlockCardProps) => {
 
   return (
     <SortableItem id={`${BLOCK_DND_PREFIX}${block.id}`} className="bg-card space-y-2 rounded-lg border p-3">
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 px-1">
         {canEdit ? (
           <Checkbox
             checked={selected}
@@ -53,7 +53,7 @@ export const GroupBlockCard = (props: GroupBlockCardProps) => {
         <RowDragHandle canEdit={canEdit} label={t('structure.blocks.reorderBlock')} />
         <BlockTypeBadge blockType={block.blockType} label={t(BLOCK_TYPE_LABEL_KEY[block.blockType])} />
         {canEdit ? (
-          <div className="ml-auto">
+          <div className="ml-auto flex w-9 justify-start">
             <GroupBlockActions
               dayMoveTargets={dayMoveTargets}
               onEdit={card.onOpenEdit}

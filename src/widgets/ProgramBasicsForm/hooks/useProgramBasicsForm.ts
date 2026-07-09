@@ -24,7 +24,6 @@ export const useProgramBasicsForm = (programId: string) => {
         nameRequired: t('validation.nameRequired'),
         descriptionRequired: t('validation.descriptionRequired'),
         selectRequired: t('validation.selectRequired'),
-        imageRequired: t('validation.imageRequired'),
       }),
     [t]
   );
