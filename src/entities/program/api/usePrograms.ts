@@ -68,7 +68,10 @@ export const usePublishProgram = () => {
       http
         .post<PublishProgramResponse>(`/programs/${encodeURIComponent(id)}/publish`)
         .then((response) => response.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.programs.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.clients.all });
+    },
   });
 };
 
@@ -91,13 +94,17 @@ export const usePublishProgramUpdate = () => {
 
   // POST /programs/{id}/publish-update freezes the current tree as a new version
   // (v2, v3, …). Existing assignments stay on their version until synced, so we
-  // invalidate the whole program tree to refresh versions and assignment state.
+  // invalidate the whole program tree to refresh versions and assignment state,
+  // and the clients list so each client's `isBehindLatest` (sync button) updates.
   return useMutation<PublishProgramUpdateResponse, HttpError, string>({
     mutationFn: (id) =>
       http
         .post<PublishProgramUpdateResponse>(`/programs/${encodeURIComponent(id)}/publish-update`)
         .then((response) => response.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.programs.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.clients.all });
+    },
   });
 };
 

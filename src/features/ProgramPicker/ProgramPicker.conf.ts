@@ -10,6 +10,7 @@ import {
   useProgramsInfinite,
   type Program,
 } from '@/src/entities/program';
+import { useCurrentUser } from '@/src/entities/user';
 import { useDebouncedValue } from '@/src/shared/hooks';
 
 import { PROGRAM_PICKER_SEARCH_DEBOUNCE_MS } from './ProgramPicker.constants';
@@ -30,6 +31,7 @@ export const useProgramPickerConfig = ({
 }: ProgramPickerProps) => {
   const t = useTranslations('ProgramPicker');
   const locale = useLocale();
+  const currentUserId = useCurrentUser()?.userId;
 
   const [search, setSearch] = useState('');
   const [selectedId, setSelectedId] = useState<string | null>(selectedProgramId ?? null);
@@ -56,6 +58,11 @@ export const useProgramPickerConfig = ({
 
   const programs = useMemo(() => data?.pages.flatMap((page) => page.items) ?? [], [data]);
 
+  // A trainer may only assign programs they created; everyone else's rows stay
+  // disabled in the list. Admins simply see more programs but the same rule
+  // applies to them.
+  const isOwnProgram = (program: Program) => Boolean(currentUserId) && program.createdBy === currentUserId;
+
   const reset = () => {
     setSearch('');
     setSelectedId(selectedProgramId ?? null);
@@ -66,8 +73,15 @@ export const useProgramPickerConfig = ({
     onOpenChange(next);
   };
 
+  const handleSelect = (program: Program) => {
+    if (!isOwnProgram(program)) return;
+    setSelectedId(program.id);
+  };
+
   const handleConfirm = () => {
     if (!selectedId) return;
+    const selected = programs.find((program) => program.id === selectedId);
+    if (selected && !isOwnProgram(selected)) return;
     onConfirm(selectedId);
     onOpenChange(false);
   };
@@ -99,7 +113,8 @@ export const useProgramPickerConfig = ({
     hasNextPage: Boolean(hasNextPage),
     onLoadMore: handleLoadMore,
     selectedId,
-    onSelect: setSelectedId,
+    onSelect: handleSelect,
+    isOwnProgram,
     onConfirm: handleConfirm,
     onRemove: handleRemove,
     canConfirm,

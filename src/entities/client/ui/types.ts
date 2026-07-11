@@ -10,6 +10,8 @@ export type ClientCardLabels = {
   programHref?: string;
   programLabel: string;
   assignLabel: string;
+  /** Tooltip/aria label for the per-client sync-to-latest button. */
+  syncLabel: string;
   avatarAlt: string;
   blockedHint?: string;
   selectLabel: string;
@@ -25,4 +27,9 @@ export type ClientCardProps = {
   selectable: boolean;
   isSelected: boolean;
   onToggleSelect: (clientUserId: string) => void;
+  /** Whether the assigned program is behind latest and can be synced. */
+  canSync: boolean;
+  /** Whether a sync request for this client is in flight. */
+  isSyncing: boolean;
+  onSync: (clientUserId: string) => void;
 };

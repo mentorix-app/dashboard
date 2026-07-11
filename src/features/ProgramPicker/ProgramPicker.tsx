@@ -11,6 +11,10 @@ import {
   DialogHeader,
   DialogTitle,
   Input,
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
   Typography,
 } from '@/src/shared/ui';
 import { cn } from '@/src/shared/lib/styles';
@@ -35,6 +39,7 @@ export const ProgramPicker = (props: ProgramPickerProps) => {
     onLoadMore,
     selectedId,
     onSelect,
+    isOwnProgram,
     onConfirm,
     onRemove,
     canConfirm,
@@ -70,19 +75,22 @@ export const ProgramPicker = (props: ProgramPickerProps) => {
               </Typography>
             </div>
           ) : (
-            <ul role="radiogroup" className="divide-border flex-1 divide-y overflow-y-auto">
-              {programs.map((program) => {
-                const checked = selectedId === program.id;
+            <TooltipProvider>
+              <ul role="radiogroup" className="divide-border flex-1 divide-y overflow-y-auto">
+                {programs.map((program) => {
+                  const checked = selectedId === program.id;
+                  const disabled = !isOwnProgram(program);
 
-                return (
-                  <li key={program.id}>
+                  const row = (
                     <button
                       type="button"
                       role="radio"
                       aria-checked={checked}
-                      onClick={() => onSelect(program.id)}
+                      aria-disabled={disabled || undefined}
+                      onClick={disabled ? undefined : () => onSelect(program)}
                       className={cn(
-                        'hover:bg-muted/60 flex w-full items-center gap-3 px-3 py-2.5 text-left',
+                        'flex w-full items-center gap-3 px-3 py-2.5 text-left',
+                        disabled ? 'cursor-not-allowed opacity-60' : 'hover:bg-muted/60',
                         checked && 'bg-muted/60'
                       )}
                     >
@@ -111,26 +119,39 @@ export const ProgramPicker = (props: ProgramPickerProps) => {
                         {t('createdBy', { name: program.createdByName || program.createdBy })}
                       </Typography>
                     </button>
-                  </li>
-                );
-              })}
+                  );
 
-              {hasNextPage ? (
-                <li className="p-2">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="w-full"
-                    onClick={onLoadMore}
-                    disabled={isFetchingNextPage}
-                  >
-                    {isFetchingNextPage ? <Loader2 className="size-4 animate-spin" /> : null}
-                    {isFetchingNextPage ? t('loading') : t('loadMore')}
-                  </Button>
-                </li>
-              ) : null}
-            </ul>
+                  return (
+                    <li key={program.id}>
+                      {disabled ? (
+                        <Tooltip>
+                          <TooltipTrigger asChild>{row}</TooltipTrigger>
+                          <TooltipContent>{t('notOwned')}</TooltipContent>
+                        </Tooltip>
+                      ) : (
+                        row
+                      )}
+                    </li>
+                  );
+                })}
+
+                {hasNextPage ? (
+                  <li className="p-2">
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="w-full"
+                      onClick={onLoadMore}
+                      disabled={isFetchingNextPage}
+                    >
+                      {isFetchingNextPage ? <Loader2 className="size-4 animate-spin" /> : null}
+                      {isFetchingNextPage ? t('loading') : t('loadMore')}
+                    </Button>
+                  </li>
+                ) : null}
+              </ul>
+            </TooltipProvider>
           )}
         </div>
 

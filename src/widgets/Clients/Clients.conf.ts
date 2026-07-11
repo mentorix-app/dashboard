@@ -13,6 +13,7 @@ import { useClientsBulkAssign } from './hooks/useClientsBulkAssign';
 import { useClientsList } from './hooks/useClientsList';
 import { useClientsSearch } from './hooks/useClientsSearch';
 import { useClientsSelection } from './hooks/useClientsSelection';
+import { useClientSync } from './hooks/useClientSync';
 
 export const useClientsConfig = () => {
   const t = useTranslations('Clients');
@@ -28,6 +29,7 @@ export const useClientsConfig = () => {
     selectedClients: selection.selectedClients,
     onCompleted: (failedIds) => selection.setSelection(failedIds),
   });
+  const sync = useClientSync(list.clients);
 
   const items: ClientCardItem[] = useMemo(
     () =>
@@ -43,6 +45,7 @@ export const useClientsConfig = () => {
           client,
           canAssign: isClientOwnedBy(client, user?.userId),
           selectable: selection.isSelectable(client),
+          canSync: Boolean(assignment?.isBehindLatest) && isClientOwnedBy(client, user?.userId),
           labels: {
             statusLabel: t(`status.${client.status}`),
             linkedLabel: t('linkedAt', { date: formatDate(client.linkedAt, locale, 'shortDate') }),
@@ -52,6 +55,7 @@ export const useClientsConfig = () => {
               ? t('assignedProgram', { date: formatDate(assignment.assignedAt, locale, 'shortDate') })
               : t('noProgram'),
             assignLabel: assignment ? t('changeProgram') : t('assign'),
+            syncLabel: t('syncToLatest'),
             avatarAlt: t('avatarAlt', { name: client.displayName }),
             blockedHint: t('blockedHint'),
             selectLabel: t('selectClient', { name: client.displayName }),
@@ -74,6 +78,7 @@ export const useClientsConfig = () => {
     selectedProgramId: assign.selectedProgramId,
     selectedIds: selection.selectedIds,
     selectedCount: selection.selectedIds.size,
+    syncingIds: sync.syncingIds,
     bulkPickerOpen: bulk.open,
     bulkRemovable: bulk.hasExistingAssignments,
     bulkOverwriteEntries: bulk.overwriteEntries,
@@ -87,6 +92,7 @@ export const useClientsConfig = () => {
     handleRemoveAssign: assign.handleRemove,
     handleToggleSelect: selection.toggle,
     handleClearSelection: selection.clear,
+    handleSyncClient: sync.handleSync,
     handleOpenBulkAssign: bulk.handleOpen,
     handleBulkPickerOpenChange: bulk.handleOpenChange,
     handleConfirmBulkAssign: bulk.handleConfirm,

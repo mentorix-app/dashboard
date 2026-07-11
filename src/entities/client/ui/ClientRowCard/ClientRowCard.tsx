@@ -5,6 +5,7 @@ import { cn } from '@/src/shared/lib/styles';
 import { ClientStatus } from '../../model/types';
 import { getClientAvatarSrc, getClientInitials } from '../../lib';
 import { ClientStatusBadge } from '../ClientStatusBadge/ClientStatusBadge';
+import { ClientSyncButton } from '../ClientSyncButton/ClientSyncButton';
 import type { ClientCardProps } from '../types';
 
 export const ClientRowCard = ({
@@ -15,6 +16,9 @@ export const ClientRowCard = ({
   selectable,
   isSelected,
   onToggleSelect,
+  canSync,
+  isSyncing,
+  onSync,
 }: ClientCardProps) => {
   const isBlocked = client.status === ClientStatus.Blocked;
   const avatarSrc = getClientAvatarSrc(client.avatarUrl);
@@ -52,6 +56,15 @@ export const ClientRowCard = ({
           )}
         </Typography>
       </div>
+
+      {canSync ? (
+        <ClientSyncButton
+          label={labels.syncLabel}
+          isSyncing={isSyncing}
+          onSync={() => onSync(client.clientUserId)}
+          className="shrink-0"
+        />
+      ) : null}
 
       {canAssign ? (
         <div className="flex shrink-0 flex-col items-end gap-1">

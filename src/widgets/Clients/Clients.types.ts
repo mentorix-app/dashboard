@@ -8,6 +8,8 @@ export type ClientCardItem = {
   canAssign: boolean;
   /** Whether this client can be picked for bulk assignment (owned and active). */
   selectable: boolean;
+  /** Whether the assigned program is behind latest and can be synced. */
+  canSync: boolean;
 };
 
 export type ClientsSearchParamUpdateMode = 'push' | 'replace';

@@ -7,6 +7,7 @@
   "loadMore": "Load more",
   "loading": "Loading…",
   "createdBy": "Created by {name}",
+  "notOwned": "You can only assign programs you created.",
   "cancel": "Cancel",
   "confirm": "Assign program",
   "remove": "Remove current program"

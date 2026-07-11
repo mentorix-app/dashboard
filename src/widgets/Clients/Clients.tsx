@@ -29,6 +29,7 @@ export const Clients = () => {
     selectedProgramId,
     selectedIds,
     selectedCount,
+    syncingIds,
     bulkPickerOpen,
     bulkRemovable,
     bulkOverwriteEntries,
@@ -42,6 +43,7 @@ export const Clients = () => {
     handleRemoveAssign,
     handleToggleSelect,
     handleClearSelection,
+    handleSyncClient,
     handleOpenBulkAssign,
     handleBulkPickerOpenChange,
     handleConfirmBulkAssign,
@@ -98,15 +100,19 @@ export const Clients = () => {
         <ClientsGrid
           items={items}
           selectedIds={selectedIds}
+          syncingIds={syncingIds}
           onAssign={handleAssign}
           onToggleSelect={handleToggleSelect}
+          onSync={handleSyncClient}
         />
       ) : (
         <ClientsList
           items={items}
           selectedIds={selectedIds}
+          syncingIds={syncingIds}
           onAssign={handleAssign}
           onToggleSelect={handleToggleSelect}
+          onSync={handleSyncClient}
         />
       )}
 

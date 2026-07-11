@@ -7,11 +7,15 @@ export enum ClientStatus {
 export type ClientProgramSummary = {
   programId: string;
   programVersionId: string;
+  /** Active assignment id; used to sync this client to the latest version. */
+  assignmentId: string;
   assignedAt: string;
   /** Frozen version display name (English). */
   programName: string;
   /** Frozen version display name (Russian). */
   programNameRu: string;
+  /** True when the client's frozen version is behind the program's latest. */
+  isBehindLatest?: boolean;
 };
 
 /** A client linked to the current trainer via an accepted Telegram invite. */

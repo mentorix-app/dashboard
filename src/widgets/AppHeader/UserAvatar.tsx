@@ -5,7 +5,7 @@ import { LogOut, User as UserIcon } from 'lucide-react';
 
 import { useTranslations, Link } from '@/i18n';
 import { logoutAction } from '@/src/entities/auth';
-import { useCurrentUser, type User } from '@/src/entities/user';
+import { useCurrentUser, useUserStore, type User } from '@/src/entities/user';
 import { ROUTES } from '@/src/shared/lib';
 import {
   Avatar,
@@ -41,6 +41,9 @@ export const UserAvatar = () => {
 
   const handleLogout = () => {
     startTransition(() => {
+      // Reset the store so the avatar/menu clear immediately; the query cache is
+      // wiped on next login when the session identity changes (see UserHydrator).
+      useUserStore.getState().clearUser();
       void logoutAction();
     });
   };
