@@ -38,8 +38,7 @@
     "status": "Status",
     "category": "Category",
     "difficulty": "Difficulty",
-    "exercisesCount": "Exercises",
-    "weeksCount": "Weeks",
+    "trainingDaysCount": "Training days",
     "createdBy": "Created by",
     "enrolledUsers": "Enrolled",
     "modifiedAt": "Updated"

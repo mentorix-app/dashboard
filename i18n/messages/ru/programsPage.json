@@ -38,8 +38,7 @@
     "status": "Статус",
     "category": "Категория",
     "difficulty": "Сложность",
-    "exercisesCount": "Упражнения",
-    "weeksCount": "Недели",
+    "trainingDaysCount": "Тренировочные дни",
     "createdBy": "Создал",
     "enrolledUsers": "Участники",
     "modifiedAt": "Обновлено"

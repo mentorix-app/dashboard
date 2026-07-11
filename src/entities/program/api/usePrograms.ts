@@ -17,12 +17,14 @@ import { buildProgramsQuery } from '../lib';
 
 const PROGRAMS_PAGE_SIZE = 20;
 
-export const useProgramsInfinite = (params: FetchProgramsListParams = {}) =>
+export const useProgramsInfinite = (params: FetchProgramsListParams = {}, options?: { enabled?: boolean }) =>
   useInfiniteGet<ProgramsListResult>(
     '/programs',
     queryKeys.programs.list(params),
     (page) => ({ ...buildProgramsQuery(params), page, limit: PROGRAMS_PAGE_SIZE }),
-    (lastPage) => (lastPage.pagination.page < lastPage.pagination.totalPages ? lastPage.pagination.page + 1 : undefined)
+    (lastPage) =>
+      lastPage.pagination.page < lastPage.pagination.totalPages ? lastPage.pagination.page + 1 : undefined,
+    options
   );
 
 export const useProgram = (id: string | undefined) =>

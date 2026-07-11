@@ -8,8 +8,7 @@ export type ProgramColumn =
   | 'status'
   | 'category'
   | 'difficulty'
-  | 'exercisesCount'
-  | 'weeksCount'
+  | 'trainingDaysCount'
   | 'createdBy'
   | 'enrolledUsers'
   | 'modifiedAt';
@@ -19,8 +18,7 @@ export const TABLE_COLUMNS: readonly ProgramColumn[] = [
   'status',
   'category',
   'difficulty',
-  'exercisesCount',
-  'weeksCount',
+  'trainingDaysCount',
   'createdBy',
   'enrolledUsers',
   'modifiedAt',

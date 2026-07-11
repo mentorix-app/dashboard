@@ -33,10 +33,8 @@ export type Program = {
   latestClientPlanAt: string | null;
   /** True when the draft has edits not yet released in a published version. */
   hasUnpublishedChanges: boolean;
-  /** Number of weeks in the program plan. */
-  weeksCount: number;
-  /** Total exercises across every block of the program plan. */
-  exercisesCount: number;
+  /** Days with at least one block/exercise across every week of the program plan. */
+  trainingDaysCount: number;
   /** Number of active client assignments on this program. */
   assignmentCount: number;
   createdAt: string;

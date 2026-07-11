@@ -63,8 +63,7 @@ export const ProgramsTableRow: FC<ProgramsTableRowProps> = ({
       <TableCell className="whitespace-nowrap">
         {program.difficulty ? t(`difficulty.${program.difficulty}`) : '—'}
       </TableCell>
-      <TableCell className="whitespace-nowrap">{program.exercisesCount}</TableCell>
-      <TableCell className="whitespace-nowrap">{program.weeksCount}</TableCell>
+      <TableCell className="whitespace-nowrap">{program.trainingDaysCount}</TableCell>
       <TableCell className="text-muted-foreground max-w-[16rem] truncate">{program.createdByName}</TableCell>
       <TableCell className="whitespace-nowrap">{program.assignmentCount}</TableCell>
       <TableCell className="text-muted-foreground whitespace-nowrap">

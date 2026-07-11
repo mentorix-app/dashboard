@@ -1,0 +1,16 @@
+{
+  "title": "Add a client",
+  "description": "Generate a one-time Telegram invite link and send it to your client. Each link works for a single client.",
+  "generate": "Generate invite link",
+  "regenerate": "Generate another link",
+  "generating": "Generating…",
+  "copy": "Copy link",
+  "copied": "Link copied to clipboard",
+  "copyError": "Couldn't copy the link",
+  "linkLabel": "Invite link",
+  "expiresAt": "Expires {date}",
+  "instructions": "Share this link with your client. Once they open it in Telegram and start the bot, they'll appear in your clients list.",
+  "notConfigured": "Telegram invites aren't configured on the server yet. Please contact an administrator.",
+  "error": "Couldn't create an invite. Please try again.",
+  "close": "Close"
+}

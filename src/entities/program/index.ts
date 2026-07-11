@@ -12,7 +12,7 @@ export type {
 export { GROUP_BLOCK_TYPES, ProgramBlockType } from './model/structure';
 export type { ProgramAssignment, ProgramVersionSummary } from './model/versioning';
 export { ProgramAssignmentStatus } from './model/versioning';
-export { buildProgramPatch, getProgramName, isProgramDirty, toProgramDraftFields } from './lib';
+export { buildProgramPatch, getProgramDescription, getProgramName, isProgramDirty, toProgramDraftFields } from './lib';
 export { BlockTypeBadge } from './ui/BlockTypeBadge';
 export { ProgramStatusBadge } from './ui/ProgramStatusBadge';
 export type {

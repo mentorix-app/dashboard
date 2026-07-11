@@ -1,0 +1,36 @@
+export enum ClientStatus {
+  Active = 'active',
+  Blocked = 'blocked',
+}
+
+/** Active program assignment summary attached to a trainer's client. */
+export type ClientProgramSummary = {
+  programId: string;
+  programVersionId: string;
+  assignedAt: string;
+  /** Frozen version display name (English). */
+  programName: string;
+  /** Frozen version display name (Russian). */
+  programNameRu: string;
+};
+
+/** A client linked to the current trainer via an accepted Telegram invite. */
+export type Client = {
+  clientUserId: string;
+  /**
+   * User id of the trainer for this client link. For admins (who see every
+   * trainer's clients) this identifies which clients they may assign programs
+   * to — compare against the current user id from `/auth/me`.
+   */
+  trainerUserId: string;
+  displayName: string;
+  status: ClientStatus;
+  linkedAt: string;
+  /**
+   * Signed relative URL to the avatar proxy
+   * (`/trainer/clients/{id}/avatar?exp=&sig=`), or empty string when the client
+   * has no Telegram profile photo. Use `getClientAvatarSrc` to resolve it.
+   */
+  avatarUrl: string;
+  programAssignment: ClientProgramSummary | null;
+};

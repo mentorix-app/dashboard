@@ -8,6 +8,9 @@ import exercisesPage from './exercisesPage.json';
 import exercisePicker from './exercisePicker.json';
 import programsPage from './programsPage.json';
 import programWizardPage from './programWizardPage.json';
+import clientsPage from './clientsPage.json';
+import programPicker from './programPicker.json';
+import inviteClient from './inviteClient.json';
 import loginPage from './loginPage.json';
 import signupPage from './signupPage.json';
 import profilePage from './profilePage.json';
@@ -23,6 +26,9 @@ export default {
   ExercisePicker: exercisePicker,
   Programs: programsPage,
   ProgramWizard: programWizardPage,
+  Clients: clientsPage,
+  ProgramPicker: programPicker,
+  InviteClient: inviteClient,
   Login: loginPage,
   Signup: signupPage,
   Profile: profilePage,

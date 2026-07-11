@@ -2,6 +2,7 @@ import {
   useInfiniteQuery,
   useQuery,
   type InfiniteData,
+  type UseInfiniteQueryOptions,
   type UseInfiniteQueryResult,
   type UseQueryOptions,
   type UseQueryResult,
@@ -28,6 +29,10 @@ export function useInfiniteGet<TPage, TError = HttpError>(
   queryKey: readonly unknown[],
   buildParams: (page: number) => Record<string, unknown>,
   getNextPageParam: (lastPage: TPage) => number | undefined,
+  options?: Pick<
+    UseInfiniteQueryOptions<TPage, TError, InfiniteData<TPage, number>, readonly unknown[], number>,
+    'enabled'
+  >,
   config?: AxiosRequestConfig
 ): UseInfiniteQueryResult<InfiniteData<TPage, number>, TError> {
   // Callers encode all varying inputs (filters, sort) into `queryKey`; `buildParams`
@@ -39,5 +44,6 @@ export function useInfiniteGet<TPage, TError = HttpError>(
       http.get<TPage>(url, { ...config, params: buildParams(pageParam) }).then((response) => response.data),
     initialPageParam: 1,
     getNextPageParam,
+    ...options,
   });
 }

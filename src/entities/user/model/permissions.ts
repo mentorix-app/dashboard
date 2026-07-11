@@ -2,6 +2,7 @@ import { UserRole } from './types';
 
 export enum Permission {
   ExerciseManage = 'exercise:manage',
+  ClientManage = 'client:manage',
 }
 
 /**
@@ -10,7 +11,7 @@ export enum Permission {
  */
 const ROLE_PERMISSIONS: Record<UserRole, readonly Permission[]> = {
   [UserRole.Admin]: Object.values(Permission),
-  [UserRole.Trainer]: [],
+  [UserRole.Trainer]: [Permission.ClientManage],
 };
 
 export const hasPermission = (roles: readonly UserRole[], permission: Permission): boolean =>

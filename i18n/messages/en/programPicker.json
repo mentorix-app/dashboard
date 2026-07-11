@@ -1,0 +1,13 @@
+{
+  "title": "Assign a program",
+  "description": "Select a published program to assign to this client.",
+  "searchPlaceholder": "Search programs",
+  "empty": "No published programs found.",
+  "emptySearch": "No programs match your search.",
+  "loadMore": "Load more",
+  "loading": "Loading…",
+  "createdBy": "Created by {name}",
+  "cancel": "Cancel",
+  "confirm": "Assign program",
+  "remove": "Remove current program"
+}

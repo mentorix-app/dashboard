@@ -1,0 +1,40 @@
+{
+  "title": "Clients",
+  "searchPlaceholder": "Search clients",
+  "addClient": "Add client",
+  "empty": "No clients yet. Invite your first client to get started.",
+  "emptySearch": "No clients match your search.",
+  "loadMore": "Load more",
+  "loading": "Loading…",
+  "view": {
+    "grid": "Grid view",
+    "list": "List view"
+  },
+  "sort": {
+    "label": "Sort by name",
+    "asc": "Name A–Z",
+    "desc": "Name Z–A"
+  },
+  "status": {
+    "active": "Active",
+    "blocked": "Blocked"
+  },
+  "linkedAt": "Linked {date}",
+  "assignedProgram": "Program assigned {date}",
+  "noProgram": "No program assigned",
+  "assign": "Assign program",
+  "changeProgram": "Change program",
+  "blockedHint": "Blocked clients can't be assigned",
+  "avatarAlt": "{name} avatar",
+  "selectClient": "Select {name}",
+  "selectedCount": "{count, plural, one {# client selected} other {# clients selected}}",
+  "bulkAssign": "Assign program",
+  "clearSelection": "Clear",
+  "overwriteWarning": "These clients already have a program that will be replaced:",
+  "assignSuccess": "Program assigned",
+  "assignRemoved": "Program removed",
+  "assignError": "Couldn't update the program. Please try again.",
+  "bulkAssignSuccess": "{count, plural, one {Program assigned to # client} other {Program assigned to # clients}}",
+  "bulkAssignPartial": "Assigned to {succeeded}, failed for {failed}. Try the remaining again.",
+  "bulkAssignError": "Couldn't assign the program. Please try again."
+}
