@@ -5,7 +5,7 @@ import { ProgramBlockType } from '@/src/entities/program';
 import { SortableItem } from '@/src/shared/ui';
 import { cn } from '@/src/shared/lib/styles';
 
-import { SINGLE_ROW_GRID } from '../../DayExercises.constants';
+import { EXERCISE_ROW_LAYOUT } from '../../DayExercises.constants';
 import { BLOCK_DND_PREFIX } from '../../lib';
 import { GroupBlockCard } from '../GroupBlockCard';
 import { RowDragHandle } from '../RowDragHandle';
@@ -63,7 +63,7 @@ export const DayBlock = (props: DayBlockProps) => {
   return (
     <SortableItem
       id={`${BLOCK_DND_PREFIX}${block.id}`}
-      className={cn(SINGLE_ROW_GRID, 'bg-card rounded-md border px-1 py-1')}
+      className={cn(EXERCISE_ROW_LAYOUT, 'bg-card rounded-md border px-2 py-2 md:px-1 md:py-1')}
     >
       <SingleBlockRow
         block={block}

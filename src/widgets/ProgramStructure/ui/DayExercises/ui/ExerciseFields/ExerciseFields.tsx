@@ -2,15 +2,18 @@
 
 import { useTranslations } from '@/i18n';
 import { Input, Typography } from '@/src/shared/ui';
+import { cn } from '@/src/shared/lib/styles';
 
 import { useExerciseFieldsConfig } from './ExerciseFields.conf';
 import type { ExerciseFieldsProps } from './ExerciseFields.types';
 
 /**
- * The shared editable cells (name, sets, reps, instruction) rendered as grid
- * children so both single rows and grouped rows keep their columns aligned.
+ * The shared editable inputs (sets, reps, instruction). On mobile sets and reps
+ * share a row while the instruction spans the full width beneath them; from the
+ * `md` breakpoint up they lay out inline so every row lines up. The exercise
+ * name is rendered by the row header, not here.
  */
-export const ExerciseFields = ({ exercise, exerciseName, canEdit, onUpdate }: ExerciseFieldsProps) => {
+export const ExerciseFields = ({ exercise, canEdit, onUpdate, className }: ExerciseFieldsProps) => {
   const t = useTranslations('ProgramWizard');
   const { sets, reps, instruction, onSetsChange, onRepsChange, onInstructionChange, onBlur } = useExerciseFieldsConfig({
     exercise,
@@ -19,12 +22,8 @@ export const ExerciseFields = ({ exercise, exerciseName, canEdit, onUpdate }: Ex
   });
 
   return (
-    <>
-      <Typography variant="p-sm" className="truncate font-medium" title={exerciseName}>
-        {exerciseName}
-      </Typography>
-
-      <div className="flex items-center gap-1">
+    <div className={cn('grid grid-cols-2 items-center gap-2 md:flex md:min-w-0 md:flex-1', className)}>
+      <div className="flex items-center gap-1 md:w-24 md:shrink-0">
         <Typography variant="p-xs" className="text-muted-foreground">
           {t('structure.exercises.columns.sets')}
         </Typography>
@@ -41,7 +40,7 @@ export const ExerciseFields = ({ exercise, exerciseName, canEdit, onUpdate }: Ex
         />
       </div>
 
-      <div className="flex items-center gap-1">
+      <div className="flex items-center gap-1 md:w-24 md:shrink-0">
         <Typography variant="p-xs" className="text-muted-foreground">
           {t('structure.exercises.columns.reps')}
         </Typography>
@@ -65,8 +64,8 @@ export const ExerciseFields = ({ exercise, exerciseName, canEdit, onUpdate }: Ex
         disabled={!canEdit}
         aria-label={t('structure.exercises.columns.instruction')}
         placeholder={t('structure.exercises.columns.instruction')}
-        className="h-8"
+        className="col-span-2 h-8 md:col-span-1 md:min-w-0 md:flex-1"
       />
-    </>
+    </div>
   );
 };

@@ -2,7 +2,7 @@ import type { ProgramDayExercise, ProgramDayExerciseInput } from '@/src/entities
 
 export type ExerciseFieldsProps = {
   exercise: ProgramDayExercise;
-  exerciseName: string;
   canEdit: boolean;
   onUpdate: (itemId: string, input: ProgramDayExerciseInput) => void;
+  className?: string;
 };

@@ -1,19 +1,15 @@
 import { ProgramBlockType } from '@/src/entities/program';
 
 /**
- * Grid template for top-level single-exercise rows: a merge checkbox, drag
- * handle, exercise name, sets, reps, instruction and the row actions. The sets
- * and reps columns carry their own inline labels, so they are a touch wider.
+ * Shared row layout for exercise rows (both top-level single rows and rows
+ * inside a group block). On mobile the row is a small stacked card — a header
+ * line (checkbox, drag handle, exercise name and row actions) with the editable
+ * fields full width beneath it — so the inputs are not squeezed between the
+ * handle and the actions menu. From the `md` breakpoint up the header switches
+ * to `display: contents` and, together with per-cell `order`, the pieces
+ * flatten back into a single aligned row.
  */
-export const SINGLE_ROW_GRID =
-  'grid grid-cols-[2rem_2rem_minmax(8rem,1.5fr)_6rem_6rem_minmax(8rem,2fr)_2.25rem] items-center gap-2';
-
-/**
- * Grid template for exercise rows inside a group block: same as single rows but
- * without the merge checkbox column (a grouped exercise cannot start a merge).
- */
-export const GROUP_ROW_GRID =
-  'grid grid-cols-[2rem_minmax(8rem,1.5fr)_6rem_6rem_minmax(8rem,2fr)_2.25rem] items-center gap-2';
+export const EXERCISE_ROW_LAYOUT = 'flex flex-col gap-2 md:flex-row md:items-center md:gap-2';
 
 /** Message keys for each block type label, kept literal so next-intl stays typed. */
 export const BLOCK_TYPE_LABEL_KEY = {

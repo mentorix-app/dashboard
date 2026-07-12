@@ -31,8 +31,8 @@ export const ProgramStructure = ({ programId }: ProgramStructureProps) => {
   }
 
   return (
-    <Card>
-      <CardContent className="flex flex-col gap-6 pt-6 lg:flex-row">
+    <Card className="md:bg-card gap-0 rounded-none border-0 bg-transparent py-0 shadow-none md:gap-6 md:rounded-xl md:border md:py-6 md:shadow-sm">
+      <CardContent className="flex flex-col gap-6 px-0 pt-0 md:px-6 md:pt-6 lg:flex-row">
         <WeeksSidebar
           weeks={weeks}
           selectedWeekId={selectedWeekId}

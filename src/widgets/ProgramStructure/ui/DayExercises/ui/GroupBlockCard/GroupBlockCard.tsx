@@ -87,7 +87,13 @@ export const GroupBlockCard = (props: GroupBlockCardProps) => {
       />
 
       {canEdit ? (
-        <Button type="button" variant="ghost" size="sm" onClick={card.onOpenPicker}>
+        <Button
+          type="button"
+          variant="ghost"
+          size="sm"
+          onClick={card.onOpenPicker}
+          className="h-auto min-h-8 w-full justify-start py-1.5 text-left whitespace-normal"
+        >
           <Plus className="size-4" />
           {t('structure.blocks.addExerciseToBlock', { type: t(BLOCK_TYPE_LABEL_KEY[block.blockType]) })}
         </Button>

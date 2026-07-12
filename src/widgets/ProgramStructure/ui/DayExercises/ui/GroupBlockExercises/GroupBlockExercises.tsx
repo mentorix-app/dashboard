@@ -10,7 +10,7 @@ import type { ProgramDayBlock, ProgramDayExercise, ProgramDayExerciseInput } fro
 import { SortableItem, Typography } from '@/src/shared/ui';
 import { cn } from '@/src/shared/lib/styles';
 
-import { GROUP_ROW_GRID } from '../../DayExercises.constants';
+import { EXERCISE_ROW_LAYOUT } from '../../DayExercises.constants';
 import type { BlockMoveTarget } from '../../DayExercises.types';
 import { CONTAINER_DND_PREFIX, EXERCISE_DND_PREFIX } from '../../lib';
 import { useRenderedExercises, useSingleImportGhost } from '../../context';
@@ -64,7 +64,7 @@ export const GroupBlockExercises = ({
             {index === ghostIndex ? ghostRow : null}
             <SortableItem
               id={`${EXERCISE_DND_PREFIX}${exercise.id}`}
-              className={cn(GROUP_ROW_GRID, 'rounded-md px-1 py-1')}
+              className={cn(EXERCISE_ROW_LAYOUT, 'rounded-md px-2 py-2 md:px-1 md:py-1')}
             >
               <GroupExerciseRow
                 block={block}
