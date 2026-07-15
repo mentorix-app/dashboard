@@ -51,7 +51,7 @@ export const ClientCard = ({
             <AvatarFallback className="text-sm">{getClientInitials(client.displayName)}</AvatarFallback>
           </Avatar>
           <div className="flex min-w-0 flex-1 flex-col gap-1">
-            <CardTitle className="truncate leading-snug">{client.displayName}</CardTitle>
+            <CardTitle className="line-clamp-2 leading-snug break-words">{client.displayName}</CardTitle>
             <div>
               <ClientStatusBadge status={client.status} label={labels.statusLabel} />
             </div>
@@ -92,6 +92,23 @@ export const ClientCard = ({
         ) : (
           <Typography variant="p-sm" className="text-muted-foreground">
             {labels.programLabel}
+          </Typography>
+        )}
+        {labels.trainerLabel ? (
+          <div className="text-muted-foreground flex flex-wrap items-center gap-x-1.5">
+            <Typography variant="p-xs" className="text-muted-foreground truncate">
+              {labels.trainerLabel}
+            </Typography>
+            <span aria-hidden className="text-muted-foreground/60">
+              ·
+            </span>
+            <Typography variant="p-xs" className="text-muted-foreground">
+              {labels.lastActiveLabel}
+            </Typography>
+          </div>
+        ) : (
+          <Typography variant="p-xs" className="text-muted-foreground">
+            {labels.lastActiveLabel}
           </Typography>
         )}
       </CardContent>

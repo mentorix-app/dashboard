@@ -23,4 +23,9 @@ export const BLOCK_TYPE_LABEL_KEY = {
   [ProgramBlockType.DeathBy]: 'structure.blocks.types.death_by',
   [ProgramBlockType.Superset]: 'structure.blocks.types.superset',
   [ProgramBlockType.Complex]: 'structure.blocks.types.complex',
+  [ProgramBlockType.SkillWork]: 'structure.blocks.types.skill_work',
+  [ProgramBlockType.Strength]: 'structure.blocks.types.strength',
+  [ProgramBlockType.Conditioning]: 'structure.blocks.types.conditioning',
+  [ProgramBlockType.Gymnastics]: 'structure.blocks.types.gymnastics',
+  [ProgramBlockType.Weightlifting]: 'structure.blocks.types.weightlifting',
 } as const;

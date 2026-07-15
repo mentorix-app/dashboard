@@ -4,7 +4,13 @@ import { useEffect, useRef, useState } from 'react';
 
 import type { ProgramDayExerciseInput } from '@/src/entities/program';
 
-import { formatNumberField, isSameExerciseInput, normalizeExerciseInput, parseCountField } from '../../lib';
+import {
+  formatVolumeField,
+  isSameExerciseInput,
+  normalizeExerciseInput,
+  sanitizeVolumeInput,
+  toVolumeField,
+} from '../../lib';
 import type { ExerciseFieldsProps } from './ExerciseFields.types';
 
 type UseExerciseFieldsConfigParams = Pick<ExerciseFieldsProps, 'exercise' | 'canEdit' | 'onUpdate'>;
@@ -17,8 +23,8 @@ type UseExerciseFieldsConfigParams = Pick<ExerciseFieldsProps, 'exercise' | 'can
  * persist.
  */
 export const useExerciseFieldsConfig = ({ exercise, canEdit, onUpdate }: UseExerciseFieldsConfigParams) => {
-  const [sets, setSets] = useState(() => formatNumberField(exercise.sets));
-  const [reps, setReps] = useState(() => formatNumberField(exercise.reps));
+  const [sets, setSets] = useState(() => formatVolumeField(exercise.sets));
+  const [reps, setReps] = useState(() => formatVolumeField(exercise.reps));
   const [instruction, setInstruction] = useState(exercise.instruction);
 
   const savedRef = useRef<ProgramDayExerciseInput>(
@@ -32,8 +38,8 @@ export const useExerciseFieldsConfig = ({ exercise, canEdit, onUpdate }: UseExer
 
   const currentInput: ProgramDayExerciseInput = {
     exerciseId: exercise.exerciseId,
-    sets: parseCountField(sets),
-    reps: parseCountField(reps),
+    sets: toVolumeField(sets),
+    reps: toVolumeField(reps),
     instruction: instruction.trim(),
   };
 
@@ -54,8 +60,8 @@ export const useExerciseFieldsConfig = ({ exercise, canEdit, onUpdate }: UseExer
     sets,
     reps,
     instruction,
-    onSetsChange: setSets,
-    onRepsChange: setReps,
+    onSetsChange: (value: string) => setSets(sanitizeVolumeInput(value)),
+    onRepsChange: (value: string) => setReps(sanitizeVolumeInput(value)),
     onInstructionChange: setInstruction,
     onBlur: flush,
   };

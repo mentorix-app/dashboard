@@ -1,26 +1,26 @@
 import type { ProgramDayExerciseInput } from '@/src/entities/program';
 
-/** Parse a whole-number field (sets/reps): blank or invalid/negative → null. */
-export const parseCountField = (value: string): number | null => {
-  const trimmed = value.trim();
-  if (trimmed === '') return null;
-  const parsed = Number.parseInt(trimmed, 10);
-  if (Number.isNaN(parsed) || parsed < 0) return null;
-  return parsed;
+/** Strip any character a volume field can't contain (keep digits, slash, dash). */
+export const sanitizeVolumeInput = (value: string): string => String(value ?? '').replace(/[^0-9/-]/g, '');
+
+/** Canonicalize a volume field: sanitize + trim; blank becomes null. */
+export const toVolumeField = (value: string | null | undefined): string | null => {
+  const cleaned = sanitizeVolumeInput(value ?? '').trim();
+  return cleaned === '' ? null : cleaned;
 };
 
-/** Render a nullable numeric field value back into its input string. */
-export const formatNumberField = (value: number | null | undefined): string => (value == null ? '' : String(value));
+/** Render a nullable volume field value back into its input string. */
+export const formatVolumeField = (value: string | null | undefined): string => (value == null ? '' : String(value));
 
 /**
  * Canonicalize an exercise input the same way the row's live edits are derived
- * (number round-trip + trimmed instruction), so server data that never changed
- * compares equal and the row does not persist a no-op update.
+ * (sanitized volume fields + trimmed instruction), so server data that never
+ * changed compares equal and the row does not persist a no-op update.
  */
 export const normalizeExerciseInput = (input: ProgramDayExerciseInput): ProgramDayExerciseInput => ({
   exerciseId: input.exerciseId,
-  sets: parseCountField(formatNumberField(input.sets)),
-  reps: parseCountField(formatNumberField(input.reps)),
+  sets: toVolumeField(input.sets),
+  reps: toVolumeField(input.reps),
   instruction: (input.instruction ?? '').trim(),
 });
 

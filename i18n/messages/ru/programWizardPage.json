@@ -194,7 +194,12 @@
         "ladder": "Лесенка",
         "death_by": "Death By",
         "superset": "Суперсет",
-        "complex": "Комплекс"
+        "complex": "Комплекс",
+        "skill_work": "Навык",
+        "strength": "Силовой",
+        "conditioning": "Кондиционная",
+        "gymnastics": "Гимнастика",
+        "weightlifting": "Тяжёлая атлетика"
       },
       "selectionCount": "Выбрано: {count}",
       "merge": "Сгруппировать",

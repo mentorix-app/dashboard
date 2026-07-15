@@ -15,8 +15,8 @@ const buildExercise = (id: string, sortOrder: number): ProgramDayExercise => ({
   exerciseName: id,
   exerciseNameRu: id,
   sortOrder,
-  sets: 3,
-  reps: 10,
+  sets: '3',
+  reps: '10',
   instruction: '',
   createdAt: '2024-01-01T00:00:00Z',
 });

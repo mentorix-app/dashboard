@@ -30,6 +30,8 @@ export enum ExerciseEquipment {
   SquatRack = 'squat_rack',
   RowingMachine = 'rowing_machine',
   AssaultBike = 'assault_bike',
+  BikeErg = 'bike_erg',
+  SkiErg = 'ski_erg',
   JumpRope = 'jump_rope',
   PlyoBox = 'plyo_box',
   MedicineBall = 'medicine_ball',

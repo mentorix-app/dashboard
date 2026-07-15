@@ -43,7 +43,7 @@ export const ExercisePicker = (props: ExercisePickerProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="flex max-h-[85vh] flex-col gap-4">
+      <DialogContent className="flex max-h-[85vh] flex-col gap-4 sm:max-w-2xl">
         <DialogHeader>
           <DialogTitle>{t('title')}</DialogTitle>
           <DialogDescription>{t('description', { max: maxPick })}</DialogDescription>
@@ -68,8 +68,8 @@ export const ExercisePicker = (props: ExercisePickerProps) => {
               </Typography>
             </div>
           ) : (
-            <>
-              <div className={`${PICKER_ROW_GRID} bg-muted/40 text-muted-foreground border-b px-3 py-2`}>
+            <div className="flex flex-1 flex-col overflow-x-auto">
+              <div className={`${PICKER_ROW_GRID} bg-muted/40 text-muted-foreground min-w-[34rem] border-b px-3 py-2`}>
                 <span />
                 <Typography variant="p-xs" className="font-medium">
                   {t('columns.exercise')}
@@ -82,7 +82,7 @@ export const ExercisePicker = (props: ExercisePickerProps) => {
                 </Typography>
               </div>
 
-              <ul className="divide-border flex-1 divide-y overflow-y-auto">
+              <ul className="divide-border min-w-[34rem] flex-1 divide-y overflow-y-auto">
                 {exercises.map((exercise) => {
                   const checked = isSelected(exercise.id);
                   const disabled = !checked && !canSelectMore;
@@ -131,7 +131,7 @@ export const ExercisePicker = (props: ExercisePickerProps) => {
                   </li>
                 ) : null}
               </ul>
-            </>
+            </div>
           )}
         </div>
 

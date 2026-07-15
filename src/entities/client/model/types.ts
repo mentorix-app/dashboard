@@ -27,9 +27,16 @@ export type Client = {
    * to — compare against the current user id from `/auth/me`.
    */
   trainerUserId: string;
+  /** Display name of the trainer for this client link (used by admin views). */
+  trainerDisplayName: string;
   displayName: string;
   status: ClientStatus;
   linkedAt: string;
+  /**
+   * Latest workout-day completion timestamp for this client (any trainer), or
+   * null when the client has never completed a workout day.
+   */
+  lastActiveAt: string | null;
   /**
    * Signed relative URL to the avatar proxy
    * (`/trainer/clients/{id}/avatar?exp=&sig=`), or empty string when the client

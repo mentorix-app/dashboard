@@ -41,11 +41,13 @@ export const useClientsConfig = () => {
             : assignment.programName
           : '';
 
+        const isOwned = isClientOwnedBy(client, user?.userId);
+
         return {
           client,
-          canAssign: isClientOwnedBy(client, user?.userId),
+          canAssign: isOwned,
           selectable: selection.isSelectable(client),
-          canSync: Boolean(assignment?.isBehindLatest) && isClientOwnedBy(client, user?.userId),
+          canSync: Boolean(assignment?.isBehindLatest) && isOwned,
           labels: {
             statusLabel: t(`status.${client.status}`),
             linkedLabel: t('linkedAt', { date: formatDate(client.linkedAt, locale, 'shortDate') }),
@@ -54,6 +56,11 @@ export const useClientsConfig = () => {
             programLabel: assignment
               ? t('assignedProgram', { date: formatDate(assignment.assignedAt, locale, 'shortDate') })
               : t('noProgram'),
+            // Admins see clients from every trainer; surface whose client this is.
+            trainerLabel: isOwned ? undefined : t('trainer', { name: client.trainerDisplayName }),
+            lastActiveLabel: client.lastActiveAt
+              ? t('lastActive', { date: formatDate(client.lastActiveAt, locale, 'shortDate') })
+              : t('neverActive'),
             assignLabel: assignment ? t('changeProgram') : t('assign'),
             syncLabel: t('syncToLatest'),
             avatarAlt: t('avatarAlt', { name: client.displayName }),

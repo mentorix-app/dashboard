@@ -46,7 +46,7 @@ export const ClientRowCard = ({
           <ClientStatusBadge status={client.status} label={labels.statusLabel} />
         </div>
         <Typography variant="p-sm" className="text-muted-foreground truncate">
-          {labels.linkedLabel} ·{' '}
+          <span className="hidden md:inline">{labels.linkedLabel} · </span>
           {labels.programName && labels.programHref ? (
             <Link href={labels.programHref} className="text-foreground underline-offset-4 hover:underline">
               {labels.programName}
@@ -54,6 +54,10 @@ export const ClientRowCard = ({
           ) : (
             labels.programName || labels.programLabel
           )}
+        </Typography>
+        <Typography variant="p-xs" className="text-muted-foreground truncate">
+          {labels.trainerLabel ? `${labels.trainerLabel} · ` : ''}
+          {labels.lastActiveLabel}
         </Typography>
       </div>
 

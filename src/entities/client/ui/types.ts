@@ -9,6 +9,10 @@ export type ClientCardLabels = {
   /** Link to the assigned program's page, or undefined when none is assigned. */
   programHref?: string;
   programLabel: string;
+  /** Trainer name line, shown only when an admin views another trainer's client. */
+  trainerLabel?: string;
+  /** Last-activity line, or the "no activity" fallback when never active. */
+  lastActiveLabel: string;
   assignLabel: string;
   /** Tooltip/aria label for the per-client sync-to-latest button. */
   syncLabel: string;

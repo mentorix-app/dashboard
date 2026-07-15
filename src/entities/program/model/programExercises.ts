@@ -3,8 +3,8 @@ import type { ProgramDetail } from './structure';
 /** Shared editable fields for a program exercise (camelCase → snake_case at the BFF). */
 export type ProgramDayExerciseInput = {
   exerciseId: string;
-  sets: number | null;
-  reps: number | null;
+  sets: string | null;
+  reps: string | null;
   instruction: string;
 };
 

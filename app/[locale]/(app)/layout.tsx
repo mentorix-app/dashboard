@@ -26,7 +26,7 @@ const AppLayout = async ({ children }: Props) => {
           <AppSidebar />
           <SidebarInset className="min-h-dvh">
             <AppHeader />
-            <main className="flex flex-1 flex-col px-[var(--app-content-px)] py-[var(--app-content-py)]">
+            <main className="flex flex-1 flex-col py-[var(--app-content-py)] pr-[max(var(--app-content-px),env(safe-area-inset-right))] pl-[max(var(--app-content-px),env(safe-area-inset-left))]">
               {children}
             </main>
           </SidebarInset>

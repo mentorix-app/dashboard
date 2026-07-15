@@ -32,6 +32,8 @@ export const EXERCISE_EQUIPMENT_OPTIONS: readonly ExerciseEquipment[] = [
   ExerciseEquipment.SquatRack,
   ExerciseEquipment.RowingMachine,
   ExerciseEquipment.AssaultBike,
+  ExerciseEquipment.BikeErg,
+  ExerciseEquipment.SkiErg,
   ExerciseEquipment.JumpRope,
   ExerciseEquipment.PlyoBox,
   ExerciseEquipment.MedicineBall,

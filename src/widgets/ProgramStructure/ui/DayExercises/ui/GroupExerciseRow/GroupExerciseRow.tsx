@@ -42,11 +42,7 @@ export const GroupExerciseRow = ({
       <div className="flex items-center gap-2 md:contents">
         <div className="flex shrink-0 md:order-1">{dragHandle}</div>
 
-        <Typography
-          variant="p-sm"
-          className="min-w-0 flex-1 truncate font-medium md:order-2 md:w-40 md:flex-none"
-          title={exerciseName}
-        >
+        <Typography variant="p-sm" className="min-w-0 flex-1 truncate font-medium md:order-2" title={exerciseName}>
           {exerciseName}
         </Typography>
 

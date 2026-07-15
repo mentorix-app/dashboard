@@ -55,11 +55,7 @@ export const SingleBlockRow = ({
 
         <div className="flex shrink-0 md:order-2">{dragHandle}</div>
 
-        <Typography
-          variant="p-sm"
-          className="min-w-0 flex-1 truncate font-medium md:order-3 md:w-40 md:flex-none"
-          title={exerciseName}
-        >
+        <Typography variant="p-sm" className="min-w-0 flex-1 truncate font-medium md:order-3" title={exerciseName}>
           {exerciseName}
         </Typography>
 

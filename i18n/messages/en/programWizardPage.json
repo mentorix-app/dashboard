@@ -194,7 +194,12 @@
         "ladder": "Ladder",
         "death_by": "Death By",
         "superset": "Superset",
-        "complex": "Complex"
+        "complex": "Complex",
+        "skill_work": "Skill Work",
+        "strength": "Strength",
+        "conditioning": "Conditioning",
+        "gymnastics": "Gymnastics",
+        "weightlifting": "Weightlifting"
       },
       "selectionCount": "{count, plural, one {# selected} other {# selected}}",
       "merge": "Group",

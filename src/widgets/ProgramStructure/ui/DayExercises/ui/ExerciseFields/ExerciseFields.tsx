@@ -22,15 +22,14 @@ export const ExerciseFields = ({ exercise, canEdit, onUpdate, className }: Exerc
   });
 
   return (
-    <div className={cn('grid grid-cols-2 items-center gap-2 md:flex md:min-w-0 md:flex-1', className)}>
+    <div className={cn('grid grid-cols-2 items-center gap-2 md:flex md:shrink-0 md:justify-end', className)}>
       <div className="flex items-center gap-1 md:w-24 md:shrink-0">
         <Typography variant="p-xs" className="text-muted-foreground">
           {t('structure.exercises.columns.sets')}
         </Typography>
         <Input
-          type="number"
-          inputMode="numeric"
-          min={0}
+          type="text"
+          inputMode="text"
           value={sets}
           onChange={(event) => onSetsChange(event.target.value)}
           onBlur={onBlur}
@@ -45,9 +44,8 @@ export const ExerciseFields = ({ exercise, canEdit, onUpdate, className }: Exerc
           {t('structure.exercises.columns.reps')}
         </Typography>
         <Input
-          type="number"
-          inputMode="numeric"
-          min={0}
+          type="text"
+          inputMode="text"
           value={reps}
           onChange={(event) => onRepsChange(event.target.value)}
           onBlur={onBlur}
@@ -64,7 +62,7 @@ export const ExerciseFields = ({ exercise, canEdit, onUpdate, className }: Exerc
         disabled={!canEdit}
         aria-label={t('structure.exercises.columns.instruction')}
         placeholder={t('structure.exercises.columns.instruction')}
-        className="col-span-2 h-8 md:col-span-1 md:min-w-0 md:flex-1"
+        className="col-span-2 h-8 md:col-span-1 md:w-96 md:min-w-0 md:shrink-0"
       />
     </div>
   );

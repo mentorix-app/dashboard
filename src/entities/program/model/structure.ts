@@ -11,6 +11,11 @@ export enum ProgramBlockType {
   DeathBy = 'death_by',
   Superset = 'superset',
   Complex = 'complex',
+  SkillWork = 'skill_work',
+  Strength = 'strength',
+  Conditioning = 'conditioning',
+  Gymnastics = 'gymnastics',
+  Weightlifting = 'weightlifting',
 }
 
 /** Group block types (every type except `single`); used by merge/patch flows. */
@@ -24,6 +29,11 @@ export const GROUP_BLOCK_TYPES = [
   ProgramBlockType.DeathBy,
   ProgramBlockType.Superset,
   ProgramBlockType.Complex,
+  ProgramBlockType.SkillWork,
+  ProgramBlockType.Strength,
+  ProgramBlockType.Conditioning,
+  ProgramBlockType.Gymnastics,
+  ProgramBlockType.Weightlifting,
 ] as const;
 
 export type ProgramBlockGroupType = (typeof GROUP_BLOCK_TYPES)[number];
@@ -38,8 +48,9 @@ export type ProgramDayExercise = {
   exerciseName: string;
   exerciseNameRu: string;
   sortOrder: number;
-  sets: number | null;
-  reps: number | null;
+  /** Free-form volume text (e.g. "3", "5/4", "3-6"), or null when unset. */
+  sets: string | null;
+  reps: string | null;
   instruction: string;
   createdAt: string;
 };
