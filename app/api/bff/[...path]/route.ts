@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { MENTORIX_API_BASE_URL } from '@/src/shared/api';
-import { refreshSessionIfNeeded } from '@/src/entities/auth/server/dal';
+import { forceRefresh, refreshSessionIfNeeded } from '@/src/entities/auth/server/dal';
 
 const baseUrl = MENTORIX_API_BASE_URL.replace(/\/$/, '');
 
@@ -61,7 +61,6 @@ const handle = async (req: NextRequest, ctx: { params: Promise<{ path?: string[]
   req.headers.forEach((value, key) => {
     if (!HOP_BY_HOP.has(key.toLowerCase())) headers.set(key, value);
   });
-  headers.set('Authorization', `Bearer ${session.accessToken}`);
 
   const hasBody = req.method !== 'GET' && req.method !== 'HEAD';
   let body: BodyInit | undefined;
@@ -77,13 +76,29 @@ const handle = async (req: NextRequest, ctx: { params: Promise<{ path?: string[]
     }
   }
 
-  const upstream = await fetch(url, {
-    method: req.method,
-    headers,
-    body,
-    redirect: 'manual',
-    cache: 'no-store',
-  });
+  // Buffered above so the request can be replayed once after a refresh.
+  const send = (accessToken: string): Promise<Response> => {
+    headers.set('Authorization', `Bearer ${accessToken}`);
+    return fetch(url, {
+      method: req.method,
+      headers,
+      body,
+      redirect: 'manual',
+      cache: 'no-store',
+    });
+  };
+
+  let upstream = await send(session.accessToken);
+
+  // The access token can still be rejected (revoked, or expired within the
+  // proactive-refresh buffer). Try one forced refresh + replay before giving up;
+  // a persistent 401 falls through to the client, which redirects to login.
+  if (upstream.status === 401) {
+    const refreshed = await forceRefresh();
+    if (refreshed) {
+      upstream = await send(refreshed.accessToken);
+    }
+  }
 
   const responseHeaders = new Headers();
   upstream.headers.forEach((value, key) => {
