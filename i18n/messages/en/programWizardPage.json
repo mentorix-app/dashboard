@@ -17,7 +17,8 @@
     "back": "Back",
     "next": "Next",
     "publish": "Publish",
-    "publishing": "Publishing…"
+    "publishing": "Publishing…",
+    "done": "Back to programs"
   },
   "actions": {
     "archive": "Archive",

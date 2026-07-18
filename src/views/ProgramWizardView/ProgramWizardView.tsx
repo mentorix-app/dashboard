@@ -25,6 +25,7 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
     status,
     isDraft,
     isArchived,
+    canManage,
     title,
     progressText,
     showMissingBanner,
@@ -34,6 +35,7 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
     handleBack,
     handleNext,
     handlePublish,
+    handleDone,
     validateBeforePublish,
   } = useProgramWizardConfig(programId);
 
@@ -121,12 +123,17 @@ export const ProgramWizardView = ({ programId, children }: ProgramWizardViewProp
             {t('nav.next')}
             <ArrowRight aria-hidden />
           </Button>
-        ) : isDraft ? (
+        ) : isDraft && canManage ? (
           <Button type="button" onClick={handlePublish} disabled={isPublishing}>
             {isPublishing ? <Loader2 className="animate-spin" aria-hidden /> : <Check aria-hidden />}
             {isPublishing ? t('nav.publishing') : t('nav.publish')}
           </Button>
-        ) : null}
+        ) : (
+          <Button type="button" variant="outline" onClick={handleDone}>
+            {t('nav.done')}
+            <ArrowRight aria-hidden />
+          </Button>
+        )}
       </footer>
     </section>
   );

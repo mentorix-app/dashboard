@@ -17,7 +17,8 @@
     "back": "Назад",
     "next": "Далее",
     "publish": "Опубликовать",
-    "publishing": "Публикуем…"
+    "publishing": "Публикуем…",
+    "done": "К программам"
   },
   "actions": {
     "archive": "В архив",

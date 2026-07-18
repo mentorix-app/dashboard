@@ -35,7 +35,11 @@ export const useDeleteExercises = () => {
   return useMutation<DeleteExercisesResponse, HttpError, DeleteExercisesParams>({
     mutationFn: ({ ids }) =>
       http.delete<DeleteExercisesResponse>('/exercises', { data: { ids } }).then((response) => response.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.exercises.all }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.exercises.all });
+      // Deleting frees quota, so refresh the quota-aware capabilities on /auth/me.
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.me() });
+    },
   });
 };
 
@@ -43,7 +47,11 @@ export const useCreateExercise = () => {
   const queryClient = useQueryClient();
 
   return usePost<CreateExerciseResponse, HttpError, CreateExerciseParams>('/exercises', {
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.exercises.all }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.exercises.all });
+      // Creating consumes quota, so refresh the quota-aware capabilities on /auth/me.
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.me() });
+    },
   });
 };
 

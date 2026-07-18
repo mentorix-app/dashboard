@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { useTranslations } from '@/i18n';
 import {
   ProgramStatus,
+  canManageProgram,
   useArchiveProgram,
   useProgram,
   useProgramAssignments,
@@ -11,6 +12,7 @@ import {
   usePublishProgramUpdate,
   useSyncProgramAssignments,
 } from '@/src/entities/program';
+import { useCapabilities, useCurrentUser } from '@/src/entities/user';
 import { useToast } from '@/src/shared/hooks';
 
 /** The confirmable lifecycle actions; one confirmation modal is open at a time. */
@@ -36,10 +38,15 @@ export const useWizardActions = (programId: string) => {
   const t = useTranslations('ProgramWizard');
   const { showSuccessToast, showErrorToast } = useToast();
   const { data: program } = useProgram(programId);
+  const { isTrainer } = useCapabilities();
+  const currentUser = useCurrentUser();
 
   const status = program?.status ?? ProgramStatus.Draft;
   const isPublished = status === ProgramStatus.Published;
   const isArchived = status === ProgramStatus.Archived;
+  // Admins are read-only for programs; only the owning trainer sees lifecycle
+  // actions (archive, publish-update, sync, republish).
+  const canManage = !!program && canManageProgram(program, { isTrainer, userId: currentUser?.userId });
 
   const assignmentsQuery = useProgramAssignments(programId, isPublished);
 
@@ -53,8 +60,8 @@ export const useWizardActions = (programId: string) => {
   const closeAction = () => setActiveAction(null);
 
   const behindLatestCount = (assignmentsQuery.data?.items ?? []).filter((item) => item.isBehindLatest).length;
-  const canPublishUpdate = isPublished && program?.hasUnpublishedChanges === true;
-  const canSync = isPublished && behindLatestCount > 0;
+  const canPublishUpdate = canManage && isPublished && program?.hasUnpublishedChanges === true;
+  const canSync = canManage && isPublished && behindLatestCount > 0;
 
   const handleConfirmArchive = () =>
     archiveMutation.mutate(programId, {
@@ -150,10 +157,10 @@ export const useWizardActions = (programId: string) => {
 
   return {
     status,
-    canArchive: isPublished,
+    canArchive: canManage && isPublished,
     canPublishUpdate,
     canSync,
-    canRepublish: isArchived,
+    canRepublish: canManage && isArchived,
     isArchiving: archiveMutation.isPending,
     isRepublishing: republishMutation.isPending,
     isPublishingUpdate: publishUpdateMutation.isPending,

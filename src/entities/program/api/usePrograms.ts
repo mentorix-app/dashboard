@@ -35,7 +35,11 @@ export const useCreateProgram = () => {
 
   // POST /programs takes no body: it creates a draft program with day 1.
   return usePost<CreateProgramResponse, HttpError, void>('/programs', {
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.programs.all });
+      // Creating consumes quota, so refresh the quota-aware capabilities on /auth/me.
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.me() });
+    },
   });
 };
 
@@ -115,6 +119,10 @@ export const useDeleteProgram = () => {
   // Bulk delete in the UI fans out to one request per selected program.
   return useMutation<void, HttpError, string>({
     mutationFn: (id) => http.delete<void>(`/programs/${id}`).then(() => undefined),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.programs.all }),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: queryKeys.programs.all });
+      // Deleting frees quota, so refresh the quota-aware capabilities on /auth/me.
+      queryClient.invalidateQueries({ queryKey: queryKeys.user.me() });
+    },
   });
 };

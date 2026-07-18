@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type Resolver, type SubmitHandler } from 'react-hook-form';
 import { useTranslations } from '@/i18n';
 import { useCreateExercise, useUpdateExercise, type Exercise } from '@/src/entities/exercise';
+import { parseQuotaError } from '@/src/entities/subscription';
 import { useToast } from '@/src/shared/hooks';
 
 import { EXERCISE_FORM_DEFAULT_VALUES } from '../../ExerciseForm.constants';
@@ -53,7 +54,10 @@ export const useExerciseFormFieldsConfig = ({ exerciseId, exercise, onSuccess }:
             showSuccessToast(t('toast.updateSuccess'));
             onSuccess();
           },
-          onError: () => showErrorToast(t('toast.updateError')),
+          // Quota (409) errors are surfaced by the global handler; avoid a duplicate toast.
+          onError: (error) => {
+            if (!parseQuotaError(error)) showErrorToast(t('toast.updateError'));
+          },
         }
       );
       return;
@@ -64,7 +68,10 @@ export const useExerciseFormFieldsConfig = ({ exerciseId, exercise, onSuccess }:
         showSuccessToast(t('toast.createSuccess'));
         onSuccess();
       },
-      onError: () => showErrorToast(t('toast.createError')),
+      // Quota (409) errors are surfaced by the global handler; avoid a duplicate toast.
+      onError: (error) => {
+        if (!parseQuotaError(error)) showErrorToast(t('toast.createError'));
+      },
     });
   };
 

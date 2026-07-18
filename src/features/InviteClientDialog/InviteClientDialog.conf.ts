@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from '@/i18n';
 import { useCreateTrainerInvite } from '@/src/entities/client';
+import { parseQuotaError } from '@/src/entities/subscription';
 import { useToast } from '@/src/shared/hooks';
 import { copyToClipboard, formatDate } from '@/src/shared/lib';
 
@@ -21,7 +22,10 @@ export const useInviteClientDialogConfig = ({ open, onOpenChange }: InviteClient
   const { mutate, data: invite, error, isPending, reset } = useCreateTrainerInvite();
 
   const isNotConfigured = error?.status === INVITE_NOT_CONFIGURED_STATUS;
-  const errorMessage = error ? (isNotConfigured ? t('notConfigured') : t('error')) : null;
+  // Quota (409) errors are surfaced by the global handler; don't also show the
+  // generic inline message for them.
+  const isQuota = Boolean(parseQuotaError(error));
+  const errorMessage = error && !isQuota ? (isNotConfigured ? t('notConfigured') : t('error')) : null;
 
   const handleOpenChange = (next: boolean) => {
     if (!next) reset();

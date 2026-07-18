@@ -23,9 +23,16 @@ export const useClientsInfinite = (params: FetchClientsListParams = {}) =>
     (lastPage) => (lastPage.pagination.page < lastPage.pagination.totalPages ? lastPage.pagination.page + 1 : undefined)
   );
 
-export const useCreateTrainerInvite = () =>
+export const useCreateTrainerInvite = () => {
+  const queryClient = useQueryClient();
+
   // POST /trainer/invites takes no body: it mints a one-time Telegram invite link.
-  usePost<TrainerInvite, HttpError, void>('/trainer/invites');
+  return usePost<TrainerInvite, HttpError, void>('/trainer/invites', {
+    // Minting an invite can consume quota, so refresh the quota-aware
+    // capabilities on /auth/me (keeps `canCreateInvite` from going stale).
+    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.user.me() }),
+  });
+};
 
 export const useSetClientsProgram = () => {
   const queryClient = useQueryClient();
