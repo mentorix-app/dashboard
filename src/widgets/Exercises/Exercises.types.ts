@@ -2,6 +2,7 @@ import type {
   Exercise,
   ExerciseEquipment,
   ExerciseMuscleGroup,
+  ExerciseScope,
   ExerciseSortField,
   ExerciseSortOrder,
   ExerciseType,
@@ -14,6 +15,7 @@ export type ExercisesConfig = {
   filtersOpen: boolean;
   listParams: FetchExercisesListParams;
   canManage: boolean;
+  canManageExercise: (exercise: Exercise) => boolean;
   exercises: Exercise[];
   isPending: boolean;
   isFetchingNextPage: boolean;
@@ -24,10 +26,13 @@ export type ExercisesConfig = {
   isDeleteDialogOpen: boolean;
   isDeleting: boolean;
   isFormOpen: boolean;
+  isFormReadOnly: boolean;
+  isPlansModalOpen: boolean;
   editingId: string | undefined;
   handleSearchChange: (value: string) => void;
   handleFiltersOpenChange: (open: boolean) => void;
   handleCreateNew: () => void;
+  handlePlansModalOpenChange: (open: boolean) => void;
   handleRowClick: (id: string) => void;
   handleFormOpenChange: (open: boolean) => void;
   handleToggleRow: (id: string) => void;
@@ -36,6 +41,7 @@ export type ExercisesConfig = {
   handleMuscleGroupFilterChange: (value: ExerciseMuscleGroup, checked: boolean) => void;
   handleEquipmentFilterChange: (value: ExerciseEquipment, checked: boolean) => void;
   handleDifficultyFilterChange: (value: Difficulty, checked: boolean) => void;
+  handleScopeFilterChange: (value: ExerciseScope | undefined) => void;
   handleClearFilters: () => void;
   handleSortChange: (field: ExerciseSortField) => void;
   handleLoadMore: () => void;
@@ -52,6 +58,7 @@ export type ExercisesSearchParamUpdates = {
   muscleGroup?: readonly ExerciseMuscleGroup[];
   equipment?: readonly ExerciseEquipment[];
   difficulty?: readonly Difficulty[];
+  scope?: ExerciseScope;
   sortBy?: ExerciseSortField;
   sortOrder?: ExerciseSortOrder;
 };

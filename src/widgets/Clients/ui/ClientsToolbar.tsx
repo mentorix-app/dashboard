@@ -16,6 +16,7 @@ type ClientsToolbarProps = {
   onViewChange: (view: ViewMode) => void;
   onSortOrderChange: (order: ClientSortOrder) => void;
   onAddClient: () => void;
+  canAddClient: boolean;
 };
 
 export const ClientsToolbar = ({
@@ -26,6 +27,7 @@ export const ClientsToolbar = ({
   onViewChange,
   onSortOrderChange,
   onAddClient,
+  canAddClient,
 }: ClientsToolbarProps) => {
   const t = useTranslations('Clients');
 
@@ -47,10 +49,12 @@ export const ClientsToolbar = ({
           descIcon={ArrowUpAZ}
         />
         <ViewModeSwitch value={view} onChange={onViewChange} labels={{ grid: t('view.grid'), list: t('view.list') }} />
-        <Button type="button" onClick={onAddClient}>
-          <UserPlus className="size-4" />
-          {t('addClient')}
-        </Button>
+        {canAddClient ? (
+          <Button type="button" onClick={onAddClient}>
+            <UserPlus className="size-4" />
+            {t('addClient')}
+          </Button>
+        ) : null}
       </div>
     </div>
   );

@@ -15,7 +15,12 @@
     "type": "Тип",
     "muscleGroup": "Группа мышц",
     "equipment": "Оборудование",
-    "difficulty": "Сложность"
+    "difficulty": "Сложность",
+    "scope": "Коллекция",
+    "scopeOptions": {
+      "global": "Общие",
+      "private": "Мои упражнения"
+    }
   },
   "sort": {
     "change": "Изменить сортировку по полю {column}"

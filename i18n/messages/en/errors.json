@@ -1,0 +1,16 @@
+{
+  "quotaExceeded": {
+    "title": "Plan limit reached",
+    "description": "You've reached your {plan} plan limit for {resource} ({usage}/{limit}). Upgrade to add more."
+  },
+  "resource": {
+    "exercises": "exercises",
+    "programs": "programs",
+    "clients": "clients"
+  },
+  "plan": {
+    "free": "Free",
+    "advance": "Advance",
+    "elite": "Elite"
+  }
+}

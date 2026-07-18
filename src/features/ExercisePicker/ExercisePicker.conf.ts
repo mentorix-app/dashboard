@@ -3,7 +3,13 @@
 import { useMemo, useState } from 'react';
 
 import { useLocale, useTranslations } from '@/i18n';
-import { getExerciseDescription, getExerciseName, useExercisesInfinite, type Exercise } from '@/src/entities/exercise';
+import {
+  getExerciseDescription,
+  getExerciseName,
+  useExercisesInfinite,
+  type Exercise,
+  type ExerciseScope,
+} from '@/src/entities/exercise';
 import { useDebouncedValue } from '@/src/shared/hooks';
 
 import { MAX_PICK, PICKER_SEARCH_DEBOUNCE_MS } from './ExercisePicker.constants';
@@ -19,11 +25,13 @@ export const useExercisePickerConfig = ({ open, onOpenChange, onConfirm, exclude
   const locale = useLocale();
 
   const [search, setSearch] = useState('');
+  const [scope, setScope] = useState<ExerciseScope | undefined>(undefined);
   const [selectedIds, setSelectedIds] = useState<Set<string>>(() => new Set());
 
   const debouncedSearch = useDebouncedValue(search.trim(), PICKER_SEARCH_DEBOUNCE_MS);
   const { data, isPending, isFetchingNextPage, hasNextPage, fetchNextPage } = useExercisesInfinite({
     name: debouncedSearch || undefined,
+    scope,
   });
 
   const exclude = useMemo(() => new Set(excludeIds ?? []), [excludeIds]);
@@ -37,6 +45,7 @@ export const useExercisePickerConfig = ({ open, onOpenChange, onConfirm, exclude
 
   const reset = () => {
     setSearch('');
+    setScope(undefined);
     setSelectedIds(new Set());
   };
 
@@ -71,6 +80,8 @@ export const useExercisePickerConfig = ({ open, onOpenChange, onConfirm, exclude
     onOpenChange: handleOpenChange,
     search,
     onSearchChange: setSearch,
+    scope,
+    onScopeChange: setScope,
     exercises,
     getName: (exercise: Exercise) => getExerciseName(exercise, locale),
     getDescription: (exercise: Exercise) => getExerciseDescription(exercise, locale),

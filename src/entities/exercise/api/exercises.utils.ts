@@ -21,6 +21,7 @@ export const buildExercisesQuery = (params: FetchExercisesListParams): Record<st
   if (params.muscleGroup?.length) query.muscle_group = [...params.muscleGroup];
   if (params.equipment?.length) query.equipment = [...params.equipment];
   if (params.difficulty?.length) query.difficulty = [...params.difficulty];
+  if (params.scope) query.scope = params.scope;
   if (params.sortBy) {
     query.sort_by = SORT_FIELD_TO_QUERY[params.sortBy];
     query.sort_order = params.sortOrder ?? 'asc';

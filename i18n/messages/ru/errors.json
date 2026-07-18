@@ -1,0 +1,16 @@
+{
+  "quotaExceeded": {
+    "title": "Достигнут лимит тарифа",
+    "description": "Вы достигли лимита тарифа {plan} для раздела «{resource}» ({usage}/{limit}). Обновите тариф, чтобы добавить больше."
+  },
+  "resource": {
+    "exercises": "упражнения",
+    "programs": "программы",
+    "clients": "клиенты"
+  },
+  "plan": {
+    "free": "Free",
+    "advance": "Advance",
+    "elite": "Elite"
+  }
+}

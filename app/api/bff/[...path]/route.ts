@@ -1,6 +1,6 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { MENTORIX_API_BASE_URL } from '@/src/shared/api';
-import { forceRefresh, refreshSessionIfNeeded } from '@/src/entities/auth/server/dal';
+import { deleteSessionCookie, forceRefresh, refreshSessionIfNeeded } from '@/src/entities/auth/server/dal';
 
 const baseUrl = MENTORIX_API_BASE_URL.replace(/\/$/, '');
 
@@ -98,6 +98,15 @@ const handle = async (req: NextRequest, ctx: { params: Promise<{ path?: string[]
     if (refreshed) {
       upstream = await send(refreshed.accessToken);
     }
+  }
+
+  // The backend still rejects us after a refresh attempt: the session is dead.
+  // Clear the encrypted session cookie so the middleware's optimistic check
+  // fails and the client redirect to /login actually sticks. Without this the
+  // still-valid cookie makes the middleware bounce the user back into the app,
+  // producing an infinite 401 -> /login -> dashboard reload loop.
+  if (upstream.status === 401) {
+    await deleteSessionCookie();
   }
 
   const responseHeaders = new Headers();

@@ -2,6 +2,7 @@
 
 import { type FC } from 'react';
 import { useTranslations } from '@/i18n';
+import { PlansModal } from '@/src/features/PlansModal';
 import { ConfirmationModal } from '@/src/shared/ui';
 
 import { useProgramsConfig } from './Programs.conf';
@@ -24,10 +25,13 @@ export const Programs: FC = () => {
     isDeleteDialogOpen,
     isDeleting,
     isCreating,
+    isPlansModalOpen,
+    canCreate,
     canManageProgram,
     handleSearchChange,
     handleFiltersOpenChange,
     handleCreateNew,
+    handlePlansModalOpenChange,
     handleToggleRow,
     handleToggleAllVisible,
     handleStatusFilterChange,
@@ -51,6 +55,7 @@ export const Programs: FC = () => {
         activeFilterCount={activeFilterCount}
         selectedCount={visibleSelected.size}
         isCreating={isCreating}
+        canCreate={canCreate}
         onSearchChange={handleSearchChange}
         onFiltersOpenChange={handleFiltersOpenChange}
         onCreateNew={handleCreateNew}
@@ -89,6 +94,7 @@ export const Programs: FC = () => {
         onOpenChange={handleDeleteDialogOpenChange}
         onConfirm={handleConfirmDelete}
       />
+      <PlansModal open={isPlansModalOpen} onOpenChange={handlePlansModalOpenChange} />
     </>
   );
 };

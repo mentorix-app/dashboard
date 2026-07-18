@@ -24,6 +24,7 @@ export const ExercisesToolbar: FC<ExercisesToolbarProps> = ({
   onMuscleGroupFilterChange,
   onEquipmentFilterChange,
   onDifficultyFilterChange,
+  onScopeFilterChange,
   onClearFilters,
 }) => {
   const t = useTranslations('Exercises');
@@ -60,6 +61,7 @@ export const ExercisesToolbar: FC<ExercisesToolbarProps> = ({
             onMuscleGroupFilterChange={onMuscleGroupFilterChange}
             onEquipmentFilterChange={onEquipmentFilterChange}
             onDifficultyFilterChange={onDifficultyFilterChange}
+            onScopeFilterChange={onScopeFilterChange}
             onClearFilters={onClearFilters}
           />
         </div>
@@ -85,6 +87,7 @@ export const ExercisesToolbar: FC<ExercisesToolbarProps> = ({
           onMuscleGroupFilterChange={onMuscleGroupFilterChange}
           onEquipmentFilterChange={onEquipmentFilterChange}
           onDifficultyFilterChange={onDifficultyFilterChange}
+          onScopeFilterChange={onScopeFilterChange}
         />
       </CollapsibleContent>
     </Collapsible>

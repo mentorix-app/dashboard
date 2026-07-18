@@ -10,6 +10,7 @@ export const QUERY_KEY_EXERCISES = 'exercises' as const;
 export const QUERY_KEY_PROGRAMS = 'programs' as const;
 export const QUERY_KEY_CLIENTS = 'clients' as const;
 export const QUERY_KEY_USER = 'user' as const;
+export const QUERY_KEY_PLANS = 'plans' as const;
 
 export const AUTH_SESSION_COOKIE = 'auth_session';
 

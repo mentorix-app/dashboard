@@ -22,10 +22,13 @@ export type ProgramsConfig = {
   isDeleteDialogOpen: boolean;
   isDeleting: boolean;
   isCreating: boolean;
+  isPlansModalOpen: boolean;
+  canCreate: boolean;
   canManageProgram: (program: Program) => boolean;
   handleSearchChange: (value: string) => void;
   handleFiltersOpenChange: (open: boolean) => void;
   handleCreateNew: () => void;
+  handlePlansModalOpenChange: (open: boolean) => void;
   handleToggleRow: (id: string) => void;
   handleToggleAllVisible: () => void;
   handleStatusFilterChange: (value: ProgramStatus, checked: boolean) => void;

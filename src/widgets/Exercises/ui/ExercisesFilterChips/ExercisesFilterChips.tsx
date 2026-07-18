@@ -14,6 +14,7 @@ export const ExercisesFilterChips: FC<ExercisesFilterChipsProps> = ({
   onMuscleGroupFilterChange,
   onEquipmentFilterChange,
   onDifficultyFilterChange,
+  onScopeFilterChange,
   onClearFilters,
 }) => {
   const t = useTranslations('Exercises');
@@ -22,6 +23,18 @@ export const ExercisesFilterChips: FC<ExercisesFilterChipsProps> = ({
 
   return (
     <div className="flex flex-wrap items-center gap-2">
+      {listParams.scope ? (
+        <Button
+          key={`scope-${listParams.scope}`}
+          type="button"
+          variant="secondary"
+          size="xs"
+          onClick={() => onScopeFilterChange(undefined)}
+        >
+          {t(`filters.scopeOptions.${listParams.scope}`)}
+          <X aria-hidden />
+        </Button>
+      ) : null}
       {listParams.type?.map((value) => (
         <Button
           key={`type-${value}`}

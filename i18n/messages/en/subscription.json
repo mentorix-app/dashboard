@@ -1,0 +1,14 @@
+{
+  "current": "Current plan",
+  "unlimited": "Unlimited",
+  "features": {
+    "exercises": "Exercises",
+    "programs": "Active programs",
+    "clients": "Active clients"
+  },
+  "plan": {
+    "free": "Free",
+    "advance": "Advance",
+    "elite": "Elite"
+  }
+}

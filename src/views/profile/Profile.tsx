@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from '@/i18n';
 import { useCurrentUser } from '@/src/entities/user';
 import { formatDate } from '@/src/shared/lib';
 import { Avatar, AvatarFallback, AvatarImage, Card, Typography } from '@/src/shared/ui';
+import { SubscriptionPlans } from '@/src/widgets/SubscriptionPlans';
 
 import { ProfileForm } from './ui/ProfileForm';
 
@@ -60,6 +61,8 @@ export const Profile = () => {
           </Typography>
         </div>
       </Card>
+
+      <SubscriptionPlans />
 
       <Card className="flex flex-col gap-4 p-6">
         <Typography variant="h3">{t('editHeading')}</Typography>

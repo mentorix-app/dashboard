@@ -2,6 +2,12 @@
   "title": "Add exercises",
   "description": "Search the catalog and select up to {max} exercises to add to this day.",
   "searchPlaceholder": "Search by name…",
+  "scope": {
+    "label": "Scope",
+    "all": "All",
+    "global": "Global",
+    "private": "My exercises"
+  },
   "selectedCount": "{count} of {max} selected",
   "maxReached": "You can select up to {max} exercises at a time.",
   "empty": "No exercises match your search.",

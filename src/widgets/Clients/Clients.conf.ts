@@ -1,10 +1,10 @@
 'use client';
 
-import { useMemo, useState } from 'react';
+import { useState } from 'react';
 
 import { useLocale, useTranslations } from '@/i18n';
 import { isClientOwnedBy } from '@/src/entities/client';
-import { useCurrentUser } from '@/src/entities/user';
+import { useCapabilities, useCurrentUser } from '@/src/entities/user';
 import { formatDate, ROUTES } from '@/src/shared/lib';
 
 import type { ClientCardItem } from './Clients.types';
@@ -19,7 +19,11 @@ export const useClientsConfig = () => {
   const t = useTranslations('Clients');
   const locale = useLocale();
   const user = useCurrentUser();
+  const { isAdmin, canCreateInvite } = useCapabilities();
   const [inviteOpen, setInviteOpen] = useState(false);
+  const [plansOpen, setPlansOpen] = useState(false);
+  // Admins have read-only access, so they cannot invite clients.
+  const canInvite = !isAdmin;
 
   const search = useClientsSearch();
   const list = useClientsList(search.listParams);
@@ -31,46 +35,42 @@ export const useClientsConfig = () => {
   });
   const sync = useClientSync(list.clients);
 
-  const items: ClientCardItem[] = useMemo(
-    () =>
-      list.clients.map((client) => {
-        const assignment = client.programAssignment;
-        const programName = assignment
-          ? locale === 'ru' && assignment.programNameRu
-            ? assignment.programNameRu
-            : assignment.programName
-          : '';
+  const items: ClientCardItem[] = list.clients.map((client) => {
+    const assignment = client.programAssignment;
+    const programName = assignment
+      ? locale === 'ru' && assignment.programNameRu
+        ? assignment.programNameRu
+        : assignment.programName
+      : '';
 
-        const isOwned = isClientOwnedBy(client, user?.userId);
+    const isOwned = isClientOwnedBy(client, user?.userId);
 
-        return {
-          client,
-          canAssign: isOwned,
-          selectable: selection.isSelectable(client),
-          canSync: Boolean(assignment?.isBehindLatest) && isOwned,
-          labels: {
-            statusLabel: t(`status.${client.status}`),
-            linkedLabel: t('linkedAt', { date: formatDate(client.linkedAt, locale, 'shortDate') }),
-            programName,
-            programHref: assignment ? ROUTES.programBasics(assignment.programId) : undefined,
-            programLabel: assignment
-              ? t('assignedProgram', { date: formatDate(assignment.assignedAt, locale, 'shortDate') })
-              : t('noProgram'),
-            // Admins see clients from every trainer; surface whose client this is.
-            trainerLabel: isOwned ? undefined : t('trainer', { name: client.trainerDisplayName }),
-            lastActiveLabel: client.lastActiveAt
-              ? t('lastActive', { date: formatDate(client.lastActiveAt, locale, 'shortDate') })
-              : t('neverActive'),
-            assignLabel: assignment ? t('changeProgram') : t('assign'),
-            syncLabel: t('syncToLatest'),
-            avatarAlt: t('avatarAlt', { name: client.displayName }),
-            blockedHint: t('blockedHint'),
-            selectLabel: t('selectClient', { name: client.displayName }),
-          },
-        };
-      }),
-    [list.clients, t, locale, user?.userId, selection]
-  );
+    return {
+      client,
+      canAssign: isOwned,
+      selectable: selection.isSelectable(client),
+      canSync: Boolean(assignment?.isBehindLatest) && isOwned,
+      labels: {
+        statusLabel: t(`status.${client.status}`),
+        linkedLabel: t('linkedAt', { date: formatDate(client.linkedAt, locale, 'shortDate') }),
+        programName,
+        programHref: assignment ? ROUTES.programBasics(assignment.programId) : undefined,
+        programLabel: assignment
+          ? t('assignedProgram', { date: formatDate(assignment.assignedAt, locale, 'shortDate') })
+          : t('noProgram'),
+        // Admins see clients from every trainer; surface whose client this is.
+        trainerLabel: isOwned ? undefined : t('trainer', { name: client.trainerDisplayName }),
+        lastActiveLabel: client.lastActiveAt
+          ? t('lastActive', { date: formatDate(client.lastActiveAt, locale, 'shortDate') })
+          : t('neverActive'),
+        assignLabel: assignment ? t('changeProgram') : t('assign'),
+        syncLabel: t('syncToLatest'),
+        avatarAlt: t('avatarAlt', { name: client.displayName }),
+        blockedHint: t('blockedHint'),
+        selectLabel: t('selectClient', { name: client.displayName }),
+      },
+    };
+  });
 
   return {
     search: search.search,
@@ -81,6 +81,8 @@ export const useClientsConfig = () => {
     isFetchingNextPage: list.isFetchingNextPage,
     hasNextPage: list.hasNextPage,
     inviteOpen,
+    plansOpen,
+    canInvite,
     pickerOpen: assign.pickerOpen,
     selectedProgramId: assign.selectedProgramId,
     selectedIds: selection.selectedIds,
@@ -104,6 +106,8 @@ export const useClientsConfig = () => {
     handleBulkPickerOpenChange: bulk.handleOpenChange,
     handleConfirmBulkAssign: bulk.handleConfirm,
     handleInviteOpenChange: setInviteOpen,
-    handleOpenInvite: () => setInviteOpen(true),
+    handlePlansOpenChange: setPlansOpen,
+    // Trainers who exhausted their invite quota are shown the upgrade modal.
+    handleOpenInvite: () => (canCreateInvite ? setInviteOpen(true) : setPlansOpen(true)),
   };
 };

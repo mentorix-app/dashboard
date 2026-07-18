@@ -1,6 +1,6 @@
 import type { Difficulty } from '@/src/shared/types';
 
-import type { Exercise, ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from '../model/types';
+import type { Exercise, ExerciseEquipment, ExerciseMuscleGroup, ExerciseScope, ExerciseType } from '../model/types';
 
 export type ExerciseSortField = 'name' | 'type' | 'muscleGroup' | 'equipment' | 'difficulty' | 'modifiedAt';
 
@@ -12,6 +12,7 @@ export type FetchExercisesParams = {
   muscleGroup?: ExerciseMuscleGroup[];
   equipment?: ExerciseEquipment[];
   difficulty?: Difficulty[];
+  scope?: ExerciseScope;
   sortBy?: ExerciseSortField;
   sortOrder?: ExerciseSortOrder;
 };
@@ -38,7 +39,10 @@ export type DeleteExercisesResponse = {
   deletedCount: number;
 };
 
-export type CreateExerciseParams = Omit<Exercise, 'id' | 'addedBy' | 'modifiedBy' | 'modifiedAt' | 'createdAt'>;
+export type CreateExerciseParams = Omit<
+  Exercise,
+  'id' | 'addedBy' | 'modifiedBy' | 'modifiedAt' | 'createdAt' | 'scope' | 'ownerUserId'
+>;
 
 export type CreateExerciseResponse = Exercise;
 

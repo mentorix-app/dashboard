@@ -6,14 +6,20 @@ export const useExercisesTableConfig = ({
   exercises,
   isLoading,
   selectedIds,
+  canSelectExercise,
 }: ExercisesTableProps): ExercisesTableConfig => {
+  const selectableExercises = useMemo(
+    () => (canSelectExercise ? exercises.filter(canSelectExercise) : exercises),
+    [exercises, canSelectExercise]
+  );
+
   const selectedCount = useMemo(
-    () => exercises.filter((exercise) => selectedIds.has(exercise.id)).length,
-    [exercises, selectedIds]
+    () => selectableExercises.filter((exercise) => selectedIds.has(exercise.id)).length,
+    [selectableExercises, selectedIds]
   );
 
   return {
-    selectedState: selectedCount === 0 ? false : selectedCount === exercises.length ? true : 'indeterminate',
-    isSelectionDisabled: exercises.length === 0 || isLoading,
+    selectedState: selectedCount === 0 ? false : selectedCount === selectableExercises.length ? true : 'indeterminate',
+    isSelectionDisabled: selectableExercises.length === 0 || isLoading,
   };
 };

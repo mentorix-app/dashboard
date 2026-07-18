@@ -8,6 +8,7 @@ export type ProgramsToolbarProps = {
   activeFilterCount: number;
   selectedCount: number;
   isCreating: boolean;
+  canCreate: boolean;
   onSearchChange: (value: string) => void;
   onFiltersOpenChange: (open: boolean) => void;
   onCreateNew: () => void;

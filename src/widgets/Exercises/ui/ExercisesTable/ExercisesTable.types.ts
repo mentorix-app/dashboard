@@ -8,6 +8,7 @@ export type ExercisesTableProps = {
   selectedIds: ReadonlySet<string>;
   activeId: string | undefined;
   canSelect: boolean;
+  canSelectExercise?: (exercise: Exercise) => boolean;
   sortBy: ExerciseSortField | undefined;
   sortOrder: ExerciseSortOrder | undefined;
   onToggleRow: (id: string) => void;
@@ -34,6 +35,7 @@ export type ExercisesTableRowProps = {
   isSelected: boolean;
   isActive: boolean;
   canSelect: boolean;
+  isSelectable: boolean;
   onToggleRow: (id: string) => void;
   onRowClick: (id: string) => void;
 };

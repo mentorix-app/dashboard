@@ -18,6 +18,7 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
   selectedIds,
   activeId,
   canSelect,
+  canSelectExercise,
   sortBy,
   sortOrder,
   onToggleRow,
@@ -34,6 +35,7 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
     selectedIds,
     activeId,
     canSelect,
+    canSelectExercise,
     sortBy,
     sortOrder,
     onToggleRow,
@@ -68,6 +70,7 @@ export const ExercisesTable: FC<ExercisesTableProps> = ({
                   isSelected={selectedIds.has(exercise.id)}
                   isActive={activeId === exercise.id}
                   canSelect={canSelect}
+                  isSelectable={!canSelectExercise || canSelectExercise(exercise)}
                   onToggleRow={onToggleRow}
                   onRowClick={onRowClick}
                 />

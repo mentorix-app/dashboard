@@ -16,6 +16,7 @@ export const ProgramsToolbar: FC<ProgramsToolbarProps> = ({
   activeFilterCount,
   selectedCount,
   isCreating,
+  canCreate,
   onSearchChange,
   onFiltersOpenChange,
   onCreateNew,
@@ -68,10 +69,12 @@ export const ProgramsToolbar: FC<ProgramsToolbarProps> = ({
               {t('deleteSelected', { count: selectedCount })}
             </Button>
           ) : null}
-          <Button type="button" className="w-full sm:w-auto" onClick={onCreateNew} disabled={isCreating}>
-            {isCreating ? <Loader2 className="animate-spin" aria-hidden /> : <Plus aria-hidden />}
-            {t('createNew')}
-          </Button>
+          {canCreate ? (
+            <Button type="button" className="w-full sm:w-auto" onClick={onCreateNew} disabled={isCreating}>
+              {isCreating ? <Loader2 className="animate-spin" aria-hidden /> : <Plus aria-hidden />}
+              {t('createNew')}
+            </Button>
+          ) : null}
         </div>
       </div>
       <CollapsibleContent>

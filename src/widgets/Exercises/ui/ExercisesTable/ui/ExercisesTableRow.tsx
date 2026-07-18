@@ -13,6 +13,7 @@ export const ExercisesTableRow: FC<ExercisesTableRowProps> = ({
   isSelected,
   isActive,
   canSelect,
+  isSelectable,
   onToggleRow,
   onRowClick,
 }) => {
@@ -47,11 +48,13 @@ export const ExercisesTableRow: FC<ExercisesTableRowProps> = ({
     >
       {canSelect ? (
         <TableCell onClick={handleSelectCellClick}>
-          <Checkbox
-            checked={isSelected}
-            onCheckedChange={() => onToggleRow(exercise.id)}
-            aria-label={t('selectRow', { name })}
-          />
+          {isSelectable ? (
+            <Checkbox
+              checked={isSelected}
+              onCheckedChange={() => onToggleRow(exercise.id)}
+              aria-label={t('selectRow', { name })}
+            />
+          ) : null}
         </TableCell>
       ) : null}
       <TableCell className="min-w-64">

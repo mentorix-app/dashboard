@@ -14,6 +14,9 @@ import inviteClient from './inviteClient.json';
 import loginPage from './loginPage.json';
 import signupPage from './signupPage.json';
 import profilePage from './profilePage.json';
+import errors from './errors.json';
+import subscription from './subscription.json';
+import plansModal from './plansModal.json';
 
 export default {
   AppSidebar: appSidebar,
@@ -32,4 +35,7 @@ export default {
   Login: loginPage,
   Signup: signupPage,
   Profile: profilePage,
+  Errors: errors,
+  Subscription: subscription,
+  PlansModal: plansModal,
 };

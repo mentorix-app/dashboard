@@ -4,7 +4,7 @@ import { useCallback, useMemo, useState } from 'react';
 
 import { useTranslations, useLocale, useRouter } from '@/i18n';
 import { useCreateProgram, type Program } from '@/src/entities/program';
-import { useCurrentUser, UserRole } from '@/src/entities/user';
+import { useCapabilities, useCurrentUser } from '@/src/entities/user';
 import { useToast } from '@/src/shared/hooks';
 
 import type { ProgramsConfig } from './Programs.types';
@@ -21,21 +21,29 @@ export const useProgramsConfig = (): ProgramsConfig => {
   const router = useRouter();
   const locale = useLocale();
   const currentUser = useCurrentUser();
-  const isAdmin = currentUser?.roles.includes(UserRole.Admin) ?? false;
+  const { isTrainer, canCreateProgram } = useCapabilities();
   const userId = currentUser?.userId;
 
-  // Ownership-based access: admins manage every program, while trainers and
-  // other authenticated users can only manage the programs they created.
+  // Roles are mutually exclusive: admins are read-only for other trainers'
+  // programs, so only the owning trainer may manage a program.
   const canManageProgram = useCallback(
-    (program: Program) => isAdmin || program.createdBy === userId,
-    [isAdmin, userId]
+    (program: Program) => isTrainer && program.createdBy === userId,
+    [isTrainer, userId]
   );
+  // Only trainers can create programs; the button is hidden for admins/clients.
+  const canCreate = isTrainer;
 
   const [filtersOpen, setFiltersOpen] = useState(false);
+  const [isPlansModalOpen, setIsPlansModalOpen] = useState(false);
   const createProgram = useCreateProgram();
   // Creating a draft program immediately opens its setup wizard so the trainer
-  // can fill in the details, while a toast confirms the draft was created.
+  // can fill in the details, while a toast confirms the draft was created. When
+  // the plan quota is reached the upgrade modal is surfaced instead.
   const handleCreateNew = useCallback(() => {
+    if (!canCreateProgram) {
+      setIsPlansModalOpen(true);
+      return;
+    }
     createProgram.mutate(undefined, {
       onSuccess: (program) => {
         showSuccessToast(t('toast.draftCreated'));
@@ -43,7 +51,7 @@ export const useProgramsConfig = (): ProgramsConfig => {
       },
       onError: () => showErrorToast(t('toast.createError')),
     });
-  }, [createProgram, router, locale, showSuccessToast, showErrorToast, t]);
+  }, [canCreateProgram, createProgram, router, locale, showSuccessToast, showErrorToast, t]);
 
   const search = useProgramsSearch();
   const list = useProgramsList(search.listParams);
@@ -71,10 +79,13 @@ export const useProgramsConfig = (): ProgramsConfig => {
       isDeleteDialogOpen: deletion.isDeleteDialogOpen,
       isDeleting: deletion.isDeleting,
       isCreating: createProgram.isPending,
+      isPlansModalOpen,
+      canCreate,
       canManageProgram,
       handleSearchChange: search.handleSearchChange,
       handleFiltersOpenChange: setFiltersOpen,
       handleCreateNew,
+      handlePlansModalOpenChange: setIsPlansModalOpen,
       handleToggleRow: selection.handleToggleRow,
       handleToggleAllVisible: selection.handleToggleAllVisible,
       handleStatusFilterChange: filters.handleStatusFilterChange,
@@ -96,6 +107,8 @@ export const useProgramsConfig = (): ProgramsConfig => {
       deletion,
       sort,
       canManageProgram,
+      canCreate,
+      isPlansModalOpen,
       handleCreateNew,
       createProgram.isPending,
     ]

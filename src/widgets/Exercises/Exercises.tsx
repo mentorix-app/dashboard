@@ -2,6 +2,7 @@
 
 import { type FC } from 'react';
 import { useTranslations } from '@/i18n';
+import { PlansModal } from '@/src/features/PlansModal';
 import { ConfirmationModal } from '@/src/shared/ui';
 import { useExercisesConfig } from './Exercises.conf';
 import { ExerciseForm } from './ui/ExerciseForm';
@@ -15,6 +16,7 @@ export const Exercises: FC = () => {
     filtersOpen,
     listParams,
     canManage,
+    canManageExercise,
     exercises,
     isPending,
     isFetchingNextPage,
@@ -25,10 +27,13 @@ export const Exercises: FC = () => {
     isDeleteDialogOpen,
     isDeleting,
     isFormOpen,
+    isFormReadOnly,
+    isPlansModalOpen,
     editingId,
     handleSearchChange,
     handleFiltersOpenChange,
     handleCreateNew,
+    handlePlansModalOpenChange,
     handleRowClick,
     handleFormOpenChange,
     handleToggleRow,
@@ -37,6 +42,7 @@ export const Exercises: FC = () => {
     handleMuscleGroupFilterChange,
     handleEquipmentFilterChange,
     handleDifficultyFilterChange,
+    handleScopeFilterChange,
     handleClearFilters,
     handleSortChange,
     handleLoadMore,
@@ -63,6 +69,7 @@ export const Exercises: FC = () => {
         onMuscleGroupFilterChange={handleMuscleGroupFilterChange}
         onEquipmentFilterChange={handleEquipmentFilterChange}
         onDifficultyFilterChange={handleDifficultyFilterChange}
+        onScopeFilterChange={handleScopeFilterChange}
         onClearFilters={handleClearFilters}
       />
       <div className="border-border bg-card overflow-x-auto rounded-md border">
@@ -74,6 +81,7 @@ export const Exercises: FC = () => {
           selectedIds={visibleSelected}
           activeId={isFormOpen ? editingId : undefined}
           canSelect={canManage}
+          canSelectExercise={canManageExercise}
           sortBy={listParams.sortBy}
           sortOrder={listParams.sortOrder}
           onToggleRow={handleToggleRow}
@@ -99,9 +107,10 @@ export const Exercises: FC = () => {
       <ExerciseForm
         open={isFormOpen}
         exerciseId={editingId}
-        readOnly={!canManage}
+        readOnly={isFormReadOnly}
         onOpenChange={handleFormOpenChange}
       />
+      <PlansModal open={isPlansModalOpen} onOpenChange={handlePlansModalOpenChange} />
     </>
   );
 };

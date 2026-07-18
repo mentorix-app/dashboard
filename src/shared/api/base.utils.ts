@@ -2,6 +2,7 @@ import {
   QUERY_KEY_AUTH,
   QUERY_KEY_CLIENTS,
   QUERY_KEY_EXERCISES,
+  QUERY_KEY_PLANS,
   QUERY_KEY_PROGRAMS,
   QUERY_KEY_USER,
 } from './base.constants';
@@ -34,6 +35,10 @@ export const queryKeys = {
   user: {
     all: [QUERY_KEY_USER] as const,
     me: () => [...queryKeys.user.all, 'me'] as const,
+  },
+  plans: {
+    all: [QUERY_KEY_PLANS] as const,
+    catalog: () => [...queryKeys.plans.all, 'catalog'] as const,
   },
 } as const;
 

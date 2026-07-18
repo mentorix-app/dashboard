@@ -1,6 +1,7 @@
 export type { Exercise } from './model/types';
-export { ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from './model/types';
+export { ExerciseEquipment, ExerciseMuscleGroup, ExerciseScope, ExerciseType } from './model/types';
 export { getExerciseDescription, getExerciseName } from './model/utils';
+export { canManageExercise, type ExerciseManageContext } from './lib/canManageExercise';
 export type {
   CreateExerciseParams,
   CreateExerciseResponse,

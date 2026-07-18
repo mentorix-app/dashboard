@@ -1,0 +1,14 @@
+{
+  "current": "Текущий тариф",
+  "unlimited": "Безлимит",
+  "features": {
+    "exercises": "Упражнения",
+    "programs": "Активные программы",
+    "clients": "Активные клиенты"
+  },
+  "plan": {
+    "free": "Free",
+    "advance": "Advance",
+    "elite": "Elite"
+  }
+}

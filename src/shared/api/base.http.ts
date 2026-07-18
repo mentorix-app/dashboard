@@ -24,14 +24,32 @@ export const http: AxiosInstance = axios.create({
   paramsSerializer: { indexes: null },
 });
 
+// Auth paths where a 401 is expected (e.g. the /auth/me probe on the login
+// page); redirecting from here would loop. Locale prefixes are ignored via
+// `includes` on the trailing segment.
+const AUTH_REDIRECT_PATHS = ['/login', '/signup', '/forgot-password'];
+
+// Guards against redirect spam: once a 401 triggers navigation, further 401s
+// (retries, parallel queries) must not queue more `assign` calls, which would
+// otherwise lock the UI in a reload storm.
+let isRedirectingToLogin = false;
+
+const redirectToLogin = (): void => {
+  if (typeof window === 'undefined' || isRedirectingToLogin) return;
+  const { pathname } = window.location;
+  if (AUTH_REDIRECT_PATHS.some((path) => pathname.endsWith(path))) return;
+  isRedirectingToLogin = true;
+  // The locale prefix is added by the middleware.
+  window.location.assign('/login');
+};
+
 http.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     // Silent refresh is handled server-side by the BFF. A 401 here means the
     // refresh token is gone/expired, so send the user to login gracefully.
-    // The locale prefix is added by the middleware.
-    if (error.response?.status === 401 && typeof window !== 'undefined') {
-      window.location.assign('/login');
+    if (error.response?.status === 401) {
+      redirectToLogin();
     }
     const message = messageFromErrorBody(error.response?.data) ?? error.message;
     return Promise.reject(new HttpError(message, error));

@@ -2,6 +2,7 @@
 
 import { Loader2 } from 'lucide-react';
 
+import { ExerciseScope } from '@/src/entities/exercise';
 import {
   Button,
   Checkbox,
@@ -12,12 +13,20 @@ import {
   DialogHeader,
   DialogTitle,
   Input,
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
   Typography,
 } from '@/src/shared/ui';
 
 import { useExercisePickerConfig } from './ExercisePicker.conf';
 import { PICKER_ROW_GRID } from './ExercisePicker.constants';
 import type { ExercisePickerProps } from './ExercisePicker.types';
+
+// Sentinel for the "All" option (Radix Select forbids empty item values).
+const SCOPE_ALL = '__all__';
 
 export const ExercisePicker = (props: ExercisePickerProps) => {
   const {
@@ -26,6 +35,8 @@ export const ExercisePicker = (props: ExercisePickerProps) => {
     onOpenChange,
     search,
     onSearchChange,
+    scope,
+    onScopeChange,
     exercises,
     getName,
     getDescription,
@@ -49,12 +60,28 @@ export const ExercisePicker = (props: ExercisePickerProps) => {
           <DialogDescription>{t('description', { max: maxPick })}</DialogDescription>
         </DialogHeader>
 
-        <Input
-          value={search}
-          onChange={(event) => onSearchChange(event.target.value)}
-          placeholder={t('searchPlaceholder')}
-          aria-label={t('searchPlaceholder')}
-        />
+        <div className="flex flex-col gap-2 sm:flex-row">
+          <Input
+            value={search}
+            onChange={(event) => onSearchChange(event.target.value)}
+            placeholder={t('searchPlaceholder')}
+            aria-label={t('searchPlaceholder')}
+            className="flex-1"
+          />
+          <Select
+            value={scope ?? SCOPE_ALL}
+            onValueChange={(next) => onScopeChange(next === SCOPE_ALL ? undefined : (next as ExerciseScope))}
+          >
+            <SelectTrigger aria-label={t('scope.label')} className="sm:w-48">
+              <SelectValue placeholder={t('scope.label')} />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value={SCOPE_ALL}>{t('scope.all')}</SelectItem>
+              <SelectItem value={ExerciseScope.Global}>{t('scope.global')}</SelectItem>
+              <SelectItem value={ExerciseScope.Private}>{t('scope.private')}</SelectItem>
+            </SelectContent>
+          </Select>
+        </div>
 
         <div className="flex min-h-48 flex-1 flex-col overflow-hidden rounded-md border">
           {isPending ? (

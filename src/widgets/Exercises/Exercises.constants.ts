@@ -1,6 +1,8 @@
-import { ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from '@/src/entities/exercise';
+import { ExerciseEquipment, ExerciseMuscleGroup, ExerciseScope, ExerciseType } from '@/src/entities/exercise';
 import type { ExerciseSortField } from '@/src/entities/exercise';
 import { Difficulty } from '@/src/shared/types';
+
+export const EXERCISE_SCOPE_OPTIONS: readonly ExerciseScope[] = [ExerciseScope.Global, ExerciseScope.Private];
 
 export const EXERCISE_TYPE_OPTIONS: readonly ExerciseType[] = [
   ExerciseType.Strength,

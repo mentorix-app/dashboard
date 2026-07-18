@@ -22,6 +22,11 @@ export enum ExerciseType {
   Accessory = 'accessory',
 }
 
+export enum ExerciseScope {
+  Global = 'global',
+  Private = 'private',
+}
+
 export enum ExerciseEquipment {
   Barbell = 'barbell',
   Dumbbells = 'dumbbells',
@@ -60,4 +65,6 @@ export type Exercise = {
   difficulty: Difficulty;
   videoUrl: string;
   previewImageUrl: string;
+  scope?: ExerciseScope;
+  ownerUserId?: string | null;
 };

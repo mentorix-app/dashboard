@@ -1,6 +1,7 @@
 import type {
   ExerciseEquipment,
   ExerciseMuscleGroup,
+  ExerciseScope,
   ExerciseType,
   FetchExercisesListParams,
 } from '@/src/entities/exercise';
@@ -21,6 +22,7 @@ export type ExercisesToolbarProps = {
   onMuscleGroupFilterChange: (value: ExerciseMuscleGroup, checked: boolean) => void;
   onEquipmentFilterChange: (value: ExerciseEquipment, checked: boolean) => void;
   onDifficultyFilterChange: (value: Difficulty, checked: boolean) => void;
+  onScopeFilterChange: (value: ExerciseScope | undefined) => void;
   onClearFilters: () => void;
 };
 
@@ -31,6 +33,7 @@ export type ExercisesFilterPanelProps = Pick<
   | 'onMuscleGroupFilterChange'
   | 'onEquipmentFilterChange'
   | 'onDifficultyFilterChange'
+  | 'onScopeFilterChange'
 >;
 
 export type ExercisesFilterChipsProps = Pick<
@@ -41,5 +44,6 @@ export type ExercisesFilterChipsProps = Pick<
   | 'onMuscleGroupFilterChange'
   | 'onEquipmentFilterChange'
   | 'onDifficultyFilterChange'
+  | 'onScopeFilterChange'
   | 'onClearFilters'
 >;

@@ -4,6 +4,7 @@ import {
   EXERCISE_DIFFICULTY_OPTIONS,
   EXERCISE_EQUIPMENT_OPTIONS,
   EXERCISE_MUSCLE_GROUP_OPTIONS,
+  EXERCISE_SCOPE_OPTIONS,
   EXERCISE_SORT_FIELDS,
   EXERCISE_TYPE_OPTIONS,
 } from './Exercises.constants';
@@ -58,6 +59,7 @@ export const parseExercisesSearchParams = (searchParams: SearchParamsReader): Fe
   muscleGroup: getValidValues(EXERCISE_MUSCLE_GROUP_OPTIONS, getDelimitedValues(searchParams, 'muscleGroup')),
   equipment: getValidValues(EXERCISE_EQUIPMENT_OPTIONS, getDelimitedValues(searchParams, 'equipment')),
   difficulty: getValidValues(EXERCISE_DIFFICULTY_OPTIONS, getDelimitedValues(searchParams, 'difficulty')),
+  scope: getValidValue(EXERCISE_SCOPE_OPTIONS, searchParams.get('scope')),
   sortBy: getValidValue(EXERCISE_SORT_FIELDS, searchParams.get('sortBy')),
   sortOrder: getValidValue(SORT_ORDERS, searchParams.get('sortOrder')),
 });
@@ -73,6 +75,7 @@ export const createExercisesSearchParams = (
   if ('muscleGroup' in updates) setArrayParam(params, 'muscleGroup', updates.muscleGroup);
   if ('equipment' in updates) setArrayParam(params, 'equipment', updates.equipment);
   if ('difficulty' in updates) setArrayParam(params, 'difficulty', updates.difficulty);
+  if ('scope' in updates) setOptionalParam(params, 'scope', updates.scope);
   if ('sortBy' in updates) setOptionalParam(params, 'sortBy', updates.sortBy);
   if ('sortOrder' in updates) setOptionalParam(params, 'sortOrder', updates.sortOrder);
 

@@ -3,6 +3,7 @@
 import { useWatch } from 'react-hook-form';
 
 import { ProgramStatus } from '@/src/entities/program';
+import { useCapabilities } from '@/src/entities/user';
 
 import { useProgramAutosave } from './hooks/useProgramAutosave';
 import { useProgramBasicsForm } from './hooks/useProgramBasicsForm';
@@ -12,6 +13,7 @@ import { useProgramValidateOnPublish } from './hooks/useProgramValidateOnPublish
 
 export const useProgramBasicsFormConfig = (programId: string) => {
   const { t, form, program, isLoading, hydratedRef } = useProgramBasicsForm(programId);
+  const { isAdmin } = useCapabilities();
   const values = useWatch({ control: form.control });
 
   useProgramValidateOnPublish(form, hydratedRef, program);
@@ -20,7 +22,8 @@ export const useProgramBasicsFormConfig = (programId: string) => {
   const { categoryOptions, difficultyOptions, preview } = useProgramBasicsPreview(values);
 
   const isArchived = program?.status === ProgramStatus.Archived;
-  const isFieldDisabled = isLoading || isArchived;
+  // Admins have read-only access to programs they do not own.
+  const isFieldDisabled = isLoading || isArchived || isAdmin;
 
   return { t, form, isLoading, isSaving, onBlur, isFieldDisabled, categoryOptions, difficultyOptions, preview };
 };

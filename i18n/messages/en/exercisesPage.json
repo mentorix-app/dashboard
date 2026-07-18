@@ -15,7 +15,12 @@
     "type": "Type",
     "muscleGroup": "Muscle group",
     "equipment": "Equipment",
-    "difficulty": "Difficulty"
+    "difficulty": "Difficulty",
+    "scope": "Collection",
+    "scopeOptions": {
+      "global": "Global",
+      "private": "My exercises"
+    }
   },
   "sort": {
     "change": "Change sorting by {column}"

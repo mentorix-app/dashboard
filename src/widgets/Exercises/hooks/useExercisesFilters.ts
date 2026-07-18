@@ -1,7 +1,7 @@
 'use client';
 
 import { useCallback } from 'react';
-import type { ExerciseEquipment, ExerciseMuscleGroup, ExerciseType } from '@/src/entities/exercise';
+import type { ExerciseEquipment, ExerciseMuscleGroup, ExerciseScope, ExerciseType } from '@/src/entities/exercise';
 import type { Difficulty } from '@/src/shared/types';
 
 import type { ExercisesSearchParamsController } from '../Exercises.types';
@@ -35,15 +35,23 @@ export const useExercisesFilters = ({ listParams, updateSearchParams }: Exercise
     [updateSearchParams]
   );
 
+  const handleScopeFilterChange = useCallback(
+    (value: ExerciseScope | undefined) => {
+      updateSearchParams({ scope: value });
+    },
+    [updateSearchParams]
+  );
+
   const handleClearFilters = useCallback(() => {
-    updateSearchParams({ type: [], muscleGroup: [], equipment: [], difficulty: [] });
+    updateSearchParams({ type: [], muscleGroup: [], equipment: [], difficulty: [], scope: undefined });
   }, [updateSearchParams]);
 
   const activeFilterCount =
     (listParams.type?.length ?? 0) +
     (listParams.muscleGroup?.length ?? 0) +
     (listParams.equipment?.length ?? 0) +
-    (listParams.difficulty?.length ?? 0);
+    (listParams.difficulty?.length ?? 0) +
+    (listParams.scope ? 1 : 0);
 
   return {
     activeFilterCount,
@@ -51,6 +59,7 @@ export const useExercisesFilters = ({ listParams, updateSearchParams }: Exercise
     handleMuscleGroupFilterChange,
     handleEquipmentFilterChange,
     handleDifficultyFilterChange,
+    handleScopeFilterChange,
     handleClearFilters,
   };
 };

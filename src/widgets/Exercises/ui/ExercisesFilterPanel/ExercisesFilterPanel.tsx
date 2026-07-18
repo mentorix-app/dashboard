@@ -8,6 +8,7 @@ import {
   EXERCISE_DIFFICULTY_OPTIONS,
   EXERCISE_EQUIPMENT_OPTIONS,
   EXERCISE_MUSCLE_GROUP_OPTIONS,
+  EXERCISE_SCOPE_OPTIONS,
   EXERCISE_TYPE_OPTIONS,
 } from '../../Exercises.constants';
 import type { ExercisesFilterPanelProps } from '../ExercisesToolbar/ExercisesToolbar.types';
@@ -70,12 +71,21 @@ export const ExercisesFilterPanel: FC<ExercisesFilterPanelProps> = ({
   onMuscleGroupFilterChange,
   onEquipmentFilterChange,
   onDifficultyFilterChange,
+  onScopeFilterChange,
 }) => {
   const t = useTranslations('Exercises');
   const clearLabel = t('filters.all');
 
   return (
     <div className="border-border bg-muted/30 grid gap-3 rounded-md border p-4 sm:grid-cols-2 xl:grid-cols-4">
+      <FilterSection
+        title={t('filters.scope')}
+        clearLabel={clearLabel}
+        values={EXERCISE_SCOPE_OPTIONS}
+        selectedValues={listParams.scope ? [listParams.scope] : undefined}
+        getLabel={(value) => t(`filters.scopeOptions.${value}`)}
+        onChange={(value, checked) => onScopeFilterChange(checked ? value : undefined)}
+      />
       <FilterSection
         title={t('filters.type')}
         clearLabel={clearLabel}

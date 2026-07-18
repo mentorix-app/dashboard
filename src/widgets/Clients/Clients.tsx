@@ -2,6 +2,7 @@
 
 import { useTranslations } from '@/i18n';
 import { InviteClientDialog } from '@/src/features/InviteClientDialog';
+import { PlansModal } from '@/src/features/PlansModal';
 import { ProgramPicker } from '@/src/features/ProgramPicker';
 import { Typography } from '@/src/shared/ui';
 
@@ -25,6 +26,8 @@ export const Clients = () => {
     isFetchingNextPage,
     hasNextPage,
     inviteOpen,
+    plansOpen,
+    canInvite,
     pickerOpen,
     selectedProgramId,
     selectedIds,
@@ -48,6 +51,7 @@ export const Clients = () => {
     handleBulkPickerOpenChange,
     handleConfirmBulkAssign,
     handleInviteOpenChange,
+    handlePlansOpenChange,
     handleOpenInvite,
   } = useClientsConfig();
 
@@ -81,6 +85,7 @@ export const Clients = () => {
         onViewChange={handleViewChange}
         onSortOrderChange={handleSortOrderChange}
         onAddClient={handleOpenInvite}
+        canAddClient={canInvite}
       />
 
       <ClientsBulkBar
@@ -136,6 +141,7 @@ export const Clients = () => {
       />
 
       <InviteClientDialog open={inviteOpen} onOpenChange={handleInviteOpenChange} />
+      <PlansModal open={plansOpen} onOpenChange={handlePlansOpenChange} />
     </div>
   );
 };

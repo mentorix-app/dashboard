@@ -3,7 +3,7 @@
 import { useEffect } from 'react';
 
 import { useRouter, useTranslations } from '@/i18n';
-import { Permission, useCurrentUser, usePermissions } from '@/src/entities/user';
+import { useCapabilities, useCurrentUser } from '@/src/entities/user';
 import { ROUTES } from '@/src/shared/lib';
 import { Typography } from '@/src/shared/ui';
 import { Clients } from '@/src/widgets/Clients/Clients';
@@ -12,9 +12,9 @@ export const ClientsView = () => {
   const t = useTranslations('Clients');
   const router = useRouter();
   const user = useCurrentUser();
-  const { can } = usePermissions();
+  const { canViewClients } = useCapabilities();
 
-  const isAllowed = can(Permission.ClientManage);
+  const isAllowed = canViewClients;
 
   useEffect(() => {
     if (user && !isAllowed) {
