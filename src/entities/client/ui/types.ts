@@ -8,6 +8,8 @@ export type ClientCardLabels = {
   programName: string;
   /** Link to the assigned program's page, or undefined when none is assigned. */
   programHref?: string;
+  /** Link to the client's training profile, opened from the card title. */
+  profileHref?: string;
   programLabel: string;
   /** Trainer name line, shown only when an admin views another trainer's client. */
   trainerLabel?: string;

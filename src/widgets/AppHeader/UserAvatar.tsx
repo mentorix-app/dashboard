@@ -61,7 +61,7 @@ export const UserAvatar = () => {
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="min-w-44">
         <DropdownMenuItem asChild>
-          <Link href={ROUTES.profile}>
+          <Link href={ROUTES.userSubscription(user.userId)}>
             <UserIcon />
             {t('profile')}
           </Link>

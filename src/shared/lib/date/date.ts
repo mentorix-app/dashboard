@@ -56,6 +56,18 @@ export const formatDate = (value: DateInput, locale: string, preset: DateFormatP
   return date ? getDateTimeFormatter(locale, preset).format(date) : '';
 };
 
+const pad = (value: number): string => `${value}`.padStart(2, '0');
+
+/** Local `YYYY-MM-DD` key from year / month (0-indexed) / day parts. */
+export const dateKey = (year: number, monthIndex: number, day: number): string =>
+  `${year}-${pad(monthIndex + 1)}-${pad(day)}`;
+
+/** Local `YYYY-MM-DD` key for grouping a date input by calendar day; invalid → ''. */
+export const toDateKey = (value: DateInput): string => {
+  const date = toValidDate(value);
+  return date ? dateKey(date.getFullYear(), date.getMonth(), date.getDate()) : '';
+};
+
 /** Format a date relative to `now` (e.g. "2 days ago"); invalid input → ''. */
 export const formatRelativeTime = (value: DateInput, locale: string, now: DateInput = Date.now()): string => {
   const date = toValidDate(value);

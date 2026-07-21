@@ -55,6 +55,7 @@ export const useClientsConfig = () => {
         linkedLabel: t('linkedAt', { date: formatDate(client.linkedAt, locale, 'shortDate') }),
         programName,
         programHref: assignment ? ROUTES.programBasics(assignment.programId) : undefined,
+        profileHref: ROUTES.userTraining(client.clientUserId),
         programLabel: assignment
           ? t('assignedProgram', { date: formatDate(assignment.assignedAt, locale, 'shortDate') })
           : t('noProgram'),

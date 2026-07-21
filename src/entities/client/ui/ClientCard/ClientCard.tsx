@@ -51,7 +51,15 @@ export const ClientCard = ({
             <AvatarFallback className="text-sm">{getClientInitials(client.displayName)}</AvatarFallback>
           </Avatar>
           <div className="flex min-w-0 flex-1 flex-col gap-1">
-            <CardTitle className="line-clamp-2 leading-snug break-words">{client.displayName}</CardTitle>
+            {labels.profileHref ? (
+              <CardTitle className="line-clamp-2 leading-snug break-words">
+                <Link href={labels.profileHref} className="underline-offset-4 hover:underline">
+                  {client.displayName}
+                </Link>
+              </CardTitle>
+            ) : (
+              <CardTitle className="line-clamp-2 leading-snug break-words">{client.displayName}</CardTitle>
+            )}
             <div>
               <ClientStatusBadge status={client.status} label={labels.statusLabel} />
             </div>

@@ -14,6 +14,7 @@ import inviteClient from './inviteClient.json';
 import loginPage from './loginPage.json';
 import signupPage from './signupPage.json';
 import profilePage from './profilePage.json';
+import clientProfilePage from './clientProfilePage.json';
 import errors from './errors.json';
 import subscription from './subscription.json';
 import plansModal from './plansModal.json';
@@ -35,6 +36,7 @@ export default {
   Login: loginPage,
   Signup: signupPage,
   Profile: profilePage,
+  ClientProfile: clientProfilePage,
   Errors: errors,
   Subscription: subscription,
   PlansModal: plansModal,

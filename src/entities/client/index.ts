@@ -12,7 +12,20 @@ export type {
   SkippedClientAssignment,
   TrainerInvite,
 } from './api/clients.types';
+export type {
+  AnalyticsActivity,
+  AnalyticsAssignment,
+  AnalyticsClientInfo,
+  AnalyticsProgramActivity,
+  AnalyticsProgress,
+  AnalyticsWeekProgress,
+  ClientAnalytics,
+  ClientCompletionItem,
+  ClientCompletionsParams,
+  ClientCompletionsResult,
+} from './api/clientAnalytics.types';
 export { useClientsInfinite, useCreateTrainerInvite, useSetClientsProgram } from './api/useClients';
+export { useClientAnalytics, useClientCompletionsInfinite, useClientCompletionsMonth } from './api/useClientAnalytics';
 export { getClientAvatarSrc, getClientInitials, isClientOwnedBy } from './lib';
 export { ClientCard } from './ui/ClientCard/ClientCard';
 export { ClientRowCard } from './ui/ClientRowCard/ClientRowCard';

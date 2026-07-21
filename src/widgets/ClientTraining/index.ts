@@ -1,0 +1,1 @@
+export { ClientTraining } from './ClientTraining';
