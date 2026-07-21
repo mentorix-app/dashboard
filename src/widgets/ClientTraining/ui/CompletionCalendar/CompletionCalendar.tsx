@@ -99,7 +99,7 @@ export const CompletionCalendar: FC<CompletionCalendarProps> = ({ config }) => {
       {activeDayCompletions.length > 0 ? (
         <div className="flex flex-col gap-1.5 border-t pt-3">
           <span className="text-muted-foreground text-xs font-medium">{t('history.dayResults')}</span>
-          <ul className="flex flex-col gap-1">
+          <ul className="scrollbar-slim flex max-h-56 flex-col gap-1 overflow-y-auto pr-1.5">
             {activeDayCompletions.map((item) => (
               <li key={item.id}>
                 <button

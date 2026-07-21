@@ -1,0 +1,29 @@
+{
+  "title": "Programs analytics",
+  "subtitle": "Compare performance across all your programs",
+  "searchPlaceholder": "Search programs",
+  "empty": "No programs yet. Create a program to start tracking analytics.",
+  "emptySearch": "No programs match your search.",
+  "percent": "{value}%",
+  "openCard": "Open {name} analytics",
+  "status": {
+    "draft": "Draft",
+    "published": "Published",
+    "archived": "Archived"
+  },
+  "sort": {
+    "label": "Sort by",
+    "order": "Sort order",
+    "asc": "Ascending",
+    "desc": "Descending",
+    "name": "Name",
+    "lastActivity": "Last activity"
+  },
+  "metrics": {
+    "activeClients": "Active clients",
+    "totalCompletions": "Total completions",
+    "last30Days": "Last 30 days",
+    "avgCompletion": "Avg completion",
+    "lastActivity": "Last activity {date}"
+  }
+}

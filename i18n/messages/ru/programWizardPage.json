@@ -21,6 +21,7 @@
     "done": "К программам"
   },
   "actions": {
+    "analytics": "Аналитика",
     "archive": "В архив",
     "republish": "Опубликовать",
     "publishUpdate": "Опубликовать обновление",

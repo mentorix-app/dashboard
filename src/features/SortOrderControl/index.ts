@@ -1,2 +1,3 @@
 export { SortOrderControl } from './SortOrderControl';
-export type { SortOrder, SortOrderControlProps } from './SortOrderControl.types';
+export { SortMenu } from './SortMenu';
+export type { SortOrder, SortOrderControlProps, SortOption, SortMenuProps } from './SortOrderControl.types';

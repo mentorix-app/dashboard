@@ -1,5 +1,6 @@
 {
   "title": "Программы",
+  "subtitle": "Создавайте и организуйте тренировочные программы",
   "searchPlaceholder": "Поиск программ",
   "createNew": "Новая программа",
   "deleteSelected": "Удалить выбранные ({count})",
@@ -24,14 +25,19 @@
     "draftCreated": "Черновик программы создан. Настроим её.",
     "createError": "Не удалось создать программу. Попробуйте снова.",
     "deleteSuccess": "{count, plural, one {Программа успешно удалена.} other {Удалено программ: #.}}",
-    "deleteError": "Не удалось удалить выбранные программы. Попробуйте снова."
+    "deleteError": "Не удалось удалить. Попробуйте снова."
   },
   "deleteConfirm": {
-    "title": "Удалить выбранные программы?",
-    "description": "Будет удалено программ: {count} ({names}).",
+    "title": "{count, plural, one {Удалить программу?} other {Удалить выбранные программы?}}",
+    "description": "{count, plural, one {Будет удалено: {names}.} other {Будет удалено программ: # ({names}).}}",
     "selectedItems": "выбранные элементы",
     "cancel": "Отмена",
     "confirm": "Удалить"
+  },
+  "actions": {
+    "menu": "Открыть действия для {name}",
+    "analytics": "Аналитика",
+    "delete": "Удалить"
   },
   "columns": {
     "name": "Название",
@@ -41,7 +47,8 @@
     "trainingDaysCount": "Тренировочные дни",
     "createdBy": "Создал",
     "enrolledUsers": "Участники",
-    "modifiedAt": "Обновлено"
+    "modifiedAt": "Обновлено",
+    "actions": "Действия"
   },
   "status": {
     "draft": "Черновик",

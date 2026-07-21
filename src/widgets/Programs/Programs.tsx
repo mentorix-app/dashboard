@@ -21,7 +21,8 @@ export const Programs: FC = () => {
     hasNextPage,
     activeFilterCount,
     visibleSelected,
-    selectedPrograms,
+    deletePendingPrograms,
+    deletePendingCount,
     isDeleteDialogOpen,
     isDeleting,
     isCreating,
@@ -41,10 +42,11 @@ export const Programs: FC = () => {
     handleSortChange,
     handleLoadMore,
     handleDeleteClick,
+    handleDeleteProgram,
     handleDeleteDialogOpenChange,
     handleConfirmDelete,
   } = useProgramsConfig();
-  const selectedNames = selectedPrograms.map((program) => program.name).join(', ');
+  const deletePendingNames = deletePendingPrograms.map((program) => program.name).join(', ');
 
   return (
     <>
@@ -79,14 +81,15 @@ export const Programs: FC = () => {
           onToggleAllVisible={handleToggleAllVisible}
           onSortChange={handleSortChange}
           onLoadMore={handleLoadMore}
+          onDeleteRow={handleDeleteProgram}
         />
       </div>
       <ConfirmationModal
         open={isDeleteDialogOpen}
-        title={t('deleteConfirm.title')}
+        title={t('deleteConfirm.title', { count: deletePendingCount })}
         description={t('deleteConfirm.description', {
-          count: visibleSelected.size,
-          names: selectedNames || t('deleteConfirm.selectedItems'),
+          count: deletePendingCount,
+          names: deletePendingNames || t('deleteConfirm.selectedItems'),
         })}
         cancelLabel={t('deleteConfirm.cancel')}
         confirmLabel={t('deleteConfirm.confirm')}

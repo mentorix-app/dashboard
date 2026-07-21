@@ -1,7 +1,7 @@
 'use client';
 
 import { useLocale } from '@/i18n';
-import type { ClientCompletionItem } from '@/src/entities/client';
+import type { ClientCompletionItem } from '@/src/entities/analytics';
 import { formatDate } from '@/src/shared/lib';
 
 import { pickText } from '../../ClientTraining.utils';

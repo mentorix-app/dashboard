@@ -157,6 +157,9 @@ export const useWizardActions = (programId: string) => {
 
   return {
     status,
+    // Analytics only carries data once a program has clients (published/archived)
+    // and is served to the owning trainer only.
+    canViewAnalytics: canManage && status !== ProgramStatus.Draft,
     canArchive: canManage && isPublished,
     canPublishUpdate,
     canSync,

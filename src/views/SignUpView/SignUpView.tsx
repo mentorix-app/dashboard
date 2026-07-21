@@ -5,11 +5,11 @@ import { Logo } from '@/src/shared/ui';
 
 import { SignupForm } from './ui/SignupForm';
 
-type SignupProps = {
+type SignUpViewProps = {
   locale: string;
 };
 
-export async function Signup({ locale }: SignupProps) {
+export async function SignUpView({ locale }: SignUpViewProps) {
   const t = await getTranslations('Signup');
 
   const features = [t('feature1'), t('feature2'), t('feature3')];

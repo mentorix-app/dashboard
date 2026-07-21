@@ -22,6 +22,7 @@ export const ProgramsTable: FC<ProgramsTableProps> = ({
   onToggleAllVisible,
   onSortChange,
   onLoadMore,
+  onDeleteRow,
 }) => {
   const selectableIds = useMemo(
     () => programs.filter((program) => canManageProgram(program)).map((program) => program.id),
@@ -31,7 +32,8 @@ export const ProgramsTable: FC<ProgramsTableProps> = ({
   const selectedCount = selectableIds.filter((id) => selectedIds.has(id)).length;
   const selectedState: boolean | 'indeterminate' =
     selectedCount === 0 ? false : selectedCount === selectableIds.length ? true : 'indeterminate';
-  const columnCount = canSelect ? TABLE_COLUMN_COUNT + 1 : TABLE_COLUMN_COUNT;
+  // +1 for the trailing row-actions column, which is always present.
+  const columnCount = (canSelect ? TABLE_COLUMN_COUNT + 1 : TABLE_COLUMN_COUNT) + 1;
 
   return (
     <>
@@ -57,6 +59,7 @@ export const ProgramsTable: FC<ProgramsTableProps> = ({
                   canSelect={canSelect}
                   canManage={canManageProgram(program)}
                   onToggleRow={onToggleRow}
+                  onDeleteRow={onDeleteRow}
                 />
               ))
             : null}

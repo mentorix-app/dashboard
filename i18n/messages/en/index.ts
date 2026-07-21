@@ -8,6 +8,8 @@ import exercisesPage from './exercisesPage.json';
 import exercisePicker from './exercisePicker.json';
 import programsPage from './programsPage.json';
 import programWizardPage from './programWizardPage.json';
+import programsAnalyticsPage from './programsAnalyticsPage.json';
+import programAnalyticsPage from './programAnalyticsPage.json';
 import clientsPage from './clientsPage.json';
 import programPicker from './programPicker.json';
 import inviteClient from './inviteClient.json';
@@ -30,6 +32,8 @@ export default {
   ExercisePicker: exercisePicker,
   Programs: programsPage,
   ProgramWizard: programWizardPage,
+  ProgramsAnalytics: programsAnalyticsPage,
+  ProgramAnalytics: programAnalyticsPage,
   Clients: clientsPage,
   ProgramPicker: programPicker,
   InviteClient: inviteClient,

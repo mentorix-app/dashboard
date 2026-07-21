@@ -1,0 +1,57 @@
+{
+  "title": "Аналитика программы",
+  "backToList": "К аналитике",
+  "editProgram": "Редактировать программу",
+  "version": "v{number}",
+  "notPublished": "Не опубликована",
+  "trainingDays": "{count, plural, one {# тренировочный день} few {# тренировочных дня} many {# тренировочных дней} other {# тренировочных дней}}",
+  "lastActivity": "Активность {date}",
+  "lastActivityNever": "Пока нет активности",
+  "percent": "{value}%",
+  "status": {
+    "draft": "Черновик",
+    "published": "Опубликована",
+    "archived": "В архиве"
+  },
+  "summary": {
+    "activeClients": "Активные клиенты",
+    "totalCompletions": "Всего выполнено",
+    "last30Days": "За 30 дней",
+    "avgCompletion": "Ср. выполнение",
+    "avgCompletionHint": "Среднее выполнение текущего цикла среди активных клиентов.",
+    "behindLatest": "Отстают от версии",
+    "none": "—"
+  },
+  "weekly": {
+    "heading": "Спад по неделям",
+    "note": "На основе присланных результатов активных клиентов.",
+    "completions": "Выполнения",
+    "distinctClients": "Уникальные клиенты",
+    "week": "Н{number}",
+    "empty": "Пока нет данных по неделям."
+  },
+  "clients": {
+    "heading": "Активные клиенты",
+    "empty": "Пока нет активных клиентов.",
+    "noMatches": "Нет клиентов, соответствующих поиску.",
+    "searchPlaceholder": "Поиск клиентов",
+    "sortBy": "Сортировать по «{column}»",
+    "client": "Клиент",
+    "assigned": "Назначено",
+    "progress": "Прогресс",
+    "completedDays": "Выполнено дней",
+    "version": "Версия",
+    "lastCompleted": "Последнее",
+    "days": "{completed} / {total} дн.",
+    "versionLatest": "Актуальная",
+    "versionBehind": "Отстаёт",
+    "openClient": "Открыть {name}",
+    "never": "—",
+    "avatarAlt": "Аватар {name}"
+  },
+  "errors": {
+    "notFound": "Аналитика этой программы не найдена.",
+    "forbidden": "У вас нет доступа к аналитике этой программы.",
+    "generic": "Не удалось загрузить аналитику. Попробуйте ещё раз."
+  }
+}

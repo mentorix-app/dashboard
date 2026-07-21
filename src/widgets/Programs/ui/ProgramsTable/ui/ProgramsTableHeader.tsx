@@ -65,6 +65,9 @@ export const ProgramsTableHeader: FC<ProgramsTableHeaderProps> = ({
             </TableHead>
           );
         })}
+        <TableHead className="w-10">
+          <span className="sr-only">{t('columns.actions')}</span>
+        </TableHead>
       </TableRow>
     </TableHeader>
   );

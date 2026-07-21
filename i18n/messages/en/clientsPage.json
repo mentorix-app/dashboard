@@ -1,5 +1,6 @@
 {
   "title": "Clients",
+  "subtitle": "Manage your clients and their training",
   "searchPlaceholder": "Search clients",
   "addClient": "Add client",
   "empty": "No clients yet. Invite your first client to get started.",

@@ -1,5 +1,6 @@
 {
   "title": "Programs",
+  "subtitle": "Create and organize your training programs",
   "searchPlaceholder": "Search programs",
   "createNew": "New program",
   "deleteSelected": "Delete selected ({count})",
@@ -24,14 +25,19 @@
     "draftCreated": "Draft program created. Let’s set it up.",
     "createError": "Could not create the program. Please try again.",
     "deleteSuccess": "{count, plural, one {Program deleted successfully.} other {# programs deleted successfully.}}",
-    "deleteError": "Could not delete the selected programs. Please try again."
+    "deleteError": "Could not delete. Please try again."
   },
   "deleteConfirm": {
-    "title": "Delete selected programs?",
-    "description": "This will delete {count} selected program(s): {names}.",
+    "title": "{count, plural, one {Delete program?} other {Delete selected programs?}}",
+    "description": "{count, plural, one {This will delete {names}.} other {This will delete # programs: {names}.}}",
     "selectedItems": "selected items",
     "cancel": "Cancel",
     "confirm": "Delete"
+  },
+  "actions": {
+    "menu": "Open actions for {name}",
+    "analytics": "Analytics",
+    "delete": "Delete"
   },
   "columns": {
     "name": "Name",
@@ -41,7 +47,8 @@
     "trainingDaysCount": "Training days",
     "createdBy": "Created by",
     "enrolledUsers": "Enrolled",
-    "modifiedAt": "Updated"
+    "modifiedAt": "Updated",
+    "actions": "Actions"
   },
   "status": {
     "draft": "Draft",

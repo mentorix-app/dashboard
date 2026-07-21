@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 
 import { getTranslations } from '@/i18n/server';
-import { Dashboard } from '@/src/views/dashboard/Dashboard';
+import { DashboardView } from '@/src/views/DashboardView/DashboardView';
 
 type Props = {
   params: Promise<{ locale: string }>;
@@ -15,5 +15,5 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default function DashboardPage() {
-  return <Dashboard />;
+  return <DashboardView />;
 }

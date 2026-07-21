@@ -1,5 +1,4 @@
-import type { ClientStatus } from '../model/types';
-import type { ClientsPagination } from './clients.types';
+import type { AnalyticsClientStatus, AnalyticsPagination } from './analytics.types';
 
 /**
  * Trainer analytics DTOs for a single client. The BFF proxy converts response
@@ -13,7 +12,7 @@ export type AnalyticsClientInfo = {
   displayName: string;
   /** Signed avatar proxy URL or empty string. Resolve with `getClientAvatarSrc`. */
   avatarUrl: string;
-  status: ClientStatus;
+  status: AnalyticsClientStatus;
   linkedAt: string;
   lastActiveAt: string | null;
 };
@@ -96,7 +95,7 @@ export type ClientCompletionItem = {
 /** Paginated response for GET /trainer/clients/{id}/completions. */
 export type ClientCompletionsResult = {
   items: ClientCompletionItem[];
-  pagination: ClientsPagination;
+  pagination: AnalyticsPagination;
 };
 
 /** Optional date-range filter for the completions feed (`to` is exclusive). */

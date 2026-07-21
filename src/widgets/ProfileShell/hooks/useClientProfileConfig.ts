@@ -1,7 +1,8 @@
 'use client';
 
 import { useLocale, useTranslations } from '@/i18n';
-import { ClientStatus, getClientAvatarSrc, useClientAnalytics } from '@/src/entities/client';
+import { useClientAnalytics } from '@/src/entities/analytics';
+import { getClientAvatarSrc } from '@/src/entities/client';
 import { formatDate, ROUTES } from '@/src/shared/lib';
 
 import type { ProfileViewModel } from '../ProfileShell.types';
@@ -45,7 +46,7 @@ export const useClientProfileConfig = (userId: string, enabled: boolean): Profil
       avatarUrl: getClientAvatarSrc(client.avatarUrl),
       avatarAlt: client.displayName,
       badge:
-        client.status === ClientStatus.Active
+        client.status === 'active'
           ? { label: tc('status.active'), tone: 'active' }
           : { label: tc('status.blocked'), tone: 'neutral' },
       meta: [

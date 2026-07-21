@@ -17,5 +17,8 @@ export const ProgramsTableLoading: FC<ProgramsTableLoadingProps> = ({ rowCount, 
           <Skeleton className="h-4 w-24" />
         </TableCell>
       ))}
+      <TableCell>
+        <Skeleton className="ml-auto size-4" />
+      </TableCell>
     </TableRow>
   ));

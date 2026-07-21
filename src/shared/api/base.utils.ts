@@ -1,4 +1,5 @@
 import {
+  QUERY_KEY_ANALYTICS,
   QUERY_KEY_AUTH,
   QUERY_KEY_CLIENTS,
   QUERY_KEY_EXERCISES,
@@ -31,8 +32,14 @@ export const queryKeys = {
     all: [QUERY_KEY_CLIENTS] as const,
     list: (params: object) => [...queryKeys.clients.all, 'list', params] as const,
     assignment: (id: string) => [...queryKeys.clients.all, 'assignment', id] as const,
-    analytics: (id: string) => [...queryKeys.clients.all, 'analytics', id] as const,
-    completions: (id: string, params: object) => [...queryKeys.clients.all, 'completions', id, params] as const,
+  },
+  analytics: {
+    all: [QUERY_KEY_ANALYTICS] as const,
+    client: (id: string) => [...queryKeys.analytics.all, 'client', id] as const,
+    clientCompletions: (id: string, params: object) =>
+      [...queryKeys.analytics.all, 'client', id, 'completions', params] as const,
+    programsList: (params: object) => [...queryKeys.analytics.all, 'programs', 'list', params] as const,
+    program: (id: string) => [...queryKeys.analytics.all, 'programs', id] as const,
   },
   user: {
     all: [QUERY_KEY_USER] as const,

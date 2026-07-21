@@ -1,10 +1,20 @@
 'use client';
 
-import { type FC, type KeyboardEvent } from 'react';
+import { type FC, type KeyboardEvent, type MouseEvent } from 'react';
+import { BarChart3, MoreHorizontal, Trash2 } from 'lucide-react';
 import { useLocale, useRouter, useTranslations } from '@/i18n';
-import { getProgramName, ProgramStatusBadge } from '@/src/entities/program';
-import { Checkbox, TableCell, TableRow } from '@/src/shared/ui';
-import { formatDate } from '@/src/shared/lib';
+import { getProgramName, ProgramStatus, ProgramStatusBadge } from '@/src/entities/program';
+import { formatDate, ROUTES } from '@/src/shared/lib';
+import {
+  Button,
+  Checkbox,
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+  TableCell,
+  TableRow,
+} from '@/src/shared/ui';
 
 import type { ProgramsTableRowProps } from '../ProgramsTable.types';
 
@@ -14,12 +24,16 @@ export const ProgramsTableRow: FC<ProgramsTableRowProps> = ({
   canSelect,
   canManage,
   onToggleRow,
+  onDeleteRow,
 }) => {
   const locale = useLocale();
   const router = useRouter();
   const t = useTranslations('Programs');
 
   const name = getProgramName(program, locale);
+  // Drafts have no client results, so analytics is only offered once published.
+  const canViewAnalytics = program.status !== ProgramStatus.Draft;
+  const hasActions = canViewAnalytics || canManage;
 
   const navigate = () => router.push(`/programs/${program.id}/basics`, { locale });
 
@@ -29,6 +43,10 @@ export const ProgramsTableRow: FC<ProgramsTableRowProps> = ({
       navigate();
     }
   };
+
+  const handleActionsClick = (event: MouseEvent<HTMLTableCellElement>) => event.stopPropagation();
+
+  const handleAnalytics = () => router.push(ROUTES.programAnalytics(program.id), { locale });
 
   return (
     <TableRow
@@ -68,6 +86,37 @@ export const ProgramsTableRow: FC<ProgramsTableRowProps> = ({
       <TableCell className="whitespace-nowrap">{program.assignmentCount}</TableCell>
       <TableCell className="text-muted-foreground whitespace-nowrap">
         {formatDate(program.modifiedAt, locale, 'shortDate')}
+      </TableCell>
+      <TableCell className="w-10" onClick={handleActionsClick}>
+        {hasActions ? (
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                type="button"
+                variant="ghost"
+                size="icon"
+                className="size-8"
+                aria-label={t('actions.menu', { name })}
+              >
+                <MoreHorizontal aria-hidden />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              {canViewAnalytics ? (
+                <DropdownMenuItem onSelect={handleAnalytics}>
+                  <BarChart3 aria-hidden />
+                  {t('actions.analytics')}
+                </DropdownMenuItem>
+              ) : null}
+              {canManage ? (
+                <DropdownMenuItem variant="destructive" onSelect={() => onDeleteRow(program.id)}>
+                  <Trash2 aria-hidden />
+                  {t('actions.delete')}
+                </DropdownMenuItem>
+              ) : null}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ) : null}
       </TableCell>
     </TableRow>
   );

@@ -3,7 +3,7 @@
 import { useMemo } from 'react';
 
 import { useLocale } from '@/i18n';
-import type { ClientCompletionItem } from '@/src/entities/client';
+import type { ClientCompletionItem } from '@/src/entities/analytics';
 
 import type { ClientTrainingConfig } from '../../ClientTraining.types';
 import { getReviewStatus } from '../../ClientTraining.utils';

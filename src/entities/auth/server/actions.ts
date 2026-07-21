@@ -99,7 +99,7 @@ export async function signupAction(input: SignupInput): Promise<AuthActionResult
     return { error: GENERIC_ERROR };
   }
 
-  redirect(ROUTES.dashboard);
+  redirect(`${ROUTES.dashboard}?welcome=1`);
 }
 
 /**

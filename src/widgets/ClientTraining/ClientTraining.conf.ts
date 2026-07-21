@@ -8,7 +8,7 @@ import {
   useClientAnalytics,
   useClientCompletionsInfinite,
   useClientCompletionsMonth,
-} from '@/src/entities/client';
+} from '@/src/entities/analytics';
 
 import type { CalendarMonth, ClientTrainingConfig, ClientTrainingViewMode } from './ClientTraining.types';
 import {

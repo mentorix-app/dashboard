@@ -1,4 +1,4 @@
-import type { AnalyticsProgress, ClientCompletionItem } from '@/src/entities/client';
+import type { AnalyticsProgress, ClientCompletionItem } from '@/src/entities/analytics';
 import { dateKey, toDateKey } from '@/src/shared/lib';
 
 import type {

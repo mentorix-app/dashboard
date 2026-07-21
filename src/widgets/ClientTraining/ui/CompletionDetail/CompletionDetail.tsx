@@ -4,7 +4,7 @@ import { type FC } from 'react';
 import { Send } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
-import type { ClientCompletionItem } from '@/src/entities/client';
+import type { ClientCompletionItem } from '@/src/entities/analytics';
 import { Badge, Button, Card, Textarea, Typography } from '@/src/shared/ui';
 
 import { useCompletionDetailConfig } from './CompletionDetail.conf';

@@ -25,7 +25,7 @@ export const CompletionList: FC<CompletionListProps> = ({ config }) => {
 
   return (
     <div className="flex flex-col gap-2">
-      <ul className="flex flex-col gap-1.5">
+      <ul className="scrollbar-slim flex max-h-128 flex-col gap-1.5 overflow-y-auto pr-1.5">
         {completions.map((completion) => {
           const isActive = completion.id === selected?.id;
           return (

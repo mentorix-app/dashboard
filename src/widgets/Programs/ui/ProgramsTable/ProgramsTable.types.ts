@@ -13,6 +13,7 @@ export type ProgramsTableProps = {
   onToggleAllVisible: () => void;
   onSortChange: (field: ProgramSortField) => void;
   onLoadMore: () => void;
+  onDeleteRow: (id: string) => void;
 };
 
 export type ProgramsTableHeaderProps = {
@@ -31,6 +32,7 @@ export type ProgramsTableRowProps = {
   canSelect: boolean;
   canManage: boolean;
   onToggleRow: (id: string) => void;
+  onDeleteRow: (id: string) => void;
 };
 
 export type ProgramsTableEmptyProps = {

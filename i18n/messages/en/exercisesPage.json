@@ -1,5 +1,6 @@
 {
   "title": "Exercises",
+  "subtitle": "Build and manage your exercise library",
   "searchPlaceholder": "Search exercises",
   "createNew": "Create new exercise",
   "deleteSelected": "Delete selected ({count})",

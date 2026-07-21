@@ -1,0 +1,57 @@
+{
+  "title": "Program analytics",
+  "backToList": "Back to analytics",
+  "editProgram": "Edit program",
+  "version": "v{number}",
+  "notPublished": "Not published",
+  "trainingDays": "{count, plural, one {# training day} other {# training days}}",
+  "lastActivity": "Last activity {date}",
+  "lastActivityNever": "No activity yet",
+  "percent": "{value}%",
+  "status": {
+    "draft": "Draft",
+    "published": "Published",
+    "archived": "Archived"
+  },
+  "summary": {
+    "activeClients": "Active clients",
+    "totalCompletions": "Total completions",
+    "last30Days": "Last 30 days",
+    "avgCompletion": "Avg completion",
+    "avgCompletionHint": "Average current-cycle completion across active clients.",
+    "behindLatest": "Behind latest",
+    "none": "—"
+  },
+  "weekly": {
+    "heading": "Weekly drop-off",
+    "note": "Based on submitted day results across active clients.",
+    "completions": "Completions",
+    "distinctClients": "Distinct clients",
+    "week": "W{number}",
+    "empty": "No weekly data yet."
+  },
+  "clients": {
+    "heading": "Active clients",
+    "empty": "No active clients yet.",
+    "noMatches": "No clients match your search.",
+    "searchPlaceholder": "Search clients",
+    "sortBy": "Sort by {column}",
+    "client": "Client",
+    "assigned": "Assigned",
+    "progress": "Progress",
+    "completedDays": "Completed days",
+    "version": "Version",
+    "lastCompleted": "Last completed",
+    "days": "{completed} / {total} days",
+    "versionLatest": "Latest",
+    "versionBehind": "Behind latest",
+    "openClient": "Open {name}",
+    "never": "—",
+    "avatarAlt": "{name} avatar"
+  },
+  "errors": {
+    "notFound": "This program's analytics could not be found.",
+    "forbidden": "You don't have access to this program's analytics.",
+    "generic": "Couldn't load analytics. Please try again."
+  }
+}

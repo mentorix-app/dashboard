@@ -1,7 +1,8 @@
 'use client';
 
-import { Archive, Check, Loader2, RefreshCw, UploadCloud } from 'lucide-react';
-import { useTranslations } from '@/i18n';
+import { Archive, BarChart3, Check, Loader2, RefreshCw, UploadCloud } from 'lucide-react';
+import { useLocale, useRouter, useTranslations } from '@/i18n';
+import { ROUTES } from '@/src/shared/lib';
 import { Button, ConfirmationModal } from '@/src/shared/ui';
 
 import { useWizardActions } from '../../hooks/useWizardActions';
@@ -18,7 +19,10 @@ type WizardHeaderActionsProps = {
 
 export const WizardHeaderActions = ({ programId, validateBeforePublish }: WizardHeaderActionsProps) => {
   const t = useTranslations('ProgramWizard');
+  const router = useRouter();
+  const locale = useLocale();
   const {
+    canViewAnalytics,
     canArchive,
     canPublishUpdate,
     canSync,
@@ -36,8 +40,17 @@ export const WizardHeaderActions = ({ programId, validateBeforePublish }: Wizard
     if (validateBeforePublish()) openAction('publishUpdate');
   };
 
+  const handleAnalyticsClick = () => router.push(ROUTES.programAnalytics(programId), { locale });
+
   return (
     <div className="flex flex-wrap items-center gap-2">
+      {canViewAnalytics ? (
+        <Button type="button" variant="outline" size="sm" onClick={handleAnalyticsClick}>
+          <BarChart3 aria-hidden />
+          {t('actions.analytics')}
+        </Button>
+      ) : null}
+
       {canSync ? (
         <Button type="button" variant="secondary" size="sm" onClick={() => openAction('sync')} disabled={isSyncing}>
           {isSyncing ? <Loader2 className="animate-spin" aria-hidden /> : <RefreshCw aria-hidden />}

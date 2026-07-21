@@ -18,7 +18,8 @@ export type ProgramsConfig = {
   hasNextPage: boolean;
   activeFilterCount: number;
   visibleSelected: ReadonlySet<string>;
-  selectedPrograms: Program[];
+  deletePendingPrograms: Program[];
+  deletePendingCount: number;
   isDeleteDialogOpen: boolean;
   isDeleting: boolean;
   isCreating: boolean;
@@ -38,6 +39,7 @@ export type ProgramsConfig = {
   handleSortChange: (field: ProgramSortField) => void;
   handleLoadMore: () => void;
   handleDeleteClick: () => void;
+  handleDeleteProgram: (id: string) => void;
   handleDeleteDialogOpenChange: (open: boolean) => void;
   handleConfirmDelete: () => void;
 };

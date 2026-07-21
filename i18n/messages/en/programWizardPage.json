@@ -21,6 +21,7 @@
     "done": "Back to programs"
   },
   "actions": {
+    "analytics": "Analytics",
     "archive": "Archive",
     "republish": "Publish",
     "publishUpdate": "Publish update",

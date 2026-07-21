@@ -4,6 +4,8 @@ export const ROUTES = {
   programs: '/programs',
   programBasics: (id: string) => `/programs/${id}/basics`,
   clients: '/clients',
+  analytics: '/analytics',
+  programAnalytics: (id: string) => `/analytics/${id}`,
   login: '/login',
   signup: '/signup',
   user: (id: string) => `/user/${id}`,

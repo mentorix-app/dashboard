@@ -1,4 +1,4 @@
-import type { ClientAnalytics, ClientCompletionItem } from '@/src/entities/client';
+import type { ClientAnalytics, ClientCompletionItem } from '@/src/entities/analytics';
 
 export type ClientTrainingProps = {
   clientUserId: string;
