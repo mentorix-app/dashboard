@@ -60,8 +60,9 @@
     "noResultText": "The client completed this day without leaving a note."
   },
   "review": {
-    "mockComment": "Nice work — your snatch looks more stable. Watch your elbow position on the clean next time.",
     "inputPlaceholder": "Write a comment…",
-    "send": "Send"
+    "send": "Send",
+    "error": "We couldn't send your reply. Please try again.",
+    "alreadyExists": "You've already replied to this result."
   }
 }

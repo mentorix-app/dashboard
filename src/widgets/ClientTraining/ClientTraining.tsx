@@ -38,7 +38,7 @@ export const ClientTraining: FC<ClientTrainingProps> = ({ clientUserId }) => {
   return (
     <div className="grid gap-6 xl:grid-cols-[1fr_minmax(0,22rem)] xl:items-start">
       <div className="flex flex-col gap-6">
-        <CompletionDetail completion={config.selected} />
+        <CompletionDetail clientUserId={clientUserId} completion={config.selected} />
         <ProgramOverview config={config} />
       </div>
 

@@ -9,6 +9,7 @@ import { cn } from '@/src/shared/lib/styles';
 import { Button, Skeleton } from '@/src/shared/ui';
 
 import type { ClientTrainingConfig } from '../../ClientTraining.types';
+import { CompletionStatusBadge } from '../CompletionStatusBadge';
 import { type CalendarDayTone, useCompletionCalendarConfig } from './CompletionCalendar.conf';
 
 const DAY_TONE_CLASS: Record<CalendarDayTone, string> = {
@@ -111,8 +112,11 @@ export const CompletionCalendar: FC<CompletionCalendarProps> = ({ config }) => {
                     item.id === selected?.id ? 'border-primary bg-muted' : 'border-transparent'
                   )}
                 >
-                  <span className="font-medium">
-                    {t('detail.weekDay', { week: item.weekNumber, day: item.dayNumber })}
+                  <span className="flex items-center gap-2">
+                    <span className="font-medium">
+                      {t('detail.weekDay', { week: item.weekNumber, day: item.dayNumber })}
+                    </span>
+                    <CompletionStatusBadge completion={item} />
                   </span>
                   <span className="text-muted-foreground tabular-nums">
                     {formatDate(item.completedAt, locale, 'dateTime')}

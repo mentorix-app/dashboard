@@ -9,6 +9,7 @@ import { Button, Typography } from '@/src/shared/ui';
 
 import type { ClientTrainingConfig } from '../ClientTraining.types';
 import { pickText } from '../ClientTraining.utils';
+import { CompletionStatusBadge } from './CompletionStatusBadge';
 
 type CompletionListProps = {
   config: ClientTrainingConfig;
@@ -47,8 +48,11 @@ export const CompletionList: FC<CompletionListProps> = ({ config }) => {
                     {formatDate(completion.completedAt, locale, 'shortDate')}
                   </span>
                 </span>
-                <span className="text-muted-foreground truncate text-xs">
-                  {pickText(locale, completion.programName, completion.programNameRu)}
+                <span className="flex items-center justify-between gap-2">
+                  <span className="text-muted-foreground truncate text-xs">
+                    {pickText(locale, completion.programName, completion.programNameRu)}
+                  </span>
+                  <CompletionStatusBadge completion={completion} />
                 </span>
               </button>
             </li>

@@ -13,24 +13,33 @@ import type {
 export const pickText = (locale: string, en: string, ru: string): string => (locale === 'ru' ? ru : en);
 
 /**
- * Mock per-completion review status until a trainer-review backend exists.
- * Everything in the current assignment cycle still "needs attention"; older
- * (past-cycle) completions are treated as already reviewed. Mirrors the mock
- * trainer conversation shown in the detail pane.
+ * A completion is "reviewed" once the trainer has replied to it; otherwise it
+ * still "needs attention". Drives the history feed labels and calendar dots.
  */
 export const getReviewStatus = (completion: ClientCompletionItem): CompletionReviewStatus =>
-  completion.isCurrentCycle ? 'needsAttention' : 'reviewed';
+  completion.comments.length > 0 ? 'reviewed' : 'needsAttention';
 
 /**
- * Derive the three review-status counts for the current assignment. Every
- * completed day is "needs attention" until a trainer-review backend exists, so
- * `reviewed` is always 0 for now (placeholder bucket).
+ * Split the current assignment's completed days into "reviewed" (the trainer
+ * has replied) and "needs attention" (awaiting a reply). `reviewed` is counted
+ * from the loaded feed's current-cycle comments, so it updates as soon as a
+ * trainer replies; `needsAttention` is the authoritative completed-day total
+ * minus that. `noResult` is training days without any completion.
  */
-export const buildStatusCounts = (progress: AnalyticsProgress): TrainingStatusCounts => ({
-  needsAttention: progress.completedDays,
-  reviewed: 0,
-  noResult: Math.max(progress.totalTrainingDays - progress.completedDays, 0),
-});
+export const buildStatusCounts = (
+  progress: AnalyticsProgress,
+  completions: ClientCompletionItem[]
+): TrainingStatusCounts => {
+  const reviewed = completions.filter(
+    (completion) => completion.isCurrentCycle && completion.comments.length > 0
+  ).length;
+
+  return {
+    reviewed,
+    needsAttention: Math.max(progress.completedDays - reviewed, 0),
+    noResult: Math.max(progress.totalTrainingDays - progress.completedDays, 0),
+  };
+};
 
 /** Per-week completed-vs-total points for the overview bar chart. */
 export const buildWeeklyChart = (progress: AnalyticsProgress): WeeklyChartPoint[] =>

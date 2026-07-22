@@ -25,8 +25,10 @@ export const useClientTrainingConfig = (clientUserId: string): ClientTrainingCon
 
   const [viewMode, setViewMode] = useState<ClientTrainingViewMode>('list');
   const [month, setMonth] = useState<CalendarMonth>(currentMonth);
-  // User's explicit pick; falls back to the newest completion during render.
-  const [selectedOverride, setSelectedOverride] = useState<ClientCompletionItem | null>(null);
+  // User's explicit pick tracked by id; falls back to the newest completion.
+  // Tracking by id (not the object) keeps the selection fresh after the feed
+  // refetches — e.g. once a trainer reply is posted.
+  const [selectedId, setSelectedId] = useState<string | null>(null);
 
   const analyticsQuery = useClientAnalytics(clientUserId);
   const completionsQuery = useClientCompletionsInfinite(clientUserId);
@@ -39,8 +41,12 @@ export const useClientTrainingConfig = (clientUserId: string): ClientTrainingCon
     [completionsQuery.data]
   );
 
-  // Default to the newest completion until the trainer picks another.
-  const selected = selectedOverride ?? completions[0] ?? null;
+  // Resolve the selection from live query data so it reflects the latest
+  // comments; the calendar month feed may hold picks outside the list feed.
+  const selected = useMemo(() => {
+    const pool = [...completions, ...(monthQuery.data?.items ?? [])];
+    return pool.find((item) => item.id === selectedId) ?? completions[0] ?? null;
+  }, [completions, monthQuery.data, selectedId]);
 
   const monthCells = useMemo(() => buildCalendarCells(month, monthQuery.data?.items ?? []), [month, monthQuery.data]);
 
@@ -52,12 +58,12 @@ export const useClientTrainingConfig = (clientUserId: string): ClientTrainingCon
     isLoading: analyticsQuery.isLoading,
     isError: analyticsQuery.isError,
     analytics,
-    statusCounts: progress ? buildStatusCounts(progress) : null,
+    statusCounts: progress ? buildStatusCounts(progress, completions) : null,
     weeklyChart: progress ? buildWeeklyChart(progress) : [],
     viewMode,
     onViewModeChange: setViewMode,
     selected,
-    onSelect: setSelectedOverride,
+    onSelect: (completion: ClientCompletionItem) => setSelectedId(completion.id),
     completions,
     hasMore: completionsQuery.hasNextPage ?? false,
     isFetchingMore: completionsQuery.isFetchingNextPage,

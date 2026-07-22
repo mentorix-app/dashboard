@@ -77,6 +77,13 @@ export type ClientAnalytics = {
   activity: AnalyticsActivity;
 };
 
+/** A trainer reply on a workout completion. At most one per completion for now. */
+export type CompletionComment = {
+  id: string;
+  text: string;
+  createdAt: string;
+};
+
 /** One completed workout day in the client's history feed. */
 export type ClientCompletionItem = {
   id: string;
@@ -90,6 +97,8 @@ export type ClientCompletionItem = {
   resultText: string;
   /** True when the completion belongs to the current assignment cycle. */
   isCurrentCycle: boolean;
+  /** Trainer replies (oldest first); always an array, currently 0 or 1 element. */
+  comments: CompletionComment[];
 };
 
 /** Paginated response for GET /trainer/clients/{id}/completions. */
@@ -104,4 +113,12 @@ export type ClientCompletionsParams = {
   from?: string;
   /** RFC3339 or YYYY-MM-DD; only completions before this time (exclusive). */
   to?: string;
+};
+
+/** Variables for POST /trainer/clients/{id}/completions/{completionId}/comments. */
+export type CreateCompletionCommentParams = {
+  clientUserId: string;
+  completionId: string;
+  /** Trainer reply text; must be 1–2000 characters. */
+  text: string;
 };

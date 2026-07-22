@@ -1,8 +1,16 @@
 'use client';
 
-import { queryKeys, useGet, useInfiniteGet } from '@/src/shared/api';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-import type { ClientAnalytics, ClientCompletionsParams, ClientCompletionsResult } from './clientAnalytics.types';
+import { http, type HttpError, queryKeys, useGet, useInfiniteGet } from '@/src/shared/api';
+
+import type {
+  ClientAnalytics,
+  ClientCompletionsParams,
+  ClientCompletionsResult,
+  CompletionComment,
+  CreateCompletionCommentParams,
+} from './clientAnalytics.types';
 import { buildCompletionsQuery } from './clientAnalytics.utils';
 
 const COMPLETIONS_PAGE_SIZE = 10;
@@ -41,3 +49,21 @@ export const useClientCompletionsMonth = (clientUserId: string, params: ClientCo
     { enabled: clientUserId.length > 0 && Boolean(params.from) && Boolean(params.to) },
     { params: { ...buildCompletionsQuery(params), page: 1, limit: COMPLETIONS_MONTH_LIMIT } }
   );
+
+/**
+ * Post the trainer's reply to a workout completion. One reply per completion:
+ * a repeat POST returns 409. On success, refresh the client's analytics and
+ * completion feeds so the new comment appears.
+ */
+export const useCreateCompletionComment = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<CompletionComment, HttpError, CreateCompletionCommentParams>({
+    mutationFn: ({ clientUserId, completionId, text }) =>
+      http
+        .post<CompletionComment>(`/trainer/clients/${clientUserId}/completions/${completionId}/comments`, { text })
+        .then((response) => response.data),
+    onSuccess: (_comment, { clientUserId }) =>
+      queryClient.invalidateQueries({ queryKey: queryKeys.analytics.client(clientUserId) }),
+  });
+};

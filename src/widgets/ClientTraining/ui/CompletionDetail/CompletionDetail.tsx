@@ -1,19 +1,20 @@
 'use client';
 
 import { type FC } from 'react';
-import { Send } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
 import type { ClientCompletionItem } from '@/src/entities/analytics';
-import { Badge, Button, Card, Textarea, Typography } from '@/src/shared/ui';
+import { Badge, Card, Typography } from '@/src/shared/ui';
 
 import { useCompletionDetailConfig } from './CompletionDetail.conf';
+import { CompletionReplyForm } from './CompletionReplyForm';
 
 type CompletionDetailProps = {
+  clientUserId: string;
   completion: ClientCompletionItem | null;
 };
 
-export const CompletionDetail: FC<CompletionDetailProps> = ({ completion }) => {
+export const CompletionDetail: FC<CompletionDetailProps> = ({ clientUserId, completion }) => {
   const t = useTranslations('ClientProfile');
   const model = useCompletionDetailConfig(completion);
 
@@ -41,7 +42,7 @@ export const CompletionDetail: FC<CompletionDetailProps> = ({ completion }) => {
         ) : null}
       </header>
 
-      {/* Conversation: athlete result incoming (left), trainer comment outgoing (right). */}
+      {/* Conversation: athlete result incoming (left), trainer reply outgoing (right). */}
       <div className="flex flex-col gap-4">
         <div className="flex flex-col items-start gap-1">
           <div className="bg-muted max-w-[85%] rounded-2xl rounded-bl-sm px-4 py-2.5">
@@ -54,26 +55,18 @@ export const CompletionDetail: FC<CompletionDetailProps> = ({ completion }) => {
           <span className="text-muted-foreground px-1 text-xs">{model.athleteTime}</span>
         </div>
 
-        <div className="flex flex-col items-end gap-1">
-          <div className="bg-primary text-primary-foreground max-w-[85%] rounded-2xl rounded-br-sm px-4 py-2.5 shadow-sm">
-            <p className="text-sm whitespace-pre-wrap">{t('review.mockComment')}</p>
+        {model.comment ? (
+          <div className="flex flex-col items-end gap-1">
+            <div className="bg-primary text-primary-foreground max-w-[85%] rounded-2xl rounded-br-sm px-4 py-2.5 shadow-sm">
+              <p className="text-sm whitespace-pre-wrap">{model.comment.text}</p>
+            </div>
+            <span className="text-muted-foreground px-1 text-xs">{model.trainerTime}</span>
           </div>
-          <span className="text-muted-foreground px-1 text-xs">{model.trainerTime}</span>
-        </div>
+        ) : null}
       </div>
 
-      {/* Mock trainer input — not wired to a backend yet. */}
-      <form className="mt-1 flex items-end gap-2 border-t pt-4" onSubmit={(event) => event.preventDefault()}>
-        <Textarea
-          rows={2}
-          placeholder={t('review.inputPlaceholder')}
-          aria-label={t('review.inputPlaceholder')}
-          className="max-h-40 min-h-16 flex-1 resize-y"
-        />
-        <Button type="submit" size="icon" aria-label={t('review.send')}>
-          <Send aria-hidden />
-        </Button>
-      </form>
+      {/* One reply per completion: show the input only until a reply exists. */}
+      {model.comment ? null : <CompletionReplyForm clientUserId={clientUserId} completionId={completion.id} />}
     </Card>
   );
 };

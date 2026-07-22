@@ -10,8 +10,15 @@ export type {
   ClientCompletionItem,
   ClientCompletionsParams,
   ClientCompletionsResult,
+  CompletionComment,
+  CreateCompletionCommentParams,
 } from './api/clientAnalytics.types';
-export { useClientAnalytics, useClientCompletionsInfinite, useClientCompletionsMonth } from './api/useClientAnalytics';
+export {
+  useClientAnalytics,
+  useClientCompletionsInfinite,
+  useClientCompletionsMonth,
+  useCreateCompletionComment,
+} from './api/useClientAnalytics';
 export type {
   FetchProgramsAnalyticsParams,
   ProgramAnalytics,
