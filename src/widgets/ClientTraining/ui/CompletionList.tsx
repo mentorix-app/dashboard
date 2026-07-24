@@ -13,9 +13,11 @@ import { CompletionStatusBadge } from './CompletionStatusBadge';
 
 type CompletionListProps = {
   config: ClientTrainingConfig;
+  /** Fired after a completion is picked (used to dismiss the mobile modal). */
+  onPicked?: () => void;
 };
 
-export const CompletionList: FC<CompletionListProps> = ({ config }) => {
+export const CompletionList: FC<CompletionListProps> = ({ config, onPicked }) => {
   const t = useTranslations('ClientProfile');
   const locale = useLocale();
   const { completions, selected, onSelect, hasMore, isFetchingMore, onLoadMore } = config;
@@ -33,7 +35,10 @@ export const CompletionList: FC<CompletionListProps> = ({ config }) => {
             <li key={completion.id}>
               <button
                 type="button"
-                onClick={() => onSelect(completion)}
+                onClick={() => {
+                  onSelect(completion);
+                  onPicked?.();
+                }}
                 aria-current={isActive}
                 className={cn(
                   'hover:bg-muted flex w-full flex-col gap-0.5 rounded-md border p-3 text-left transition-colors',

@@ -39,6 +39,7 @@
   },
   "history": {
     "heading": "History",
+    "open": "View history",
     "list": "List",
     "calendar": "Calendar",
     "loadMore": "Load more",

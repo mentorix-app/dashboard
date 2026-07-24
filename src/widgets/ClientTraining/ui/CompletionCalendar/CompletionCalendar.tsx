@@ -22,9 +22,11 @@ const DAY_TONE_CLASS: Record<CalendarDayTone, string> = {
 
 type CompletionCalendarProps = {
   config: ClientTrainingConfig;
+  /** Fired when a completion is definitively picked (used to dismiss the mobile modal). */
+  onPicked?: () => void;
 };
 
-export const CompletionCalendar: FC<CompletionCalendarProps> = ({ config }) => {
+export const CompletionCalendar: FC<CompletionCalendarProps> = ({ config, onPicked }) => {
   const t = useTranslations('ClientProfile');
   const locale = useLocale();
   const { isMonthLoading, selected, onSelect, onPrevMonth, onNextMonth } = config;
@@ -63,7 +65,12 @@ export const CompletionCalendar: FC<CompletionCalendarProps> = ({ config }) => {
                   type="button"
                   disabled={!cell.hasCompletion}
                   aria-current={cell.isActive}
-                  onClick={() => cell.newest && onSelect(cell.newest)}
+                  onClick={() => {
+                    if (!cell.newest) return;
+                    onSelect(cell.newest);
+                    // A single-result day is a final pick; multi-result days expand the list below.
+                    if (cell.count === 1) onPicked?.();
+                  }}
                   className={cn(
                     'relative flex aspect-square items-center justify-center rounded-md text-sm tabular-nums transition-colors',
                     DAY_TONE_CLASS[cell.tone],
@@ -105,7 +112,10 @@ export const CompletionCalendar: FC<CompletionCalendarProps> = ({ config }) => {
               <li key={item.id}>
                 <button
                   type="button"
-                  onClick={() => onSelect(item)}
+                  onClick={() => {
+                    onSelect(item);
+                    onPicked?.();
+                  }}
                   aria-current={item.id === selected?.id}
                   className={cn(
                     'hover:bg-muted flex w-full items-center justify-between gap-2 rounded-md border px-2.5 py-1.5 text-left text-xs transition-colors',
