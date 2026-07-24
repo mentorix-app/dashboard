@@ -4,7 +4,7 @@ import { type FC } from 'react';
 
 import { useTranslations } from '@/i18n';
 import type { ClientCompletionItem } from '@/src/entities/analytics';
-import { Badge, Card, Typography } from '@/src/shared/ui';
+import { Badge, Card, ChatMessage, Typography } from '@/src/shared/ui';
 
 import { useCompletionDetailConfig } from './CompletionDetail.conf';
 import { CompletionReplyForm } from './CompletionReplyForm';
@@ -44,24 +44,14 @@ export const CompletionDetail: FC<CompletionDetailProps> = ({ clientUserId, comp
 
       {/* Conversation: athlete result incoming (left), trainer reply outgoing (right). */}
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col items-start gap-1">
-          <div className="bg-muted max-w-[85%] rounded-2xl rounded-bl-sm px-4 py-2.5">
-            {model.hasResult ? (
-              <p className="text-sm whitespace-pre-wrap">{completion.resultText}</p>
-            ) : (
-              <p className="text-muted-foreground text-sm italic">{t('detail.noResultText')}</p>
-            )}
-          </div>
-          <span className="text-muted-foreground px-1 text-xs">{model.athleteTime}</span>
-        </div>
+        <ChatMessage timestamp={model.athleteTime} muted={!model.hasResult}>
+          {model.hasResult ? completion.resultText : t('detail.noResultText')}
+        </ChatMessage>
 
         {model.comment ? (
-          <div className="flex flex-col items-end gap-1">
-            <div className="bg-primary text-primary-foreground max-w-[85%] rounded-2xl rounded-br-sm px-4 py-2.5 shadow-sm">
-              <p className="text-sm whitespace-pre-wrap">{model.comment.text}</p>
-            </div>
-            <span className="text-muted-foreground px-1 text-xs">{model.trainerTime}</span>
-          </div>
+          <ChatMessage variant="outgoing" timestamp={model.trainerTime}>
+            {model.comment.text}
+          </ChatMessage>
         ) : null}
       </div>
 

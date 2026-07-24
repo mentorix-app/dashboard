@@ -1,0 +1,60 @@
+{
+  "title": "Weekly results",
+  "percent": "{value}%",
+  "weekLabel": "Week {number}",
+  "dayLabel": "Day {number}",
+  "dayShort": "D{number}",
+  "tabs": {
+    "label": "Program analytics sections",
+    "overview": "Overview",
+    "results": "Weekly results"
+  },
+  "toolbar": {
+    "weekLabel": "Select week",
+    "searchLabel": "Search clients",
+    "searchPlaceholder": "Search clients",
+    "tableView": "Table",
+    "cardsView": "Cards"
+  },
+  "summary": {
+    "completion": "Completion",
+    "submitted": "Submitted",
+    "missing": "Missing",
+    "behind": "Behind latest"
+  },
+  "table": {
+    "client": "Client"
+  },
+  "client": {
+    "progress": "{completed} / {total} days",
+    "behind": "Behind latest",
+    "avatarAlt": "{name} avatar"
+  },
+  "cell": {
+    "submitted": "Result submitted",
+    "missing": "No result",
+    "noText": "No details provided."
+  },
+  "cards": {
+    "daysLabel": "Training days"
+  },
+  "missing": {
+    "heading": "No results yet ({count})",
+    "weekDescription": "These clients haven't submitted any results this week. Click a name to open their analytics.",
+    "dayDescription": "These clients haven't submitted a result for this day. Click a name to open their analytics."
+  },
+  "empty": {
+    "noWeeksTitle": "No weekly data yet",
+    "noWeeksDescription": "This program has no published weeks with training days to review.",
+    "weekTitle": "No training days this week",
+    "weekDescription": "The selected week has no training days. Pick another week to see client results.",
+    "noClientsTitle": "No clients assigned",
+    "noClientsDescription": "No active clients are assigned to this program yet.",
+    "noMatchesTitle": "No clients found",
+    "noMatchesDescription": "No clients match your search for this week."
+  },
+  "errors": {
+    "forbidden": "You don't have access to this program's results.",
+    "generic": "Couldn't load weekly results. Please try again."
+  }
+}

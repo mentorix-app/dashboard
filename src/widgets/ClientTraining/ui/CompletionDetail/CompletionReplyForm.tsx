@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, type FormEvent, useState } from 'react';
+import { useState } from 'react';
 import { Loader2, Send } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
@@ -18,7 +18,7 @@ type CompletionReplyFormProps = {
 };
 
 /** Trainer reply input for a workout completion with no comment yet. */
-export const CompletionReplyForm: FC<CompletionReplyFormProps> = ({ clientUserId, completionId }) => {
+export const CompletionReplyForm = ({ clientUserId, completionId }: CompletionReplyFormProps) => {
   const t = useTranslations('ClientProfile');
   const { showErrorToast } = useToast();
   const { mutate, isPending } = useCreateCompletionComment();
@@ -27,8 +27,7 @@ export const CompletionReplyForm: FC<CompletionReplyFormProps> = ({ clientUserId
   const trimmed = text.trim();
   const canSubmit = trimmed.length > 0 && trimmed.length <= MAX_LENGTH && !isPending;
 
-  const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
+  const handleSubmit = () => {
     if (!canSubmit) return;
 
     mutate(
@@ -42,7 +41,13 @@ export const CompletionReplyForm: FC<CompletionReplyFormProps> = ({ clientUserId
   };
 
   return (
-    <form className="mt-1 flex items-end gap-2 border-t pt-4" onSubmit={handleSubmit}>
+    <form
+      className="mt-1 flex items-end gap-2 border-t pt-4"
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleSubmit();
+      }}
+    >
       <Textarea
         rows={2}
         maxLength={MAX_LENGTH}

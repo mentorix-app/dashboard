@@ -1,16 +1,3 @@
-import type { ProgramStatus } from '@/src/entities/program';
-
-export type ProgramAnalyticsHeaderVM = {
-  name: string;
-  status: ProgramStatus;
-  statusLabel: string;
-  versionLabel: string;
-  trainingDaysLabel: string;
-  lastActivityLabel: string;
-  backHref: string;
-  editHref: string;
-};
-
 export type ProgramAnalyticsSummaryVM = {
   activeClients: number;
   totalCompletions: number;

@@ -32,4 +32,14 @@ export type {
   ProgramsAnalyticsResult,
 } from './api/programAnalytics.types';
 export { useProgramAnalytics, useProgramsAnalyticsInfinite } from './api/useProgramAnalytics';
+export type {
+  ProgramWeekCellStatus,
+  ProgramWeekDayColumn,
+  ProgramWeekMatrixCell,
+  ProgramWeekMatrixClient,
+  ProgramWeekMatrixComment,
+  ProgramWeekMatrixSummary,
+  ProgramWeekResults,
+} from './api/programWeekResults.types';
+export { useProgramWeekResults } from './api/useProgramWeekResults';
 export { buildProgramsAnalyticsQuery } from './lib';

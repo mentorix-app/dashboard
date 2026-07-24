@@ -19,10 +19,11 @@ import { ExerciseFields } from '../ExerciseFields';
 import type { SingleBlockRowProps } from './SingleBlockRow.types';
 
 /**
- * A top-level single exercise. On mobile the merge checkbox, drag handle,
- * exercise name and row actions sit on a header line with the editable fields
- * full width below; from `md` up the parent row flattens everything back into a
- * single aligned line. Returns cells for the parent row wrapper.
+ * A top-level single exercise. On mobile the merge checkbox, drag handle, name
+ * and row actions sit on a header line with the editable fields full width
+ * below; from `md` up the row flattens into a single top-aligned line — drag,
+ * name (wrapping up to two lines), inputs, actions. Returns the pieces for the
+ * parent row wrapper.
  */
 export const SingleBlockRow = ({
   block,
@@ -41,25 +42,29 @@ export const SingleBlockRow = ({
 
   return (
     <>
-      <div className="flex items-center gap-2 md:contents">
+      <div className="flex items-center gap-2 xl:contents">
         {canEdit ? (
           <Checkbox
             checked={selected}
             onCheckedChange={(checked) => onSelectChange(block.id, checked === true)}
             aria-label={t('structure.exercises.selectForMerge')}
-            className="shrink-0 md:order-1"
+            className="shrink-0 xl:order-1 xl:mt-2"
           />
         ) : (
-          <span aria-hidden className="size-4 shrink-0 md:order-1" />
+          <span aria-hidden className="size-4 shrink-0 xl:order-1" />
         )}
 
-        <div className="flex shrink-0 md:order-2">{dragHandle}</div>
+        <div className="flex shrink-0 xl:order-2 xl:self-center">{dragHandle}</div>
 
-        <Typography variant="p-sm" className="min-w-0 flex-1 truncate font-medium md:order-3" title={exerciseName}>
+        <Typography
+          variant="p-sm"
+          className="line-clamp-2 min-w-0 flex-1 font-medium xl:order-3 xl:min-w-48 xl:self-center"
+          title={exerciseName}
+        >
           {exerciseName}
         </Typography>
 
-        <div className="ml-auto shrink-0 md:order-5 md:ml-0">
+        <div className="ml-auto shrink-0 xl:order-5 xl:ml-0 xl:self-center">
           {canEdit ? (
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
@@ -91,7 +96,7 @@ export const SingleBlockRow = ({
         </div>
       </div>
 
-      <ExerciseFields exercise={exercise} canEdit={canEdit} onUpdate={onUpdate} className="md:order-4" />
+      <ExerciseFields exercise={exercise} canEdit={canEdit} onUpdate={onUpdate} className="xl:order-4" />
     </>
   );
 };

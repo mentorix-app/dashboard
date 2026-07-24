@@ -20,8 +20,9 @@ import type { GroupExerciseRowProps } from './GroupExerciseRow.types';
 /**
  * An exercise inside a group block. On mobile the drag handle, name and row
  * actions sit on a header line with the editable fields full width below; from
- * `md` up the parent row flattens everything back into a single aligned line.
- * Its menu can extract the exercise, move it into another group, or delete it.
+ * `md` up the row flattens into a single top-aligned line — drag, name
+ * (wrapping up to two lines), inputs, actions. Its menu can extract the
+ * exercise, move it into another group, or delete it.
  */
 export const GroupExerciseRow = ({
   block,
@@ -39,14 +40,18 @@ export const GroupExerciseRow = ({
 
   return (
     <>
-      <div className="flex items-center gap-2 md:contents">
-        <div className="flex shrink-0 md:order-1">{dragHandle}</div>
+      <div className="flex items-center gap-2 xl:contents">
+        <div className="flex shrink-0 xl:order-1 xl:self-center">{dragHandle}</div>
 
-        <Typography variant="p-sm" className="min-w-0 flex-1 truncate font-medium md:order-2" title={exerciseName}>
+        <Typography
+          variant="p-sm"
+          className="line-clamp-2 min-w-0 flex-1 font-medium xl:order-2 xl:min-w-48 xl:self-center"
+          title={exerciseName}
+        >
           {exerciseName}
         </Typography>
 
-        <div className="ml-auto shrink-0 md:order-4 md:ml-0">
+        <div className="ml-auto shrink-0 xl:order-4 xl:ml-0 xl:self-center">
           {canEdit ? (
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
@@ -83,7 +88,7 @@ export const GroupExerciseRow = ({
         </div>
       </div>
 
-      <ExerciseFields exercise={exercise} canEdit={canEdit} onUpdate={onUpdate} className="md:order-3" />
+      <ExerciseFields exercise={exercise} canEdit={canEdit} onUpdate={onUpdate} className="xl:order-3" />
     </>
   );
 };

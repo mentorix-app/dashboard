@@ -2,14 +2,15 @@ import { ProgramBlockType } from '@/src/entities/program';
 
 /**
  * Shared row layout for exercise rows (both top-level single rows and rows
- * inside a group block). On mobile the row is a small stacked card — a header
- * line (checkbox, drag handle, exercise name and row actions) with the editable
- * fields full width beneath it — so the inputs are not squeezed between the
- * handle and the actions menu. From the `md` breakpoint up the header switches
- * to `display: contents` and, together with per-cell `order`, the pieces
- * flatten back into a single aligned row.
+ * inside a group block). Up to the `xl` breakpoint the row is a stacked card —
+ * a header line (checkbox, drag handle, exercise name and row actions) with the
+ * editable fields full width beneath it — so narrow desktop widths never squeeze
+ * the inputs out of the row. From `xl` up the header switches to
+ * `display: contents` and, together with per-cell `order`, the pieces flatten
+ * into a single line — drag, name, inputs, actions — while the inputs block keeps
+ * its own two-row stack (sets/reps then instruction).
  */
-export const EXERCISE_ROW_LAYOUT = 'flex flex-col gap-2 md:flex-row md:items-center md:gap-2';
+export const EXERCISE_ROW_LAYOUT = 'flex flex-col gap-2 xl:flex-row xl:items-start xl:gap-3';
 
 /** Message keys for each block type label, kept literal so next-intl stays typed. */
 export const BLOCK_TYPE_LABEL_KEY = {

@@ -40,6 +40,8 @@ export const queryKeys = {
       [...queryKeys.analytics.all, 'client', id, 'completions', params] as const,
     programsList: (params: object) => [...queryKeys.analytics.all, 'programs', 'list', params] as const,
     program: (id: string) => [...queryKeys.analytics.all, 'programs', id] as const,
+    weekResults: (programId: string, weekNumber: number) =>
+      [...queryKeys.analytics.all, 'programs', programId, 'weeks', weekNumber, 'results'] as const,
   },
   user: {
     all: [QUERY_KEY_USER] as const,

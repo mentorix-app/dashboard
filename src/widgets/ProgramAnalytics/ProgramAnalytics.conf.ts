@@ -3,24 +3,17 @@
 import { useLocale, useTranslations } from '@/i18n';
 import { useProgramAnalytics } from '@/src/entities/analytics';
 import { getClientAvatarSrc, getClientInitials } from '@/src/entities/client';
-import { getProgramName } from '@/src/entities/program';
 import { formatDate, ROUTES } from '@/src/shared/lib';
 import type { ChartConfig } from '@/src/shared/ui';
 
-import type {
-  ProgramAnalyticsClientVM,
-  ProgramAnalyticsHeaderVM,
-  ProgramAnalyticsSummaryVM,
-  WeeklyDropOffPoint,
-} from './ProgramAnalytics.types';
-import { countBehindLatest, toProgramStatusEnum } from './ProgramAnalytics.utils';
+import type { ProgramAnalyticsClientVM, ProgramAnalyticsSummaryVM, WeeklyDropOffPoint } from './ProgramAnalytics.types';
+import { countBehindLatest } from './ProgramAnalytics.utils';
 
 type ProgramAnalyticsConfig =
   | { status: 'loading' }
   | { status: 'error'; errorMessage: string }
   | {
       status: 'ready';
-      header: ProgramAnalyticsHeaderVM;
       summary: ProgramAnalyticsSummaryVM;
       chartConfig: ChartConfig;
       chartData: WeeklyDropOffPoint[];
@@ -41,21 +34,7 @@ export const useProgramAnalyticsConfig = (programId: string): ProgramAnalyticsCo
     return { status: 'error', errorMessage };
   }
 
-  const { program, summary, clients, weeks } = query.data;
-
-  const header: ProgramAnalyticsHeaderVM = {
-    name: getProgramName(program, locale),
-    status: toProgramStatusEnum(program.status),
-    statusLabel: t(`status.${program.status}`),
-    versionLabel:
-      program.latestVersionNumber > 0 ? t('version', { number: program.latestVersionNumber }) : t('notPublished'),
-    trainingDaysLabel: t('trainingDays', { count: program.trainingDaysCount }),
-    lastActivityLabel: summary.lastActivityAt
-      ? t('lastActivity', { date: formatDate(summary.lastActivityAt, locale, 'shortDate') })
-      : t('lastActivityNever'),
-    backHref: ROUTES.analytics,
-    editHref: ROUTES.programBasics(program.programId),
-  };
+  const { summary, clients, weeks } = query.data;
 
   const summaryVM: ProgramAnalyticsSummaryVM = {
     activeClients: summary.activeClientsCount,
@@ -97,7 +76,6 @@ export const useProgramAnalyticsConfig = (programId: string): ProgramAnalyticsCo
 
   return {
     status: 'ready',
-    header,
     summary: summaryVM,
     chartConfig,
     chartData,

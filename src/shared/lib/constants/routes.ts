@@ -6,6 +6,8 @@ export const ROUTES = {
   clients: '/clients',
   analytics: '/analytics',
   programAnalytics: (id: string) => `/analytics/${id}`,
+  programAnalyticsOverview: (id: string) => `/analytics/${id}/overview`,
+  programAnalyticsResults: (id: string) => `/analytics/${id}/results`,
   login: '/login',
   signup: '/signup',
   user: (id: string) => `/user/${id}`,

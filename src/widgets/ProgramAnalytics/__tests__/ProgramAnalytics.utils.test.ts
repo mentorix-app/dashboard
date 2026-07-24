@@ -1,7 +1,6 @@
 import type { ProgramAnalyticsClient } from '@/src/entities/analytics';
-import { ProgramStatus } from '@/src/entities/program/model/types';
 
-import { countBehindLatest, toProgramStatusEnum } from '../ProgramAnalytics.utils';
+import { countBehindLatest } from '../ProgramAnalytics.utils';
 
 const buildClient = (isBehindLatest: boolean, id: string): ProgramAnalyticsClient => ({
   clientUserId: id,
@@ -24,14 +23,6 @@ describe('ProgramAnalytics.utils', () => {
     it('counts only clients behind the latest version', () => {
       const clients = [buildClient(true, 'a'), buildClient(false, 'b'), buildClient(true, 'c')];
       expect(countBehindLatest(clients)).toBe(2);
-    });
-  });
-
-  describe('toProgramStatusEnum', () => {
-    it('maps analytics statuses to the program status enum', () => {
-      expect(toProgramStatusEnum('draft')).toBe(ProgramStatus.Draft);
-      expect(toProgramStatusEnum('published')).toBe(ProgramStatus.Published);
-      expect(toProgramStatusEnum('archived')).toBe(ProgramStatus.Archived);
     });
   });
 });

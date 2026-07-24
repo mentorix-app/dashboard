@@ -57,14 +57,14 @@ export const GroupBlockExercises = ({
   ) : null;
 
   return (
-    <div ref={setNodeRef} className="flex flex-col gap-1">
+    <div ref={setNodeRef} className="flex flex-col gap-2">
       <SortableContext items={exerciseDndIds} strategy={verticalListSortingStrategy}>
         {exercises.map((exercise, index) => (
           <Fragment key={exercise.id}>
             {index === ghostIndex ? ghostRow : null}
             <SortableItem
               id={`${EXERCISE_DND_PREFIX}${exercise.id}`}
-              className={cn(EXERCISE_ROW_LAYOUT, 'rounded-md px-2 py-2 md:px-1 md:py-1')}
+              className={cn(EXERCISE_ROW_LAYOUT, 'rounded-md px-2 py-2 xl:px-1 xl:py-1')}
             >
               <GroupExerciseRow
                 block={block}

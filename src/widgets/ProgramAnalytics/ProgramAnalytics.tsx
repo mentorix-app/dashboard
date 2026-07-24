@@ -4,7 +4,6 @@ import { Typography } from '@/src/shared/ui';
 
 import { useProgramAnalyticsConfig } from './ProgramAnalytics.conf';
 import { ProgramAnalyticsClients } from './ui/ProgramAnalyticsClients';
-import { ProgramAnalyticsHeader } from './ui/ProgramAnalyticsHeader';
 import { ProgramAnalyticsSkeleton } from './ui/ProgramAnalyticsSkeleton';
 import { ProgramAnalyticsSummary } from './ui/ProgramAnalyticsSummary';
 import { WeeklyDropOff } from './ui/WeeklyDropOff';
@@ -29,11 +28,10 @@ export const ProgramAnalytics = ({ programId }: ProgramAnalyticsProps) => {
     );
   }
 
-  const { header, summary, chartConfig, chartData, clients } = config;
+  const { summary, chartConfig, chartData, clients } = config;
 
   return (
     <div className="flex flex-col gap-6">
-      <ProgramAnalyticsHeader header={header} />
       <ProgramAnalyticsSummary summary={summary} />
       <WeeklyDropOff chartConfig={chartConfig} chartData={chartData} />
       <ProgramAnalyticsClients clients={clients} />

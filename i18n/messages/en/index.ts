@@ -10,6 +10,7 @@ import programsPage from './programsPage.json';
 import programWizardPage from './programWizardPage.json';
 import programsAnalyticsPage from './programsAnalyticsPage.json';
 import programAnalyticsPage from './programAnalyticsPage.json';
+import programWeekResults from './programWeekResults.json';
 import clientsPage from './clientsPage.json';
 import programPicker from './programPicker.json';
 import inviteClient from './inviteClient.json';
@@ -34,6 +35,7 @@ export default {
   ProgramWizard: programWizardPage,
   ProgramsAnalytics: programsAnalyticsPage,
   ProgramAnalytics: programAnalyticsPage,
+  ProgramWeekResults: programWeekResults,
   Clients: clientsPage,
   ProgramPicker: programPicker,
   InviteClient: inviteClient,

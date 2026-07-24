@@ -3,6 +3,7 @@ export * from './Badge';
 export * from './Button';
 export * from './Card';
 export * from './Chart';
+export * from './ChatMessage';
 export * from './Checkbox';
 export * from './Collapsible';
 export * from './ConfirmationModal';
