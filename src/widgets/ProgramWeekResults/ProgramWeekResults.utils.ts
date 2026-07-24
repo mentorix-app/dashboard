@@ -1,6 +1,10 @@
 import type { ViewMode } from '@/src/features/ViewModeSwitch';
 
-import type { WeekResultsParamUpdates } from './ProgramWeekResults.types';
+import type { WeekResultsCellVM, WeekResultsParamUpdates } from './ProgramWeekResults.types';
+
+/** A submitted day with no reply yet: the trainer can still leave one reply. */
+export const canReplyToCell = (cell: WeekResultsCellVM): boolean =>
+  cell.isSubmitted && cell.completionId !== null && cell.comments.length === 0;
 
 type SearchParamsReader = {
   get: (name: string) => string | null;

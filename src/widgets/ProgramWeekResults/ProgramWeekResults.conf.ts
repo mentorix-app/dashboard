@@ -54,6 +54,7 @@ export const useWeekResultsConfig = (programId: string, week: number): WeekResul
       return {
         dayNumber: day.dayNumber,
         isSubmitted: cell?.status === 'submitted',
+        completionId: cell?.completionId ?? null,
         resultText: cell?.resultText ?? '',
         completedAtLabel: cell?.completedAt ? formatDate(cell.completedAt, locale, 'dateTime') : null,
         comments: (cell?.comments ?? []).map((comment) => ({

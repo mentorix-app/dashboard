@@ -20,6 +20,8 @@ export type WeekResultsCommentVM = {
 export type WeekResultsCellVM = {
   dayNumber: number;
   isSubmitted: boolean;
+  /** Completion the trainer can reply to; null when the client has no result. */
+  completionId: string | null;
   resultText: string;
   completedAtLabel: string | null;
   comments: WeekResultsCommentVM[];

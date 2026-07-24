@@ -3,15 +3,18 @@
 import { CircleCheck, CircleDashed, MessageSquare } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
+import { cn } from '@/src/shared/lib/styles';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/src/shared/ui';
 
 import type { WeekResultsCellVM } from '../ProgramWeekResults.types';
 
 type WeekResultsCellProps = {
   cell: WeekResultsCellVM;
+  /** When set, the submitted cell becomes a button that opens the feedback dialog. */
+  onClick?: () => void;
 };
 
-export const WeekResultsCell = ({ cell }: WeekResultsCellProps) => {
+export const WeekResultsCell = ({ cell, onClick }: WeekResultsCellProps) => {
   const t = useTranslations('ProgramWeekResults');
 
   if (!cell.isSubmitted) {
@@ -37,8 +40,12 @@ export const WeekResultsCell = ({ cell }: WeekResultsCellProps) => {
       <TooltipTrigger asChild>
         <button
           type="button"
+          onClick={onClick}
           aria-label={t('cell.submitted')}
-          className="focus-visible:ring-ring inline-flex items-center gap-1 rounded-md focus-visible:ring-2 focus-visible:outline-none"
+          className={cn(
+            'focus-visible:ring-ring inline-flex items-center gap-1 rounded-md focus-visible:ring-2 focus-visible:outline-none',
+            onClick ? 'cursor-pointer' : 'cursor-default'
+          )}
         >
           <CircleCheck className="size-4 text-emerald-600 dark:text-emerald-500" aria-hidden />
           {cell.comments.length > 0 && (

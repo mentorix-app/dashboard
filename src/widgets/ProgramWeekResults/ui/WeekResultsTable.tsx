@@ -16,16 +16,18 @@ import {
   Typography,
 } from '@/src/shared/ui';
 
-import type { WeekResultsClientVM } from '../ProgramWeekResults.types';
+import type { WeekResultsCellVM, WeekResultsClientVM } from '../ProgramWeekResults.types';
+import { canReplyToCell } from '../ProgramWeekResults.utils';
 import { WeekResultsCell } from './WeekResultsCell';
 import { WeekResultsMissingList } from './WeekResultsMissingList';
 
 type WeekResultsTableProps = {
   dayNumbers: number[];
   clients: WeekResultsClientVM[];
+  onOpenFeedback: (client: WeekResultsClientVM, cell: WeekResultsCellVM) => void;
 };
 
-export const WeekResultsTable = ({ dayNumbers, clients }: WeekResultsTableProps) => {
+export const WeekResultsTable = ({ dayNumbers, clients, onOpenFeedback }: WeekResultsTableProps) => {
   const t = useTranslations('ProgramWeekResults');
 
   const withResults = clients.filter((client) => client.cells.some((cell) => cell.isSubmitted));
@@ -79,7 +81,10 @@ export const WeekResultsTable = ({ dayNumbers, clients }: WeekResultsTableProps)
                   </TableCell>
                   {client.cells.map((cell) => (
                     <TableCell key={cell.dayNumber} className="text-center">
-                      <WeekResultsCell cell={cell} />
+                      <WeekResultsCell
+                        cell={cell}
+                        onClick={canReplyToCell(cell) ? () => onOpenFeedback(client, cell) : undefined}
+                      />
                     </TableCell>
                   ))}
                 </TableRow>

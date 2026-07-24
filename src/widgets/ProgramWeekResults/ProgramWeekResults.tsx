@@ -1,13 +1,14 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 import { useTranslations } from '@/i18n';
+import { CompletionFeedbackDialog, type CompletionFeedbackTarget } from '@/src/features/CompletionFeedbackDialog';
 import { useProgramAnalytics } from '@/src/entities/analytics';
 import { Typography } from '@/src/shared/ui';
 
 import { useWeekResultsConfig } from './ProgramWeekResults.conf';
-import type { WeekResultsClientVM } from './ProgramWeekResults.types';
+import type { WeekResultsCellVM, WeekResultsClientVM } from './ProgramWeekResults.types';
 import { resolveSelectedDay } from './ProgramWeekResults.utils';
 import { useVisibleWeekClients } from './hooks/useVisibleWeekClients';
 import { useWeekResultsState } from './hooks/useWeekResultsState';
@@ -38,6 +39,19 @@ export const ProgramWeekResults = ({ programId }: ProgramWeekResultsProps) => {
   const config = useWeekResultsConfig(programId, week);
   const readyClients = config.status === 'ready' ? config.clients : EMPTY_CLIENTS;
   const { search, setSearch, visibleClients } = useVisibleWeekClients(readyClients);
+
+  const [feedbackTarget, setFeedbackTarget] = useState<CompletionFeedbackTarget | null>(null);
+
+  const handleOpenFeedback = (client: WeekResultsClientVM, cell: WeekResultsCellVM) =>
+    setFeedbackTarget({
+      clientUserId: client.clientUserId,
+      displayName: client.displayName,
+      dayNumber: cell.dayNumber,
+      completionId: cell.completionId,
+      resultText: cell.resultText,
+      completedAtLabel: cell.completedAtLabel,
+      comments: cell.comments,
+    });
 
   if (analytics.isPending) return <WeekResultsSkeleton />;
 
@@ -87,10 +101,24 @@ export const ProgramWeekResults = ({ programId }: ProgramWeekResultsProps) => {
             selectedDay={resolveSelectedDay(config.dayNumbers, day)}
             clients={visibleClients}
             onSelectDay={setDay}
+            onOpenFeedback={handleOpenFeedback}
           />
         ) : (
-          <WeekResultsTable dayNumbers={config.dayNumbers} clients={visibleClients} />
+          <WeekResultsTable
+            dayNumbers={config.dayNumbers}
+            clients={visibleClients}
+            onOpenFeedback={handleOpenFeedback}
+          />
         ))}
+
+      <CompletionFeedbackDialog
+        programId={programId}
+        weekNumber={week}
+        target={feedbackTarget}
+        onOpenChange={(open) => {
+          if (!open) setFeedbackTarget(null);
+        }}
+      />
     </div>
   );
 };

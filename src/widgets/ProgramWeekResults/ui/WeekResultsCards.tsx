@@ -1,10 +1,13 @@
 'use client';
 
+import { MessageSquarePlus } from 'lucide-react';
+
 import { Link, useTranslations } from '@/i18n';
 import { cn } from '@/src/shared/lib/styles';
 import { Avatar, AvatarFallback, AvatarImage, Badge, Button, Card, ChatMessage, Typography } from '@/src/shared/ui';
 
-import type { WeekResultsClientVM } from '../ProgramWeekResults.types';
+import type { WeekResultsCellVM, WeekResultsClientVM } from '../ProgramWeekResults.types';
+import { canReplyToCell } from '../ProgramWeekResults.utils';
 import { WeekResultsMissingList } from './WeekResultsMissingList';
 
 type WeekResultsCardsProps = {
@@ -12,12 +15,19 @@ type WeekResultsCardsProps = {
   selectedDay: number;
   clients: WeekResultsClientVM[];
   onSelectDay: (day: number) => void;
+  onOpenFeedback: (client: WeekResultsClientVM, cell: WeekResultsCellVM) => void;
 };
 
 const hasSubmittedDay = (client: WeekResultsClientVM, selectedDay: number): boolean =>
   client.cells.find((cell) => cell.dayNumber === selectedDay)?.isSubmitted ?? false;
 
-export const WeekResultsCards = ({ dayNumbers, selectedDay, clients, onSelectDay }: WeekResultsCardsProps) => {
+export const WeekResultsCards = ({
+  dayNumbers,
+  selectedDay,
+  clients,
+  onSelectDay,
+  onOpenFeedback,
+}: WeekResultsCardsProps) => {
   const t = useTranslations('ProgramWeekResults');
 
   const submittedClients = clients.filter((client) => hasSubmittedDay(client, selectedDay));
@@ -80,6 +90,19 @@ export const WeekResultsCards = ({ dayNumbers, selectedDay, clients, onSelectDay
                     </ChatMessage>
                   ))}
                 </div>
+
+                {cell && canReplyToCell(cell) && (
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="mt-auto self-end"
+                    onClick={() => onOpenFeedback(client, cell)}
+                  >
+                    <MessageSquarePlus aria-hidden />
+                    {t('feedback.reply')}
+                  </Button>
+                )}
               </Card>
             );
           })}

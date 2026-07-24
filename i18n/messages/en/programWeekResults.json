@@ -38,6 +38,16 @@
   "cards": {
     "daysLabel": "Training days"
   },
+  "feedback": {
+    "title": "Feedback for {name}",
+    "subtitle": "Day {day} result",
+    "reply": "Reply",
+    "placeholder": "Write a reply…",
+    "send": "Send reply",
+    "sent": "Reply sent.",
+    "alreadyExists": "A reply already exists for this result.",
+    "error": "Couldn't send the reply. Please try again."
+  },
   "missing": {
     "heading": "No results yet ({count})",
     "weekDescription": "These clients haven't submitted any results this week. Click a name to open their analytics.",
