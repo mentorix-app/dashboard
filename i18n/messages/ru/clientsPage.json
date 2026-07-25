@@ -34,7 +34,7 @@
   "blockedHint": "Заблокированным клиентам нельзя назначать программы",
   "avatarAlt": "Аватар {name}",
   "selectClient": "Выбрать {name}",
-  "selectedCount": "{count, plural, one {Выбран # клиент} few {Выбрано # клиента} many {Выбрано # клиентов} other {Выбрано # клиентов}}",
+  "selectedCount": "Выбрано: {count}",
   "bulkAssign": "Назначить программу",
   "clearSelection": "Очистить",
   "overwriteWarning": "У этих клиентов уже есть программа, которая будет заменена:",

@@ -54,7 +54,7 @@ export const ExercisePicker = (props: ExercisePickerProps) => {
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="flex max-h-[85vh] flex-col gap-4 sm:max-w-2xl">
+      <DialogContent className="flex h-dvh w-screen max-w-none flex-col gap-4 rounded-none border-0 p-4 sm:h-[85vh] sm:max-h-[85vh] sm:w-[calc(100%-2rem)] sm:max-w-2xl sm:rounded-md sm:border sm:p-6">
         <DialogHeader>
           <DialogTitle>{t('title')}</DialogTitle>
           <DialogDescription>{t('description', { max: maxPick })}</DialogDescription>

@@ -2,6 +2,8 @@
 
 import { type FC } from 'react';
 
+import { Loader2 } from 'lucide-react';
+
 import { useLocale, useTranslations } from '@/i18n';
 import { formatDate } from '@/src/shared/lib';
 import { cn } from '@/src/shared/lib/styles';
@@ -28,7 +30,7 @@ export const CompletionList: FC<CompletionListProps> = ({ config, onPicked }) =>
 
   return (
     <div className="flex flex-col gap-2">
-      <ul className="scrollbar-slim flex max-h-128 flex-col gap-1.5 overflow-y-auto pr-1.5">
+      <ul className="scrollbar-slim flex flex-col gap-1.5 pr-1.5 sm:max-h-128 sm:overflow-y-auto">
         {completions.map((completion) => {
           const isActive = completion.id === selected?.id;
           return (
@@ -67,6 +69,7 @@ export const CompletionList: FC<CompletionListProps> = ({ config, onPicked }) =>
 
       {hasMore ? (
         <Button variant="outline" size="sm" onClick={onLoadMore} disabled={isFetchingMore} className="w-full">
+          {isFetchingMore ? <Loader2 className="size-4 animate-spin" aria-hidden /> : null}
           {t('history.loadMore')}
         </Button>
       ) : null}

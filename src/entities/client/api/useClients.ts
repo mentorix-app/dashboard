@@ -43,6 +43,11 @@ export const useSetClientsProgram = () => {
       http
         .put<SetClientsProgramResult>('/trainer/clients/program-assignment', { programId, clientUserIds })
         .then((response) => response.data),
-    onSuccess: () => queryClient.invalidateQueries({ queryKey: queryKeys.clients.all }),
+    onSuccess: () => {
+      // Refresh client lists and program analytics, since assigning/clearing a
+      // program changes the analytics rollups (assigned counts, completion, etc.).
+      queryClient.invalidateQueries({ queryKey: queryKeys.clients.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.analytics.all });
+    },
   });
 };

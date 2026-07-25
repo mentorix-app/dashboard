@@ -34,7 +34,7 @@
   "blockedHint": "Blocked clients can't be assigned",
   "avatarAlt": "{name} avatar",
   "selectClient": "Select {name}",
-  "selectedCount": "{count, plural, one {# client selected} other {# clients selected}}",
+  "selectedCount": "{count, plural, one {# selected} other {# selected}}",
   "bulkAssign": "Assign program",
   "clearSelection": "Clear",
   "overwriteWarning": "These clients already have a program that will be replaced:",

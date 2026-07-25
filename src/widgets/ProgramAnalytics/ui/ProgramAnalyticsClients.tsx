@@ -73,7 +73,19 @@ export const ProgramAnalyticsClients = ({ clients }: ProgramAnalyticsClientsProp
             <TableHeader>
               <TableRow>
                 <TableHead className="min-w-56">{t('clients.client')}</TableHead>
-                <TableHead className="whitespace-nowrap">{t('clients.assigned')}</TableHead>
+                <TableHead className="whitespace-nowrap">
+                  <Button
+                    type="button"
+                    variant="ghost"
+                    size="sm"
+                    className="-ml-2 h-8 justify-start px-2 font-medium"
+                    onClick={() => handleSort('lastCompleted')}
+                    aria-label={t('clients.sortBy', { column: t('clients.lastCompleted') })}
+                  >
+                    {t('clients.lastCompleted')}
+                    {renderSortIcon('lastCompleted')}
+                  </Button>
+                </TableHead>
                 <TableHead className="min-w-40">
                   <Button
                     type="button"
@@ -89,19 +101,7 @@ export const ProgramAnalyticsClients = ({ clients }: ProgramAnalyticsClientsProp
                 </TableHead>
                 <TableHead className="whitespace-nowrap">{t('clients.completedDays')}</TableHead>
                 <TableHead className="whitespace-nowrap">{t('clients.version')}</TableHead>
-                <TableHead className="whitespace-nowrap">
-                  <Button
-                    type="button"
-                    variant="ghost"
-                    size="sm"
-                    className="-ml-2 h-8 justify-start px-2 font-medium"
-                    onClick={() => handleSort('lastCompleted')}
-                    aria-label={t('clients.sortBy', { column: t('clients.lastCompleted') })}
-                  >
-                    {t('clients.lastCompleted')}
-                    {renderSortIcon('lastCompleted')}
-                  </Button>
-                </TableHead>
+                <TableHead className="whitespace-nowrap">{t('clients.assigned')}</TableHead>
               </TableRow>
             </TableHeader>
             <TableBody>
@@ -122,7 +122,7 @@ export const ProgramAnalyticsClients = ({ clients }: ProgramAnalyticsClientsProp
                       </Link>
                     </div>
                   </TableCell>
-                  <TableCell className="text-muted-foreground whitespace-nowrap">{client.assignedLabel}</TableCell>
+                  <TableCell className="text-muted-foreground whitespace-nowrap">{client.lastCompletedLabel}</TableCell>
                   <TableCell>
                     <div className="flex items-center gap-2">
                       <Progress value={client.completionPercent} className="w-28" aria-hidden />
@@ -146,7 +146,7 @@ export const ProgramAnalyticsClients = ({ clients }: ProgramAnalyticsClientsProp
                       {client.versionLabel}
                     </Badge>
                   </TableCell>
-                  <TableCell className="text-muted-foreground whitespace-nowrap">{client.lastCompletedLabel}</TableCell>
+                  <TableCell className="text-muted-foreground whitespace-nowrap">{client.assignedLabel}</TableCell>
                 </TableRow>
               ))}
             </TableBody>

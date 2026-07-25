@@ -1,5 +1,7 @@
 'use client';
 
+import { X } from 'lucide-react';
+
 import { Button, Typography } from '@/src/shared/ui';
 
 type ClientsBulkBarProps = {
@@ -22,20 +24,18 @@ export const ClientsBulkBar = ({
   if (count === 0) return null;
 
   return (
-    <div className="bg-card sticky top-2 z-10 flex items-center gap-3 rounded-lg border p-3 shadow-sm">
+    <div className="bg-card sticky top-2 z-10 flex items-center gap-2 rounded-lg border p-3 shadow-sm">
       <Typography variant="p-sm" className="font-medium">
         {countLabel}
       </Typography>
-      <div className="ml-auto flex items-center gap-2">
-        <Button type="button" variant="ghost" size="sm" onClick={onClear}>
-          {clearLabel}
+      <Button type="button" variant="ghost" size="icon-sm" onClick={onClear} aria-label={clearLabel} title={clearLabel}>
+        <X className="size-4" />
+      </Button>
+      {count > 1 ? (
+        <Button type="button" size="sm" onClick={onAssign} className="ml-auto">
+          {assignLabel}
         </Button>
-        {count > 1 ? (
-          <Button type="button" size="sm" onClick={onAssign}>
-            {assignLabel}
-          </Button>
-        ) : null}
-      </div>
+      ) : null}
     </div>
   );
 };

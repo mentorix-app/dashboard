@@ -38,14 +38,14 @@ export const CompletionFeedbackDialog = (props: CompletionFeedbackDialogProps) =
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
-      <DialogContent className="flex flex-col gap-4">
+      <DialogContent className="flex h-dvh w-screen max-w-none flex-col gap-4 rounded-none border-0 p-4 sm:h-auto sm:max-h-[85vh] sm:w-[calc(100%-2rem)] sm:max-w-lg sm:rounded-md sm:border sm:p-6">
         <DialogHeader>
           <DialogTitle>{target ? t('feedback.title', { name: target.displayName }) : ''}</DialogTitle>
           <DialogDescription>{target ? t('feedback.subtitle', { day: target.dayNumber }) : ''}</DialogDescription>
         </DialogHeader>
 
         {target ? (
-          <div className="flex max-h-[50vh] flex-col gap-2 overflow-y-auto">
+          <div className="flex min-h-0 flex-1 flex-col gap-2 overflow-y-auto sm:max-h-[50vh] sm:flex-none">
             <ChatMessage timestamp={target.completedAtLabel ?? undefined} muted={!target.resultText}>
               {target.resultText || t('cell.noText')}
             </ChatMessage>

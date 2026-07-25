@@ -35,6 +35,7 @@ export const useSyncProgramAssignments = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.programs.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.clients.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.analytics.all });
     },
   });
 };

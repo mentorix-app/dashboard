@@ -1,3 +1,5 @@
+import { Pencil, Plus } from 'lucide-react';
+
 import { Avatar, AvatarFallback, AvatarImage, Button, Card, Checkbox, Typography } from '@/src/shared/ui';
 import { Link } from '@/i18n';
 import { cn } from '@/src/shared/lib/styles';
@@ -40,10 +42,16 @@ export const ClientRowCard = ({
 
       <div className="flex min-w-0 flex-1 flex-col gap-0.5">
         <div className="flex min-w-0 items-center gap-2">
-          <Typography variant="p" className="truncate font-medium">
-            {client.displayName}
+          <Typography variant="p" className="min-w-0 truncate font-medium">
+            {labels.profileHref ? (
+              <Link href={labels.profileHref} className="underline-offset-4 hover:underline">
+                {client.displayName}
+              </Link>
+            ) : (
+              client.displayName
+            )}
           </Typography>
-          <ClientStatusBadge status={client.status} label={labels.statusLabel} />
+          <ClientStatusBadge status={client.status} label={labels.statusLabel} className="hidden sm:inline-flex" />
         </div>
         <Typography variant="p-sm" className="text-muted-foreground truncate">
           <span className="hidden md:inline">{labels.linkedLabel} · </span>
@@ -61,21 +69,29 @@ export const ClientRowCard = ({
         </Typography>
       </div>
 
-      {canSync ? (
-        <ClientSyncButton
-          label={labels.syncLabel}
-          isSyncing={isSyncing}
-          onSync={() => onSync(client.clientUserId)}
-          className="shrink-0"
-        />
-      ) : null}
-
-      {canAssign ? (
+      {canSync || canAssign ? (
         <div className="flex shrink-0 flex-col items-end gap-1">
-          <Button type="button" size="sm" disabled={isBlocked} onClick={() => onAssign(client.clientUserId)}>
-            {labels.assignLabel}
-          </Button>
-          {isBlocked && labels.blockedHint ? (
+          {canSync ? (
+            <ClientSyncButton
+              label={labels.syncLabel}
+              isSyncing={isSyncing}
+              onSync={() => onSync(client.clientUserId)}
+            />
+          ) : null}
+          {canAssign ? (
+            <Button
+              type="button"
+              size="icon-sm"
+              variant="outline"
+              disabled={isBlocked}
+              onClick={() => onAssign(client.clientUserId)}
+              aria-label={labels.assignLabel}
+              title={labels.assignLabel}
+            >
+              {labels.programName ? <Pencil className="size-4" /> : <Plus className="size-4" />}
+            </Button>
+          ) : null}
+          {canAssign && isBlocked && labels.blockedHint ? (
             <Typography variant="p-xs" className="text-muted-foreground">
               {labels.blockedHint}
             </Typography>
