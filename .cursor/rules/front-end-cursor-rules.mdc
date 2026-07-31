@@ -10,6 +10,7 @@ You are a Senior Front-End Developer and an Expert in Next.js, TypeScript, Tailw
 - Apply SOLID principles: single responsibility for components, hooks and functions; depend on interfaces/props rather than concrete implementations; prefer composition over inheritance.
 - Apply KISS: choose the simplest solution that meets the requirement. Avoid unnecessary abstractions, wrappers, or indirection layers.
 - Apply YAGNI: implement only what is currently needed. Do not add speculative code, premature generalizations, or unused abstractions.
+- Apply DRY: do not duplicate logic that already exists elsewhere in the codebase; extract shared code instead.
 - Prioritize readability and simplicity over premature performance optimization.
 - Fully implement all requested functionality.
 - Leave NO todo's, placeholders or missing pieces.
@@ -115,7 +116,7 @@ Bug severity classification:
 
 The project follows Feature-Sliced Design with strict layer dependency rules.
 Global layers (top to bottom, upper depends on lower, never reverse):
-app → src/pages → src/widgets → src/features → src/entities → src/shared
+app → src/views → src/widgets → src/features → src/entities → src/shared
 Rules:
 
 - A lower layer MUST NOT import from an upper layer (e.g. `shared` cannot import from `features`, `entities` cannot import from `widgets`)
@@ -132,41 +133,39 @@ Rules:
 
 ### File Naming and Component Structure
 
-- Keep files short: target 100-120 lines max. If a file grows beyond this, split it into smaller focused modules. Exceptions are acceptable for complex configurations
+- Atomic components; target ~100 lines per file. Exceptions: config files, generated files, barrel `index.ts`
 - Components must be "dumb" — responsible only for rendering. All business logic, data preparation, and event handlers live in the `.conf.ts` hook
+- Not every file is required — create only what is needed. A simple component/view may be a single `.tsx`
 
-File naming convention for each component:
+File naming convention (closed set — do NOT invent a new suffix, e.g. `.styled.ts`, `.helpers.ts`, `.model.ts`, without asking the user first):
 ComponentName.tsx — UI only: renders JSX, no logic, no data transformations
-ComponentName.conf.ts — Business layer: custom hook `useComponentNameConfig` that returns all props, handlers, and computed values for the component
-ComponentName.styled.ts — All styling via MUI `styled` API. Avoid `sx` prop — move styles here
+ComponentName.conf.ts — Business layer: custom hook `useComponentNameConfig` that returns all props, handlers, and computed values for the component. Over ~100 lines → split into a `hooks/` subfolder (`use<Purpose>.ts` per file) instead of one large `.conf.ts`
 ComponentName.types.ts — Type definitions. Prefer `type` over `interface` (interfaces are extendable and can be redeclared, use `interface` only when extension is intentionally needed). If types are few, they can live in `.conf.ts` or next to `.tsx` if no `.conf.ts` exists
-ComponentName.constants.ts — Hardcoded constants and i18n text strings (exported as `i18n` object)
-ComponentName.utils.ts — Pure utility functions: data transformations, formatting, mapping. No hooks, no side effects
-ComponentName.validation.ts — Yup validation schemas for Formik forms
+ComponentName.constants.ts — Hardcoded constants only (NOT i18n strings — use next-intl `useTranslations()`/`getTranslations()` reading `i18n/messages/{locale}/*.json`)
+ComponentName.utils.ts — Pure utility functions: data transformations, formatting, mapping. No hooks, no side effects. Over ~100 lines → split into a `lib/` subfolder
+ComponentName.schema.ts — Zod schemas for validation, bridged via `@hookform/resolvers` `zodResolver`. Never `.validation.ts`, never Yup/Formik
 index.ts — Barrel export for public API of the module
 Standalone hooks (reusable logic shared across components):
 use\*.ts — Custom hooks in `hooks/` folders. One hook per file, named `use<Purpose>.ts`
 
+Styling: Tailwind classNames + `cva()` (class-variance-authority) + the `cn()` utility (`src/shared/lib/styles/cn.ts`). No MUI, no `styled()` API, no separate styling file — styles live directly on JSX in `.tsx` via `cn()`/`cva()`.
+
 Example of a typical component set:
 ItemCard.tsx:
+import { cn } from '@/src/shared/lib/styles/cn'
 import { useItemCardConfig } from './ItemCard.conf'
 export const ItemCard: React.FC<ItemCardProps> = (props) => {
 const { title, isActive, handleClick, ... } = useItemCardConfig(props)
-return <StyledItemCard onClick={handleClick}>...</StyledItemCard>
+return <div className={cn('rounded-md p-4', isActive && 'bg-accent')} onClick={handleClick}>...</div>
 }
 ItemCard.conf.ts:
 export const useItemCardConfig = ({ item, onToggle }: ItemCardProps) => {
 // all business logic, data mapping, handlers
 return { title, isActive, handleClick, handleKeyDown, ... }
 }
-ItemCard.styled.ts:
-export const StyledItemCard = styled(Box, {
-shouldForwardProp: prop => prop !== 'isActive',
-})<{ isActive: boolean }>(({ theme, isActive }) => ({ ... }))
 ItemCard.constants.ts:
-export const i18n = { expandLabel: 'Show more', collapseLabel: 'Show less' }
+export const MAX_TITLE_LENGTH = 80
 
-- Not every file is required — create only what is needed. A simple component may only have `.tsx` and `.styled.ts`
 - When component grows: extract sub-components into a `ui/` subfolder with the same file conventions
 
 ### Testing
