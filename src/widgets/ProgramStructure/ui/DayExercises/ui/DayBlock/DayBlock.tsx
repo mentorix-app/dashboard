@@ -63,7 +63,7 @@ export const DayBlock = (props: DayBlockProps) => {
   return (
     <SortableItem
       id={`${BLOCK_DND_PREFIX}${block.id}`}
-      className={cn(EXERCISE_ROW_LAYOUT, 'bg-card rounded-md border px-2 py-2 xl:px-1 xl:py-1')}
+      className={cn(EXERCISE_ROW_LAYOUT, 'border-border/60 rounded-md border px-3 py-1.5 xl:px-2 xl:py-1')}
     >
       <SingleBlockRow
         block={block}

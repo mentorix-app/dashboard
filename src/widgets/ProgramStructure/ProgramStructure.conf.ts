@@ -3,6 +3,7 @@
 import { useState } from 'react';
 
 import { useTranslations } from '@/i18n';
+import { confirm } from '@/src/shared/ui';
 
 import { useStructureState } from './hooks/useStructureState';
 import { useWeeksActions } from './hooks/useWeeksActions';
@@ -16,7 +17,6 @@ export const useProgramStructureConfig = (programId: string) => {
   });
 
   const [selectedWeekId, setSelectedWeekId] = useState<string | null>(null);
-  const [weekPendingDeletion, setWeekPendingDeletion] = useState<string | null>(null);
 
   // Derive the active selection during render so it stays valid as weeks are
   // added, removed, or reordered without syncing state inside an effect.
@@ -24,14 +24,15 @@ export const useProgramStructureConfig = (programId: string) => {
     selectedWeekId && weeks.some((week) => week.id === selectedWeekId) ? selectedWeekId : (weeks[0]?.id ?? null);
   const selectedWeek = weeks.find((week) => week.id === activeWeekId) ?? null;
 
-  const handleConfirmDelete = () => {
-    if (!weekPendingDeletion) return;
-    handleDeleteWeek(weekPendingDeletion);
-    setWeekPendingDeletion(null);
-  };
-
-  const handleDeleteModalOpenChange = (open: boolean) => {
-    if (!open) setWeekPendingDeletion(null);
+  const handleRequestDeleteWeek = (weekId: string) => {
+    confirm({
+      title: t('structure.deleteConfirmTitle'),
+      description: t('structure.deleteConfirmDescription'),
+      cancelLabel: t('structure.deleteCancel'),
+      confirmLabel: t('structure.deleteConfirm'),
+      variant: 'destructive',
+      onConfirm: () => handleDeleteWeek(weekId),
+    });
   };
 
   return {
@@ -43,12 +44,9 @@ export const useProgramStructureConfig = (programId: string) => {
     selectedWeek,
     canAddWeek,
     isBusy: isMutating,
-    isDeleteModalOpen: weekPendingDeletion !== null,
     onSelectWeek: setSelectedWeekId,
-    onRequestDeleteWeek: setWeekPendingDeletion,
+    onRequestDeleteWeek: handleRequestDeleteWeek,
     onAddWeek: handleAddWeek,
     onReorderWeeks: handleReorderWeeks,
-    onConfirmDeleteWeek: handleConfirmDelete,
-    onDeleteModalOpenChange: handleDeleteModalOpenChange,
   };
 };

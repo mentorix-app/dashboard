@@ -2,7 +2,9 @@
 
 import { useState } from 'react';
 
+import { useTranslations } from '@/i18n';
 import type { ProgramDayBlock } from '@/src/entities/program';
+import { confirm } from '@/src/shared/ui';
 
 type UseGroupBlockCardConfigParams = {
   block: ProgramDayBlock;
@@ -10,11 +12,11 @@ type UseGroupBlockCardConfigParams = {
   onDeleteBlock: (blockId: string) => void;
 };
 
-/** Owns the group card's dialog/picker/confirmation state and their handlers. */
+/** Owns the group card's dialog/picker state and queues its delete confirmation via `confirm()`. */
 export const useGroupBlockCardConfig = ({ block, onAddExercise, onDeleteBlock }: UseGroupBlockCardConfigParams) => {
+  const t = useTranslations('ProgramWizard');
   const [isEditOpen, setEditOpen] = useState(false);
   const [isPickerOpen, setPickerOpen] = useState(false);
-  const [isDeleteOpen, setDeleteOpen] = useState(false);
 
   const excludeIds = block.exercises.map((exercise) => exercise.exerciseId);
 
@@ -23,23 +25,26 @@ export const useGroupBlockCardConfig = ({ block, onAddExercise, onDeleteBlock }:
     setPickerOpen(false);
   };
 
-  const handleDeleteConfirm = () => {
-    onDeleteBlock(block.id);
-    setDeleteOpen(false);
+  const handleRequestDelete = () => {
+    confirm({
+      title: t('structure.blocks.deleteBlockConfirmTitle'),
+      description: t('structure.blocks.deleteBlockConfirmDescription'),
+      cancelLabel: t('structure.blocks.deleteBlockCancel'),
+      confirmLabel: t('structure.blocks.deleteBlockConfirm'),
+      variant: 'destructive',
+      onConfirm: () => onDeleteBlock(block.id),
+    });
   };
 
   return {
     isEditOpen,
     isPickerOpen,
-    isDeleteOpen,
     excludeIds,
     onEditOpenChange: setEditOpen,
     onPickerOpenChange: setPickerOpen,
-    onDeleteOpenChange: setDeleteOpen,
     onOpenEdit: () => setEditOpen(true),
     onOpenPicker: () => setPickerOpen(true),
-    onOpenDelete: () => setDeleteOpen(true),
+    onOpenDelete: handleRequestDelete,
     handleAddConfirm,
-    handleDeleteConfirm,
   };
 };

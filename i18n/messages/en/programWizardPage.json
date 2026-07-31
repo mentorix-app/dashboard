@@ -22,10 +22,12 @@
   },
   "actions": {
     "analytics": "Analytics",
+    "menuLabel": "Actions",
     "archive": "Archive",
     "republish": "Publish",
     "publishUpdate": "Publish update",
     "sync": "Sync program",
+    "revert": "Revert changes",
     "versionBadge": "v{version}",
     "archiveModal": {
       "title": "Archive this program?",
@@ -49,6 +51,12 @@
       "title": "Sync clients to the latest version?",
       "description": "{count, plural, one {# client is} other {# clients are}} on an older version and will be moved to the latest published version of this program. This updates the plan they see.",
       "confirm": "Sync program",
+      "cancel": "Cancel"
+    },
+    "revertModal": {
+      "title": "Revert all changes?",
+      "description": "This discards every change made since this program was last published and restores it to that version. Analytics already collected on the current draft's changes stay in your clients' personal history, but this action itself can't be undone.",
+      "confirm": "Revert changes",
       "cancel": "Cancel"
     },
     "versionsModal": {

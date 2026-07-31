@@ -5,7 +5,7 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { GripVertical, Plus } from 'lucide-react';
 
 import { ExercisePicker } from '@/src/features/ExercisePicker';
-import { Button, ConfirmationModal, Typography } from '@/src/shared/ui';
+import { Button, Typography } from '@/src/shared/ui';
 
 import { useDayExercisesConfig } from './DayExercises.conf';
 import { RenderedExercisesProvider, SingleImportProvider } from './context';
@@ -44,9 +44,6 @@ export const DayExercises = (props: DayExercisesProps) => {
     onMoveBlockToDay,
     onReorderBlocks,
     onReorderBlockExercises,
-    isDeleteModalOpen,
-    onDeleteModalOpenChange,
-    onConfirmDelete,
   } = useDayExercisesConfig(props);
 
   const dnd = useDayDnd({
@@ -90,7 +87,7 @@ export const DayExercises = (props: DayExercisesProps) => {
             <RenderedExercisesProvider value={dnd.getBlockExercises}>
               <SingleImportProvider value={dnd.singleImport}>
                 <SortableContext items={blockDndIds} strategy={verticalListSortingStrategy}>
-                  <div className="flex flex-col gap-2">
+                  <div className="flex flex-col gap-1.5">
                     {blocks.map((block) => (
                       <DayBlock
                         key={block.id}
@@ -131,16 +128,6 @@ export const DayExercises = (props: DayExercisesProps) => {
       )}
 
       <ExercisePicker open={isPickerOpen} onOpenChange={onPickerOpenChange} onConfirm={onConfirmAddSingles} />
-
-      <ConfirmationModal
-        open={isDeleteModalOpen}
-        title={t('structure.exercises.deleteExerciseConfirmTitle')}
-        description={t('structure.exercises.deleteExerciseConfirmDescription')}
-        cancelLabel={t('structure.exercises.deleteExerciseCancel')}
-        confirmLabel={t('structure.exercises.deleteExerciseConfirm')}
-        onOpenChange={onDeleteModalOpenChange}
-        onConfirm={onConfirmDelete}
-      />
     </div>
   );
 };

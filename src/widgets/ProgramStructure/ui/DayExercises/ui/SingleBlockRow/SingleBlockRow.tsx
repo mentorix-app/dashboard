@@ -48,10 +48,10 @@ export const SingleBlockRow = ({
             checked={selected}
             onCheckedChange={(checked) => onSelectChange(block.id, checked === true)}
             aria-label={t('structure.exercises.selectForMerge')}
-            className="shrink-0 xl:order-1 xl:mt-2"
+            className="shrink-0 xl:order-1 xl:self-center"
           />
         ) : (
-          <span aria-hidden className="size-4 shrink-0 xl:order-1" />
+          <span aria-hidden className="size-4 shrink-0 xl:order-1 xl:self-center" />
         )}
 
         <div className="flex shrink-0 xl:order-2 xl:self-center">{dragHandle}</div>

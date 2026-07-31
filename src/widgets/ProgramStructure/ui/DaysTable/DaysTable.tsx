@@ -2,7 +2,7 @@
 
 import { Plus } from 'lucide-react';
 
-import { Button, ConfirmationModal, Sortable } from '@/src/shared/ui';
+import { Button, Sortable } from '@/src/shared/ui';
 
 import { DayExercises } from '../DayExercises';
 import { DayTab } from '../DayTab';
@@ -21,13 +21,10 @@ export const DaysTable = (props: DaysTableProps) => {
     canEdit,
     canAddDay,
     isBusy,
-    isDeleteModalOpen,
     onSelectDay,
     onRequestDeleteDay,
     onAddDay,
     onReorderDays,
-    onConfirmDeleteDay,
-    onDeleteModalOpenChange,
   } = useDaysTableConfig(props);
 
   return (
@@ -67,16 +64,6 @@ export const DaysTable = (props: DaysTableProps) => {
       {selectedDay ? (
         <DayExercises programId={programId} weekId={week.id} day={selectedDay} week={week} canEdit={canEdit} />
       ) : null}
-
-      <ConfirmationModal
-        open={isDeleteModalOpen}
-        title={t('structure.deleteDayConfirmTitle')}
-        description={t('structure.deleteDayConfirmDescription')}
-        cancelLabel={t('structure.deleteDayCancel')}
-        confirmLabel={t('structure.deleteDayConfirm')}
-        onOpenChange={onDeleteModalOpenChange}
-        onConfirm={onConfirmDeleteDay}
-      />
     </div>
   );
 };

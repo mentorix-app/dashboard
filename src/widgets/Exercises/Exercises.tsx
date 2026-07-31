@@ -1,16 +1,13 @@
 'use client';
 
 import { type FC } from 'react';
-import { useTranslations } from '@/i18n';
 import { PlansModal } from '@/src/features/PlansModal';
-import { ConfirmationModal } from '@/src/shared/ui';
 import { useExercisesConfig } from './Exercises.conf';
 import { ExerciseForm } from './ui/ExerciseForm';
 import { ExercisesTable } from './ui/ExercisesTable/ExercisesTable';
 import { ExercisesToolbar } from './ui/ExercisesToolbar/ExercisesToolbar';
 
 export const Exercises: FC = () => {
-  const t = useTranslations('Exercises');
   const {
     search,
     filtersOpen,
@@ -23,9 +20,6 @@ export const Exercises: FC = () => {
     hasNextPage,
     activeFilterCount,
     visibleSelected,
-    selectedExercises,
-    isDeleteDialogOpen,
-    isDeleting,
     isFormOpen,
     isFormReadOnly,
     isPlansModalOpen,
@@ -47,10 +41,7 @@ export const Exercises: FC = () => {
     handleSortChange,
     handleLoadMore,
     handleDeleteClick,
-    handleDeleteDialogOpenChange,
-    handleConfirmDelete,
   } = useExercisesConfig();
-  const selectedNames = selectedExercises.map((exercise) => exercise.name).join(', ');
 
   return (
     <>
@@ -91,19 +82,6 @@ export const Exercises: FC = () => {
           onLoadMore={handleLoadMore}
         />
       </div>
-      <ConfirmationModal
-        open={isDeleteDialogOpen}
-        title={t('deleteConfirm.title', { count: visibleSelected.size })}
-        description={t('deleteConfirm.description', {
-          count: visibleSelected.size,
-          names: selectedNames || t('deleteConfirm.selectedItems'),
-        })}
-        cancelLabel={t('deleteConfirm.cancel')}
-        confirmLabel={t('deleteConfirm.confirm')}
-        isPending={isDeleting}
-        onOpenChange={handleDeleteDialogOpenChange}
-        onConfirm={handleConfirmDelete}
-      />
       <ExerciseForm
         open={isFormOpen}
         exerciseId={editingId}

@@ -5,7 +5,7 @@ import { Plus } from 'lucide-react';
 import { useTranslations } from '@/i18n';
 import { ExercisePicker } from '@/src/features/ExercisePicker';
 import { BlockTypeBadge } from '@/src/entities/program';
-import { Button, Checkbox, ConfirmationModal, SortableItem, Typography } from '@/src/shared/ui';
+import { Button, Checkbox, SortableItem, Typography } from '@/src/shared/ui';
 
 import { BLOCK_TYPE_LABEL_KEY } from '../../DayExercises.constants';
 import { BLOCK_DND_PREFIX } from '../../lib';
@@ -41,8 +41,11 @@ export const GroupBlockCard = (props: GroupBlockCardProps) => {
   const otherBlockTargets = exerciseMoveTargets.filter((target) => target.id !== block.id);
 
   return (
-    <SortableItem id={`${BLOCK_DND_PREFIX}${block.id}`} className="bg-card space-y-2 rounded-lg border p-3">
-      <div className="flex items-center gap-2 px-1">
+    <SortableItem
+      id={`${BLOCK_DND_PREFIX}${block.id}`}
+      className="bg-card space-y-1.5 rounded-lg border px-3 py-2 xl:px-2 xl:py-1.5"
+    >
+      <div className="flex items-center gap-2">
         {canEdit ? (
           <Checkbox
             checked={selected}
@@ -110,15 +113,6 @@ export const GroupBlockCard = (props: GroupBlockCardProps) => {
         onOpenChange={card.onPickerOpenChange}
         onConfirm={card.handleAddConfirm}
         excludeIds={card.excludeIds}
-      />
-      <ConfirmationModal
-        open={card.isDeleteOpen}
-        title={t('structure.blocks.deleteBlockConfirmTitle')}
-        description={t('structure.blocks.deleteBlockConfirmDescription')}
-        cancelLabel={t('structure.blocks.deleteBlockCancel')}
-        confirmLabel={t('structure.blocks.deleteBlockConfirm')}
-        onOpenChange={card.onDeleteOpenChange}
-        onConfirm={card.handleDeleteConfirm}
       />
     </SortableItem>
   );

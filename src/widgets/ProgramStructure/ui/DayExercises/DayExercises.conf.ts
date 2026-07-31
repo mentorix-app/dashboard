@@ -4,18 +4,18 @@ import { useState } from 'react';
 
 import { useLocale, useTranslations } from '@/i18n';
 import { ProgramBlockType, type ProgramDayExercise } from '@/src/entities/program';
+import { confirm } from '@/src/shared/ui';
 
 import { useDayBlockActions } from '../../hooks/useDayBlockActions';
 import { useDayExerciseActions } from '../../hooks/useDayExerciseActions';
 import { BLOCK_TYPE_LABEL_KEY } from './DayExercises.constants';
 import type { BlockMoveTarget, DayExercisesProps, MoveTargetDay } from './DayExercises.types';
 
-type PendingExerciseDeletion = { blockId: string; itemId: string };
-
 /**
  * Logic for the selected day's block editor: derives move targets and localized
- * names, owns the merge selection, add-picker and delete-confirmation state, and
- * forwards mutations to the block/exercise action hooks.
+ * names, owns the merge selection and add-picker state, forwards mutations to
+ * the block/exercise action hooks, and queues delete confirmations via the
+ * global `confirm()` singleton.
  */
 export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }: DayExercisesProps) => {
   const t = useTranslations('ProgramWizard');
@@ -25,7 +25,6 @@ export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }:
 
   const [selectedBlockIds, setSelectedBlockIds] = useState<Set<string>>(new Set());
   const [isPickerOpen, setPickerOpen] = useState(false);
-  const [pendingDeletion, setPendingDeletion] = useState<PendingExerciseDeletion | null>(null);
 
   const blocks = day.blocks;
   const selectedIds = blocks.filter((block) => selectedBlockIds.has(block.id)).map((block) => block.id);
@@ -65,16 +64,15 @@ export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }:
     setPickerOpen(false);
   };
 
-  const handleRequestDeleteExercise = (blockId: string, itemId: string) => setPendingDeletion({ blockId, itemId });
-
-  const handleConfirmDelete = () => {
-    if (!pendingDeletion) return;
-    exerciseActions.handleDeleteExercise(pendingDeletion.blockId, pendingDeletion.itemId);
-    setPendingDeletion(null);
-  };
-
-  const handleDeleteModalOpenChange = (open: boolean) => {
-    if (!open) setPendingDeletion(null);
+  const handleRequestDeleteExercise = (blockId: string, itemId: string) => {
+    confirm({
+      title: t('structure.exercises.deleteExerciseConfirmTitle'),
+      description: t('structure.exercises.deleteExerciseConfirmDescription'),
+      cancelLabel: t('structure.exercises.deleteExerciseCancel'),
+      confirmLabel: t('structure.exercises.deleteExerciseConfirm'),
+      variant: 'destructive',
+      onConfirm: () => exerciseActions.handleDeleteExercise(blockId, itemId),
+    });
   };
 
   return {
@@ -105,8 +103,5 @@ export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }:
     onMoveBlockToDay: blockActions.handleMoveBlockToDay,
     onReorderBlocks: blockActions.handleReorderBlocks,
     onReorderBlockExercises: blockActions.handleReorderBlockExercises,
-    isDeleteModalOpen: pendingDeletion !== null,
-    onDeleteModalOpenChange: handleDeleteModalOpenChange,
-    onConfirmDelete: handleConfirmDelete,
   };
 };

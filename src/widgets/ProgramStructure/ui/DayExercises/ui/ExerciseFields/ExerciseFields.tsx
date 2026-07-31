@@ -66,7 +66,7 @@ export const ExerciseFields = ({ exercise, canEdit, onUpdate, className }: Exerc
         disabled={!canEdit}
         aria-label={t('structure.exercises.columns.instruction')}
         placeholder={t('structure.exercises.columns.instruction')}
-        className="min-h-9 w-full resize-none"
+        className={cn('min-h-9 w-full resize-none', !instruction && 'border-border/60 border-dashed shadow-none')}
       />
     </div>
   );

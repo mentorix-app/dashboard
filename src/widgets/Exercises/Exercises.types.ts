@@ -23,8 +23,6 @@ export type ExercisesConfig = {
   activeFilterCount: number;
   visibleSelected: ReadonlySet<string>;
   selectedExercises: Exercise[];
-  isDeleteDialogOpen: boolean;
-  isDeleting: boolean;
   isFormOpen: boolean;
   isFormReadOnly: boolean;
   isPlansModalOpen: boolean;
@@ -46,8 +44,6 @@ export type ExercisesConfig = {
   handleSortChange: (field: ExerciseSortField) => void;
   handleLoadMore: () => void;
   handleDeleteClick: () => void;
-  handleDeleteDialogOpenChange: (open: boolean) => void;
-  handleConfirmDelete: () => void;
 };
 
 export type ExercisesSearchParamUpdateMode = 'push' | 'replace';

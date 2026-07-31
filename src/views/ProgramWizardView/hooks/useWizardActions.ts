@@ -1,6 +1,5 @@
 'use client';
 
-import { useState } from 'react';
 import { useTranslations } from '@/i18n';
 import {
   ProgramStatus,
@@ -14,25 +13,14 @@ import {
 } from '@/src/entities/program';
 import { useCapabilities, useCurrentUser } from '@/src/entities/user';
 import { useToast } from '@/src/shared/hooks';
-
-/** The confirmable lifecycle actions; one confirmation modal is open at a time. */
-export type WizardActionKey = 'publishUpdate' | 'sync' | 'archive' | 'republish';
-
-type WizardActionModal = {
-  title: string;
-  description: string;
-  cancelLabel: string;
-  confirmLabel: string;
-  confirmVariant: 'default' | 'destructive';
-  isPending: boolean;
-  onConfirm: () => void;
-};
+import { confirm } from '@/src/shared/ui';
 
 /**
  * Owns the published/archived lifecycle actions shown in the wizard header:
  * archive, publish-update (new version), sync assignments to latest, and
  * re-publish from archive. The version/assignment queries only run while the
- * program is published so drafts stay cheap.
+ * program is published so drafts stay cheap. Each action queues its own
+ * confirmation via the global `confirm()` singleton.
  */
 export const useWizardActions = (programId: string) => {
   const t = useTranslations('ProgramWizard');
@@ -55,105 +43,115 @@ export const useWizardActions = (programId: string) => {
   const republishMutation = usePublishProgram();
   const syncMutation = useSyncProgramAssignments();
 
-  const [activeAction, setActiveAction] = useState<WizardActionKey | null>(null);
-  const openAction = (action: WizardActionKey) => setActiveAction(action);
-  const closeAction = () => setActiveAction(null);
-
   const behindLatestCount = (assignmentsQuery.data?.items ?? []).filter((item) => item.isBehindLatest).length;
   const canPublishUpdate = canManage && isPublished && program?.hasUnpublishedChanges === true;
   const canSync = canManage && isPublished && behindLatestCount > 0;
+  // Reverting only makes sense while there are draft edits to discard, same
+  // gate as publish-update.
+  const canRevert = canPublishUpdate;
 
-  const handleConfirmArchive = () =>
-    archiveMutation.mutate(programId, {
-      onSuccess: () => {
-        showSuccessToast(t('actions.toast.archiveSuccess'));
-        closeAction();
-      },
-      onError: (error) => {
-        showErrorToast(t('actions.toast.archiveError'), { description: error.message });
-        closeAction();
-      },
-    });
-
-  const handleConfirmRepublish = () =>
-    republishMutation.mutate(programId, {
-      onSuccess: () => {
-        showSuccessToast(t('actions.toast.republishSuccess'));
-        closeAction();
-      },
-      onError: (error) => {
-        showErrorToast(t('actions.toast.republishError'), { description: error.message });
-        closeAction();
-      },
-    });
-
-  const handleConfirmPublishUpdate = () =>
-    publishUpdateMutation.mutate(programId, {
-      onSuccess: () => {
-        showSuccessToast(t('actions.toast.publishUpdateSuccess'));
-        closeAction();
-      },
-      onError: (error) => {
-        showErrorToast(t('actions.toast.publishUpdateError'), { description: error.message });
-        closeAction();
-      },
-    });
-
-  const handleConfirmSync = () =>
-    syncMutation.mutate(
-      { programId, params: { allActive: true } },
-      {
-        onSuccess: () => {
-          showSuccessToast(t('actions.toast.syncSuccess'));
-          closeAction();
-        },
-        onError: (error) => {
-          showErrorToast(t('actions.toast.syncError'), { description: error.message });
-          closeAction();
-        },
-      }
-    );
-
-  const modalByAction: Record<WizardActionKey, WizardActionModal> = {
-    publishUpdate: {
-      title: t('actions.publishUpdateModal.title'),
-      description: t('actions.publishUpdateModal.description'),
-      cancelLabel: t('actions.publishUpdateModal.cancel'),
-      confirmLabel: t('actions.publishUpdateModal.confirm'),
-      confirmVariant: 'default',
-      isPending: publishUpdateMutation.isPending,
-      onConfirm: handleConfirmPublishUpdate,
-    },
-    sync: {
-      title: t('actions.syncModal.title'),
-      description: t('actions.syncModal.description', { count: behindLatestCount }),
-      cancelLabel: t('actions.syncModal.cancel'),
-      confirmLabel: t('actions.syncModal.confirm'),
-      confirmVariant: 'default',
-      isPending: syncMutation.isPending,
-      onConfirm: handleConfirmSync,
-    },
-    archive: {
+  const requestArchive = () =>
+    confirm({
       title: t('actions.archiveModal.title'),
       description: t('actions.archiveModal.description'),
       cancelLabel: t('actions.archiveModal.cancel'),
       confirmLabel: t('actions.archiveModal.confirm'),
-      confirmVariant: 'destructive',
-      isPending: archiveMutation.isPending,
-      onConfirm: handleConfirmArchive,
-    },
-    republish: {
+      variant: 'destructive',
+      onConfirm: () =>
+        new Promise<void>((resolve, reject) => {
+          archiveMutation.mutate(programId, {
+            onSuccess: () => {
+              showSuccessToast(t('actions.toast.archiveSuccess'));
+              resolve();
+            },
+            onError: (error) => {
+              showErrorToast(t('actions.toast.archiveError'), { description: error.message });
+              reject(error);
+            },
+          });
+        }),
+    });
+
+  const requestRepublish = () =>
+    confirm({
       title: t('actions.republishModal.title'),
       description: t('actions.republishModal.description'),
       cancelLabel: t('actions.republishModal.cancel'),
       confirmLabel: t('actions.republishModal.confirm'),
-      confirmVariant: 'default',
-      isPending: republishMutation.isPending,
-      onConfirm: handleConfirmRepublish,
-    },
-  };
+      variant: 'default',
+      onConfirm: () =>
+        new Promise<void>((resolve, reject) => {
+          republishMutation.mutate(programId, {
+            onSuccess: () => {
+              showSuccessToast(t('actions.toast.republishSuccess'));
+              resolve();
+            },
+            onError: (error) => {
+              showErrorToast(t('actions.toast.republishError'), { description: error.message });
+              reject(error);
+            },
+          });
+        }),
+    });
 
-  const activeModal = activeAction ? modalByAction[activeAction] : null;
+  const requestPublishUpdate = () =>
+    confirm({
+      title: t('actions.publishUpdateModal.title'),
+      description: t('actions.publishUpdateModal.description'),
+      cancelLabel: t('actions.publishUpdateModal.cancel'),
+      confirmLabel: t('actions.publishUpdateModal.confirm'),
+      variant: 'default',
+      onConfirm: () =>
+        new Promise<void>((resolve, reject) => {
+          publishUpdateMutation.mutate(programId, {
+            onSuccess: () => {
+              showSuccessToast(t('actions.toast.publishUpdateSuccess'));
+              resolve();
+            },
+            onError: (error) => {
+              showErrorToast(t('actions.toast.publishUpdateError'), { description: error.message });
+              reject(error);
+            },
+          });
+        }),
+    });
+
+  const requestSync = () =>
+    confirm({
+      title: t('actions.syncModal.title'),
+      description: t('actions.syncModal.description', { count: behindLatestCount }),
+      cancelLabel: t('actions.syncModal.cancel'),
+      confirmLabel: t('actions.syncModal.confirm'),
+      variant: 'default',
+      onConfirm: () =>
+        new Promise<void>((resolve, reject) => {
+          syncMutation.mutate(
+            { programId, params: { allActive: true } },
+            {
+              onSuccess: () => {
+                showSuccessToast(t('actions.toast.syncSuccess'));
+                resolve();
+              },
+              onError: (error) => {
+                showErrorToast(t('actions.toast.syncError'), { description: error.message });
+                reject(error);
+              },
+            }
+          );
+        }),
+    });
+
+  const requestRevert = () =>
+    confirm({
+      title: t('actions.revertModal.title'),
+      description: t('actions.revertModal.description'),
+      cancelLabel: t('actions.revertModal.cancel'),
+      confirmLabel: t('actions.revertModal.confirm'),
+      variant: 'default',
+      // No backend endpoint exists yet to discard draft changes server-side;
+      // this just closes the modal until that API lands.
+      onConfirm: () => {},
+    });
 
   return {
     status,
@@ -163,13 +161,16 @@ export const useWizardActions = (programId: string) => {
     canArchive: canManage && isPublished,
     canPublishUpdate,
     canSync,
+    canRevert,
     canRepublish: canManage && isArchived,
     isArchiving: archiveMutation.isPending,
     isRepublishing: republishMutation.isPending,
     isPublishingUpdate: publishUpdateMutation.isPending,
     isSyncing: syncMutation.isPending,
-    openAction,
-    closeAction,
-    activeModal,
+    requestArchive,
+    requestRepublish,
+    requestPublishUpdate,
+    requestSync,
+    requestRevert,
   };
 };

@@ -1,9 +1,10 @@
 'use client';
 
-import { useCallback, useState, type Dispatch, type SetStateAction } from 'react';
+import { useCallback, useEffect, useRef, type Dispatch, type SetStateAction } from 'react';
 import { useTranslations } from '@/i18n';
 import { useDeleteProgram, type Program } from '@/src/entities/program';
 import { useToast } from '@/src/shared/hooks';
+import { confirm } from '@/src/shared/ui';
 
 type UseProgramsDeletionParams = {
   programs: Program[];
@@ -14,62 +15,95 @@ type UseProgramsDeletionParams = {
 export const useProgramsDeletion = ({ programs, selectedIds, setSelectedIds }: UseProgramsDeletionParams) => {
   const t = useTranslations('Programs');
   const { showSuccessToast, showErrorToast } = useToast();
-  const [pendingIds, setPendingIds] = useState<string[]>([]);
-  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
-  const [isDeleting, setIsDeleting] = useState(false);
   const deleteProgram = useDeleteProgram();
+
+  // Retry re-queues by calling back into `runDelete`; a ref sidesteps a
+  // self-referential `useCallback` (the callback can't depend on its own
+  // not-yet-assigned identity) while still always invoking the latest version.
+  const runDeleteRef = useRef<(ids: string[]) => Promise<void>>(null);
+
+  // No bulk endpoint exists: fan out one soft-delete request per program and
+  // re-queue a confirmation for any that fail so the user can retry.
+  const runDelete = useCallback(
+    async (ids: string[]) => {
+      const results = await Promise.allSettled(ids.map((id) => deleteProgram.mutateAsync(id)));
+      const failedIds = ids.filter((_, index) => results[index]?.status === 'rejected');
+      const succeededIds = ids.filter((_, index) => results[index]?.status === 'fulfilled');
+
+      setSelectedIds((prev) => {
+        const next = new Set(prev);
+        succeededIds.forEach((id) => next.delete(id));
+        return next;
+      });
+
+      if (failedIds.length === 0) {
+        showSuccessToast(t('toast.deleteSuccess', { count: succeededIds.length }));
+        return;
+      }
+
+      showErrorToast(t('toast.deleteError'));
+      const failedPrograms = programs.filter((program) => failedIds.includes(program.id));
+      const names = failedPrograms.map((program) => program.name).join(', ');
+      confirm({
+        title: t('deleteConfirm.title', { count: failedIds.length }),
+        description: t('deleteConfirm.description', {
+          count: failedIds.length,
+          names: names || t('deleteConfirm.selectedItems'),
+        }),
+        cancelLabel: t('deleteConfirm.cancel'),
+        confirmLabel: t('deleteConfirm.confirm'),
+        variant: 'destructive',
+        onConfirm: () => runDeleteRef.current!(failedIds),
+      });
+    },
+    [deleteProgram, programs, setSelectedIds, showSuccessToast, showErrorToast, t]
+  );
+  // Assigning during render is disallowed; sync the ref after commit instead.
+  useEffect(() => {
+    runDeleteRef.current = runDelete;
+  }, [runDelete]);
 
   // Bulk delete acts on the current selection; the per-row menu targets one id.
   const handleDeleteClick = useCallback(() => {
     const ids = programs.filter((program) => selectedIds.has(program.id)).map((program) => program.id);
     if (ids.length === 0) return;
-    setPendingIds(ids);
-    setIsDeleteDialogOpen(true);
-  }, [programs, selectedIds]);
+    const targetPrograms = programs.filter((program) => ids.includes(program.id));
+    const names = targetPrograms.map((program) => program.name).join(', ');
 
-  const handleDeleteProgram = useCallback((id: string) => {
-    setPendingIds([id]);
-    setIsDeleteDialogOpen(true);
-  }, []);
-
-  const handleConfirmDelete = useCallback(async () => {
-    if (pendingIds.length === 0) return;
-
-    setIsDeleting(true);
-
-    // No bulk endpoint exists: fan out one soft-delete request per program and
-    // keep any that fail pending so the user can retry.
-    const results = await Promise.allSettled(pendingIds.map((id) => deleteProgram.mutateAsync(id)));
-    const failedIds = pendingIds.filter((_, index) => results[index]?.status === 'rejected');
-    const succeededIds = pendingIds.filter((_, index) => results[index]?.status === 'fulfilled');
-
-    setSelectedIds((prev) => {
-      const next = new Set(prev);
-      succeededIds.forEach((id) => next.delete(id));
-      return next;
+    confirm({
+      title: t('deleteConfirm.title', { count: ids.length }),
+      description: t('deleteConfirm.description', {
+        count: ids.length,
+        names: names || t('deleteConfirm.selectedItems'),
+      }),
+      cancelLabel: t('deleteConfirm.cancel'),
+      confirmLabel: t('deleteConfirm.confirm'),
+      variant: 'destructive',
+      onConfirm: () => runDelete(ids),
     });
-    setIsDeleting(false);
+  }, [programs, selectedIds, runDelete, t]);
 
-    if (failedIds.length === 0) {
-      showSuccessToast(t('toast.deleteSuccess', { count: succeededIds.length }));
-      setIsDeleteDialogOpen(false);
-      setPendingIds([]);
-    } else {
-      showErrorToast(t('toast.deleteError'));
-      setPendingIds(failedIds);
-    }
-  }, [pendingIds, deleteProgram, setSelectedIds, showSuccessToast, showErrorToast, t]);
+  const handleDeleteProgram = useCallback(
+    (id: string) => {
+      const program = programs.find((p) => p.id === id);
 
-  const pendingPrograms = programs.filter((program) => pendingIds.includes(program.id));
+      confirm({
+        title: t('deleteConfirm.title', { count: 1 }),
+        description: t('deleteConfirm.description', {
+          count: 1,
+          names: program?.name ?? t('deleteConfirm.selectedItems'),
+        }),
+        cancelLabel: t('deleteConfirm.cancel'),
+        confirmLabel: t('deleteConfirm.confirm'),
+        variant: 'destructive',
+        onConfirm: () => runDelete([id]),
+      });
+    },
+    [programs, runDelete, t]
+  );
 
   return {
-    isDeleteDialogOpen,
-    isDeleting,
-    pendingCount: pendingIds.length,
-    pendingPrograms,
     handleDeleteClick,
     handleDeleteProgram,
-    handleDeleteDialogOpenChange: setIsDeleteDialogOpen,
-    handleConfirmDelete,
   };
 };

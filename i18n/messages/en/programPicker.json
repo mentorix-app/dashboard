@@ -10,5 +10,7 @@
   "notOwned": "You can only assign programs you created.",
   "cancel": "Cancel",
   "confirm": "Assign program",
-  "remove": "Remove current program"
+  "remove": "Remove current program",
+  "removeConfirmTitle": "Remove assigned program?",
+  "removeConfirmDescription": "The client's results will be removed from the current program's analytics. They'll still be kept in the client's personal analytics."
 }

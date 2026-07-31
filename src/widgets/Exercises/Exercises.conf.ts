@@ -68,8 +68,6 @@ export const useExercisesConfig = (): ExercisesConfig => {
     activeFilterCount: filters.activeFilterCount,
     visibleSelected: selection.visibleSelected,
     selectedExercises: selection.selectedExercises,
-    isDeleteDialogOpen: deletion.isDeleteDialogOpen,
-    isDeleting: deletion.isDeleting,
     isFormOpen,
     isFormReadOnly,
     isPlansModalOpen,
@@ -91,7 +89,5 @@ export const useExercisesConfig = (): ExercisesConfig => {
     handleSortChange: sort.handleSortChange,
     handleLoadMore: list.handleLoadMore,
     handleDeleteClick: deletion.handleDeleteClick,
-    handleDeleteDialogOpenChange: deletion.handleDeleteDialogOpenChange,
-    handleConfirmDelete: deletion.handleConfirmDelete,
   };
 };

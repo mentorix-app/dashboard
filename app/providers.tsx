@@ -6,7 +6,7 @@ import { useState, type ReactNode } from 'react';
 import { handleMutationError, QuotaErrorBridge } from '@/src/entities/subscription';
 import { HttpError } from '@/src/shared/api';
 import { MINUTE, MS } from '@/src/shared/lib/constants';
-import { Toaster } from '@/src/shared/ui';
+import { ConfirmationModalHost, Toaster } from '@/src/shared/ui';
 
 const defaultQueryOptions = {
   queries: {
@@ -38,6 +38,7 @@ export function Providers({ children }: { children: ReactNode }) {
       <QuotaErrorBridge />
       {children}
       <Toaster />
+      <ConfirmationModalHost />
       {process.env.NODE_ENV === 'development' ? (
         <ReactQueryDevtools buttonPosition="bottom-right" initialIsOpen={false} />
       ) : null}

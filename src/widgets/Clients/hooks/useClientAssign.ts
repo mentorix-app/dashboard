@@ -5,6 +5,7 @@ import { useCallback, useMemo, useState } from 'react';
 import { useTranslations } from '@/i18n';
 import { useSetClientsProgram, type Client } from '@/src/entities/client';
 import { useToast } from '@/src/shared/hooks';
+import { confirm } from '@/src/shared/ui';
 
 export const useClientAssign = (clients: Client[]) => {
   const t = useTranslations('Clients');
@@ -18,7 +19,26 @@ export const useClientAssign = (clients: Client[]) => {
     [clients, activeClientId]
   );
 
-  const handleAssign = useCallback((clientUserId: string) => setActiveClientId(clientUserId), []);
+  const handleAssign = useCallback(
+    (clientUserId: string) => {
+      const client = clients.find((candidate) => candidate.clientUserId === clientUserId);
+      // Only warn when there's an existing assignment to lose; a client's
+      // first-ever assignment has no analytics to reset.
+      if (client?.programAssignment) {
+        confirm({
+          title: t('changeConfirmTitle'),
+          description: t('changeConfirmDescription'),
+          cancelLabel: t('cancel'),
+          confirmLabel: t('changeProgram'),
+          variant: 'destructive',
+          onConfirm: () => setActiveClientId(clientUserId),
+        });
+        return;
+      }
+      setActiveClientId(clientUserId);
+    },
+    [clients, t]
+  );
 
   const handlePickerOpenChange = useCallback((open: boolean) => {
     if (!open) setActiveClientId(null);

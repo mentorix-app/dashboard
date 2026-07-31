@@ -1,16 +1,13 @@
 'use client';
 
 import { type FC } from 'react';
-import { useTranslations } from '@/i18n';
 import { PlansModal } from '@/src/features/PlansModal';
-import { ConfirmationModal } from '@/src/shared/ui';
 
 import { useProgramsConfig } from './Programs.conf';
 import { ProgramsTable } from './ui/ProgramsTable/ProgramsTable';
 import { ProgramsToolbar } from './ui/ProgramsToolbar/ProgramsToolbar';
 
 export const Programs: FC = () => {
-  const t = useTranslations('Programs');
   const {
     search,
     filtersOpen,
@@ -21,10 +18,6 @@ export const Programs: FC = () => {
     hasNextPage,
     activeFilterCount,
     visibleSelected,
-    deletePendingPrograms,
-    deletePendingCount,
-    isDeleteDialogOpen,
-    isDeleting,
     isCreating,
     isPlansModalOpen,
     canCreate,
@@ -43,10 +36,7 @@ export const Programs: FC = () => {
     handleLoadMore,
     handleDeleteClick,
     handleDeleteProgram,
-    handleDeleteDialogOpenChange,
-    handleConfirmDelete,
   } = useProgramsConfig();
-  const deletePendingNames = deletePendingPrograms.map((program) => program.name).join(', ');
 
   return (
     <>
@@ -84,19 +74,6 @@ export const Programs: FC = () => {
           onDeleteRow={handleDeleteProgram}
         />
       </div>
-      <ConfirmationModal
-        open={isDeleteDialogOpen}
-        title={t('deleteConfirm.title', { count: deletePendingCount })}
-        description={t('deleteConfirm.description', {
-          count: deletePendingCount,
-          names: deletePendingNames || t('deleteConfirm.selectedItems'),
-        })}
-        cancelLabel={t('deleteConfirm.cancel')}
-        confirmLabel={t('deleteConfirm.confirm')}
-        isPending={isDeleting}
-        onOpenChange={handleDeleteDialogOpenChange}
-        onConfirm={handleConfirmDelete}
-      />
       <PlansModal open={isPlansModalOpen} onOpenChange={handlePlansModalOpenChange} />
     </>
   );

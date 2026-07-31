@@ -12,6 +12,7 @@ import {
 } from '@/src/entities/program';
 import { useCurrentUser } from '@/src/entities/user';
 import { useDebouncedValue } from '@/src/shared/hooks';
+import { confirm } from '@/src/shared/ui';
 
 import { PROGRAM_PICKER_SEARCH_DEBOUNCE_MS } from './ProgramPicker.constants';
 import type { ProgramPickerProps } from './ProgramPicker.types';
@@ -87,8 +88,17 @@ export const useProgramPickerConfig = ({
   };
 
   const handleRemove = () => {
-    onRemove?.();
-    onOpenChange(false);
+    confirm({
+      title: t('removeConfirmTitle'),
+      description: t('removeConfirmDescription'),
+      cancelLabel: t('cancel'),
+      confirmLabel: t('remove'),
+      variant: 'destructive',
+      onConfirm: () => {
+        onRemove?.();
+        onOpenChange(false);
+      },
+    });
   };
 
   const handleLoadMore = () => {

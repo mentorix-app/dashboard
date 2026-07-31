@@ -18,10 +18,6 @@ export type ProgramsConfig = {
   hasNextPage: boolean;
   activeFilterCount: number;
   visibleSelected: ReadonlySet<string>;
-  deletePendingPrograms: Program[];
-  deletePendingCount: number;
-  isDeleteDialogOpen: boolean;
-  isDeleting: boolean;
   isCreating: boolean;
   isPlansModalOpen: boolean;
   canCreate: boolean;
@@ -40,8 +36,6 @@ export type ProgramsConfig = {
   handleLoadMore: () => void;
   handleDeleteClick: () => void;
   handleDeleteProgram: (id: string) => void;
-  handleDeleteDialogOpenChange: (open: boolean) => void;
-  handleConfirmDelete: () => void;
 };
 
 export type ProgramsSearchParamUpdateMode = 'push' | 'replace';

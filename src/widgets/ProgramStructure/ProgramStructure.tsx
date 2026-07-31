@@ -1,6 +1,6 @@
 'use client';
 
-import { Card, CardContent, ConfirmationModal, Skeleton, Typography } from '@/src/shared/ui';
+import { Card, CardContent, Skeleton, Typography } from '@/src/shared/ui';
 
 import { useProgramStructureConfig } from './ProgramStructure.conf';
 import type { ProgramStructureProps } from './ProgramStructure.types';
@@ -17,13 +17,10 @@ export const ProgramStructure = ({ programId }: ProgramStructureProps) => {
     selectedWeek,
     canAddWeek,
     isBusy,
-    isDeleteModalOpen,
     onSelectWeek,
     onRequestDeleteWeek,
     onAddWeek,
     onReorderWeeks,
-    onConfirmDeleteWeek,
-    onDeleteModalOpenChange,
   } = useProgramStructureConfig(programId);
 
   if (isLoading) {
@@ -55,16 +52,6 @@ export const ProgramStructure = ({ programId }: ProgramStructureProps) => {
           </div>
         )}
       </CardContent>
-
-      <ConfirmationModal
-        open={isDeleteModalOpen}
-        title={t('structure.deleteConfirmTitle')}
-        description={t('structure.deleteConfirmDescription')}
-        cancelLabel={t('structure.deleteCancel')}
-        confirmLabel={t('structure.deleteConfirm')}
-        onOpenChange={onDeleteModalOpenChange}
-        onConfirm={onConfirmDeleteWeek}
-      />
     </Card>
   );
 };
