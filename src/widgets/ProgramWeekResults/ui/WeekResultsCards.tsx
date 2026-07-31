@@ -3,7 +3,6 @@
 import { MessageSquarePlus } from 'lucide-react';
 
 import { Link, useTranslations } from '@/i18n';
-import { cn } from '@/src/shared/lib/styles';
 import { Avatar, AvatarFallback, AvatarImage, Badge, Button, Card, ChatMessage, Typography } from '@/src/shared/ui';
 
 import type { WeekResultsCellVM, WeekResultsClientVM } from '../ProgramWeekResults.types';
@@ -74,7 +73,11 @@ export const WeekResultsCards = ({
                     </Typography>
                   </div>
                   {client.isBehindLatest && (
-                    <Badge variant="outline" className={cn('border-amber-500 text-amber-600 dark:text-amber-500')}>
+                    <Badge
+                      variant="outline"
+                      size="sm"
+                      className="border-transparent bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300"
+                    >
                       {t('client.behind')}
                     </Badge>
                   )}

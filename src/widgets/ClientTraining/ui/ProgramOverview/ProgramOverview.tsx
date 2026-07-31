@@ -45,7 +45,11 @@ export const ProgramOverview: FC<ProgramOverviewProps> = ({ config }) => {
                 {pickText(locale, assignment.programName, assignment.programNameRu)}
               </Typography>
               {assignment.isBehindLatest ? (
-                <Badge variant="outline" size="sm">
+                <Badge
+                  variant="outline"
+                  size="sm"
+                  className="border-transparent bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300"
+                >
                   {t('overview.behindLatest')}
                 </Badge>
               ) : null}

@@ -1,7 +1,6 @@
 'use client';
 
 import { Link, useTranslations } from '@/i18n';
-import { cn } from '@/src/shared/lib/styles';
 import {
   Avatar,
   AvatarFallback,
@@ -70,7 +69,8 @@ export const WeekResultsTable = ({ dayNumbers, clients, onOpenFeedback }: WeekRe
                           {client.isBehindLatest && (
                             <Badge
                               variant="outline"
-                              className={cn('border-amber-500 text-amber-600 dark:text-amber-500')}
+                              size="sm"
+                              className="border-transparent bg-amber-100 text-amber-700 dark:bg-amber-950 dark:text-amber-300"
                             >
                               {t('client.behind')}
                             </Badge>
