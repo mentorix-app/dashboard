@@ -21,6 +21,7 @@ import clientProfilePage from './clientProfilePage.json';
 import errors from './errors.json';
 import subscription from './subscription.json';
 import plansModal from './plansModal.json';
+import landing from './landing.json';
 
 export default {
   AppSidebar: appSidebar,
@@ -46,4 +47,5 @@ export default {
   Errors: errors,
   Subscription: subscription,
   PlansModal: plansModal,
+  Landing: landing,
 };

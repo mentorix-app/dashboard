@@ -114,14 +114,17 @@ async function handleProxy(request: NextRequest) {
   const pathWithoutLocale = '/' + segments.slice(1).join('/');
   const hasSession = await hasValidSession(request.cookies.get(AUTH_SESSION_COOKIE)?.value);
   const isAuthPath = AUTH_PATHS.has(pathWithoutLocale);
+  const isLandingPath = pathWithoutLocale === '/';
+  // The marketing landing (locale root) and auth pages are reachable without a session.
+  const isPublicPath = isAuthPath || isLandingPath;
 
   // Unauthenticated user trying to access a protected route → send to login.
-  if (!isAuthPath && !hasSession) {
+  if (!isPublicPath && !hasSession) {
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 
-  // Authenticated user on a login/signup page → send to dashboard.
-  if (isAuthPath && hasSession) {
+  // Authenticated user on the landing or a login/signup page → send to dashboard.
+  if (isPublicPath && hasSession) {
     return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
   }
 

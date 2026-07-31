@@ -1,0 +1,184 @@
+{
+  "meta": {
+    "title": "Mentorix — the coaching platform for fitness professionals",
+    "description": "Build training programs, onboard clients in one tap, and track real results. Mentorix is the all-in-one workspace for coaches and personal trainers.",
+    "keywords": "fitness coaching software, personal trainer app, workout program builder, client management, training analytics, online coaching platform"
+  },
+  "nav": {
+    "features": "Features",
+    "preview": "Preview",
+    "pricing": "Pricing",
+    "signIn": "Sign in",
+    "getStarted": "Start free",
+    "skipToContent": "Skip to content",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu"
+  },
+  "hero": {
+    "badge": "One platform for trainers & their clients",
+    "title": "Coach more clients. Do less busywork.",
+    "subtitle": "Mentorix brings trainers and their clients together in one calm workspace: build programs, onboard in a single tap, and keep a finger on the pulse of every client's progress — instead of chasing admin work.",
+    "ctaPrimary": "Start free",
+    "ctaSecondary": "Sign in",
+    "note": "Free plan available · No credit card required",
+    "mock": {
+      "title": "Dashboard",
+      "activeClients": "Active clients",
+      "completion": "Avg. completion",
+      "programs": "Published programs",
+      "weeklyCompletion": "Weekly completion",
+      "live": "Live"
+    }
+  },
+  "highlights": {
+    "builder": "Multi-week program builder",
+    "onboarding": "One-tap client onboarding",
+    "insights": "Real-time client insights",
+    "languages": "Built for English & Russian"
+  },
+  "features": {
+    "title": "Everything your coaching business needs",
+    "subtitle": "One workspace to plan, deliver and measure your training — no spreadsheets, no juggling apps.",
+    "items": {
+      "library": {
+        "title": "Exercise library",
+        "description": "Curate a personal library of movements with muscle groups, equipment and difficulty — global or private to you."
+      },
+      "builder": {
+        "title": "Drag-and-drop program builder",
+        "description": "Design multi-week programs visually: weeks, days and exercise blocks with progression in a guided wizard."
+      },
+      "invites": {
+        "title": "One-tap client onboarding",
+        "description": "Invite clients with a single Telegram link. They join instantly — no passwords, no friction."
+      },
+      "analytics": {
+        "title": "Real-time analytics",
+        "description": "Track active clients, completions and weekly drop-off for every program at a glance."
+      },
+      "versioning": {
+        "title": "Versioning & publishing",
+        "description": "Draft, publish and roll out updates to clients while keeping a full version history."
+      },
+      "global": {
+        "title": "Global by default",
+        "description": "A fully localized experience for your clients, with English and Russian out of the box."
+      }
+    }
+  },
+  "preview": {
+    "title": "See Mentorix in action",
+    "subtitle": "A calm, focused workspace your whole coaching practice runs on.",
+    "tabs": {
+      "analytics": "Analytics",
+      "builder": "Program builder",
+      "clients": "Clients"
+    },
+    "analytics": {
+      "title": "Weekly completion",
+      "legend": "Completed",
+      "activeClients": "Active clients",
+      "dropoff": "Weekly drop-off",
+      "avgCompletion": "Avg. completion"
+    },
+    "builder": {
+      "programTitle": "12-Week Strength",
+      "week": "Week",
+      "day": "Day",
+      "blocks": ["Back Squat — 5×5", "Bench Press — 5×5", "Barbell Row — 4×8", "Plank — 3×60s"]
+    },
+    "clients": {
+      "title": "Your clients",
+      "status": { "active": "Active", "invited": "Invited", "resting": "Resting" },
+      "people": ["Alex Morgan", "Jordan Lee", "Sam Rivera", "Taylor Kim"],
+      "linkedLabel": "Linked",
+      "programs": ["12-Week Strength", "Hybrid Conditioning", "Mobility Reset", "5K Base Builder"]
+    }
+  },
+  "howItWorks": {
+    "title": "Up and running in three steps",
+    "subtitle": "From idea to a coached client in an afternoon.",
+    "steps": {
+      "one": {
+        "title": "Build your program",
+        "description": "Assemble weeks and workouts from your exercise library in minutes."
+      },
+      "two": {
+        "title": "Invite your client",
+        "description": "Share a Telegram invite link — your client is onboarded in one tap."
+      },
+      "three": {
+        "title": "Track & improve",
+        "description": "Watch completion and engagement in real time and iterate with confidence."
+      }
+    }
+  },
+  "mobile": {
+    "badge": "Coming soon",
+    "title": "Mentorix in your pocket",
+    "description": "Native iOS & Android apps are on the way — coach on the go, get instant client notifications, and review progress from anywhere. For now, Mentorix works great in your mobile browser.",
+    "features": [
+      "Push notifications for client activity",
+      "Review & tweak programs on the go",
+      "Offline-friendly workout tracking"
+    ],
+    "cta": "Use the web app today",
+    "soon": "iOS & Android · Coming soon",
+    "phone": {
+      "app": "Mentorix",
+      "todayWorkout": "Today's workout",
+      "session": "Upper body · 45 min",
+      "start": "Start session",
+      "streak": "7-day streak"
+    }
+  },
+  "pricing": {
+    "title": "Simple pricing that grows with you",
+    "subtitle": "Start free. Move up as your roster grows — exact limits are shown in your account.",
+    "cta": "Get started",
+    "recommended": "Recommended",
+    "note": "Upgrade or downgrade anytime as your roster grows.",
+    "dimensions": ["Exercises", "Active programs", "Active clients"],
+    "limits": {
+      "free": ["10", "3", "3"],
+      "advance": ["50", "15", "15"],
+      "elite": ["Unlimited", "Unlimited", "50"]
+    },
+    "plans": {
+      "free": {
+        "name": "Free"
+      },
+      "advance": {
+        "name": "Advance"
+      },
+      "elite": {
+        "name": "Elite"
+      }
+    }
+  },
+  "cta": {
+    "title": "Ready to grow your coaching business?",
+    "subtitle": "Join coaches who run their entire practice on Mentorix.",
+    "primary": "Start free",
+    "secondary": "Sign in",
+    "trust": {
+      "free": "Free plan available",
+      "noCard": "No credit card required",
+      "setup": "Set up in minutes"
+    }
+  },
+  "footer": {
+    "navLabel": "Footer",
+    "links": {
+      "features": "Features",
+      "preview": "Preview",
+      "pricing": "Pricing",
+      "signIn": "Sign in",
+      "signUp": "Create account"
+    },
+    "rights": "All rights reserved."
+  },
+  "jsonLd": {
+    "category": "BusinessApplication"
+  }
+}
