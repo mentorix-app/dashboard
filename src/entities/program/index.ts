@@ -1,6 +1,7 @@
 export type { Program, ProgramDraftFields } from './model/types';
 export { ProgramCategory, ProgramStatus } from './model/types';
 export { useProgramBasicsDraftStore } from './model/basicsDraftStore';
+export { useProgramRevertSignalStore } from './model/revertSignalStore';
 export type {
   ProgramBlockGroupType,
   ProgramDay,
@@ -26,6 +27,7 @@ export { ProgramStatusBadge } from './ui/ProgramStatusBadge';
 export type {
   ArchiveProgramResponse,
   CreateProgramResponse,
+  DiscardProgramChangesResponse,
   FetchProgramsListParams,
   FetchProgramsParams,
   ProgramSortField,
@@ -42,6 +44,7 @@ export {
   useArchiveProgram,
   useCreateProgram,
   useDeleteProgram,
+  useDiscardProgramChanges,
   useProgram,
   useProgramsInfinite,
   usePublishProgram,

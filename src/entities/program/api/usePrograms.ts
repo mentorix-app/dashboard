@@ -3,9 +3,11 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { http, queryKeys, useGet, useInfiniteGet, usePost, type HttpError } from '@/src/shared/api';
 import type { ProgramDetail } from '../model/structure';
+import { useProgramRevertSignalStore } from '../model/revertSignalStore';
 import type {
   ArchiveProgramResponse,
   CreateProgramResponse,
+  DiscardProgramChangesResponse,
   FetchProgramsListParams,
   ProgramsListResult,
   PublishProgramResponse,
@@ -108,6 +110,29 @@ export const usePublishProgramUpdate = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: queryKeys.programs.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.clients.all });
+    },
+  });
+};
+
+export const useDiscardProgramChanges = () => {
+  const queryClient = useQueryClient();
+
+  // POST /programs/{id}/discard-unpublished restores the working tree from the
+  // latest frozen version. It returns the full restored program, so we write
+  // it straight into the detail cache (same pattern as useUpdateProgram) rather
+  // than waiting on a refetch, and mark the revert signal so the basics form —
+  // which only hydrates from the fetched program once — knows to re-hydrate
+  // general info fields from the restored values instead of keeping the
+  // discarded draft on screen.
+  return useMutation<DiscardProgramChangesResponse, HttpError, string>({
+    mutationFn: (id) =>
+      http
+        .post<DiscardProgramChangesResponse>(`/programs/${encodeURIComponent(id)}/discard-unpublished`)
+        .then((response) => response.data),
+    onSuccess: (program, id) => {
+      queryClient.setQueriesData<ProgramDetail>({ queryKey: queryKeys.programs.detail(id) }, program);
+      queryClient.invalidateQueries({ queryKey: queryKeys.programs.all, refetchType: 'none' });
+      useProgramRevertSignalStore.getState().markReverted(id);
     },
   });
 };

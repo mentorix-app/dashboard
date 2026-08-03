@@ -73,7 +73,9 @@
       "publishUpdateSuccess": "New program version published.",
       "publishUpdateError": "Could not publish the update. Please try again.",
       "syncSuccess": "Clients synced to the latest version.",
-      "syncError": "Could not sync clients. Please try again."
+      "syncError": "Could not sync clients. Please try again.",
+      "discardSuccess": "Changes discarded. Program restored to the published version.",
+      "discardError": "Could not discard changes. Please try again."
     }
   },
   "incompleteTitle": "Finish step 1 before publishing",

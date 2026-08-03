@@ -54,3 +54,5 @@ export type PublishProgramResponse = ProgramDetail;
 export type ArchiveProgramResponse = ProgramDetail;
 
 export type PublishProgramUpdateResponse = ProgramDetail;
+
+export type DiscardProgramChangesResponse = ProgramDetail;

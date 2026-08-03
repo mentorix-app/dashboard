@@ -5,6 +5,7 @@ import {
   ProgramStatus,
   canManageProgram,
   useArchiveProgram,
+  useDiscardProgramChanges,
   useProgram,
   useProgramAssignments,
   usePublishProgram,
@@ -17,10 +18,11 @@ import { confirm } from '@/src/shared/ui';
 
 /**
  * Owns the published/archived lifecycle actions shown in the wizard header:
- * archive, publish-update (new version), sync assignments to latest, and
- * re-publish from archive. The version/assignment queries only run while the
- * program is published so drafts stay cheap. Each action queues its own
- * confirmation via the global `confirm()` singleton.
+ * archive, publish-update (new version), sync assignments to latest,
+ * revert (discard unpublished draft changes), and re-publish from archive.
+ * The version/assignment queries only run while the program is published so
+ * drafts stay cheap. Each action queues its own confirmation via the global
+ * `confirm()` singleton.
  */
 export const useWizardActions = (programId: string) => {
   const t = useTranslations('ProgramWizard');
@@ -42,6 +44,18 @@ export const useWizardActions = (programId: string) => {
   const publishUpdateMutation = usePublishProgramUpdate();
   const republishMutation = usePublishProgram();
   const syncMutation = useSyncProgramAssignments();
+  const discardMutation = useDiscardProgramChanges();
+
+  // Single aggregate pending flag: all lifecycle actions live behind the same
+  // dropdown trigger, so one flag is enough to disable/spin it while any of
+  // them is in flight — the dropdown can't be reopened to fire a second
+  // action while its trigger is disabled.
+  const isActionPending =
+    archiveMutation.isPending ||
+    republishMutation.isPending ||
+    publishUpdateMutation.isPending ||
+    syncMutation.isPending ||
+    discardMutation.isPending;
 
   const behindLatestCount = (assignmentsQuery.data?.items ?? []).filter((item) => item.isBehindLatest).length;
   const canPublishUpdate = canManage && isPublished && program?.hasUnpublishedChanges === true;
@@ -148,9 +162,19 @@ export const useWizardActions = (programId: string) => {
       cancelLabel: t('actions.revertModal.cancel'),
       confirmLabel: t('actions.revertModal.confirm'),
       variant: 'default',
-      // No backend endpoint exists yet to discard draft changes server-side;
-      // this just closes the modal until that API lands.
-      onConfirm: () => {},
+      onConfirm: () =>
+        new Promise<void>((resolve, reject) => {
+          discardMutation.mutate(programId, {
+            onSuccess: () => {
+              showSuccessToast(t('actions.toast.discardSuccess'));
+              resolve();
+            },
+            onError: (error) => {
+              showErrorToast(t('actions.toast.discardError'), { description: error.message });
+              reject(error);
+            },
+          });
+        }),
     });
 
   return {
@@ -163,10 +187,7 @@ export const useWizardActions = (programId: string) => {
     canSync,
     canRevert,
     canRepublish: canManage && isArchived,
-    isArchiving: archiveMutation.isPending,
-    isRepublishing: republishMutation.isPending,
-    isPublishingUpdate: publishUpdateMutation.isPending,
-    isSyncing: syncMutation.isPending,
+    isActionPending,
     requestArchive,
     requestRepublish,
     requestPublishUpdate,

@@ -36,10 +36,7 @@ export const WizardHeaderActions = ({ programId, validateBeforePublish }: Wizard
     canSync,
     canRevert,
     canRepublish,
-    isArchiving,
-    isRepublishing,
-    isPublishingUpdate,
-    isSyncing,
+    isActionPending,
     requestArchive,
     requestRepublish,
     requestPublishUpdate,
@@ -55,8 +52,9 @@ export const WizardHeaderActions = ({ programId, validateBeforePublish }: Wizard
 
   // Draws attention to the actions menu when it holds something actionable
   // (a new version to publish or clients waiting to be synced) without
-  // forcing the user to open it first.
-  const hasHighlight = canPublishUpdate || canSync;
+  // forcing the user to open it first. Suppressed while an action is pending,
+  // since the trigger shows a spinner in place of the label/chevron then.
+  const hasHighlight = (canPublishUpdate || canSync) && !isActionPending;
   const hasActionItems = canPublishUpdate || canSync || canRevert || canArchive || canRepublish;
   const hasMenuItems = canViewAnalytics || hasActionItems;
 
@@ -65,9 +63,21 @@ export const WizardHeaderActions = ({ programId, validateBeforePublish }: Wizard
       {hasMenuItems ? (
         <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
-            <Button type="button" variant={hasHighlight ? 'default' : 'outline'} size="sm" className="relative">
-              {t('actions.menuLabel')}
-              <ChevronDown aria-hidden />
+            <Button
+              type="button"
+              variant={hasHighlight ? 'default' : 'outline'}
+              size="sm"
+              className="relative"
+              disabled={isActionPending}
+            >
+              {isActionPending ? (
+                <Loader2 className="animate-spin" aria-hidden />
+              ) : (
+                <>
+                  {t('actions.menuLabel')}
+                  <ChevronDown aria-hidden />
+                </>
+              )}
               {hasHighlight ? (
                 <span
                   aria-hidden
@@ -81,15 +91,15 @@ export const WizardHeaderActions = ({ programId, validateBeforePublish }: Wizard
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             {canPublishUpdate ? (
-              <DropdownMenuItem onClick={handlePublishUpdateClick} disabled={isPublishingUpdate}>
-                {isPublishingUpdate ? <Loader2 className="animate-spin" aria-hidden /> : <UploadCloud aria-hidden />}
+              <DropdownMenuItem onClick={handlePublishUpdateClick}>
+                <UploadCloud aria-hidden />
                 {t('actions.publishUpdate')}
               </DropdownMenuItem>
             ) : null}
 
             {canSync ? (
-              <DropdownMenuItem onClick={requestSync} disabled={isSyncing}>
-                {isSyncing ? <Loader2 className="animate-spin" aria-hidden /> : <RefreshCw aria-hidden />}
+              <DropdownMenuItem onClick={requestSync}>
+                <RefreshCw aria-hidden />
                 {t('actions.sync')}
               </DropdownMenuItem>
             ) : null}
@@ -118,15 +128,15 @@ export const WizardHeaderActions = ({ programId, validateBeforePublish }: Wizard
             ) : null}
 
             {canArchive ? (
-              <DropdownMenuItem onClick={requestArchive} disabled={isArchiving} variant="destructive">
-                {isArchiving ? <Loader2 className="animate-spin" aria-hidden /> : <Archive aria-hidden />}
+              <DropdownMenuItem onClick={requestArchive} variant="destructive">
+                <Archive aria-hidden />
                 {t('actions.archive')}
               </DropdownMenuItem>
             ) : null}
 
             {canRepublish ? (
-              <DropdownMenuItem onClick={requestRepublish} disabled={isRepublishing}>
-                {isRepublishing ? <Loader2 className="animate-spin" aria-hidden /> : <Check aria-hidden />}
+              <DropdownMenuItem onClick={requestRepublish}>
+                <Check aria-hidden />
                 {t('actions.republish')}
               </DropdownMenuItem>
             ) : null}
