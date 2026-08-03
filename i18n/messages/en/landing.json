@@ -16,6 +16,7 @@
   },
   "hero": {
     "badge": "One platform for trainers & their clients",
+    "badgeMobile": "One place for trainers & clients",
     "title": "Coach more clients. Do less busywork.",
     "subtitle": "Mentorix brings trainers and their clients together in one calm workspace: build programs, onboard in a single tap, and keep a finger on the pulse of every client's progress — instead of chasing admin work.",
     "ctaPrimary": "Start free",
@@ -72,6 +73,7 @@
     "tabs": {
       "analytics": "Analytics",
       "builder": "Program builder",
+      "builderShort": "Program",
       "clients": "Clients"
     },
     "analytics": {

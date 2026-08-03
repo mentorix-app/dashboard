@@ -46,23 +46,23 @@ const AnalyticsPanel = () => {
   } satisfies ChartConfig;
 
   return (
-    <div className="grid gap-3 sm:gap-4">
-      <div className="grid grid-cols-3 gap-3">
+    <div className="grid min-w-0 gap-3 sm:gap-4">
+      <div className="grid min-w-0 grid-cols-3 gap-2 sm:gap-3">
         {[
           { icon: Users, label: t('preview.analytics.activeClients'), value: '148' },
           { icon: TrendingUp, label: t('preview.analytics.avgCompletion'), value: '92%' },
           { icon: Activity, label: t('preview.analytics.dropoff'), value: '4.2%' },
         ].map((stat) => (
-          <div key={stat.label} className="border-border/60 bg-background rounded-xl border p-3 sm:p-4">
+          <div key={stat.label} className="border-border/60 bg-background min-w-0 rounded-xl border p-3 sm:p-4">
             <stat.icon className="text-muted-foreground size-4" />
             <p className="mt-2 text-xl font-semibold tabular-nums sm:text-2xl">{stat.value}</p>
-            <p className="text-muted-foreground mt-0.5 truncate text-[0.7rem] sm:text-xs">{stat.label}</p>
+            <p className="text-muted-foreground mt-0.5 truncate text-[0.65rem] sm:text-xs">{stat.label}</p>
           </div>
         ))}
       </div>
-      <div className="border-border/60 bg-background rounded-xl border p-4">
+      <div className="border-border/60 bg-background min-w-0 rounded-xl border p-4">
         <p className="text-muted-foreground mb-3 text-sm font-medium">{t('preview.analytics.title')}</p>
-        <ChartContainer config={chartConfig} className="h-48 w-full sm:h-56">
+        <ChartContainer config={chartConfig} className="h-48 w-full min-w-0 sm:h-56">
           <AreaChart data={CHART_DATA} margin={{ left: 4, right: 4, top: 4 }}>
             <defs>
               <linearGradient id="landingFill" x1="0" y1="0" x2="0" y2="1">
@@ -93,7 +93,7 @@ const BuilderPanel = () => {
 
   return (
     <div className="grid gap-3 sm:grid-cols-[10rem_1fr] sm:gap-4">
-      <div className="flex gap-2 overflow-x-auto pb-1 sm:flex-col sm:overflow-visible sm:pb-0">
+      <div className="scrollbar-slim flex gap-2 overflow-x-auto pb-1 sm:flex-col sm:overflow-visible sm:pb-0">
         {[1, 2, 3, 4].map((week) => (
           <div
             key={week}
@@ -109,7 +109,7 @@ const BuilderPanel = () => {
       </div>
 
       <div className="min-w-0">
-        <div className="mb-3 flex items-center gap-1.5 overflow-x-auto pb-1">
+        <div className="scrollbar-slim mb-3 flex items-center gap-1.5 overflow-x-auto pb-1">
           {[1, 2, 3].map((day) => (
             <span
               key={day}
@@ -161,7 +161,7 @@ const ClientsPanel = () => {
         return (
           <div
             key={person}
-            className="border-border/60 bg-background flex items-center gap-3 rounded-xl border p-3 sm:p-4"
+            className="border-border/60 bg-background flex items-start gap-3 rounded-xl border p-3 sm:items-center sm:p-4"
           >
             <span
               className={cn(
@@ -172,12 +172,12 @@ const ClientsPanel = () => {
               {initials}
             </span>
             <div className="min-w-0 flex-1">
-              <div className="flex items-center gap-2">
-                <span className="truncate text-sm font-medium">{person}</span>
+              <div className="flex flex-col items-start gap-1 sm:flex-row sm:items-center sm:gap-2">
+                <span className="text-sm font-medium sm:truncate">{person}</span>
                 <Badge
                   variant={status === 'active' ? 'default' : 'outline'}
                   size="sm"
-                  className={cn('gap-1.5', status === 'resting' && 'text-muted-foreground')}
+                  className={cn('w-fit gap-1.5', status === 'resting' && 'text-muted-foreground')}
                 >
                   <span
                     aria-hidden
@@ -191,7 +191,7 @@ const ClientsPanel = () => {
                   {t(`preview.clients.status.${status}`)}
                 </Badge>
               </div>
-              <p className="text-muted-foreground truncate text-xs">
+              <p className="text-muted-foreground mt-1 hidden truncate text-xs sm:block">
                 {t('preview.clients.linkedLabel')} · {programs[index % programs.length]}
               </p>
             </div>
@@ -209,7 +209,7 @@ export const AppPreviewSection = () => {
   const t = useTranslations('Landing');
 
   return (
-    <section id="preview" className="bg-muted/30 scroll-mt-20 border-y py-20 sm:py-24">
+    <section id="preview" className="bg-muted/30 scroll-mt-20 border-y py-8 sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
@@ -223,27 +223,43 @@ export const AppPreviewSection = () => {
         <Reveal delay={120} className="mt-12">
           <Tabs defaultValue="analytics" className="w-full gap-0">
             <div className="border-border/70 bg-card overflow-hidden rounded-2xl border shadow-2xl shadow-black/5 dark:shadow-black/40">
-              <div className="border-border/60 bg-muted/40 flex flex-wrap items-center gap-3 border-b px-4 py-3 sm:px-5">
-                <div className="flex items-center gap-1.5">
+              <div className="border-border/60 bg-muted/40 flex items-center gap-3 border-b px-4 py-3 sm:px-5">
+                <div className="hidden items-center gap-1.5 sm:flex">
                   <span className="size-2.5 rounded-full bg-red-400/70" />
                   <span className="size-2.5 rounded-full bg-yellow-400/70" />
                   <span className="size-2.5 rounded-full bg-green-400/70" />
                 </div>
-                <TabsList className="ml-auto sm:ml-4">
-                  <TabsTrigger value="analytics">{t('preview.tabs.analytics')}</TabsTrigger>
-                  <TabsTrigger value="builder">{t('preview.tabs.builder')}</TabsTrigger>
-                  <TabsTrigger value="clients">{t('preview.tabs.clients')}</TabsTrigger>
+                <TabsList className="w-full sm:ml-4 sm:w-auto">
+                  <TabsTrigger
+                    value="analytics"
+                    className="flex-1 px-1.5 py-1 text-xs sm:flex-none sm:px-2.5 sm:py-1 sm:text-sm"
+                  >
+                    {t('preview.tabs.analytics')}
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="builder"
+                    className="flex-1 px-1.5 py-1 text-xs sm:flex-none sm:px-2.5 sm:py-1 sm:text-sm"
+                  >
+                    <span className="sm:hidden">{t('preview.tabs.builderShort')}</span>
+                    <span className="hidden sm:inline">{t('preview.tabs.builder')}</span>
+                  </TabsTrigger>
+                  <TabsTrigger
+                    value="clients"
+                    className="flex-1 px-1.5 py-1 text-xs sm:flex-none sm:px-2.5 sm:py-1 sm:text-sm"
+                  >
+                    {t('preview.tabs.clients')}
+                  </TabsTrigger>
                 </TabsList>
               </div>
 
-              <div className="min-h-[26rem] p-4 sm:min-h-[24rem] sm:p-6">
-                <TabsContent value="analytics">
+              <div className="min-h-[26rem] min-w-0 p-4 sm:min-h-[24rem] sm:p-6">
+                <TabsContent value="analytics" className="min-w-0">
                   <AnalyticsPanel />
                 </TabsContent>
-                <TabsContent value="builder">
+                <TabsContent value="builder" className="min-w-0">
                   <BuilderPanel />
                 </TabsContent>
-                <TabsContent value="clients">
+                <TabsContent value="clients" className="min-w-0">
                   <ClientsPanel />
                 </TabsContent>
               </div>

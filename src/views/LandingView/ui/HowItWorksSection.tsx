@@ -16,7 +16,7 @@ export const HowItWorksSection = () => {
   const t = useTranslations('Landing');
 
   return (
-    <section className="py-20 sm:py-24">
+    <section className="py-8 sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>

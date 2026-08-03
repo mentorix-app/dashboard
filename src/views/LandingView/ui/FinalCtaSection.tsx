@@ -19,7 +19,7 @@ export const FinalCtaSection = () => {
   const t = useTranslations('Landing');
 
   return (
-    <section className="py-20 sm:py-24">
+    <section className="py-8 sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="border-border/60 bg-card relative overflow-hidden rounded-3xl border px-6 py-14 text-center sm:px-12 sm:py-20">

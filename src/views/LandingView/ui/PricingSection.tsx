@@ -19,7 +19,7 @@ export const PricingSection = () => {
   const dimensions = t.raw('pricing.dimensions') as string[];
 
   return (
-    <section id="pricing" className="scroll-mt-20 py-20 sm:py-24">
+    <section id="pricing" className="scroll-mt-20 py-8 sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>

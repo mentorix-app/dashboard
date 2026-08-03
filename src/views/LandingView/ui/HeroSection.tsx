@@ -44,16 +44,16 @@ const DashboardMock = () => {
       </div>
 
       <div className="space-y-4 p-4 sm:p-5">
-        <div className="grid grid-cols-3 gap-3">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3">
           {[
             { icon: Users, label: t('hero.mock.activeClients'), value: '148' },
             { icon: TrendingUp, label: t('hero.mock.completion'), value: '92%' },
             { icon: BarChart3, label: t('hero.mock.programs'), value: '24' },
           ].map((card) => (
-            <div key={card.label} className="border-border/60 bg-background rounded-xl border p-3">
+            <div key={card.label} className="border-border/60 bg-background min-w-0 rounded-xl border p-3">
               <card.icon className="text-muted-foreground size-4" />
               <p className="mt-2 text-lg font-semibold tabular-nums">{card.value}</p>
-              <p className="text-muted-foreground truncate text-[0.7rem]">{card.label}</p>
+              <p className="text-muted-foreground truncate text-[0.65rem] sm:text-[0.7rem]">{card.label}</p>
             </div>
           ))}
         </div>
@@ -84,11 +84,12 @@ export const HeroSection = () => {
         aria-hidden
         className="pointer-events-none absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_50%_0%,color-mix(in_oklch,var(--primary)_9%,transparent),transparent)]"
       />
-      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-4 py-16 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:py-28">
+      <div className="mx-auto grid w-full max-w-6xl items-center gap-12 px-4 py-8 sm:px-6 sm:py-20 lg:grid-cols-2 lg:gap-8 lg:px-8 lg:py-24">
         <div className="flex flex-col items-start text-left">
           <Reveal>
-            <Badge variant="outline" size="lg" className="mb-5 rounded-full">
-              {t('hero.badge')}
+            <Badge variant="outline" size="lg" className="mb-5 rounded-full text-center whitespace-normal">
+              <span className="sm:hidden">{t('hero.badgeMobile')}</span>
+              <span className="hidden sm:inline">{t('hero.badge')}</span>
             </Badge>
           </Reveal>
           <Reveal delay={60}>
@@ -122,7 +123,7 @@ export const HeroSection = () => {
 
       <div className="mx-auto w-full max-w-6xl px-4 pb-16 sm:px-6 lg:px-8">
         <Reveal>
-          <ul className="border-border/60 bg-card/40 grid grid-cols-2 gap-4 rounded-2xl border p-6 sm:p-8 lg:grid-cols-4 lg:gap-6">
+          <ul className="border-border/60 bg-card/40 grid grid-cols-1 gap-4 rounded-2xl border p-6 sm:grid-cols-2 sm:p-8 lg:grid-cols-4 lg:gap-6">
             {HIGHLIGHTS.map((item) => (
               <li key={item.key} className="flex items-center gap-3">
                 <span className="bg-primary/10 text-primary flex size-9 shrink-0 items-center justify-center rounded-lg">

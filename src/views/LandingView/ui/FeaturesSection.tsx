@@ -20,7 +20,7 @@ export const FeaturesSection = () => {
   const t = useTranslations('Landing');
 
   return (
-    <section id="features" className="scroll-mt-20 py-20 sm:py-24">
+    <section id="features" className="scroll-mt-20 py-8 sm:py-20 lg:py-24">
       <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-2xl text-center">
           <Reveal>
@@ -31,7 +31,7 @@ export const FeaturesSection = () => {
           </Reveal>
         </div>
 
-        <div className="mt-14 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-10 grid gap-5 sm:mt-14 sm:grid-cols-2 lg:grid-cols-3">
           {FEATURES.map((feature, index) => (
             <Reveal key={feature.key} delay={index * 60}>
               <Card className="group hover:border-primary/40 h-full gap-4 p-6 transition-colors">
