@@ -64,6 +64,8 @@ export type ProgramDayBlock = {
   blockType: ProgramBlockType;
   instruction: string;
   sortOrder: number;
+  /** Empty means shared with every client assigned to the program. */
+  clientUserIds: string[];
   exercises: ProgramDayExercise[];
   createdAt: string;
 };

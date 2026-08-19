@@ -15,12 +15,18 @@ import { buildClientsQuery } from './clients.utils';
 
 const CLIENTS_PAGE_SIZE = 20;
 
-export const useClientsInfinite = (params: FetchClientsListParams = {}) =>
+type UseClientsInfiniteOptions = {
+  enabled?: boolean;
+};
+
+export const useClientsInfinite = (params: FetchClientsListParams = {}, options?: UseClientsInfiniteOptions) =>
   useInfiniteGet<ClientsListResult>(
     '/trainer/clients',
     queryKeys.clients.list(params),
     (page) => ({ ...buildClientsQuery(params), page, limit: CLIENTS_PAGE_SIZE }),
-    (lastPage) => (lastPage.pagination.page < lastPage.pagination.totalPages ? lastPage.pagination.page + 1 : undefined)
+    (lastPage) =>
+      lastPage.pagination.page < lastPage.pagination.totalPages ? lastPage.pagination.page + 1 : undefined,
+    options
   );
 
 export const useCreateTrainerInvite = () => {
@@ -48,6 +54,7 @@ export const useSetClientsProgram = () => {
       // program changes the analytics rollups (assigned counts, completion, etc.).
       queryClient.invalidateQueries({ queryKey: queryKeys.clients.all });
       queryClient.invalidateQueries({ queryKey: queryKeys.analytics.all });
+      queryClient.invalidateQueries({ queryKey: queryKeys.programs.all });
     },
   });
 };

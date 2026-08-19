@@ -3,7 +3,12 @@ import { Difficulty } from '@/src/shared/types';
 import { ProgramCategory, ProgramStatus, type Program } from '@/src/entities/program/model/types';
 import { ProgramBlockType, type ProgramDay, type ProgramWeek } from '@/src/entities/program/model/structure';
 
-import { getCompletionPercent, getMissingRequiredFields, getStructureUnits } from '../ProgramWizardView.utils';
+import {
+  getCompletionPercent,
+  getMissingRequiredFields,
+  getStructureErrors,
+  getStructureUnits,
+} from '../ProgramWizardView.utils';
 
 const buildProgram = (overrides: Partial<Program> = {}): Program => ({
   id: 'program-1',
@@ -29,7 +34,7 @@ const buildProgram = (overrides: Partial<Program> = {}): Program => ({
   ...overrides,
 });
 
-const buildDay = (filled: boolean): ProgramDay => ({
+const buildDay = (filled: boolean, clientUserIds: string[] = []): ProgramDay => ({
   id: 'day-1',
   dayNumber: 1,
   sortOrder: 1,
@@ -40,6 +45,7 @@ const buildDay = (filled: boolean): ProgramDay => ({
           blockType: ProgramBlockType.Single,
           instruction: '',
           sortOrder: 1,
+          clientUserIds,
           exercises: [
             {
               id: 'exercise-1',
@@ -126,6 +132,17 @@ describe('ProgramWizardView utils', () => {
     it('counts filled days across all weeks', () => {
       const weeks = [buildWeek([buildDay(true), buildDay(false)]), buildWeek([buildDay(true)])];
       expect(getStructureUnits(weeks)).toEqual({ total: 3, filled: 2 });
+    });
+  });
+
+  describe('getStructureErrors', () => {
+    it('requires a shared block on each non-empty day', () => {
+      expect(getStructureErrors([buildWeek([buildDay(true, ['client-1'])])])).toEqual(['dayWithoutSharedBlock']);
+      expect(getStructureErrors([buildWeek([buildDay(true)])])).toEqual([]);
+    });
+
+    it('does not require a shared block on an empty day', () => {
+      expect(getStructureErrors([buildWeek([buildDay(true), buildDay(false)])])).toEqual([]);
     });
   });
 });

@@ -20,6 +20,8 @@ export {
   getProgramDescription,
   getProgramName,
   isProgramDirty,
+  parseProgramBlockError,
+  type ProgramBlockErrorKey,
   toProgramDraftFields,
 } from './lib';
 export { BlockTypeBadge } from './ui/BlockTypeBadge';
@@ -93,6 +95,7 @@ export type {
   MoveProgramDayBlockVariables,
   MoveProgramExerciseToBlockVariables,
   PatchProgramDayBlockVariables,
+  SetProgramDayBlockClientsVariables,
   ReorderProgramBlockExercisesVariables,
   ReorderProgramDayBlocksVariables,
   UngroupProgramDayBlockVariables,
@@ -101,6 +104,7 @@ export {
   useDeleteProgramDayBlock,
   useMergeProgramDayBlocks,
   usePatchProgramDayBlock,
+  useSetProgramDayBlockClients,
   useUngroupProgramDayBlock,
 } from './api/useProgramBlocks';
 export {

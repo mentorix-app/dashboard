@@ -1,4 +1,5 @@
-import type { ProgramDayExerciseInput } from '@/src/entities/program';
+import { ProgramBlockType, type ProgramDayBlock } from '@/src/entities/program/model/structure';
+import type { ProgramDayExerciseInput } from '@/src/entities/program/model/programExercises';
 
 import {
   formatVolumeField,
@@ -6,7 +7,18 @@ import {
   normalizeExerciseInput,
   sanitizeVolumeInput,
   toVolumeField,
-} from '../lib';
+} from '../lib/exerciseInput';
+import { getLastSharedBlockId, haveMatchingBlockVisibility } from '../lib/blockVisibility';
+
+const buildBlock = (id: string, clientUserIds: string[]): ProgramDayBlock => ({
+  id,
+  blockType: ProgramBlockType.Single,
+  instruction: '',
+  sortOrder: 1,
+  clientUserIds,
+  exercises: [],
+  createdAt: '2024-01-01T00:00:00Z',
+});
 
 describe('DayExercises utils', () => {
   describe('sanitizeVolumeInput', () => {
@@ -89,6 +101,26 @@ describe('DayExercises utils', () => {
       expect(isSameExerciseInput(base, { ...base, reps: '12' })).toBe(false);
       expect(isSameExerciseInput(base, { ...base, instruction: 'slow' })).toBe(false);
       expect(isSameExerciseInput(base, { ...base })).toBe(true);
+    });
+  });
+
+  describe('block visibility rules', () => {
+    it('returns the only shared block and allows none or multiple shared blocks to be edited', () => {
+      expect(getLastSharedBlockId([buildBlock('shared', []), buildBlock('restricted', ['client-1'])])).toBe('shared');
+      expect(getLastSharedBlockId([buildBlock('shared-1', []), buildBlock('shared-2', [])])).toBeNull();
+      expect(getLastSharedBlockId([buildBlock('restricted', ['client-1'])])).toBeNull();
+    });
+
+    it('matches visibility regardless of client order and rejects different client lists', () => {
+      expect(
+        haveMatchingBlockVisibility([
+          buildBlock('one', ['client-1', 'client-2']),
+          buildBlock('two', ['client-2', 'client-1']),
+        ])
+      ).toBe(true);
+      expect(haveMatchingBlockVisibility([buildBlock('one', ['client-1']), buildBlock('two', ['client-2'])])).toBe(
+        false
+      );
     });
   });
 });

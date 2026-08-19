@@ -4,6 +4,8 @@ import type { BlockMoveTarget, MoveTargetDay } from '../../DayExercises.types';
 import type { BlockEditValue } from '../BlockEditDialog';
 
 export type GroupBlockCardProps = {
+  programId: string;
+  weekId: string;
   block: ProgramDayBlock;
   canEdit: boolean;
   /** Resolves the locale-aware display name for an exercise. */
@@ -24,4 +26,5 @@ export type GroupBlockCardProps = {
   onUngroupBlock: (blockId: string) => void;
   onDeleteBlock: (blockId: string) => void;
   onMoveBlockToDay: (blockId: string, targetDayId: string) => void;
+  isLastSharedBlock: boolean;
 };

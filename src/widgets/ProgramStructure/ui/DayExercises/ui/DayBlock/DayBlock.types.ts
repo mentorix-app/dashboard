@@ -4,6 +4,8 @@ import type { BlockMoveTarget, MoveTargetDay } from '../../DayExercises.types';
 import type { BlockEditValue } from '../BlockEditDialog';
 
 export type DayBlockProps = {
+  programId: string;
+  weekId: string;
   block: ProgramDayBlock;
   canEdit: boolean;
   getExerciseLabel: (exercise: ProgramDayExercise) => string;
@@ -23,4 +25,8 @@ export type DayBlockProps = {
   onUngroupBlock: (blockId: string) => void;
   onDeleteBlock: (blockId: string) => void;
   onMoveBlockToDay: (blockId: string, targetDayId: string) => void;
+  isLastSharedBlock: boolean;
+  visibilityOpen: boolean;
+  onOpenVisibility: () => void;
+  onVisibilityOpenChange: (open: boolean) => void;
 };

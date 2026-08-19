@@ -30,6 +30,10 @@ export const DayExercises = (props: DayExercisesProps) => {
     onClearSelection,
     onMerge,
     isPickerOpen,
+    visibilityBlockId,
+    lastSharedBlockId,
+    onOpenVisibility,
+    onVisibilityOpenChange,
     onOpenPicker,
     onPickerOpenChange,
     onConfirmAddSingles,
@@ -56,7 +60,7 @@ export const DayExercises = (props: DayExercisesProps) => {
   const blockDndIds = blocks.map((block) => `${BLOCK_DND_PREFIX}${block.id}`);
 
   return (
-    <div className="flex min-h-48 flex-1 flex-col gap-3 p-3">
+    <div className="@container flex min-h-48 flex-1 flex-col gap-3 p-3">
       {canEdit ? (
         <div className="flex items-center justify-end">
           <Button type="button" variant="outline" size="sm" onClick={onOpenPicker}>
@@ -91,6 +95,8 @@ export const DayExercises = (props: DayExercisesProps) => {
                     {blocks.map((block) => (
                       <DayBlock
                         key={block.id}
+                        programId={props.programId}
+                        weekId={props.weekId}
                         block={block}
                         canEdit={canEdit}
                         getExerciseLabel={getExerciseLabel}
@@ -107,6 +113,10 @@ export const DayExercises = (props: DayExercisesProps) => {
                         onUngroupBlock={onUngroupBlock}
                         onDeleteBlock={onDeleteBlock}
                         onMoveBlockToDay={onMoveBlockToDay}
+                        isLastSharedBlock={lastSharedBlockId === block.id}
+                        visibilityOpen={visibilityBlockId === block.id}
+                        onOpenVisibility={() => onOpenVisibility(block.id)}
+                        onVisibilityOpenChange={onVisibilityOpenChange}
                       />
                     ))}
                   </div>

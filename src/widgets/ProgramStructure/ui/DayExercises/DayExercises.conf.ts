@@ -4,11 +4,13 @@ import { useState } from 'react';
 
 import { useLocale, useTranslations } from '@/i18n';
 import { ProgramBlockType, type ProgramDayExercise } from '@/src/entities/program';
+import { useToast } from '@/src/shared/hooks';
 import { confirm } from '@/src/shared/ui';
 
 import { useDayBlockActions } from '../../hooks/useDayBlockActions';
 import { useDayExerciseActions } from '../../hooks/useDayExerciseActions';
 import { BLOCK_TYPE_LABEL_KEY } from './DayExercises.constants';
+import { getLastSharedBlockId, haveMatchingBlockVisibility } from './lib';
 import type { BlockMoveTarget, DayExercisesProps, MoveTargetDay } from './DayExercises.types';
 
 /**
@@ -20,13 +22,16 @@ import type { BlockMoveTarget, DayExercisesProps, MoveTargetDay } from './DayExe
 export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }: DayExercisesProps) => {
   const t = useTranslations('ProgramWizard');
   const locale = useLocale();
+  const { showErrorToast } = useToast();
   const exerciseActions = useDayExerciseActions({ programId, weekId, dayId: day.id });
   const blockActions = useDayBlockActions({ programId, weekId, dayId: day.id });
 
   const [selectedBlockIds, setSelectedBlockIds] = useState<Set<string>>(new Set());
   const [isPickerOpen, setPickerOpen] = useState(false);
+  const [visibilityBlockId, setVisibilityBlockId] = useState<string | null>(null);
 
   const blocks = day.blocks;
+  const lastSharedBlockId = getLastSharedBlockId(blocks);
   const selectedIds = blocks.filter((block) => selectedBlockIds.has(block.id)).map((block) => block.id);
 
   const dayMoveTargets: MoveTargetDay[] = week.days
@@ -55,6 +60,11 @@ export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }:
   const handleClearSelection = () => setSelectedBlockIds(new Set());
 
   const handleMerge = () => {
+    const selectedBlocks = blocks.filter((block) => selectedBlockIds.has(block.id));
+    if (!haveMatchingBlockVisibility(selectedBlocks)) {
+      showErrorToast(t('structure.blocks.visibility.mergeMismatch'));
+      return;
+    }
     blockActions.handleMerge(selectedIds);
     handleClearSelection();
   };
@@ -89,6 +99,12 @@ export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }:
     onClearSelection: handleClearSelection,
     onMerge: handleMerge,
     isPickerOpen,
+    visibilityBlockId,
+    lastSharedBlockId,
+    onOpenVisibility: setVisibilityBlockId,
+    onVisibilityOpenChange: (open: boolean) => {
+      if (!open) setVisibilityBlockId(null);
+    },
     onOpenPicker: () => setPickerOpen(true),
     onPickerOpenChange: setPickerOpen,
     onConfirmAddSingles: handleConfirmAddSingles,

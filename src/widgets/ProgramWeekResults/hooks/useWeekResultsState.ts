@@ -23,11 +23,11 @@ type WeekResultsState = {
 };
 
 /** Persists week / view / day selections in the URL query string. */
-export const useWeekResultsState = (availableWeeks: number[], defaultWeek: number): WeekResultsState => {
+export const useWeekResultsState = (rawWeekNumbers: number[]): WeekResultsState => {
   const searchParams = useSearchParams();
   const searchParamsKey = searchParams.toString();
 
-  const week = parseWeekParam(searchParams, availableWeeks, defaultWeek);
+  const week = parseWeekParam(searchParams, rawWeekNumbers);
   const view = parseWeekResultsView(searchParams);
   const day = parseDayParam(searchParams);
 
@@ -41,7 +41,7 @@ export const useWeekResultsState = (availableWeeks: number[], defaultWeek: numbe
     [searchParamsKey]
   );
 
-  const setWeek = useCallback((next: number) => update({ week: next }), [update]);
+  const setWeek = useCallback((next: number) => update({ week: next, day: null }), [update]);
   const setView = useCallback((next: ViewMode) => update({ view: next }), [update]);
   const setDay = useCallback((next: number) => update({ day: next }), [update]);
 

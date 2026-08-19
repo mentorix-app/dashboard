@@ -11,18 +11,15 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Typography,
 } from '@/src/shared/ui';
 
 import { ExerciseFields } from '../ExerciseFields';
 import type { GroupExerciseRowProps } from './GroupExerciseRow.types';
 
 /**
- * An exercise inside a group block. On mobile the drag handle, name and row
- * actions sit on a header line with the editable fields full width below; from
- * `md` up the row flattens into a single top-aligned line — drag, name
- * (wrapping up to two lines), inputs, actions. Its menu can extract the
- * exercise, move it into another group, or delete it.
+ * An exercise inside a group block. Mobile places the full-width content below
+ * its controls; desktop centres drag/actions around the two-column exercise
+ * content. Its menu can extract, move, or delete the exercise.
  */
 export const GroupExerciseRow = ({
   block,
@@ -40,19 +37,13 @@ export const GroupExerciseRow = ({
 
   return (
     <>
-      <div className="flex items-center gap-2 xl:contents">
-        <div className="flex shrink-0 xl:order-1 xl:self-center">{dragHandle}</div>
+      <div className="flex shrink-0 pt-0.5">{dragHandle}</div>
 
-        <Typography
-          variant="p-sm"
-          className="line-clamp-2 min-w-0 flex-1 font-medium xl:order-2 xl:min-w-48 xl:self-center"
-          title={exerciseName}
-        >
-          {exerciseName}
-        </Typography>
-
-        <div className="ml-auto shrink-0 xl:order-4 xl:ml-0 xl:self-center">
-          {canEdit ? (
+      <ExerciseFields
+        exercise={exercise}
+        exerciseName={exerciseName}
+        action={
+          canEdit ? (
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button type="button" variant="ghost" size="icon-sm" aria-label={t('structure.exercises.rowActions')}>
@@ -82,13 +73,12 @@ export const GroupExerciseRow = ({
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : (
-            <span aria-hidden className="block size-8" />
-          )}
-        </div>
-      </div>
-
-      <ExerciseFields exercise={exercise} canEdit={canEdit} onUpdate={onUpdate} className="xl:order-3" />
+          ) : null
+        }
+        canEdit={canEdit}
+        onUpdate={onUpdate}
+        className="min-w-0"
+      />
     </>
   );
 };

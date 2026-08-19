@@ -92,6 +92,22 @@ describe('BFF route handler', () => {
     expect(JSON.parse(init.body as string)).toEqual({ user_name: 'Ada' });
   });
 
+  it('preserves an empty client list while converting its request key to snake_case', async () => {
+    (global.fetch as jest.Mock).mockResolvedValue(jsonResponse({ ok: true }));
+
+    await PUT(
+      buildRequest('/programs/1/weeks/2/blocks/3/clients', {
+        method: 'PUT',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ clientUserIds: [] }),
+      }),
+      ctx(['programs', '1', 'weeks', '2', 'blocks', '3', 'clients'])
+    );
+
+    const [, init] = (global.fetch as jest.Mock).mock.calls[0] as [string, RequestInit];
+    expect(JSON.parse(init.body as string)).toEqual({ client_user_ids: [] });
+  });
+
   it('strips hop-by-hop request headers before forwarding', async () => {
     (global.fetch as jest.Mock).mockResolvedValue(jsonResponse({}));
 

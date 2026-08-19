@@ -63,5 +63,11 @@ export const getStructureErrors = (weeks?: ProgramWeek[]): StructureErrorKey[] =
   const everyWeekHasExercises = list.length > 0 && list.every((week) => week.days.some(isDayFilled));
   if (!everyWeekHasExercises) errors.push('weekWithoutExercises');
 
+  const everyFilledDayHasSharedBlock = list
+    .flatMap((week) => week.days)
+    .filter(isDayFilled)
+    .every((day) => day.blocks.some((block) => block.clientUserIds.length === 0));
+  if (!everyFilledDayHasSharedBlock) errors.push('dayWithoutSharedBlock');
+
   return errors;
 };

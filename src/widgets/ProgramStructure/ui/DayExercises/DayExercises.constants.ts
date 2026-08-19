@@ -1,16 +1,11 @@
 import { ProgramBlockType } from '@/src/entities/program';
 
 /**
- * Shared row layout for exercise rows (both top-level single rows and rows
- * inside a group block). Up to the `xl` breakpoint the row is a stacked card —
- * a header line (checkbox, drag handle, exercise name and row actions) with the
- * editable fields full width beneath it — so narrow desktop widths never squeeze
- * the inputs out of the row. From `xl` up the header switches to
- * `display: contents` and, together with per-cell `order`, the pieces flatten
- * into a single line — drag, name, inputs, actions — while the inputs block keeps
- * its own two-row stack (sets/reps then instruction).
+ * Exercise rows keep drag/select controls and actions vertically centred around
+ * a responsive content area. Content stacks on narrow screens and becomes two
+ * columns (title with sets/reps, then instruction) on desktop.
  */
-export const EXERCISE_ROW_LAYOUT = 'flex flex-col gap-2 xl:flex-row xl:items-start xl:gap-3';
+export const EXERCISE_ROW_LAYOUT = 'grid grid-cols-[auto_minmax(0,1fr)] items-start gap-x-3 gap-y-2';
 
 /** Message keys for each block type label, kept literal so next-intl stays typed. */
 export const BLOCK_TYPE_LABEL_KEY = {

@@ -5,6 +5,8 @@ import type { ProgramDayBlock, ProgramDayExercise, ProgramDayExerciseInput } fro
 import type { MoveTargetDay } from '../../DayExercises.types';
 
 export type SingleBlockRowProps = {
+  programId: string;
+  weekId: string;
   /** The `single` block that wraps this exercise (moves/deletes target the block). */
   block: ProgramDayBlock;
   exercise: ProgramDayExercise;
@@ -20,4 +22,8 @@ export type SingleBlockRowProps = {
   onUpdate: (itemId: string, input: ProgramDayExerciseInput) => void;
   onRequestDelete: (blockId: string, itemId: string) => void;
   onMoveToDay: (blockId: string, toDayId: string) => void;
+  isLastSharedBlock: boolean;
+  visibilityOpen: boolean;
+  onOpenVisibility: () => void;
+  onVisibilityOpenChange: (open: boolean) => void;
 };

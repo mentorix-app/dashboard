@@ -19,13 +19,9 @@ const getValidValue = <T extends string>(values: readonly T[], selected: string 
 export const parseWeekResultsView = (searchParams: SearchParamsReader): ViewMode =>
   getValidValue(WEEK_RESULTS_VIEWS, searchParams.get('view'), 'grid');
 
-export const parseWeekParam = (
-  searchParams: SearchParamsReader,
-  availableWeeks: number[],
-  fallback: number
-): number => {
+export const parseWeekParam = (searchParams: SearchParamsReader, rawWeekNumbers: number[]): number => {
   const week = Number(searchParams.get('week'));
-  return availableWeeks.includes(week) ? week : fallback;
+  return rawWeekNumbers.includes(week) ? week : (rawWeekNumbers.at(-1) ?? 0);
 };
 
 export const parseDayParam = (searchParams: SearchParamsReader): number | null => {
@@ -35,9 +31,13 @@ export const parseDayParam = (searchParams: SearchParamsReader): number | null =
   return Number.isInteger(day) && day > 0 ? day : null;
 };
 
-/** Clamp the URL day to a valid training day, defaulting to the first. */
-export const resolveSelectedDay = (dayNumbers: number[], selected: number | null): number =>
-  selected !== null && dayNumbers.includes(selected) ? selected : (dayNumbers[0] ?? 0);
+/** Keep selectors stable without changing which raw API item is the fallback. */
+export const getSortedUniqueNumbers = (values: number[]): number[] =>
+  [...new Set(values)].sort((first, second) => first - second);
+
+/** Clamp the URL day to a valid training day, defaulting to the final raw API item. */
+export const resolveSelectedDay = (rawDayNumbers: number[], selected: number | null): number =>
+  selected !== null && rawDayNumbers.includes(selected) ? selected : (rawDayNumbers.at(-1) ?? 0);
 
 export const createWeekResultsParams = (
   currentSearchParams: string,
@@ -47,7 +47,8 @@ export const createWeekResultsParams = (
 
   if (updates.week !== undefined) params.set('week', String(updates.week));
   if (updates.view !== undefined) params.set('view', updates.view);
-  if (updates.day !== undefined) params.set('day', String(updates.day));
+  if (updates.day === null) params.delete('day');
+  else if (updates.day !== undefined) params.set('day', String(updates.day));
 
   return params;
 };

@@ -31,6 +31,7 @@ const buildBlock = (
   blockType,
   instruction: '',
   sortOrder,
+  clientUserIds: [],
   exercises: exerciseIds.map((exerciseId, index) => buildExercise(exerciseId, index + 1)),
   createdAt: '2024-01-01T00:00:00Z',
 });

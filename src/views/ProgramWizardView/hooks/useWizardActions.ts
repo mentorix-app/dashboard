@@ -4,6 +4,7 @@ import { useTranslations } from '@/i18n';
 import {
   ProgramStatus,
   canManageProgram,
+  parseProgramBlockError,
   useArchiveProgram,
   useDiscardProgramChanges,
   useProgram,
@@ -101,7 +102,12 @@ export const useWizardActions = (programId: string) => {
               resolve();
             },
             onError: (error) => {
-              showErrorToast(t('actions.toast.republishError'), { description: error.message });
+              showErrorToast(
+                parseProgramBlockError(error) === 'noSharedBlock'
+                  ? t('structureErrors.dayWithoutSharedBlock')
+                  : t('actions.toast.republishError'),
+                { description: error.message }
+              );
               reject(error);
             },
           });
@@ -123,7 +129,12 @@ export const useWizardActions = (programId: string) => {
               resolve();
             },
             onError: (error) => {
-              showErrorToast(t('actions.toast.publishUpdateError'), { description: error.message });
+              showErrorToast(
+                parseProgramBlockError(error) === 'noSharedBlock'
+                  ? t('structureErrors.dayWithoutSharedBlock')
+                  : t('actions.toast.publishUpdateError'),
+                { description: error.message }
+              );
               reject(error);
             },
           });

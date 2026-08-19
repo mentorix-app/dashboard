@@ -10,6 +10,8 @@ import type {
   MergeProgramDayBlocksVariables,
   PatchProgramDayBlockResponse,
   PatchProgramDayBlockVariables,
+  SetProgramDayBlockClientsResponse,
+  SetProgramDayBlockClientsVariables,
   UngroupProgramDayBlockResponse,
   UngroupProgramDayBlockVariables,
 } from '../model/programBlocks';
@@ -36,6 +38,20 @@ export const usePatchProgramDayBlock = () => {
     mutationFn: ({ programId, weekId, blockId, ...body }) =>
       http
         .patch<PatchProgramDayBlockResponse>(blockPath(programId, weekId, blockId), body)
+        .then((response) => response.data),
+    onSuccess: (program) => writeProgramDetail(queryClient, program),
+  });
+};
+
+export const useSetProgramDayBlockClients = () => {
+  const queryClient = useQueryClient();
+
+  return useMutation<SetProgramDayBlockClientsResponse, HttpError, SetProgramDayBlockClientsVariables>({
+    mutationFn: ({ programId, weekId, blockId, clientUserIds }) =>
+      http
+        .put<SetProgramDayBlockClientsResponse>(`${blockPath(programId, weekId, blockId)}/clients`, {
+          clientUserIds,
+        })
         .then((response) => response.data),
     onSuccess: (program) => writeProgramDetail(queryClient, program),
   });

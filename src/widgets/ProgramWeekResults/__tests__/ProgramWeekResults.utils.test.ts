@@ -1,5 +1,6 @@
 import {
   createWeekResultsParams,
+  getSortedUniqueNumbers,
   parseDayParam,
   parseWeekParam,
   parseWeekResultsView,
@@ -10,13 +11,16 @@ const reader = (params: Record<string, string>) => new URLSearchParams(params);
 
 describe('ProgramWeekResults.utils', () => {
   describe('parseWeekParam', () => {
+    // AC2: Preserve a valid explicit week from the URL.
     it('returns the URL week when it is available', () => {
-      expect(parseWeekParam(reader({ week: '3' }), [1, 2, 3], 1)).toBe(3);
+      expect(parseWeekParam(reader({ week: '3' }), [5, 1, 3])).toBe(3);
     });
 
-    it('falls back when the week is missing or unavailable', () => {
-      expect(parseWeekParam(reader({}), [1, 2], 2)).toBe(2);
-      expect(parseWeekParam(reader({ week: '9' }), [1, 2], 1)).toBe(1);
+    // AC1: Clean and invalid URLs select the final raw analytics week item.
+    it('falls back to the final raw week when the URL week is missing or unavailable', () => {
+      expect(parseWeekParam(reader({}), [5, 1, 3])).toBe(3);
+      expect(parseWeekParam(reader({ week: '9' }), [5, 1, 3])).toBe(3);
+      expect(parseWeekParam(reader({}), [])).toBe(0);
     });
   });
 
@@ -38,11 +42,26 @@ describe('ProgramWeekResults.utils', () => {
   });
 
   describe('resolveSelectedDay', () => {
-    it('keeps a valid selection and clamps to the first day otherwise', () => {
-      expect(resolveSelectedDay([1, 3, 5], 3)).toBe(3);
-      expect(resolveSelectedDay([1, 3, 5], 2)).toBe(1);
-      expect(resolveSelectedDay([1, 3, 5], null)).toBe(1);
+    // AC2: Preserve a valid explicit day from the URL.
+    it('keeps a valid selection', () => {
+      expect(resolveSelectedDay([5, 1, 3], 1)).toBe(1);
+    });
+
+    // AC1: Clean and invalid URLs select the final raw week-results day item.
+    it('falls back to the final raw day', () => {
+      expect(resolveSelectedDay([5, 1, 3], 2)).toBe(3);
+      expect(resolveSelectedDay([5, 1, 3], null)).toBe(3);
       expect(resolveSelectedDay([], null)).toBe(0);
+    });
+  });
+
+  describe('getSortedUniqueNumbers', () => {
+    // IAC1: Selector options are ascending and duplicate-free without mutating the raw response.
+    it('returns sorted duplicate-free selector values', () => {
+      const rawValues = [5, 1, 3, 1, 5];
+
+      expect(getSortedUniqueNumbers(rawValues)).toEqual([1, 3, 5]);
+      expect(rawValues).toEqual([5, 1, 3, 1, 5]);
     });
   });
 
@@ -58,6 +77,13 @@ describe('ProgramWeekResults.utils', () => {
       const params = createWeekResultsParams('q=alex', { view: 'grid' });
       expect(params.get('q')).toBe('alex');
       expect(params.get('view')).toBe('grid');
+    });
+
+    // AC3: A week change clears the day as part of the same URL update.
+    it('removes the day when requested while preserving other params', () => {
+      const params = createWeekResultsParams('week=2&day=4&view=list&q=alex', { week: 3, day: null });
+
+      expect(params.toString()).toBe('week=3&view=list&q=alex');
     });
   });
 });

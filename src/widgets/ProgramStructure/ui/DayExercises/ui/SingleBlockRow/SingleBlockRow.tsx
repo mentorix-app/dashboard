@@ -1,6 +1,6 @@
 'use client';
 
-import { MoreVertical, Trash2 } from 'lucide-react';
+import { MoreVertical, Pencil, Trash2 } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
 import {
@@ -12,20 +12,21 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-  Typography,
 } from '@/src/shared/ui';
 
 import { ExerciseFields } from '../ExerciseFields';
+import { BlockVisibilityDialog } from '../BlockVisibilityDialog';
+import { BlockVisibilityIndicator } from '../BlockVisibilityIndicator';
 import type { SingleBlockRowProps } from './SingleBlockRow.types';
 
 /**
- * A top-level single exercise. On mobile the merge checkbox, drag handle, name
- * and row actions sit on a header line with the editable fields full width
- * below; from `md` up the row flattens into a single top-aligned line — drag,
- * name (wrapping up to two lines), inputs, actions. Returns the pieces for the
- * parent row wrapper.
+ * A top-level single exercise. Mobile keeps select/drag and actions in a compact
+ * control row with full-width exercise content beneath it. Desktop centres those
+ * controls around a two-column content area.
  */
 export const SingleBlockRow = ({
+  programId,
+  weekId,
   block,
   exercise,
   exerciseName,
@@ -37,35 +38,43 @@ export const SingleBlockRow = ({
   onUpdate,
   onRequestDelete,
   onMoveToDay,
+  isLastSharedBlock,
+  visibilityOpen,
+  onOpenVisibility,
+  onVisibilityOpenChange,
 }: SingleBlockRowProps) => {
   const t = useTranslations('ProgramWizard');
 
   return (
     <>
-      <div className="flex items-center gap-2 xl:contents">
+      <div className="flex items-center gap-2 pt-0.5">
         {canEdit ? (
           <Checkbox
             checked={selected}
             onCheckedChange={(checked) => onSelectChange(block.id, checked === true)}
             aria-label={t('structure.exercises.selectForMerge')}
-            className="shrink-0 xl:order-1 xl:self-center"
+            className="shrink-0"
           />
         ) : (
-          <span aria-hidden className="size-4 shrink-0 xl:order-1 xl:self-center" />
+          <span aria-hidden className="size-4 shrink-0" />
         )}
 
-        <div className="flex shrink-0 xl:order-2 xl:self-center">{dragHandle}</div>
+        <div className="flex shrink-0">{dragHandle}</div>
+      </div>
 
-        <Typography
-          variant="p-sm"
-          className="line-clamp-2 min-w-0 flex-1 font-medium xl:order-3 xl:min-w-48 xl:self-center"
-          title={exerciseName}
-        >
-          {exerciseName}
-        </Typography>
-
-        <div className="ml-auto shrink-0 xl:order-5 xl:ml-0 xl:self-center">
-          {canEdit ? (
+      <ExerciseFields
+        exercise={exercise}
+        exerciseName={exerciseName}
+        indicator={
+          block.clientUserIds.length > 0 ? (
+            <BlockVisibilityIndicator
+              clientCount={block.clientUserIds.length}
+              onClick={canEdit ? onOpenVisibility : undefined}
+            />
+          ) : undefined
+        }
+        action={
+          canEdit ? (
             <DropdownMenu modal={false}>
               <DropdownMenuTrigger asChild>
                 <Button type="button" variant="ghost" size="icon-sm" aria-label={t('structure.exercises.rowActions')}>
@@ -73,6 +82,11 @@ export const SingleBlockRow = ({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={onOpenVisibility}>
+                  <Pencil className="size-4" />
+                  {t('structure.blocks.editBlock')}
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
                 {moveTargets.length > 0 ? (
                   <>
                     <DropdownMenuLabel>{t('structure.exercises.moveToDay')}</DropdownMenuLabel>
@@ -90,13 +104,21 @@ export const SingleBlockRow = ({
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
-          ) : (
-            <span aria-hidden className="block size-8" />
-          )}
-        </div>
-      </div>
+          ) : null
+        }
+        canEdit={canEdit}
+        onUpdate={onUpdate}
+        className="min-w-0"
+      />
 
-      <ExerciseFields exercise={exercise} canEdit={canEdit} onUpdate={onUpdate} className="xl:order-4" />
+      <BlockVisibilityDialog
+        programId={programId}
+        weekId={weekId}
+        block={block}
+        isLastSharedBlock={isLastSharedBlock}
+        open={visibilityOpen}
+        onOpenChange={onVisibilityOpenChange}
+      />
     </>
   );
 };

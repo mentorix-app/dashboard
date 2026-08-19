@@ -1,0 +1,1 @@
+export { BlockVisibilityIndicator } from './BlockVisibilityIndicator';

@@ -3,7 +3,7 @@ import type { ViewMode } from '@/src/features/ViewModeSwitch';
 export type WeekResultsParamUpdates = {
   week?: number;
   view?: ViewMode;
-  day?: number;
+  day?: number | null;
 };
 
 export type WeekOption = {

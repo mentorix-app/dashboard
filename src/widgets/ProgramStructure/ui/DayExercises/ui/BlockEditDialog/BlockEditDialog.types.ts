@@ -6,8 +6,10 @@ export type BlockEditValue = {
 };
 
 export type BlockEditDialogProps = {
+  programId: string;
+  weekId: string;
   block: ProgramDayBlock;
+  isLastSharedBlock: boolean;
   open: boolean;
   onOpenChange: (open: boolean) => void;
-  onSubmit: (blockId: string, value: BlockEditValue) => void;
 };

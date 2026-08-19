@@ -17,6 +17,14 @@ export type PatchProgramDayBlockVariables = {
   instruction?: string;
 };
 
+/** Fully replaces the clients allowed to see a block; an empty list makes it shared. */
+export type SetProgramDayBlockClientsVariables = {
+  programId: string;
+  weekId: string;
+  blockId: string;
+  clientUserIds: string[];
+};
+
 export type UngroupProgramDayBlockVariables = {
   programId: string;
   weekId: string;
@@ -72,6 +80,7 @@ export type MoveProgramExerciseToBlockVariables = {
 
 export type MergeProgramDayBlocksResponse = ProgramDetail;
 export type PatchProgramDayBlockResponse = ProgramDetail;
+export type SetProgramDayBlockClientsResponse = ProgramDetail;
 export type UngroupProgramDayBlockResponse = ProgramDetail;
 export type DeleteProgramDayBlockResponse = ProgramDetail;
 export type ReorderProgramDayBlocksResponse = ProgramDetail;

@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { useLocale, useRouter, useTranslations } from '@/i18n';
-import { usePublishProgram } from '@/src/entities/program';
+import { parseProgramBlockError, usePublishProgram } from '@/src/entities/program';
 import { useToast } from '@/src/shared/hooks';
 
 import type { ProgramRequiredField, ProgramWizardStep, StructureErrorKey } from '../ProgramWizardView.types';
@@ -55,7 +55,15 @@ export const useWizardPublish = (
         showSuccessToast(t('toast.publishSuccess'));
         router.push('/programs', { locale });
       },
-      onError: () => showErrorToast(t('toast.publishError')),
+      onError: (error) => {
+        if (parseProgramBlockError(error) === 'noSharedBlock') {
+          setPublishAttempted(true);
+          goToStep('structure');
+          showErrorToast(t('structureErrors.dayWithoutSharedBlock'));
+          return;
+        }
+        showErrorToast(t('toast.publishError'));
+      },
     });
   };
 

@@ -1,78 +1,74 @@
 'use client';
 
-import { useLocale, useTranslations } from '@/i18n';
-import { useProgramWeekResults } from '@/src/entities/analytics';
-import { getClientAvatarSrc, getClientInitials } from '@/src/entities/client';
-import { formatDate, ROUTES } from '@/src/shared/lib';
+import { useCallback, useMemo, useState } from 'react';
 
-import type { WeekResultsClientVM, WeekResultsSummaryVM } from './ProgramWeekResults.types';
+import { useTranslations } from '@/i18n';
+import { useProgramAnalytics } from '@/src/entities/analytics';
+import type { CompletionFeedbackTarget } from '@/src/features/CompletionFeedbackDialog';
 
-type WeekResultsConfig =
-  | { status: 'loading' }
-  | { status: 'error'; errorMessage: string }
-  /** Rest-only week (404) or a week with no training days. */
-  | { status: 'empty' }
-  | {
-      status: 'ready';
-      dayNumbers: number[];
-      clients: WeekResultsClientVM[];
-      summary: WeekResultsSummaryVM;
-    };
+import type { WeekResultsCellVM, WeekResultsClientVM } from './ProgramWeekResults.types';
+import { getSortedUniqueNumbers, resolveSelectedDay } from './ProgramWeekResults.utils';
+import { useVisibleWeekClients } from './hooks/useVisibleWeekClients';
+import { useWeekResultsData } from './hooks/useWeekResultsData';
+import { useWeekResultsState } from './hooks/useWeekResultsState';
 
-export const useWeekResultsConfig = (programId: string, week: number): WeekResultsConfig => {
+const EMPTY_CLIENTS: WeekResultsClientVM[] = [];
+
+export const useProgramWeekResultsConfig = (programId: string) => {
   const t = useTranslations('ProgramWeekResults');
-  const locale = useLocale();
-  const query = useProgramWeekResults(programId, week);
+  const analytics = useProgramAnalytics(programId);
+  const rawWeekNumbers = useMemo(() => (analytics.data?.weeks ?? []).map((week) => week.weekNumber), [analytics.data]);
+  const availableWeeks = useMemo(() => getSortedUniqueNumbers(rawWeekNumbers), [rawWeekNumbers]);
+  const state = useWeekResultsState(rawWeekNumbers);
+  const weekResults = useWeekResultsData(programId, state.week);
+  const readyClients = weekResults.status === 'ready' ? weekResults.clients : EMPTY_CLIENTS;
+  const clientFilter = useVisibleWeekClients(readyClients);
+  const [feedbackTarget, setFeedbackTarget] = useState<CompletionFeedbackTarget | null>(null);
 
-  if (query.isPending) return { status: 'loading' };
+  const handleOpenFeedback = useCallback(
+    (client: WeekResultsClientVM, cell: WeekResultsCellVM) =>
+      setFeedbackTarget({
+        clientUserId: client.clientUserId,
+        displayName: client.displayName,
+        dayNumber: cell.dayNumber,
+        completionId: cell.completionId,
+        resultText: cell.resultText,
+        completedAtLabel: cell.completedAtLabel,
+        comments: cell.comments,
+      }),
+    []
+  );
+  const handleFeedbackOpenChange = useCallback((open: boolean) => {
+    if (!open) setFeedbackTarget(null);
+  }, []);
 
-  if (query.isError || !query.data) {
-    const errorStatus = query.error?.status;
-    if (errorStatus === 404) return { status: 'empty' };
-    const errorMessage = errorStatus === 403 ? t('errors.forbidden') : t('errors.generic');
-    return { status: 'error', errorMessage };
-  }
+  const weekOptions = useMemo(
+    () => availableWeeks.map((value) => ({ value, label: t('weekLabel', { number: value }) })),
+    [availableWeeks, t]
+  );
+  const selectedDay = weekResults.status === 'ready' ? resolveSelectedDay(weekResults.rawDayNumbers, state.day) : 0;
 
-  const { days, clients, summary } = query.data;
-
-  if (days.length === 0) return { status: 'empty' };
-
-  const dayNumbers = days.map((day) => day.dayNumber);
-
-  const clientVMs: WeekResultsClientVM[] = clients.map((client) => ({
-    clientUserId: client.clientUserId,
-    displayName: client.displayName,
-    avatarSrc: getClientAvatarSrc(client.avatarUrl),
-    avatarAlt: t('client.avatarAlt', { name: client.displayName }),
-    initials: getClientInitials(client.displayName),
-    isBehindLatest: client.isBehindLatest,
-    progressLabel: t('client.progress', { completed: client.completedDays, total: client.totalDays }),
-    completionPercent: client.totalDays > 0 ? Math.round((client.completedDays / client.totalDays) * 100) : 0,
-    href: ROUTES.userTraining(client.clientUserId),
-    cells: days.map((day, index) => {
-      const cell = client.days[index];
-      return {
-        dayNumber: day.dayNumber,
-        isSubmitted: cell?.status === 'submitted',
-        completionId: cell?.completionId ?? null,
-        resultText: cell?.resultText ?? '',
-        completedAtLabel: cell?.completedAt ? formatDate(cell.completedAt, locale, 'dateTime') : null,
-        comments: (cell?.comments ?? []).map((comment) => ({
-          id: comment.id,
-          text: comment.text,
-          createdAtLabel: formatDate(comment.createdAt, locale, 'dateTime'),
-        })),
-      };
-    }),
-  }));
-
-  const summaryVM: WeekResultsSummaryVM = {
-    completionPercent: summary.completionPercent,
-    completionLabel: t('percent', { value: summary.completionPercent }),
-    submittedValue: summary.submittedCount,
-    missingValue: summary.missingCount,
-    behindValue: summary.behindClientsCount,
+  return {
+    pageStatus: analytics.isPending ? 'loading' : analytics.isError || availableWeeks.length === 0 ? 'empty' : 'ready',
+    weekOptions,
+    weekResults,
+    visibleClients: clientFilter.visibleClients,
+    selectedDay,
+    feedbackTarget,
+    state,
+    search: clientFilter.search,
+    handleSearchChange: clientFilter.setSearch,
+    handleOpenFeedback,
+    handleFeedbackOpenChange,
+    emptyCopy: {
+      noWeeksTitle: t('empty.noWeeksTitle'),
+      noWeeksDescription: t('empty.noWeeksDescription'),
+      weekTitle: t('empty.weekTitle'),
+      weekDescription: t('empty.weekDescription'),
+      noClientsTitle: t('empty.noClientsTitle'),
+      noClientsDescription: t('empty.noClientsDescription'),
+      noMatchesTitle: t('empty.noMatchesTitle'),
+      noMatchesDescription: t('empty.noMatchesDescription'),
+    },
   };
-
-  return { status: 'ready', dayNumbers, clients: clientVMs, summary: summaryVM };
 };

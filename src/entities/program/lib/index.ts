@@ -4,5 +4,6 @@ export { canManageProgram, type ProgramManageContext } from './canManageProgram'
 export { getProgramDescription } from './getProgramDescription';
 export { getProgramName } from './getProgramName';
 export { isProgramDirty } from './isProgramDirty';
+export { parseProgramBlockError, type ProgramBlockErrorKey } from './parseProgramBlockError';
 export { toProgramDraftFields } from './toProgramDraftFields';
 export { writeProgramDetail } from './writeProgramDetail';

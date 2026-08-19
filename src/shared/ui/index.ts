@@ -15,6 +15,7 @@ export * from './Input';
 export * from './Label';
 export * from './Logo';
 export * from './MultiSelect';
+export * from './Popover';
 export * from './Progress';
 export * from './Select';
 export * from './Sheet';

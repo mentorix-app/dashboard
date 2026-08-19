@@ -15,6 +15,8 @@ import type { DayBlockProps } from './DayBlock.types';
 /** Renders one day block as either a flat single row or a grouped block card. */
 export const DayBlock = (props: DayBlockProps) => {
   const {
+    programId,
+    weekId,
     block,
     canEdit,
     getExerciseLabel,
@@ -31,12 +33,18 @@ export const DayBlock = (props: DayBlockProps) => {
     onUngroupBlock,
     onDeleteBlock,
     onMoveBlockToDay,
+    isLastSharedBlock,
+    visibilityOpen,
+    onOpenVisibility,
+    onVisibilityOpenChange,
   } = props;
   const t = useTranslations('ProgramWizard');
 
   if (block.blockType !== ProgramBlockType.Single) {
     return (
       <GroupBlockCard
+        programId={programId}
+        weekId={weekId}
         block={block}
         canEdit={canEdit}
         getExerciseLabel={getExerciseLabel}
@@ -53,6 +61,7 @@ export const DayBlock = (props: DayBlockProps) => {
         onUngroupBlock={onUngroupBlock}
         onDeleteBlock={onDeleteBlock}
         onMoveBlockToDay={onMoveBlockToDay}
+        isLastSharedBlock={isLastSharedBlock}
       />
     );
   }
@@ -63,9 +72,11 @@ export const DayBlock = (props: DayBlockProps) => {
   return (
     <SortableItem
       id={`${BLOCK_DND_PREFIX}${block.id}`}
-      className={cn(EXERCISE_ROW_LAYOUT, 'border-border/60 rounded-md border px-3 py-1.5 xl:px-2 xl:py-1')}
+      className={cn(EXERCISE_ROW_LAYOUT, 'border-border/60 rounded-md border px-3 py-2.5')}
     >
       <SingleBlockRow
+        programId={programId}
+        weekId={weekId}
         block={block}
         exercise={exercise}
         exerciseName={getExerciseLabel(exercise)}
@@ -77,6 +88,10 @@ export const DayBlock = (props: DayBlockProps) => {
         onUpdate={(itemId, input) => onUpdateExercise(block.id, itemId, input)}
         onRequestDelete={onRequestDeleteExercise}
         onMoveToDay={onMoveBlockToDay}
+        isLastSharedBlock={isLastSharedBlock}
+        visibilityOpen={visibilityOpen}
+        onOpenVisibility={onOpenVisibility}
+        onVisibilityOpenChange={onVisibilityOpenChange}
       />
     </SortableItem>
   );

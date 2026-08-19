@@ -10,6 +10,7 @@ import { Button, Checkbox, SortableItem, Typography } from '@/src/shared/ui';
 import { BLOCK_TYPE_LABEL_KEY } from '../../DayExercises.constants';
 import { BLOCK_DND_PREFIX } from '../../lib';
 import { BlockEditDialog } from '../BlockEditDialog';
+import { BlockVisibilityIndicator } from '../BlockVisibilityIndicator';
 import { GroupBlockActions } from '../GroupBlockActions';
 import { GroupBlockExercises } from '../GroupBlockExercises';
 import { RowDragHandle } from '../RowDragHandle';
@@ -19,6 +20,8 @@ import type { GroupBlockCardProps } from './GroupBlockCard.types';
 /** A grouped work block: a titled card wrapping several exercises. */
 export const GroupBlockCard = (props: GroupBlockCardProps) => {
   const {
+    programId,
+    weekId,
     block,
     canEdit,
     getExerciseLabel,
@@ -31,21 +34,18 @@ export const GroupBlockCard = (props: GroupBlockCardProps) => {
     onExtractExercise,
     onMoveExerciseToBlock,
     onAddExercise,
-    onPatchBlock,
     onUngroupBlock,
     onDeleteBlock,
     onMoveBlockToDay,
+    isLastSharedBlock,
   } = props;
   const t = useTranslations('ProgramWizard');
   const card = useGroupBlockCardConfig({ block, onAddExercise, onDeleteBlock });
   const otherBlockTargets = exerciseMoveTargets.filter((target) => target.id !== block.id);
 
   return (
-    <SortableItem
-      id={`${BLOCK_DND_PREFIX}${block.id}`}
-      className="bg-card space-y-1.5 rounded-lg border px-3 py-2 xl:px-2 xl:py-1.5"
-    >
-      <div className="flex items-center gap-2">
+    <SortableItem id={`${BLOCK_DND_PREFIX}${block.id}`} className="bg-card space-y-1.5 rounded-lg border px-3 py-2">
+      <div className="flex flex-wrap items-center gap-2">
         {canEdit ? (
           <Checkbox
             checked={selected}
@@ -55,17 +55,23 @@ export const GroupBlockCard = (props: GroupBlockCardProps) => {
         ) : null}
         <RowDragHandle canEdit={canEdit} label={t('structure.blocks.reorderBlock')} />
         <BlockTypeBadge blockType={block.blockType} label={t(BLOCK_TYPE_LABEL_KEY[block.blockType])} />
-        {canEdit ? (
-          <div className="ml-auto flex w-9 justify-start">
-            <GroupBlockActions
-              dayMoveTargets={dayMoveTargets}
-              onEdit={card.onOpenEdit}
-              onMoveToDay={(targetDayId) => onMoveBlockToDay(block.id, targetDayId)}
-              onUngroup={() => onUngroupBlock(block.id)}
-              onDelete={card.onOpenDelete}
-            />
-          </div>
-        ) : null}
+        <div className="ml-auto flex items-center gap-1">
+          <BlockVisibilityIndicator
+            clientCount={block.clientUserIds.length}
+            onClick={canEdit ? card.onOpenEdit : undefined}
+          />
+          {canEdit ? (
+            <div className="flex w-9 justify-start">
+              <GroupBlockActions
+                dayMoveTargets={dayMoveTargets}
+                onEdit={card.onOpenEdit}
+                onMoveToDay={(targetDayId) => onMoveBlockToDay(block.id, targetDayId)}
+                onUngroup={() => onUngroupBlock(block.id)}
+                onDelete={card.onOpenDelete}
+              />
+            </div>
+          ) : null}
+        </div>
       </div>
 
       {block.instruction ? (
@@ -103,10 +109,12 @@ export const GroupBlockCard = (props: GroupBlockCardProps) => {
       ) : null}
 
       <BlockEditDialog
+        programId={programId}
+        weekId={weekId}
         block={block}
+        isLastSharedBlock={isLastSharedBlock}
         open={card.isEditOpen}
         onOpenChange={card.onEditOpenChange}
-        onSubmit={onPatchBlock}
       />
       <ExercisePicker
         open={card.isPickerOpen}
