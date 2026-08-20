@@ -34,7 +34,7 @@ export const ProgramOverview: FC<ProgramOverviewProps> = ({ config }) => {
   const assignment = analytics?.currentAssignment ?? null;
 
   return (
-    <Card className="flex flex-col gap-5 p-6">
+    <Card className="flex max-w-full min-w-0 flex-col gap-5 p-6">
       <header className="flex flex-col gap-3">
         <Typography variant="h3">{t('overview.heading')}</Typography>
 

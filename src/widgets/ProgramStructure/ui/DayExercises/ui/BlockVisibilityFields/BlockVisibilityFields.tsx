@@ -1,6 +1,6 @@
 'use client';
 
-import { useId, useRef, type FC } from 'react';
+import { type FC, useId, useRef } from 'react';
 import { Check, ChevronDown, Loader2, X } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
@@ -20,7 +20,7 @@ import {
   Typography,
 } from '@/src/shared/ui';
 
-import { useBlockClientPicker, type BlockVisibilityConfig } from '../../hooks/useBlockVisibilityConfig';
+import { type BlockVisibilityConfig, useBlockClientPicker } from '../../hooks/useBlockVisibilityConfig';
 import { getBlockVisibilityErrorMessageKey } from './BlockVisibilityFields.utils';
 
 type BlockVisibilityFieldsProps = {
@@ -117,6 +117,7 @@ export const BlockVisibilityFields: FC<BlockVisibilityFieldsProps> = ({ config }
                 align="end"
                 sideOffset={8}
                 collisionPadding={16}
+                portalled={false}
                 className="flex max-h-[var(--radix-popover-content-available-height)] w-80 max-w-[calc(100vw-2rem)] flex-col overflow-hidden p-1"
                 onOpenAutoFocus={(event) => {
                   event.preventDefault();
