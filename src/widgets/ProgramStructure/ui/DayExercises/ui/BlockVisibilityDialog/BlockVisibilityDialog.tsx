@@ -25,7 +25,7 @@ export const BlockVisibilityDialog: React.FC<BlockVisibilityDialogProps> = (prop
   return (
     <Dialog open={props.open} onOpenChange={config.handleOpenChange}>
       <DialogContent
-        className="flex max-h-[90vh] flex-col gap-5 overflow-y-auto sm:max-w-2xl"
+        className="flex h-[min(36rem,calc(100vh-2rem))] max-h-[90vh] flex-col gap-5 overflow-hidden sm:max-w-2xl"
         onEscapeKeyDown={(event) => {
           if (config.isPending) event.preventDefault();
         }}
@@ -38,7 +38,7 @@ export const BlockVisibilityDialog: React.FC<BlockVisibilityDialogProps> = (prop
           <DialogDescription>{config.t('structure.blocks.visibility.dialogDescription')}</DialogDescription>
         </DialogHeader>
 
-        <div className="grid gap-6">
+        <div className="min-h-0 flex-1 overflow-y-auto pr-1">
           <section>
             <BlockVisibilityFields config={config.visibility} />
           </section>

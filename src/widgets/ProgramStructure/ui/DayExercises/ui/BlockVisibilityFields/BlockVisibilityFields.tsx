@@ -115,8 +115,9 @@ export const BlockVisibilityFields: FC<BlockVisibilityFieldsProps> = ({ config }
               <PopoverContent
                 id={pickerId}
                 align="end"
-                portalled={false}
-                className="w-80 max-w-[calc(100vw-2rem)] overflow-hidden p-1"
+                sideOffset={8}
+                collisionPadding={16}
+                className="flex max-h-[var(--radix-popover-content-available-height)] w-80 max-w-[calc(100vw-2rem)] flex-col overflow-hidden p-1"
                 onOpenAutoFocus={(event) => {
                   event.preventDefault();
                   searchInputRef.current?.focus();
@@ -136,7 +137,7 @@ export const BlockVisibilityFields: FC<BlockVisibilityFieldsProps> = ({ config }
                   />
                 </div>
 
-                <div className="max-h-64 touch-pan-y overflow-y-auto overscroll-contain py-1">
+                <div className="max-h-64 min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain py-1">
                   {config.isCheckingAssignments || picker.isLoading ? (
                     <div className="flex min-h-20 items-center justify-center">
                       <Loader2 className="size-5 animate-spin" aria-label={t('structure.blocks.visibility.loading')} />

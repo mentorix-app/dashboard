@@ -46,6 +46,9 @@ export const useBlockVisibilityForm = ({ open, initialClientUserIds }: UseBlockV
       ? [...new Set([...selectedClientUserIds, clientUserId])]
       : selectedClientUserIds.filter((id) => id !== clientUserId);
     form.clearErrors('clientUserIds');
+    if (checked) {
+      form.setValue('mode', 'restricted', { shouldDirty: true, shouldValidate: false });
+    }
     if (!checked && next.length === 0) {
       form.setValue('mode', 'shared', { shouldDirty: true, shouldValidate: false });
     }
