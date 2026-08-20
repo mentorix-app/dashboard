@@ -4,22 +4,22 @@ import { useWeekResultsData } from '../useWeekResultsData';
 
 const mockUseProgramWeekResults = jest.fn();
 
-jest.mock('@/i18n', () => ({
+jest.mock('../../../../../i18n', () => ({
   useLocale: () => 'en',
   useTranslations: () => (key: string, values?: Record<string, number | string>) =>
     values ? `${key}:${Object.values(values).join(':')}` : key,
 }));
 
-jest.mock('@/src/entities/analytics', () => ({
+jest.mock('../../../../entities/analytics', () => ({
   useProgramWeekResults: (...args: unknown[]) => mockUseProgramWeekResults(...args),
 }));
 
-jest.mock('@/src/entities/client', () => ({
+jest.mock('../../../../entities/client', () => ({
   getClientAvatarSrc: (avatarUrl: string) => avatarUrl || undefined,
   getClientInitials: () => 'AT',
 }));
 
-jest.mock('@/src/shared/lib', () => ({
+jest.mock('../../../../shared/lib', () => ({
   formatDate: (value: string) => `formatted:${value}`,
   ROUTES: { userTraining: (clientUserId: string) => `/clients/${clientUserId}` },
 }));
