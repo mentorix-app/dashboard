@@ -66,7 +66,7 @@ export const useBlockEditDialogConfig = ({
         await setClients.mutateAsync({ programId, weekId, blockId: block.id, clientUserIds });
       }
       showSuccessToast(t('structure.blocks.toast.blockUpdated'));
-      onOpenChange(false);
+      handleOpenChange(false);
     } catch (error) {
       setErrorKey(parseProgramBlockError(error));
     }
