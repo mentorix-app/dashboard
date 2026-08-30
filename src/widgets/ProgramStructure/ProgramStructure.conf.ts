@@ -21,7 +21,7 @@ export const useProgramStructureConfig = (programId: string) => {
   // Derive the active selection during render so it stays valid as weeks are
   // added, removed, or reordered without syncing state inside an effect.
   const activeWeekId =
-    selectedWeekId && weeks.some((week) => week.id === selectedWeekId) ? selectedWeekId : (weeks[0]?.id ?? null);
+    selectedWeekId && weeks.some((week) => week.id === selectedWeekId) ? selectedWeekId : (weeks.at(-1)?.id ?? null);
   const selectedWeek = weeks.find((week) => week.id === activeWeekId) ?? null;
 
   const handleRequestDeleteWeek = (weekId: string) => {

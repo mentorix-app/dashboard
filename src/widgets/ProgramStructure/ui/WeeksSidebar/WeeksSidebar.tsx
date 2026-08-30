@@ -7,6 +7,7 @@ import { Button, Sortable, Typography } from '@/src/shared/ui';
 
 import { WeekItem } from '../WeekItem';
 import type { WeeksSidebarProps } from './WeeksSidebar.types';
+import { reverseWeekOrder } from './WeeksSidebar.utils';
 
 export const WeeksSidebar = ({
   weeks,
@@ -20,7 +21,12 @@ export const WeeksSidebar = ({
   onAddWeek,
 }: WeeksSidebarProps) => {
   const t = useTranslations('ProgramWizard');
-  const weekIds = weeks.map((week) => week.id);
+  const displayWeeks = reverseWeekOrder(weeks);
+  const weekIds = displayWeeks.map((week) => week.id);
+
+  const handleReorderWeeks = (reorderedWeekIds: string[]) => {
+    onReorderWeeks(reverseWeekOrder(reorderedWeekIds));
+  };
 
   return (
     <aside className="flex w-full flex-col gap-3 rounded-lg border p-3 lg:w-64 lg:shrink-0">
@@ -29,8 +35,8 @@ export const WeeksSidebar = ({
       </Typography>
 
       <ul className="flex flex-col gap-1">
-        <Sortable items={weekIds} onReorder={onReorderWeeks}>
-          {weeks.map((week) => (
+        <Sortable items={weekIds} onReorder={handleReorderWeeks}>
+          {displayWeeks.map((week) => (
             <li key={week.id}>
               <WeekItem
                 id={week.id}
