@@ -1,0 +1,51 @@
+{
+  "meta": {
+    "title": "My training statistics",
+    "description": "Your current training progress and recent results."
+  },
+  "header": {
+    "greeting": "Training overview for",
+    "trainer": "Coach: {name}",
+    "currentProgram": "Current program"
+  },
+  "tabs": {
+    "progress": "Program",
+    "activity": "Activity",
+    "history": "History"
+  },
+  "expiry": {
+    "inMinutes": "This page is available for {count, plural, one {# more minute} other {# more minutes}}.",
+    "expired": "This link has expired. Open Statistics in the bot again for fresh data."
+  },
+  "progress": {
+    "activeProgram": "Active program",
+    "behindLatest": "Update available",
+    "progressLabel": "Program completion",
+    "completedDays": "{completed} of {total} training days completed",
+    "week": "Week {number}",
+    "weekProgress": "Week {number} progress",
+    "noProgram": "You do not have an active training program yet."
+  },
+  "activity": {
+    "heading": "Your activity",
+    "total": "All workouts",
+    "last7": "Last 7 days",
+    "last30": "Last 30 days",
+    "streak": "Week streak"
+  },
+  "history": {
+    "heading": "Recent workouts",
+    "count": "{count, plural, one {# result} other {# results}}",
+    "empty": "Completed workouts will appear here.",
+    "weekDay": "Week {week}, day {day}",
+    "noResult": "Workout completed without a note.",
+    "trainerReply": "Coach reply"
+  },
+  "errors": {
+    "title": "Unable to show statistics",
+    "broken": "This link is damaged. Open it again from the bot.",
+    "expired": "This link has expired. Tap “Statistics” in the bot again.",
+    "unavailable": "Statistics are unavailable.",
+    "unknown": "We could not load your statistics. Open a new link from the bot."
+  }
+}

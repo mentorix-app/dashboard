@@ -15,7 +15,7 @@ export const BlockEditDialog = (props: BlockEditDialogProps) => {
   return (
     <Dialog open={props.open} onOpenChange={config.handleOpenChange}>
       <DialogContent
-        className="flex max-h-[90vh] flex-col gap-5 overflow-y-auto sm:max-w-2xl"
+        className="flex max-h-[90vh] flex-col gap-5 overflow-visible sm:max-w-2xl"
         onEscapeKeyDown={(event) => {
           if (config.isPending) event.preventDefault();
         }}
@@ -28,15 +28,17 @@ export const BlockEditDialog = (props: BlockEditDialogProps) => {
           <DialogDescription>{t('structure.blocks.editDialog.description')}</DialogDescription>
         </DialogHeader>
 
-        <BlockEditForm
-          block={props.block}
-          visibility={config.visibility}
-          isPending={config.isPending}
-          errorKey={config.errorKey}
-          metadataSaved={config.metadataSaved}
-          onSubmit={config.handleSave}
-          onCancel={() => config.handleOpenChange(false)}
-        />
+        <div className="scrollbar-slim flex min-h-0 flex-col gap-5 overflow-y-auto px-1 pb-1">
+          <BlockEditForm
+            block={props.block}
+            visibility={config.visibility}
+            isPending={config.isPending}
+            errorKey={config.errorKey}
+            metadataSaved={config.metadataSaved}
+            onSubmit={config.handleSave}
+            onCancel={() => config.handleOpenChange(false)}
+          />
+        </div>
       </DialogContent>
     </Dialog>
   );

@@ -1,6 +1,6 @@
 'use client';
 
-import { type FC, useId, useRef } from 'react';
+import { type FC, type MouseEvent, useId, useRef, useState } from 'react';
 import { Check, ChevronDown, Loader2, X } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
@@ -31,6 +31,8 @@ export const BlockVisibilityFields: FC<BlockVisibilityFieldsProps> = ({ config }
   const t = useTranslations('ProgramWizard');
   const id = useId();
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const pickerTriggerRef = useRef<HTMLButtonElement>(null);
+  const [portalContainer, setPortalContainer] = useState<HTMLElement | null>(null);
   const restrictedId = `${id}-restricted`;
   const searchId = `${id}-search`;
   const pickerId = `${id}-picker`;
@@ -58,6 +60,19 @@ export const BlockVisibilityFields: FC<BlockVisibilityFieldsProps> = ({ config }
           : []),
       ]
     : [t('structure.blocks.visibility.restrictDescription')];
+
+  const handleLoadMore = (event: MouseEvent<HTMLButtonElement>) => {
+    event.preventDefault();
+    event.stopPropagation();
+    void picker.fetchNextPage();
+  };
+
+  const handlePickerOpenChange = (open: boolean) => {
+    if (open) {
+      setPortalContainer(pickerTriggerRef.current?.closest<HTMLElement>('[data-slot="dialog-content"]') ?? null);
+    }
+    picker.setOpen(open);
+  };
 
   return (
     <fieldset className="grid gap-3" aria-describedby={cn(guidanceId, errorMessage && errorId)}>
@@ -104,9 +119,9 @@ export const BlockVisibilityFields: FC<BlockVisibilityFieldsProps> = ({ config }
               })}
             </Typography>
 
-            <Popover open={picker.isOpen} onOpenChange={picker.setOpen}>
+            <Popover open={picker.isOpen} onOpenChange={handlePickerOpenChange}>
               <PopoverTrigger asChild>
-                <Button type="button" variant="outline" size="sm" aria-controls={pickerId}>
+                <Button ref={pickerTriggerRef} type="button" variant="outline" size="sm" aria-controls={pickerId}>
                   {t('structure.blocks.visibility.addClients')}
                   <ChevronDown className={cn('size-4 transition-transform', picker.isOpen && 'rotate-180')} />
                 </Button>
@@ -117,7 +132,7 @@ export const BlockVisibilityFields: FC<BlockVisibilityFieldsProps> = ({ config }
                 align="end"
                 sideOffset={8}
                 collisionPadding={16}
-                portalled={false}
+                portalContainer={portalContainer ?? undefined}
                 className="flex max-h-[var(--radix-popover-content-available-height)] w-80 max-w-[calc(100vw-2rem)] flex-col overflow-hidden p-1"
                 onOpenAutoFocus={(event) => {
                   event.preventDefault();
@@ -138,7 +153,7 @@ export const BlockVisibilityFields: FC<BlockVisibilityFieldsProps> = ({ config }
                   />
                 </div>
 
-                <div className="max-h-64 min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain py-1">
+                <div className="scrollbar-slim max-h-64 min-h-0 flex-1 touch-pan-y overflow-y-auto overscroll-contain py-1">
                   {config.isCheckingAssignments || picker.isLoading ? (
                     <div className="flex min-h-20 items-center justify-center">
                       <Loader2 className="size-5 animate-spin" aria-label={t('structure.blocks.visibility.loading')} />
@@ -204,7 +219,8 @@ export const BlockVisibilityFields: FC<BlockVisibilityFieldsProps> = ({ config }
                       variant="ghost"
                       size="sm"
                       className="w-full"
-                      onClick={() => picker.fetchNextPage()}
+                      onPointerDown={(event) => event.stopPropagation()}
+                      onClick={handleLoadMore}
                       disabled={picker.isFetchingNextPage}
                     >
                       {picker.isFetchingNextPage ? <Loader2 className="size-4 animate-spin" /> : null}

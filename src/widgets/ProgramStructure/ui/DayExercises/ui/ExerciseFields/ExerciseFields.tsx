@@ -89,7 +89,7 @@ export const ExerciseFields = ({
           aria-label={t('structure.exercises.columns.instruction')}
           placeholder={t('structure.exercises.columns.instruction')}
           className={cn(
-            '[field-sizing:content] max-h-40 min-h-16 w-full resize-none overflow-y-auto',
+            'scrollbar-slim [field-sizing:content] max-h-40 min-h-16 w-full resize-none overflow-y-auto',
             action && 'pr-11',
             !instruction && 'border-border/60 border-dashed shadow-none'
           )}

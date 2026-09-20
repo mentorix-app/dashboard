@@ -11,6 +11,7 @@ const intlMiddleware = createMiddleware(routing);
 
 /** Routes that are accessible without authentication. */
 const AUTH_PATHS = new Set(['/login', '/signup', '/forgot-password']);
+const CLIENT_STATS_PATH = '/stats';
 
 /** Cookie name must match AUTH_SESSION_COOKIE in base.constants.ts. */
 const AUTH_SESSION_COOKIE = 'auth_session';
@@ -115,11 +116,12 @@ async function handleProxy(request: NextRequest) {
   const hasSession = await hasValidSession(request.cookies.get(AUTH_SESSION_COOKIE)?.value);
   const isAuthPath = AUTH_PATHS.has(pathWithoutLocale);
   const isLandingPath = pathWithoutLocale === '/';
+  const isClientStatsPath = pathWithoutLocale === CLIENT_STATS_PATH;
   // The marketing landing (locale root) and auth pages are reachable without a session.
   const isPublicPath = isAuthPath || isLandingPath;
 
   // Unauthenticated user trying to access a protected route → send to login.
-  if (!isPublicPath && !hasSession) {
+  if (!isPublicPath && !isClientStatsPath && !hasSession) {
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 

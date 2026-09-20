@@ -1,5 +1,11 @@
 export type { AnalyticsClientStatus, AnalyticsPagination, AnalyticsProgramStatus } from './api/analytics.types';
 export type {
+  ClientSelfAnalytics,
+  ClientSelfAnalyticsParams,
+  ClientSelfInfo,
+  ClientSelfTrainer,
+} from './api/clientSelfAnalytics.types';
+export type {
   AnalyticsActivity,
   AnalyticsAssignment,
   AnalyticsClientInfo,
@@ -19,6 +25,7 @@ export {
   useClientCompletionsMonth,
   useCreateCompletionComment,
 } from './api/useClientAnalytics';
+export { useClientSelfAnalytics } from './api/useClientSelfAnalytics';
 export type {
   FetchProgramsAnalyticsParams,
   ProgramAnalytics,

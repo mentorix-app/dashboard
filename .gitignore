@@ -21,6 +21,8 @@ out/
 
 # Testing
 coverage/
+.test-reports/
+context
 
 # Environment variables
 .env*

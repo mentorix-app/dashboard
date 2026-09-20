@@ -29,7 +29,7 @@ export const DaysTable = (props: DaysTableProps) => {
 
   return (
     <div className="flex min-h-64 min-w-0 flex-1 flex-col rounded-lg border">
-      <div className="flex items-center gap-2 overflow-x-auto border-b p-2">
+      <div className="scrollbar-slim flex items-center gap-2 overflow-x-auto border-b p-2">
         <Sortable items={dayIds} onReorder={onReorderDays} orientation="horizontal">
           {days.map((day) => (
             <DayTab

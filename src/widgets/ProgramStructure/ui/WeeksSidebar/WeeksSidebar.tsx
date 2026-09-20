@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useRef } from 'react';
 import { Plus } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
@@ -21,8 +22,19 @@ export const WeeksSidebar = ({
   onAddWeek,
 }: WeeksSidebarProps) => {
   const t = useTranslations('ProgramWizard');
+  const listRef = useRef<HTMLUListElement>(null);
+  const selectedWeekRef = useRef<HTMLLIElement>(null);
   const displayWeeks = reverseWeekOrder(weeks);
   const weekIds = displayWeeks.map((week) => week.id);
+
+  useEffect(() => {
+    const list = listRef.current;
+    const selectedWeek = selectedWeekRef.current;
+
+    if (!list || !selectedWeek || list.scrollHeight <= list.clientHeight) return;
+
+    selectedWeek.scrollIntoView({ block: 'nearest' });
+  }, [selectedWeekId, weeks]);
 
   const handleReorderWeeks = (reorderedWeekIds: string[]) => {
     onReorderWeeks(reverseWeekOrder(reorderedWeekIds));
@@ -34,10 +46,13 @@ export const WeeksSidebar = ({
         {t('structure.weeksHeading')}
       </Typography>
 
-      <ul className="flex flex-col gap-1">
+      <ul
+        ref={listRef}
+        className="scrollbar-slim flex max-h-52 flex-col gap-1 overflow-y-auto pr-1 lg:max-h-none lg:overflow-y-visible lg:pr-0"
+      >
         <Sortable items={weekIds} onReorder={handleReorderWeeks}>
           {displayWeeks.map((week) => (
-            <li key={week.id}>
+            <li key={week.id} ref={week.id === selectedWeekId ? selectedWeekRef : undefined}>
               <WeekItem
                 id={week.id}
                 label={t('structure.weekLabel', { number: week.weekNumber })}

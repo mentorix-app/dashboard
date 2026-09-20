@@ -1,6 +1,7 @@
 import { NextResponse, type NextRequest } from 'next/server';
 import { MENTORIX_API_BASE_URL } from '@/src/shared/api';
 import { deleteSessionCookie, forceRefresh, refreshSessionIfNeeded } from '@/src/entities/auth/server/dal';
+import { convertObjectKeys, toCamelCase, toSnakeCase } from '@/src/shared/lib';
 
 const baseUrl = MENTORIX_API_BASE_URL.replace(/\/$/, '');
 
@@ -18,22 +19,6 @@ const HOP_BY_HOP = new Set([
   'accept-encoding',
   'content-encoding',
 ]);
-
-const toCamel = (key: string): string => key.replace(/_([a-z0-9])/g, (_, char: string) => char.toUpperCase());
-
-const toSnake = (key: string): string => key.replace(/[A-Z]/g, (char) => `_${char.toLowerCase()}`);
-
-const convertKeys = (value: unknown, convert: (key: string) => string): unknown => {
-  if (Array.isArray(value)) return value.map((item) => convertKeys(item, convert));
-
-  if (value !== null && typeof value === 'object') {
-    return Object.fromEntries(
-      Object.entries(value as Record<string, unknown>).map(([key, val]) => [convert(key), convertKeys(val, convert)])
-    );
-  }
-
-  return value;
-};
 
 const isJson = (headers: Headers): boolean => (headers.get('content-type') ?? '').includes('application/json');
 
@@ -69,7 +54,7 @@ const handle = async (req: NextRequest, ctx: { params: Promise<{ path?: string[]
       const text = await req.text();
       if (text) {
         const parsed: unknown = JSON.parse(text);
-        body = JSON.stringify(convertKeys(parsed, toSnake));
+        body = JSON.stringify(convertObjectKeys(parsed, toSnakeCase));
       }
     } else {
       body = await req.arrayBuffer();
@@ -116,7 +101,7 @@ const handle = async (req: NextRequest, ctx: { params: Promise<{ path?: string[]
 
   if (isJson(upstream.headers)) {
     const text = await upstream.text();
-    const payload = text ? JSON.stringify(convertKeys(JSON.parse(text) as unknown, toCamel)) : null;
+    const payload = text ? JSON.stringify(convertObjectKeys(JSON.parse(text) as unknown, toCamelCase)) : null;
 
     return new NextResponse(payload, {
       status: upstream.status,

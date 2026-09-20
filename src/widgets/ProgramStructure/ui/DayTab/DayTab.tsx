@@ -29,7 +29,7 @@ export const DayTab = ({
     {canEdit ? (
       <SortableItemHandle
         aria-label={reorderLabel}
-        className="text-muted-foreground focus-visible:ring-ring/50 flex size-7 shrink-0 cursor-grab touch-none items-center justify-center rounded-md outline-none focus-visible:ring-2 active:cursor-grabbing"
+        className="text-muted-foreground focus-visible:ring-ring/50 hidden size-7 shrink-0 cursor-grab touch-none items-center justify-center rounded-md outline-none focus-visible:ring-2 active:cursor-grabbing lg:flex"
       >
         <GripVertical className="size-4" />
       </SortableItemHandle>

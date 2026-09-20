@@ -19,13 +19,13 @@ type RowDragHandleProps = {
  * Must be rendered inside a SortableItem.
  */
 export const RowDragHandle = ({ canEdit, label, className }: RowDragHandleProps) => {
-  if (!canEdit) return <span aria-hidden className={cn('size-8', className)} />;
+  if (!canEdit) return <span aria-hidden className={cn('hidden size-8 lg:block', className)} />;
 
   return (
     <SortableItemHandle
       aria-label={label}
       className={cn(
-        'text-muted-foreground inline-flex size-8 cursor-grab items-center justify-center rounded-md',
+        'text-muted-foreground hidden size-8 cursor-grab items-center justify-center rounded-md lg:inline-flex',
         'hover:bg-muted focus-visible:ring-ring focus-visible:ring-2 focus-visible:outline-none active:cursor-grabbing',
         className
       )}

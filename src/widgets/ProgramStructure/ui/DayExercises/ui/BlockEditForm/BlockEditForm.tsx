@@ -65,7 +65,7 @@ export const BlockEditForm = ({
               rows={3}
               {...config.form.register('instruction')}
               placeholder={t('structure.blocks.editDialog.instructionPlaceholder')}
-              className="[field-sizing:content] min-h-24"
+              className="[field-sizing:content] min-h-24 shadow-none"
             />
           </div>
         </section>

@@ -11,7 +11,7 @@ export const DayColumn = ({ id, label, deleteLabel, reorderLabel, exercisesPlace
     <div className="border-border flex items-center gap-1 border-b px-1 py-1">
       <SortableItemHandle
         aria-label={reorderLabel}
-        className="text-muted-foreground focus-visible:ring-ring/50 flex size-7 shrink-0 cursor-grab touch-none items-center justify-center rounded-md outline-none focus-visible:ring-2 active:cursor-grabbing"
+        className="text-muted-foreground focus-visible:ring-ring/50 hidden size-7 shrink-0 cursor-grab touch-none items-center justify-center rounded-md outline-none focus-visible:ring-2 active:cursor-grabbing lg:flex"
       >
         <GripVertical className="size-4" />
       </SortableItemHandle>

@@ -79,6 +79,15 @@ describe('proxy — locale redirection', () => {
     expect(location.pathname).toBe('/en/dashboard');
     expect(location.search).toBe('?tab=x');
   });
+
+  it('preserves the signed query string when redirecting /stats to a locale', async () => {
+    const query = '?client_user_id=client&trainer_id=trainer&exp=123&sig=signature';
+    const res = await proxy(buildRequest(`/stats${query}`, { acceptLanguage: 'en' }));
+
+    const location = new URL(res.headers.get('location') ?? '');
+    expect(location.pathname).toBe('/en/stats');
+    expect(location.search).toBe(query);
+  });
 });
 
 describe('proxy — session gating', () => {
@@ -112,6 +121,23 @@ describe('proxy — session gating', () => {
   it('lets an authenticated request through to a protected route', async () => {
     const cookie = await validSessionCookie();
     const res = await proxy(buildRequest('/en/dashboard', { cookie }));
+
+    expect(res.status).not.toBe(307);
+    expect(res.headers.get('Content-Language')).toBe('en');
+  });
+
+  it('lets an unauthenticated request through to client statistics', async () => {
+    const res = await proxy(buildRequest('/en/stats?client_user_id=client&trainer_id=trainer&exp=123&sig=signature'));
+
+    expect(res.status).not.toBe(307);
+    expect(res.headers.get('Content-Language')).toBe('en');
+  });
+
+  it('does not redirect an authenticated request away from client statistics', async () => {
+    const cookie = await validSessionCookie();
+    const res = await proxy(
+      buildRequest('/en/stats?client_user_id=client&trainer_id=trainer&exp=123&sig=signature', { cookie })
+    );
 
     expect(res.status).not.toBe(307);
     expect(res.headers.get('Content-Language')).toBe('en');

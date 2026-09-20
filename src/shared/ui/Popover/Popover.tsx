@@ -18,8 +18,12 @@ const PopoverContent = ({
   align = 'center',
   sideOffset = 4,
   portalled = true,
+  portalContainer,
   ...props
-}: ComponentProps<typeof PopoverPrimitive.Content> & { portalled?: boolean }) => {
+}: ComponentProps<typeof PopoverPrimitive.Content> & {
+  portalled?: boolean;
+  portalContainer?: ComponentProps<typeof PopoverPrimitive.Portal>['container'];
+}) => {
   const content = (
     <PopoverPrimitive.Content
       data-slot="popover-content"
@@ -34,7 +38,7 @@ const PopoverContent = ({
   );
 
   if (!portalled) return content;
-  return <PopoverPrimitive.Portal>{content}</PopoverPrimitive.Portal>;
+  return <PopoverPrimitive.Portal container={portalContainer}>{content}</PopoverPrimitive.Portal>;
 };
 
 const PopoverAnchor = (props: ComponentProps<typeof PopoverPrimitive.Anchor>) => (
