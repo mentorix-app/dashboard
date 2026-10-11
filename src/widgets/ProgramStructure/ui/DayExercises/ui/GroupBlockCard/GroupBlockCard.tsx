@@ -120,7 +120,6 @@ export const GroupBlockCard = (props: GroupBlockCardProps) => {
         open={card.isPickerOpen}
         onOpenChange={card.onPickerOpenChange}
         onConfirm={card.handleAddConfirm}
-        excludeIds={card.excludeIds}
       />
     </SortableItem>
   );

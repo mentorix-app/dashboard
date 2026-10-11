@@ -20,7 +20,7 @@ import type { ExercisePickerProps } from './ExercisePicker.types';
  * selection. Selection and search reset whenever the dialog closes so a later
  * open starts clean, all without state-in-effect.
  */
-export const useExercisePickerConfig = ({ open, onOpenChange, onConfirm, excludeIds }: ExercisePickerProps) => {
+export const useExercisePickerConfig = ({ open, onOpenChange, onConfirm }: ExercisePickerProps) => {
   const t = useTranslations('ExercisePicker');
   const locale = useLocale();
 
@@ -34,11 +34,7 @@ export const useExercisePickerConfig = ({ open, onOpenChange, onConfirm, exclude
     scope,
   });
 
-  const exclude = useMemo(() => new Set(excludeIds ?? []), [excludeIds]);
-  const exercises = useMemo(
-    () => (data?.pages.flatMap((page) => page.items) ?? []).filter((exercise) => !exclude.has(exercise.id)),
-    [data, exclude]
-  );
+  const exercises = useMemo(() => data?.pages.flatMap((page) => page.items) ?? [], [data]);
 
   const selectedCount = selectedIds.size;
   const canSelectMore = selectedCount < MAX_PICK;

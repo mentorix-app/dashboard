@@ -18,8 +18,6 @@ export const useGroupBlockCardConfig = ({ block, onAddExercise, onDeleteBlock }:
   const [isEditOpen, setEditOpen] = useState(false);
   const [isPickerOpen, setPickerOpen] = useState(false);
 
-  const excludeIds = block.exercises.map((exercise) => exercise.exerciseId);
-
   const handleAddConfirm = (exerciseIds: string[]) => {
     onAddExercise(block.id, exerciseIds);
     setPickerOpen(false);
@@ -39,7 +37,6 @@ export const useGroupBlockCardConfig = ({ block, onAddExercise, onDeleteBlock }:
   return {
     isEditOpen,
     isPickerOpen,
-    excludeIds,
     onEditOpenChange: setEditOpen,
     onPickerOpenChange: setPickerOpen,
     onOpenEdit: () => setEditOpen(true),
