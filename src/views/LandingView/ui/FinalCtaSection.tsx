@@ -37,13 +37,10 @@ export const FinalCtaSection = () => {
             <p className="text-muted-foreground mx-auto mt-4 max-w-xl text-lg text-pretty">{t('cta.subtitle')}</p>
             <div className="mt-8 flex flex-col justify-center gap-3 sm:flex-row">
               <Button asChild size="lg" className="h-12 px-6 text-base">
-                <Link href={ROUTES.signup}>
+                <Link href={ROUTES.login}>
                   {t('cta.primary')}
                   <ArrowRight className="size-4" />
                 </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="h-12 px-6 text-base">
-                <Link href={ROUTES.login}>{t('cta.secondary')}</Link>
               </Button>
             </div>
             <ul className="text-muted-foreground mt-8 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm">

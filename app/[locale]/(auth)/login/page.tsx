@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
 import type { Locale } from 'next-intl';
 
+import { isAuthErrorCode } from '@/src/entities/auth';
 import { LoginView } from '@/src/views/LoginView/LoginView';
 import { getTranslations } from '@/i18n/server';
 
 type Props = {
   params: Promise<{ locale: string }>;
+  searchParams: Promise<{ error?: string | string[]; deleted?: string | string[] }>;
 };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -17,7 +19,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
-export default async function LoginRoutePage({ params }: Props) {
+export default async function LoginRoutePage({ params, searchParams }: Props) {
   const { locale } = await params;
-  return <LoginView locale={locale} />;
+  const { error, deleted } = await searchParams;
+  const errorCode = isAuthErrorCode(error) ? error : undefined;
+
+  return <LoginView locale={locale} errorCode={errorCode} accountDeleted={deleted === '1'} />;
 }

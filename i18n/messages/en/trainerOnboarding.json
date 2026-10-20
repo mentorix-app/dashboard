@@ -1,0 +1,53 @@
+{
+  "stepLabel": "Step {current} of {total}",
+  "progressLabel": "Setup progress",
+  "signOut": "Sign out",
+  "next": "Continue",
+  "welcome": {
+    "title": "Welcome to Mentorix",
+    "description": "The trainer workspace: everything you need to coach clients in one place.",
+    "points": {
+      "exercises": "An exercise library: your own and shared ones",
+      "programs": "Programs built from weeks, days and blocks",
+      "clients": "Clients, their results and your replies"
+    }
+  },
+  "terms": {
+    "title": "Trainer terms",
+    "description": "Accept the terms to open the trainer workspace.",
+    "summary": {
+      "responsibility": "You are responsible for the programs, exercises and advice you give your clients.",
+      "clientData": "Client data is used only to work with them in Mentorix.",
+      "record": "Your acceptance is saved together with the version of the text and the time."
+    },
+    "accept": "I accept the trainer terms",
+    "submit": "Accept and continue",
+    "submitting": "Saving…"
+  },
+  "howItWorks": {
+    "title": "How it works",
+    "description": "Three steps to your first client.",
+    "steps": {
+      "exercise": {
+        "title": "Add exercises",
+        "description": "Create your own exercises or pick ready-made ones from the shared library."
+      },
+      "program": {
+        "title": "Build a program",
+        "description": "Split it into weeks, days and blocks, then publish it."
+      },
+      "client": {
+        "title": "Invite a client",
+        "description": "Clients train in the mobile app or the Telegram bot, and you see their results."
+      }
+    },
+    "start": "Get started"
+  },
+  "errors": {
+    "admin": "Administrators do not need to become trainers.",
+    "notFound": "Account not found. Please sign in again.",
+    "rateLimited": "Too many attempts. Please try again in a moment.",
+    "unavailable": "The service is temporarily unavailable. Please try again later.",
+    "unknown": "Could not save. Please try again."
+  }
+}

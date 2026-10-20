@@ -13,6 +13,7 @@
   "save": "Save changes",
   "cancel": "Cancel",
   "subscriptionTab": "Subscription",
+  "accountTab": "Account",
   "tabsAriaLabel": "Profile sections",
   "updateSuccess": "Profile updated.",
   "updateError": "Could not update profile. Please try again.",

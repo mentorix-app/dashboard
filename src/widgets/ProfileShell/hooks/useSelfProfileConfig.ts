@@ -36,6 +36,9 @@ export const useSelfProfileConfig = (user: User | null): ProfileViewModel => {
         { id: 'joined', label: t('joined'), value: formatDate(user.createdAt, locale, 'monthYear') },
       ],
     },
-    tabs: [{ key: 'subscription', label: t('subscriptionTab'), href: ROUTES.userSubscription(user.userId) }],
+    tabs: [
+      { key: 'subscription', label: t('subscriptionTab'), href: ROUTES.userSubscription(user.userId) },
+      { key: 'account', label: t('accountTab'), href: ROUTES.userAccount(user.userId) },
+    ],
   };
 };

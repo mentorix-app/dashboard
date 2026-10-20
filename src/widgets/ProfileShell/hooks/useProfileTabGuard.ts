@@ -13,8 +13,11 @@ type ProfileTabGuardParams = {
   userId: string;
 };
 
+/** Tabs of a person's own profile; a client's profile (seen by the trainer) has only `training`. */
+const SELF_TAB_KEYS: readonly string[] = ['subscription', 'account'];
+
 /**
- * Keep each profile type on its own tab (self → subscription, client →
+ * Keep each profile type on its own tabs (self → subscription and account, client →
  * training). A mismatched URL is redirected to the allowed default.
  */
 export const useProfileTabGuard = ({ ready, isSelf, activeKey, userId }: ProfileTabGuardParams): void => {
@@ -22,8 +25,8 @@ export const useProfileTabGuard = ({ ready, isSelf, activeKey, userId }: Profile
 
   useEffect(() => {
     if (!ready || activeKey === '') return;
-    const allowedKey = isSelf ? 'subscription' : 'training';
-    if (activeKey !== allowedKey) {
+    const allowed = isSelf ? SELF_TAB_KEYS.includes(activeKey) : activeKey === 'training';
+    if (!allowed) {
       router.replace(isSelf ? ROUTES.userSubscription(userId) : ROUTES.userTraining(userId));
     }
   }, [ready, isSelf, activeKey, userId, router]);

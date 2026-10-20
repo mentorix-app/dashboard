@@ -1,9 +1,9 @@
 import type { Subscription } from '@/src/shared/types';
 
 /**
- * User roles are mutually exclusive: an administrator is never also a trainer
- * or client. The `roles` array still mirrors the backend contract, but callers
- * should treat membership as a single effective role.
+ * An administrator is never also a trainer or client, but `trainer` and `client`
+ * coexist: a person who becomes a trainer keeps the `client` role. The `roles`
+ * array mirrors the backend contract; use the helpers in `lib/roles` to test it.
  */
 export enum UserRole {
   Admin = 'admin',

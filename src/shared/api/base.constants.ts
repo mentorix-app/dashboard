@@ -15,14 +15,18 @@ export const QUERY_KEY_PLANS = 'plans' as const;
 
 export const AUTH_SESSION_COOKIE = 'auth_session';
 
-/**
- * Name of the HttpOnly refresh-token cookie set by the backend. Must match the
- * backend's REFRESH_COOKIE_NAME env var (defaults to `mentorix_refresh`).
- */
-export const REFRESH_COOKIE_NAME = process.env.REFRESH_COOKIE_NAME || 'mentorix_refresh';
-
 /** Trigger a proactive access-token refresh this many ms before it expires. */
 export const REFRESH_BUFFER_MS = 30_000;
 
-/** Fallback refresh-token lifetime (30 days) when the Set-Cookie omits Max-Age/Expires. */
-export const REFRESH_TOKEN_TTL_MS = 30 * 24 * 60 * 60 * 1_000;
+/** Pause before the next refresh attempt after a network error, a timeout or a 5xx. */
+export const REFRESH_TRANSIENT_COOLDOWN_MS = 30_000;
+
+/** Pause after a 429 that carries no usable `Retry-After` header. */
+export const REFRESH_RATE_LIMITED_COOLDOWN_MS = 5 * 60_000;
+
+/** Upper bound for any refresh pause, so a huge `Retry-After` cannot lock a session out. */
+export const REFRESH_MAX_COOLDOWN_MS = 60 * 60_000;
+
+/** Headers the BFF sends so the API counts auth rate limits by the browser address. */
+export const BFF_CLIENT_IP_HEADER = 'x-mentorix-client-ip';
+export const BFF_SECRET_HEADER = 'x-mentorix-bff-secret';

@@ -2,19 +2,14 @@
   "pageTitle": "Вход",
   "metadataDescription": "Вход в панель управления Mentorix.",
   "heading": "Войдите в Mentorix",
-  "emailLabel": "Электронная почта",
-  "emailPlaceholder": "Введите электронную почту",
-  "passwordLabel": "Пароль",
-  "passwordPlaceholder": "Введите пароль",
-  "forgotPassword": "Забыли пароль?",
-  "submit": "Войти",
-  "newToMentorix": "Впервые в Mentorix?",
-  "createAccount": "Создать аккаунт",
-  "loginSuccess": "Вход выполнен успешно.",
-  "loginErrorFallback": "Не удалось войти. Попробуйте ещё раз.",
-  "validation": {
-    "emailRequired": "Укажите электронную почту.",
-    "emailInvalid": "Введите корректный адрес электронной почты.",
-    "passwordRequired": "Укажите пароль."
+  "subtitle": "Продолжите через Google или Apple. Аккаунт создаётся автоматически при первом входе.",
+  "deleted": "Ваш аккаунт удалён.",
+  "google": {
+    "continue": "Продолжить с Google",
+    "loading": "Загрузка входа через Google…",
+    "unavailable": "Вход через Google сейчас недоступен."
+  },
+  "apple": {
+    "continue": "Продолжить с Apple"
   }
 }

@@ -194,3 +194,103 @@ body {
     background-color: color-mix(in oklch, var(--muted-foreground) 55%, transparent);
   }
 }
+
+/* Product tour (driver.js): follow the theme tokens so the popover works in light and dark mode. */
+.driver-popover.mentorix-tour {
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: var(--font-sans);
+  box-shadow: 0 10px 30px -10px rgb(0 0 0 / 0.35);
+
+  .driver-popover-title {
+    font-size: 1rem;
+    font-weight: 600;
+  }
+
+  .driver-popover-description {
+    color: var(--muted-foreground);
+    font-size: 0.875rem;
+  }
+
+  .driver-popover-close-btn {
+    color: var(--muted-foreground);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--foreground);
+    }
+  }
+
+  .driver-popover-progress-text {
+    color: var(--muted-foreground);
+  }
+
+  .driver-popover-footer-btn {
+    background-color: var(--secondary);
+    color: var(--secondary-foreground);
+    border: 1px solid var(--border);
+    border-radius: calc(var(--radius) * 0.6);
+    padding: 0.35rem 0.75rem;
+    font-size: 0.8125rem;
+    text-shadow: none;
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--accent);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--ring);
+      outline-offset: 2px;
+    }
+  }
+
+  .driver-popover-next-btn {
+    background-color: var(--primary);
+    color: var(--primary-foreground);
+    border-color: var(--primary);
+
+    &:hover,
+    &:focus-visible {
+      background-color: var(--primary);
+      opacity: 0.9;
+    }
+  }
+
+  .driver-popover-arrow {
+    border-color: var(--popover);
+  }
+}
+
+.driver-popover.mentorix-tour .driver-popover-arrow-side-left {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-right-color: transparent;
+}
+
+.driver-popover.mentorix-tour .driver-popover-arrow-side-right {
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+}
+
+.driver-popover.mentorix-tour .driver-popover-arrow-side-top {
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+.driver-popover.mentorix-tour .driver-popover-arrow-side-bottom {
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .driver-fade .driver-overlay,
+  .driver-fade .driver-popover {
+    animation: none;
+  }
+}

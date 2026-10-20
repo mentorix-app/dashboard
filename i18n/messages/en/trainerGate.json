@@ -1,0 +1,6 @@
+{
+  "loading": "Loading…",
+  "errorTitle": "Could not load your profile",
+  "errorDescription": "Check your connection and try again.",
+  "retry": "Try again"
+}

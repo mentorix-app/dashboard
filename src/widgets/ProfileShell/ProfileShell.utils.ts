@@ -7,6 +7,7 @@ export const EMPTY_SIDEBAR: ProfileSidebarProps = { name: '', initials: '?', ava
 export const resolveActiveKey = (pathname: string): string => {
   if (pathname.endsWith('/training')) return 'training';
   if (pathname.endsWith('/subscription')) return 'subscription';
+  if (pathname.endsWith('/account')) return 'account';
   return '';
 };
 

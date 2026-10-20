@@ -1,4 +1,11 @@
 import 'server-only';
 
-export { deleteSessionCookie, forceRefresh, getSession, requireSession, refreshSessionIfNeeded } from './session';
-export type { AuthSession } from './session';
+export {
+  deleteSessionCookie,
+  forceRefresh,
+  getSession,
+  isAccessTokenValid,
+  requireSession,
+  refreshSessionIfNeeded,
+} from './session';
+export type { AuthSession, SessionState } from './session';

@@ -1,0 +1,1 @@
+export { TrainerOnboarding } from './TrainerOnboarding';

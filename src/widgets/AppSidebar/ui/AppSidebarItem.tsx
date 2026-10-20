@@ -2,6 +2,7 @@
 
 import { type FC } from 'react';
 import { Link, usePathname, useTranslations } from '@/i18n';
+import { tourTarget } from '@/src/features/ProductTour';
 import { SidebarMenuButton, SidebarMenuItem, useSidebar } from '@/src/shared/ui';
 import type { SidebarNavItem } from '../AppSidebar.types';
 
@@ -26,7 +27,12 @@ export const AppSidebarItem: FC<Props> = ({ item }) => {
   return (
     <SidebarMenuItem>
       <SidebarMenuButton asChild isActive={isActive} tooltip={label}>
-        <Link href={item.href} aria-current={isActive ? 'page' : undefined} onClick={handleClick}>
+        <Link
+          href={item.href}
+          aria-current={isActive ? 'page' : undefined}
+          onClick={handleClick}
+          {...(item.tourTarget ? tourTarget(item.tourTarget) : {})}
+        >
           <Icon aria-hidden />
           <span className="truncate">{label}</span>
         </Link>

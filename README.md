@@ -45,6 +45,18 @@ NEXT_PUBLIC_MENTORIX_API_URL=https://mentorix-backend.onrender.com
 # 32-byte base64 secret used to sign the auth session JWT. Generate with:
 #   node -e "console.log(require('crypto').randomBytes(32).toString('base64'))"
 SESSION_SECRET=replace-me
+# Web OAuth client ID for "Continue with Google" (the same one the mobile app uses as its
+# serverClientId; the API already accepts it). The dashboard origin must be listed in the
+# client's Authorized JavaScript origins in Google Cloud. Without it the Google button is hidden.
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=
+# Services ID for "Continue with Apple" (optional, defaults to com.mentorix.dashboard). Its Return URL
+# must be NEXT_PUBLIC_APP_URL + /api/auth/apple/callback, and the ID must be in the API's APPLE_CLIENT_IDS.
+APPLE_SERVICE_ID=com.mentorix.dashboard
+# Secret shared with the API (its BFF_SHARED_SECRET, at least 32 bytes). With it the dashboard
+# server forwards the browser address, so the API's sign-in and refresh rate limits count per person
+# instead of per dashboard server. Server-only: never prefix it with NEXT_PUBLIC_, never commit it.
+# Without it the headers are not sent and all dashboard users share the API's limits.
+BFF_SHARED_SECRET=
 ```
 
 Open [http://localhost:3000/ru](http://localhost:3000/ru) (Russian, default) or [http://localhost:3000/en](http://localhost:3000/en) (English). The root URL redirects to the default locale.
