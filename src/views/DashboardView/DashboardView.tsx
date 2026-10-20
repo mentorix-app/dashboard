@@ -1,12 +1,10 @@
 'use client';
 
 import { BarChart3, Dumbbell, Table2, Users, type LucideIcon } from 'lucide-react';
-import { useSearchParams } from 'next/navigation';
-import { useEffect, useRef } from 'react';
 
 import { Link, useTranslations } from '@/i18n';
 import { useCurrentUser } from '@/src/entities/user';
-import { useToast } from '@/src/shared/hooks';
+import { tourTarget } from '@/src/features/ProductTour';
 import { ROUTES } from '@/src/shared/lib';
 import { Card, CardDescription, CardHeader, CardTitle, Typography } from '@/src/shared/ui';
 
@@ -25,23 +23,7 @@ const dashboardCards: readonly DashboardCard[] = [
 
 export const DashboardView = () => {
   const t = useTranslations('Dashboard');
-  const tSignup = useTranslations('Signup');
   const user = useCurrentUser();
-  const { showSuccessToast } = useToast();
-  const searchParams = useSearchParams();
-  const welcomeShownRef = useRef(false);
-
-  useEffect(() => {
-    if (welcomeShownRef.current) return;
-    if (searchParams.get('welcome') !== '1') return;
-
-    welcomeShownRef.current = true;
-    showSuccessToast(tSignup('signupSuccess'));
-
-    const url = new URL(window.location.href);
-    url.searchParams.delete('welcome');
-    window.history.replaceState(null, '', url.toString());
-  }, [searchParams, showSuccessToast, tSignup]);
 
   const displayName = user?.name ?? user?.firstName;
 
@@ -75,6 +57,7 @@ export const DashboardView = () => {
           <Link
             key={key}
             href={href}
+            {...tourTarget(`card-${key}`)}
             className="focus-visible:ring-ring group rounded-xl focus-visible:ring-2 focus-visible:outline-none"
           >
             <Card className="group-hover:border-primary/50 h-full transition-colors">

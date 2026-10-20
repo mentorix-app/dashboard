@@ -82,7 +82,7 @@ export const MobileAppSection = () => {
 
           <div className="mt-8 flex flex-col items-start gap-3 sm:flex-row sm:items-center">
             <Button asChild size="lg" className="h-11 px-6">
-              <Link href={ROUTES.signup}>{t('mobile.cta')}</Link>
+              <Link href={ROUTES.login}>{t('mobile.cta')}</Link>
             </Button>
             <p className="text-muted-foreground text-xs">{t('mobile.soon')}</p>
           </div>

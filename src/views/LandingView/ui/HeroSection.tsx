@@ -103,13 +103,10 @@ export const HeroSection = () => {
           <Reveal delay={180} className="w-full">
             <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center">
               <Button asChild size="lg" className="h-12 px-6 text-base">
-                <Link href={ROUTES.signup}>
+                <Link href={ROUTES.login}>
                   {t('hero.ctaPrimary')}
                   <ArrowRight className="size-4" />
                 </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="h-12 px-6 text-base">
-                <Link href={ROUTES.login}>{t('hero.ctaSecondary')}</Link>
               </Button>
             </div>
             <p className="text-muted-foreground mt-4 text-sm">{t('hero.note')}</p>

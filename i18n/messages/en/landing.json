@@ -20,7 +20,6 @@
     "title": "Coach more clients. Do less busywork.",
     "subtitle": "Mentorix brings trainers and their clients together in one calm workspace: build programs, onboard in a single tap, and keep a finger on the pulse of every client's progress — instead of chasing admin work.",
     "ctaPrimary": "Start free",
-    "ctaSecondary": "Sign in",
     "note": "Free plan available · No credit card required",
     "mock": {
       "title": "Dashboard",
@@ -162,7 +161,6 @@
     "title": "Ready to grow your coaching business?",
     "subtitle": "Join coaches who run their entire practice on Mentorix.",
     "primary": "Start free",
-    "secondary": "Sign in",
     "trust": {
       "free": "Free plan available",
       "noCard": "No credit card required",
@@ -175,8 +173,7 @@
       "features": "Features",
       "preview": "Preview",
       "pricing": "Pricing",
-      "signIn": "Sign in",
-      "signUp": "Create account"
+      "signIn": "Sign in"
     },
     "rights": "All rights reserved."
   },

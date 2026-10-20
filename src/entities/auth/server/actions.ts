@@ -1,105 +1,52 @@
 'use server';
 
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
-import { REFRESH_COOKIE_NAME } from '@/src/shared/api';
 import { ROUTES } from '@/src/shared/lib';
-import { backendFetch, backendFetchRaw, parseRefreshCookie, BackendError } from './backend';
-import {
-  getSession,
-  mapResponseToSession,
-  writeSessionCookie,
-  deleteSessionCookie,
-  type LoginResponse,
-} from './session';
-
-export type AuthCredentials = {
-  email: string;
-  password: string;
-};
-
-export type SignupInput = AuthCredentials & {
-  name: string;
-};
-
-export type AuthActionResult = { error: string } | undefined;
-
-const INVALID_CREDENTIALS = 'Invalid email or password.';
-const GENERIC_ERROR = 'Something went wrong. Please try again.';
-const SESSION_ERROR = 'Could not establish a session. Please try signing in.';
-
-const validateCredentials = (input: unknown): AuthCredentials | null => {
-  if (typeof input !== 'object' || input === null) return null;
-  const obj = input as Record<string, unknown>;
-  if (typeof obj.email !== 'string' || typeof obj.password !== 'string') return null;
-  if (obj.email.trim().length === 0 || obj.password.length === 0) return null;
-  return { email: obj.email.trim(), password: obj.password };
-};
-
-const validateSignupInput = (input: unknown): SignupInput | null => {
-  const credentials = validateCredentials(input);
-  if (!credentials) return null;
-  const obj = input as Record<string, unknown>;
-  if (typeof obj.name !== 'string' || obj.name.trim().length === 0) return null;
-  return { ...credentials, name: obj.name.trim() };
-};
+import type { AuthActionResult, DeleteAccountActionResult } from '../auth.types';
+import { backendFetch } from './backend';
+import { deleteAccount } from './deleteAccount';
+import { GOOGLE_NONCE_COOKIE, OAUTH_COOKIE_MAX_AGE_SECONDS } from './oauth.constants';
+import { generateOAuthValue, hashNonce } from './nonce.utils';
+import { deleteSessionCookie, getSession } from './session';
+import { signInWithProvider } from './signIn';
 
 /**
- * Persists the encrypted, HttpOnly session from a backend auth response.
- * Returns `false` when the backend did not issue a refresh cookie.
+ * Starts a Google sign-in: creates a raw nonce, keeps it in a short-lived
+ * HttpOnly cookie and returns its hash for Google Identity Services. The raw
+ * value goes to the API when the credential comes back.
  */
-const persistSession = async (data: LoginResponse, setCookie: string[]): Promise<boolean> => {
-  const refresh = parseRefreshCookie(setCookie);
-  if (!refresh) return false;
-  await writeSessionCookie(mapResponseToSession(data, refresh.token, refresh.expiresAt));
-  return true;
-};
-
-/**
- * Authenticates against the backend and persists an encrypted, HttpOnly
- * session cookie holding both the access and refresh tokens. Redirects to the
- * dashboard on success.
- */
-export async function loginAction(input: AuthCredentials): Promise<AuthActionResult> {
-  const credentials = validateCredentials(input);
-  if (!credentials) return { error: INVALID_CREDENTIALS };
-
-  try {
-    const { data, setCookie } = await backendFetchRaw<LoginResponse>('/auth/login', {
-      method: 'POST',
-      body: credentials,
-    });
-    if (!(await persistSession(data, setCookie))) return { error: SESSION_ERROR };
-  } catch (err) {
-    if (err instanceof BackendError) {
-      return { error: err.status === 401 ? INVALID_CREDENTIALS : err.message || GENERIC_ERROR };
-    }
-    return { error: GENERIC_ERROR };
-  }
-
-  redirect(ROUTES.dashboard);
+export async function prepareGoogleSignInAction(): Promise<{ nonce: string }> {
+  const raw = generateOAuthValue();
+  const cookieStore = await cookies();
+  cookieStore.set(GOOGLE_NONCE_COOKIE, raw, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+    path: '/',
+    maxAge: OAUTH_COOKIE_MAX_AGE_SECONDS,
+  });
+  return { nonce: hashNonce(raw) };
 }
 
 /**
- * Registers a new user account. The backend returns tokens and a refresh
- * cookie on registration, so the user is logged in immediately and redirected
- * to the dashboard.
+ * Signs in with the Google ID token (credential) returned by Google Identity
+ * Services, then redirects to the dashboard. Returns the failure code otherwise.
  */
-export async function signupAction(input: SignupInput): Promise<AuthActionResult> {
-  const credentials = validateSignupInput(input);
-  if (!credentials) return { error: GENERIC_ERROR };
+export async function googleSignInAction(idToken: string): Promise<AuthActionResult> {
+  if (typeof idToken !== 'string' || idToken.length === 0) return { errorCode: 'invalid_token' };
 
-  try {
-    const { data, setCookie } = await backendFetchRaw<LoginResponse>('/auth/register', {
-      method: 'POST',
-      body: credentials,
-    });
-    if (!(await persistSession(data, setCookie))) return { error: SESSION_ERROR };
-  } catch (err) {
-    if (err instanceof BackendError) return { error: err.message || GENERIC_ERROR };
-    return { error: GENERIC_ERROR };
+  const cookieStore = await cookies();
+  const nonce = cookieStore.get(GOOGLE_NONCE_COOKIE)?.value;
+  // A nonce is single-use: whatever the outcome, the next attempt gets a new one.
+  cookieStore.delete(GOOGLE_NONCE_COOKIE);
+
+  const result = await signInWithProvider('google', { id_token: idToken, ...(nonce ? { nonce } : {}) });
+  if (!result.ok) {
+    return { errorCode: result.errorCode, retryAfterSeconds: result.retryAfterSeconds };
   }
 
-  redirect(`${ROUTES.dashboard}?welcome=1`);
+  redirect(ROUTES.dashboard);
 }
 
 /**
@@ -112,7 +59,7 @@ export async function logoutAction(): Promise<void> {
     try {
       await backendFetch('/auth/logout', {
         method: 'POST',
-        cookie: `${REFRESH_COOKIE_NAME}=${session.refreshToken}`,
+        body: { refresh_token: session.refreshToken },
       });
     } catch {
       // Ignore backend errors — the local session is cleared regardless.
@@ -121,4 +68,14 @@ export async function logoutAction(): Promise<void> {
 
   await deleteSessionCookie();
   redirect(ROUTES.login);
+}
+
+/**
+ * Deletes the signed-in account. Returns `undefined` once it is gone (the session
+ * is cleared; the caller leaves the page), otherwise the reason it was not deleted.
+ * `apple_required` means the person has to confirm with Apple first.
+ */
+export async function deleteAccountAction(): Promise<DeleteAccountActionResult> {
+  const result = await deleteAccount();
+  return result.ok ? undefined : { errorCode: result.errorCode };
 }

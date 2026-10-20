@@ -9,10 +9,15 @@ jest.mock('../../../../../src/entities/auth/server/dal', () => ({
   refreshSessionIfNeeded: jest.fn(),
   forceRefresh: jest.fn(),
   deleteSessionCookie: jest.fn(),
+  // A plain function (not jest.fn) so `resetAllMocks` leaves the real logic in place.
+  isAccessTokenValid: (session: { accessExpiresAt: string }) =>
+    new Date(session.accessExpiresAt).getTime() > Date.now(),
 }));
 
 jest.mock('../../../../../src/shared/api', () => ({
   MENTORIX_API_BASE_URL: 'https://backend.test',
+  BFF_CLIENT_IP_HEADER: 'x-mentorix-client-ip',
+  BFF_SECRET_HEADER: 'x-mentorix-bff-secret',
 }));
 
 import { NextRequest } from 'next/server';
@@ -23,7 +28,16 @@ const mockedRefresh = refreshSessionIfNeeded as jest.Mock;
 const mockedForceRefresh = forceRefresh as jest.Mock;
 const mockedDeleteCookie = deleteSessionCookie as jest.Mock;
 
-const session = { accessToken: 'access-1' };
+const validSession = (accessToken: string) => ({
+  accessToken,
+  accessExpiresAt: new Date(Date.now() + 600_000).toISOString(),
+});
+const expiredSession = (accessToken: string) => ({
+  accessToken,
+  accessExpiresAt: new Date(Date.now() - 1_000).toISOString(),
+});
+
+const active = (accessToken: string) => ({ status: 'active', session: validSession(accessToken) });
 
 const buildRequest = (path: string, init: ConstructorParameters<typeof NextRequest>[1] = {}): NextRequest =>
   new NextRequest(new URL(path, 'http://localhost/api/bff'), init);
@@ -40,12 +54,12 @@ const jsonResponse = (body: unknown, init: ResponseInit = {}): Response =>
 describe('BFF route handler', () => {
   beforeEach(() => {
     jest.resetAllMocks();
-    mockedRefresh.mockResolvedValue(session);
+    mockedRefresh.mockResolvedValue(active('access-1'));
     global.fetch = jest.fn();
   });
 
   it('returns 401 without calling the backend when there is no session', async () => {
-    mockedRefresh.mockResolvedValue(null);
+    mockedRefresh.mockResolvedValue({ status: 'none' });
 
     const res = await GET(buildRequest('/users/1'), ctx(['users', '1']));
 
@@ -122,11 +136,28 @@ describe('BFF route handler', () => {
     expect(headers.get('x-custom')).toBe('yes');
   });
 
+  it('never forwards the browser-address headers a client sends', async () => {
+    (global.fetch as jest.Mock).mockResolvedValue(jsonResponse({}));
+
+    await GET(
+      buildRequest('/users/1', {
+        headers: { 'X-Mentorix-Client-IP': '198.51.100.1', 'X-Mentorix-BFF-Secret': 'guess', 'x-custom': 'yes' },
+      }),
+      ctx(['users', '1'])
+    );
+
+    const [, init] = (global.fetch as jest.Mock).mock.calls[0] as [string, RequestInit];
+    const headers = init.headers as Headers;
+    expect(headers.get('x-mentorix-client-ip')).toBeNull();
+    expect(headers.get('x-mentorix-bff-secret')).toBeNull();
+    expect(headers.get('x-custom')).toBe('yes');
+  });
+
   it('retries once with a forced-refresh token after a 401 from the backend', async () => {
     (global.fetch as jest.Mock)
       .mockResolvedValueOnce(new Response(null, { status: 401 }))
       .mockResolvedValueOnce(jsonResponse({ ok: true }));
-    mockedForceRefresh.mockResolvedValue({ accessToken: 'access-2' });
+    mockedForceRefresh.mockResolvedValue(active('access-2'));
 
     const res = await GET(buildRequest('/users/1'), ctx(['users', '1']));
 
@@ -139,7 +170,7 @@ describe('BFF route handler', () => {
 
   it('clears the session cookie when a 401 persists after a forced refresh', async () => {
     (global.fetch as jest.Mock).mockResolvedValue(new Response(null, { status: 401 }));
-    mockedForceRefresh.mockResolvedValue({ accessToken: 'access-2' });
+    mockedForceRefresh.mockResolvedValue(active('access-2'));
 
     const res = await GET(buildRequest('/users/1'), ctx(['users', '1']));
 
@@ -147,15 +178,63 @@ describe('BFF route handler', () => {
     expect(mockedDeleteCookie).toHaveBeenCalledTimes(1);
   });
 
-  it('clears the session cookie when forceRefresh itself fails to produce a session', async () => {
+  it('clears the session cookie when the forced refresh finds no session', async () => {
     (global.fetch as jest.Mock).mockResolvedValue(new Response(null, { status: 401 }));
-    mockedForceRefresh.mockResolvedValue(null);
+    mockedForceRefresh.mockResolvedValue({ status: 'none' });
 
     const res = await GET(buildRequest('/users/1'), ctx(['users', '1']));
 
     expect(res.status).toBe(401);
     expect(global.fetch).toHaveBeenCalledTimes(1);
     expect(mockedDeleteCookie).toHaveBeenCalledTimes(1);
+  });
+
+  describe('when the session cannot be refreshed for now', () => {
+    it('still forwards the request while the access token is valid', async () => {
+      mockedRefresh.mockResolvedValue({
+        status: 'unavailable',
+        session: validSession('access-live'),
+        retryAfterMs: 30_000,
+      });
+      (global.fetch as jest.Mock).mockResolvedValue(jsonResponse({ ok: true }));
+
+      const res = await GET(buildRequest('/users/1'), ctx(['users', '1']));
+
+      expect(res.status).toBe(200);
+      const [, init] = (global.fetch as jest.Mock).mock.calls[0] as [string, RequestInit];
+      expect((init.headers as Headers).get('Authorization')).toBe('Bearer access-live');
+    });
+
+    it('answers 503 with Retry-After, not 401, once the access token has expired', async () => {
+      mockedRefresh.mockResolvedValue({
+        status: 'unavailable',
+        session: expiredSession('access-old'),
+        retryAfterMs: 90_500,
+      });
+
+      const res = await GET(buildRequest('/users/1'), ctx(['users', '1']));
+
+      expect(res.status).toBe(503);
+      expect(res.headers.get('retry-after')).toBe('91');
+      await expect(res.json()).resolves.toMatchObject({ code: 'session_refresh_unavailable' });
+      expect(global.fetch).not.toHaveBeenCalled();
+      expect(mockedDeleteCookie).not.toHaveBeenCalled();
+    });
+
+    it('answers 503 and keeps the cookie when a 401 cannot be recovered by a refresh', async () => {
+      (global.fetch as jest.Mock).mockResolvedValue(new Response(null, { status: 401 }));
+      mockedForceRefresh.mockResolvedValue({
+        status: 'unavailable',
+        session: validSession('access-1'),
+        retryAfterMs: 30_000,
+      });
+
+      const res = await GET(buildRequest('/users/1'), ctx(['users', '1']));
+
+      expect(res.status).toBe(503);
+      expect(global.fetch).toHaveBeenCalledTimes(1);
+      expect(mockedDeleteCookie).not.toHaveBeenCalled();
+    });
   });
 
   it('passes non-JSON response bodies through unmodified', async () => {

@@ -1,0 +1,24 @@
+{
+  "next": "Next",
+  "previous": "Back",
+  "done": "Done",
+  "close": "Close",
+  "steps": {
+    "exercises": {
+      "title": "Exercises",
+      "description": "The exercise library: add your own and use the shared ones."
+    },
+    "programs": {
+      "title": "Programs",
+      "description": "Build programs from weeks, days and blocks, then publish them."
+    },
+    "clients": {
+      "title": "Clients",
+      "description": "Invite clients and assign programs to them."
+    },
+    "analytics": {
+      "title": "Analytics",
+      "description": "Follow your clients' results for every program."
+    }
+  }
+}

@@ -1,0 +1,10 @@
+{
+  "invalid_token": "We could not verify your sign-in. Please try again.",
+  "rate_limited": "Too many sign-in attempts. Please try again later.",
+  "rate_limited_wait": "Too many sign-in attempts. Try again in {minutes, plural, one {# minute} other {# minutes}}.",
+  "unavailable": "Sign-in is temporarily unavailable. Please try again later.",
+  "session_failed": "We could not create your session. Please try signing in again.",
+  "apple_cancelled": "Sign in with Apple was cancelled.",
+  "apple_failed": "We could not sign you in with Apple. Please try again.",
+  "unknown": "Sign-in failed. Please try again."
+}

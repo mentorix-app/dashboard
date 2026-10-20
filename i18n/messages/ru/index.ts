@@ -15,8 +15,12 @@ import clientsPage from './clientsPage.json';
 import programPicker from './programPicker.json';
 import inviteClient from './inviteClient.json';
 import loginPage from './loginPage.json';
-import signupPage from './signupPage.json';
+import authErrors from './authErrors.json';
+import trainerOnboarding from './trainerOnboarding.json';
+import trainerGate from './trainerGate.json';
+import productTour from './productTour.json';
 import profilePage from './profilePage.json';
+import accountSettings from './accountSettings.json';
 import clientProfilePage from './clientProfilePage.json';
 import errors from './errors.json';
 import subscription from './subscription.json';
@@ -42,8 +46,12 @@ export default {
   ProgramPicker: programPicker,
   InviteClient: inviteClient,
   Login: loginPage,
-  Signup: signupPage,
+  AuthErrors: authErrors,
+  TrainerOnboarding: trainerOnboarding,
+  TrainerGate: trainerGate,
+  ProductTour: productTour,
   Profile: profilePage,
+  Account: accountSettings,
   ClientProfile: clientProfilePage,
   Errors: errors,
   Subscription: subscription,

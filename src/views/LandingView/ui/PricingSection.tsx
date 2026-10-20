@@ -57,7 +57,7 @@ export const PricingSection = () => {
                   </ul>
 
                   <Button asChild variant={plan.recommended ? 'default' : 'outline'} size="lg" className="w-full">
-                    <Link href={ROUTES.signup}>{t('pricing.cta')}</Link>
+                    <Link href={ROUTES.login}>{t('pricing.cta')}</Link>
                   </Button>
                 </Card>
               </Reveal>

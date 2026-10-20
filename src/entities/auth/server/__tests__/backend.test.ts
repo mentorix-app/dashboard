@@ -1,64 +1,92 @@
 jest.mock('server-only', () => ({}));
 
-import { REFRESH_COOKIE_NAME } from '@/src/shared/api';
-import { BackendError, backendFetch, backendFetchRaw, parseRefreshCookie } from '../backend';
+import { BackendError, backendFetch } from '../backend';
 
 const originalFetch = global.fetch;
+const originalSecret = process.env.BFF_SHARED_SECRET;
 
 type MockResponseInit = {
   status?: number;
   statusText?: string;
-  setCookie?: string[];
+  headers?: Record<string, string>;
 };
 
 const mockResponse = (body: unknown, init: MockResponseInit = {}): Response => {
   const status = init.status ?? 200;
+  const headers = init.headers ?? {};
   return {
     ok: status < 400,
     status,
     statusText: init.statusText ?? 'OK',
     text: async () => (body === undefined ? '' : JSON.stringify(body)),
-    headers: { getSetCookie: () => init.setCookie ?? [] },
+    headers: { get: (name: string) => headers[name.toLowerCase()] ?? null },
   } as unknown as Response;
+};
+
+const sentHeaders = (fetchMock: jest.Mock): Record<string, string> => {
+  const [, options] = fetchMock.mock.calls[0] as [string, { headers: Record<string, string> }];
+  return options.headers;
 };
 
 afterEach(() => {
   global.fetch = originalFetch;
+  if (originalSecret === undefined) delete process.env.BFF_SHARED_SECRET;
+  else process.env.BFF_SHARED_SECRET = originalSecret;
   jest.restoreAllMocks();
 });
 
-describe('backendFetchRaw', () => {
-  it('returns the parsed data and Set-Cookie headers on success', async () => {
-    global.fetch = jest.fn().mockResolvedValue(mockResponse({ ok: true }, { setCookie: ['a=b'] }));
+describe('backendFetch', () => {
+  it('returns the parsed data on success', async () => {
+    global.fetch = jest.fn().mockResolvedValue(mockResponse({ v: 1 }));
 
-    await expect(backendFetchRaw('/x')).resolves.toEqual({ data: { ok: true }, setCookie: ['a=b'] });
+    await expect(backendFetch('/x')).resolves.toEqual({ v: 1 });
   });
 
   it('throws a BackendError with the parsed message on a non-2xx response', async () => {
     global.fetch = jest.fn().mockResolvedValue(mockResponse({ message: 'Nope' }, { status: 400 }));
 
-    await expect(backendFetchRaw('/x')).rejects.toMatchObject({ message: 'Nope', status: 400 });
-    await expect(backendFetchRaw('/x')).rejects.toBeInstanceOf(BackendError);
+    await expect(backendFetch('/x')).rejects.toMatchObject({ message: 'Nope', status: 400 });
+    await expect(backendFetch('/x')).rejects.toBeInstanceOf(BackendError);
   });
 
   it('falls back to statusText when the error body has no message', async () => {
     global.fetch = jest.fn().mockResolvedValue(mockResponse({}, { status: 500, statusText: 'Server Error' }));
 
-    await expect(backendFetchRaw('/x')).rejects.toMatchObject({ message: 'Server Error', status: 500 });
+    await expect(backendFetch('/x')).rejects.toMatchObject({ message: 'Server Error', status: 500 });
   });
 
-  it('serialises a JSON body and attaches bearer/cookie headers', async () => {
+  it('carries the Retry-After of a 429 as milliseconds', async () => {
+    global.fetch = jest
+      .fn()
+      .mockResolvedValue(mockResponse({ code: 'rate_limited' }, { status: 429, headers: { 'retry-after': '120' } }));
+
+    await expect(backendFetch('/x')).rejects.toMatchObject({ status: 429, retryAfterMs: 120_000 });
+  });
+
+  it('leaves retryAfterMs undefined when there is no Retry-After header', async () => {
+    global.fetch = jest.fn().mockResolvedValue(mockResponse({}, { status: 429 }));
+
+    await expect(backendFetch('/x')).rejects.toMatchObject({ status: 429, retryAfterMs: undefined });
+  });
+
+  it('serialises a JSON body and attaches the bearer token', async () => {
     const fetchMock = jest.fn().mockResolvedValue(mockResponse(null));
     global.fetch = fetchMock;
 
-    await backendFetchRaw('/x', { method: 'POST', body: { a: 1 }, token: 'tok', cookie: 'c=1' });
+    await backendFetch('/x', { method: 'POST', body: { a: 1 }, token: 'tok' });
 
     const [, options] = fetchMock.mock.calls[0];
-    expect(options).toMatchObject({
-      method: 'POST',
-      body: JSON.stringify({ a: 1 }),
-      headers: expect.objectContaining({ Authorization: 'Bearer tok', Cookie: 'c=1' }),
-    });
+    expect(options).toMatchObject({ method: 'POST', body: JSON.stringify({ a: 1 }) });
+    expect(sentHeaders(fetchMock).Authorization).toBe('Bearer tok');
+  });
+
+  it('appends the forwarded query string', async () => {
+    const fetchMock = jest.fn().mockResolvedValue(mockResponse(null));
+    global.fetch = fetchMock;
+
+    await backendFetch('/x', { search: 'a=1' });
+
+    expect(fetchMock.mock.calls[0][0]).toMatch(/\/x\?a=1$/);
   });
 
   it('treats a non-JSON body as plain text data', async () => {
@@ -67,50 +95,45 @@ describe('backendFetchRaw', () => {
       status: 200,
       statusText: 'OK',
       text: async () => 'not-json',
-      headers: { getSetCookie: () => [] },
+      headers: { get: () => null },
     } as unknown as Response);
 
-    await expect(backendFetchRaw('/x')).resolves.toEqual({ data: 'not-json', setCookie: [] });
-  });
-});
-
-describe('backendFetch', () => {
-  it('returns just the data payload', async () => {
-    global.fetch = jest.fn().mockResolvedValue(mockResponse({ v: 1 }));
-
-    await expect(backendFetch('/x')).resolves.toEqual({ v: 1 });
-  });
-});
-
-describe('parseRefreshCookie', () => {
-  it('returns null when the refresh cookie is absent', () => {
-    expect(parseRefreshCookie(['other=1'])).toBeNull();
+    await expect(backendFetch('/x')).resolves.toBe('not-json');
   });
 
-  it('returns null when the cookie has no token value', () => {
-    expect(parseRefreshCookie([`${REFRESH_COOKIE_NAME}=`])).toBeNull();
-  });
+  describe('browser address forwarding', () => {
+    it('sends the address and the shared secret when both are available', async () => {
+      process.env.BFF_SHARED_SECRET = 'shared-secret';
+      const fetchMock = jest.fn().mockResolvedValue(mockResponse(null));
+      global.fetch = fetchMock;
 
-  it('parses the token and a Max-Age based expiry', () => {
-    const result = parseRefreshCookie([`${REFRESH_COOKIE_NAME}=abc; Max-Age=3600; HttpOnly`]);
+      await backendFetch('/x', { clientIp: '203.0.113.7' });
 
-    expect(result?.token).toBe('abc');
-    expect(new Date(result!.expiresAt).getTime()).toBeGreaterThan(Date.now());
-  });
+      expect(sentHeaders(fetchMock)).toMatchObject({
+        'x-mentorix-client-ip': '203.0.113.7',
+        'x-mentorix-bff-secret': 'shared-secret',
+      });
+    });
 
-  it('parses the Expires attribute when Max-Age is absent', () => {
-    const future = new Date(Date.now() + 60_000).toUTCString();
+    it('sends neither header without a configured secret', async () => {
+      delete process.env.BFF_SHARED_SECRET;
+      const fetchMock = jest.fn().mockResolvedValue(mockResponse(null));
+      global.fetch = fetchMock;
 
-    const result = parseRefreshCookie([`${REFRESH_COOKIE_NAME}=abc; Expires=${future}`]);
+      await backendFetch('/x', { clientIp: '203.0.113.7' });
 
-    expect(result?.expiresAt).toBe(new Date(future).toISOString());
-  });
+      expect(sentHeaders(fetchMock)).not.toHaveProperty('x-mentorix-client-ip');
+      expect(sentHeaders(fetchMock)).not.toHaveProperty('x-mentorix-bff-secret');
+    });
 
-  it('falls back to the default TTL when neither Max-Age nor Expires is present', () => {
-    const before = Date.now();
-    const result = parseRefreshCookie([`${REFRESH_COOKIE_NAME}=abc`]);
+    it('sends neither header without an address', async () => {
+      process.env.BFF_SHARED_SECRET = 'shared-secret';
+      const fetchMock = jest.fn().mockResolvedValue(mockResponse(null));
+      global.fetch = fetchMock;
 
-    expect(result?.token).toBe('abc');
-    expect(new Date(result!.expiresAt).getTime()).toBeGreaterThan(before);
+      await backendFetch('/x', { clientIp: null });
+
+      expect(sentHeaders(fetchMock)).not.toHaveProperty('x-mentorix-bff-secret');
+    });
   });
 });

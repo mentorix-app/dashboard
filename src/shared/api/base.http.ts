@@ -27,7 +27,7 @@ export const http: AxiosInstance = axios.create({
 // Auth paths where a 401 is expected (e.g. the /auth/me probe on the login
 // page); redirecting from here would loop. Locale prefixes are ignored via
 // `includes` on the trailing segment.
-const AUTH_REDIRECT_PATHS = ['/login', '/signup', '/forgot-password'];
+const AUTH_REDIRECT_PATHS = ['/login'];
 
 // Guards against redirect spam: once a 401 triggers navigation, further 401s
 // (retries, parallel queries) must not queue more `assign` calls, which would

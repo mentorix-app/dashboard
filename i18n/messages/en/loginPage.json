@@ -2,19 +2,14 @@
   "pageTitle": "Sign in",
   "metadataDescription": "Sign in to the Mentorix dashboard.",
   "heading": "Sign in to Mentorix",
-  "emailLabel": "Email",
-  "emailPlaceholder": "Enter your email",
-  "passwordLabel": "Password",
-  "passwordPlaceholder": "Enter your password",
-  "forgotPassword": "Forgot password?",
-  "submit": "Sign in",
-  "newToMentorix": "New to Mentorix?",
-  "createAccount": "Create an account",
-  "loginSuccess": "Signed in successfully.",
-  "loginErrorFallback": "Sign in failed. Please try again.",
-  "validation": {
-    "emailRequired": "Email is required.",
-    "emailInvalid": "Enter a valid email address.",
-    "passwordRequired": "Password is required."
+  "subtitle": "Continue with Google or Apple. An account is created automatically the first time you sign in.",
+  "deleted": "Your account has been deleted.",
+  "google": {
+    "continue": "Continue with Google",
+    "loading": "Loading Google sign-in…",
+    "unavailable": "Google sign-in is unavailable right now."
+  },
+  "apple": {
+    "continue": "Continue with Apple"
   }
 }

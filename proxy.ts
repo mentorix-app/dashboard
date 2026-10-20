@@ -10,7 +10,7 @@ import { routing } from './i18n/routing';
 const intlMiddleware = createMiddleware(routing);
 
 /** Routes that are accessible without authentication. */
-const AUTH_PATHS = new Set(['/login', '/signup', '/forgot-password']);
+const AUTH_PATHS = new Set(['/login']);
 const CLIENT_STATS_PATH = '/stats';
 
 /** Cookie name must match AUTH_SESSION_COOKIE in base.constants.ts. */
@@ -125,7 +125,7 @@ async function handleProxy(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 
-  // Authenticated user on the landing or a login/signup page → send to dashboard.
+  // Authenticated user on the landing or the login page → send to dashboard.
   if (isPublicPath && hasSession) {
     return NextResponse.redirect(new URL(`/${locale}/dashboard`, request.url));
   }

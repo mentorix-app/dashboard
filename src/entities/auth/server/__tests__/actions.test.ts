@@ -1,132 +1,127 @@
 jest.mock('server-only', () => ({}));
 jest.mock('next/navigation', () => ({ redirect: jest.fn() }));
+jest.mock('next/headers', () => ({ cookies: jest.fn() }));
 
 jest.mock('../backend', () => {
   const actual = jest.requireActual('../backend');
-  return { ...actual, backendFetch: jest.fn(), backendFetchRaw: jest.fn() };
+  return { ...actual, backendFetch: jest.fn() };
 });
-
+jest.mock('../signIn', () => ({ signInWithProvider: jest.fn() }));
+jest.mock('../deleteAccount', () => ({ deleteAccount: jest.fn() }));
 jest.mock('../session', () => ({
   getSession: jest.fn(),
-  writeSessionCookie: jest.fn(),
   deleteSessionCookie: jest.fn(),
-  mapResponseToSession: jest.requireActual('../session.types').mapResponseToSession,
 }));
 
+import { cookies } from 'next/headers';
 import { redirect } from 'next/navigation';
 import { ROUTES } from '@/src/shared/lib';
-import { BackendError, backendFetch, backendFetchRaw } from '../backend';
-import { deleteSessionCookie, getSession, writeSessionCookie } from '../session';
-import { loginAction, logoutAction, signupAction } from '../actions';
-import type { AuthSession, LoginResponse } from '../session.types';
+import { BackendError, backendFetch } from '../backend';
+import { deleteAccountAction, googleSignInAction, logoutAction, prepareGoogleSignInAction } from '../actions';
+import { deleteAccount } from '../deleteAccount';
+import { hashNonce } from '../nonce.utils';
+import { deleteSessionCookie, getSession } from '../session';
+import { signInWithProvider } from '../signIn';
+import type { AuthSession } from '../session.types';
 
 const mockedRedirect = redirect as jest.MockedFunction<typeof redirect>;
-const mockedFetchRaw = backendFetchRaw as jest.MockedFunction<typeof backendFetchRaw>;
+const mockedCookies = cookies as jest.Mock;
 const mockedFetch = backendFetch as jest.MockedFunction<typeof backendFetch>;
+const mockedSignIn = signInWithProvider as jest.MockedFunction<typeof signInWithProvider>;
+const mockedDeleteAccount = deleteAccount as jest.MockedFunction<typeof deleteAccount>;
 const mockedGetSession = getSession as jest.MockedFunction<typeof getSession>;
-const mockedWrite = writeSessionCookie as jest.MockedFunction<typeof writeSessionCookie>;
 const mockedDelete = deleteSessionCookie as jest.MockedFunction<typeof deleteSessionCookie>;
-
-const loginResponse: LoginResponse = {
-  access_token: 'access-1',
-  token_type: 'bearer',
-  expires_at: new Date(Date.now() + 900_000).toISOString(),
-  user_id: 'u1',
-  email: 'a@b.com',
-};
 
 const session: AuthSession = {
   accessToken: 'access-1',
-  accessExpiresAt: loginResponse.expires_at,
+  accessExpiresAt: new Date(Date.now() + 900_000).toISOString(),
   refreshToken: 'refresh-1',
   refreshExpiresAt: new Date(Date.now() + 3_600_000).toISOString(),
   userId: 'u1',
   email: 'a@b.com',
 };
 
+const store = { get: jest.fn(), set: jest.fn(), delete: jest.fn() };
+
 beforeEach(() => {
   jest.clearAllMocks();
+  mockedCookies.mockResolvedValue(store);
   mockedRedirect.mockImplementation(() => {
     throw new Error('NEXT_REDIRECT');
   });
 });
 
-describe('loginAction', () => {
-  it('rejects invalid input without calling the backend', async () => {
-    await expect(loginAction({ email: '', password: '' })).resolves.toEqual({
-      error: 'Invalid email or password.',
-    });
-    expect(mockedFetchRaw).not.toHaveBeenCalled();
+describe('prepareGoogleSignInAction', () => {
+  it('keeps the raw nonce in an HttpOnly cookie and returns only its hash', async () => {
+    const { nonce } = await prepareGoogleSignInAction();
+
+    const [name, raw, options] = store.set.mock.calls[0] as [string, string, Record<string, unknown>];
+    expect(name).toBe('google_nonce');
+    expect(options).toMatchObject({ httpOnly: true, sameSite: 'lax', path: '/', maxAge: 600 });
+    expect(raw).not.toBe(nonce);
+    expect(nonce).toBe(hashNonce(raw));
+    expect(nonce).toMatch(/^[0-9a-f]{64}$/);
   });
 
-  it('persists the session and redirects to the dashboard on success', async () => {
-    mockedFetchRaw.mockResolvedValue({
-      data: loginResponse,
-      setCookie: ['mentorix_refresh=refresh-1; Max-Age=2592000; HttpOnly'],
-    });
+  it('creates a different nonce every time', async () => {
+    const first = await prepareGoogleSignInAction();
+    const second = await prepareGoogleSignInAction();
 
-    await expect(loginAction({ email: 'a@b.com', password: 'secret' })).rejects.toThrow('NEXT_REDIRECT');
-
-    expect(mockedWrite).toHaveBeenCalledWith(expect.objectContaining({ accessToken: 'access-1' }));
-    expect(mockedRedirect).toHaveBeenCalledWith(ROUTES.dashboard);
-  });
-
-  it('returns a session error when the backend does not issue a refresh cookie', async () => {
-    mockedFetchRaw.mockResolvedValue({ data: loginResponse, setCookie: [] });
-
-    await expect(loginAction({ email: 'a@b.com', password: 'secret' })).resolves.toEqual({
-      error: 'Could not establish a session. Please try signing in.',
-    });
-    expect(mockedRedirect).not.toHaveBeenCalled();
-  });
-
-  it('maps a 401 BackendError to an invalid-credentials error', async () => {
-    mockedFetchRaw.mockRejectedValue(new BackendError('unauthorized', 401));
-
-    await expect(loginAction({ email: 'a@b.com', password: 'wrong' })).resolves.toEqual({
-      error: 'Invalid email or password.',
-    });
-  });
-
-  it('maps a non-401 BackendError to its own message', async () => {
-    mockedFetchRaw.mockRejectedValue(new BackendError('upstream down', 503));
-
-    await expect(loginAction({ email: 'a@b.com', password: 'secret' })).resolves.toEqual({
-      error: 'upstream down',
-    });
-  });
-
-  it('maps an unknown error to the generic error message', async () => {
-    mockedFetchRaw.mockRejectedValue(new Error('boom'));
-
-    await expect(loginAction({ email: 'a@b.com', password: 'secret' })).resolves.toEqual({
-      error: 'Something went wrong. Please try again.',
-    });
+    expect(first.nonce).not.toBe(second.nonce);
   });
 });
 
-describe('signupAction', () => {
-  it('rejects invalid input without calling the backend', async () => {
-    await expect(signupAction({ email: 'a@b.com', password: 'secret', name: '' })).resolves.toEqual({
-      error: 'Something went wrong. Please try again.',
-    });
-    expect(mockedFetchRaw).not.toHaveBeenCalled();
+describe('googleSignInAction', () => {
+  it('rejects an empty credential without calling the API', async () => {
+    await expect(googleSignInAction('')).resolves.toEqual({ errorCode: 'invalid_token' });
+    expect(mockedSignIn).not.toHaveBeenCalled();
   });
 
-  it('persists the session and redirects to the welcome dashboard on success', async () => {
-    mockedFetchRaw.mockResolvedValue({
-      data: loginResponse,
-      setCookie: ['mentorix_refresh=refresh-1; Max-Age=2592000; HttpOnly'],
+  it('sends the credential with the raw nonce, spends the nonce and redirects to the dashboard', async () => {
+    store.get.mockReturnValue({ value: 'raw-nonce' });
+    mockedSignIn.mockResolvedValue({ ok: true });
+
+    await expect(googleSignInAction('credential')).rejects.toThrow('NEXT_REDIRECT');
+
+    expect(mockedSignIn).toHaveBeenCalledWith('google', { id_token: 'credential', nonce: 'raw-nonce' });
+    expect(store.delete).toHaveBeenCalledWith('google_nonce');
+    expect(mockedRedirect).toHaveBeenCalledWith(ROUTES.dashboard);
+  });
+
+  it('still signs in when the nonce cookie is gone (the API treats the nonce as optional)', async () => {
+    store.get.mockReturnValue(undefined);
+    mockedSignIn.mockResolvedValue({ ok: true });
+
+    await expect(googleSignInAction('credential')).rejects.toThrow('NEXT_REDIRECT');
+
+    expect(mockedSignIn).toHaveBeenCalledWith('google', { id_token: 'credential' });
+  });
+
+  it('returns the failure code and does not redirect on a rejected token', async () => {
+    store.get.mockReturnValue({ value: 'raw-nonce' });
+    mockedSignIn.mockResolvedValue({ ok: false, errorCode: 'invalid_token' });
+
+    await expect(googleSignInAction('credential')).resolves.toEqual({
+      errorCode: 'invalid_token',
+      retryAfterSeconds: undefined,
     });
+    expect(store.delete).toHaveBeenCalledWith('google_nonce');
+    expect(mockedRedirect).not.toHaveBeenCalled();
+  });
 
-    await expect(signupAction({ email: 'a@b.com', password: 'secret', name: 'A' })).rejects.toThrow('NEXT_REDIRECT');
+  it('passes the wait of a rate limit on to the UI', async () => {
+    store.get.mockReturnValue(undefined);
+    mockedSignIn.mockResolvedValue({ ok: false, errorCode: 'rate_limited', retryAfterSeconds: 90 });
 
-    expect(mockedRedirect).toHaveBeenCalledWith(`${ROUTES.dashboard}?welcome=1`);
+    await expect(googleSignInAction('credential')).resolves.toEqual({
+      errorCode: 'rate_limited',
+      retryAfterSeconds: 90,
+    });
   });
 });
 
 describe('logoutAction', () => {
-  it('revokes the backend session, clears the cookie, and redirects to login', async () => {
+  it('revokes the backend session with the refresh token in the body, clears the cookie and redirects to login', async () => {
     mockedGetSession.mockResolvedValue(session);
     mockedFetch.mockResolvedValue(undefined);
 
@@ -134,7 +129,7 @@ describe('logoutAction', () => {
 
     expect(mockedFetch).toHaveBeenCalledWith('/auth/logout', {
       method: 'POST',
-      cookie: `mentorix_refresh=${session.refreshToken}`,
+      body: { refresh_token: session.refreshToken },
     });
     expect(mockedDelete).toHaveBeenCalledTimes(1);
     expect(mockedRedirect).toHaveBeenCalledWith(ROUTES.login);
@@ -157,5 +152,26 @@ describe('logoutAction', () => {
 
     expect(mockedFetch).not.toHaveBeenCalled();
     expect(mockedDelete).toHaveBeenCalledTimes(1);
+  });
+});
+
+describe('deleteAccountAction', () => {
+  it('returns nothing once the account is deleted', async () => {
+    mockedDeleteAccount.mockResolvedValue({ ok: true });
+
+    await expect(deleteAccountAction()).resolves.toBeUndefined();
+    expect(mockedDeleteAccount).toHaveBeenCalledWith();
+  });
+
+  it('returns the reason when the account was not deleted', async () => {
+    mockedDeleteAccount.mockResolvedValue({ ok: false, errorCode: 'has_data' });
+
+    await expect(deleteAccountAction()).resolves.toEqual({ errorCode: 'has_data' });
+  });
+
+  it('tells the UI to go through Apple when the API asks for it', async () => {
+    mockedDeleteAccount.mockResolvedValue({ ok: false, errorCode: 'apple_required' });
+
+    await expect(deleteAccountAction()).resolves.toEqual({ errorCode: 'apple_required' });
   });
 });

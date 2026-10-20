@@ -1,10 +1,11 @@
 'use client';
 
 import { useTransition } from 'react';
-import { LogOut, User as UserIcon } from 'lucide-react';
+import { Compass, LogOut, User as UserIcon } from 'lucide-react';
 
-import { useTranslations, Link } from '@/i18n';
+import { useTranslations, Link, usePathname, useRouter } from '@/i18n';
 import { logoutAction } from '@/src/entities/auth';
+import { useOnboardingStore } from '@/src/entities/onboarding';
 import { useCurrentUser, useUserStore, type User } from '@/src/entities/user';
 import { ROUTES } from '@/src/shared/lib';
 import {
@@ -17,6 +18,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
   Skeleton,
+  useSidebar,
 } from '@/src/shared/ui';
 
 const getInitials = (user: User): string => {
@@ -33,11 +35,21 @@ const getInitials = (user: User): string => {
 export const UserAvatar = () => {
   const t = useTranslations('AppHeader');
   const user = useCurrentUser();
+  const pathname = usePathname();
+  const router = useRouter();
+  const { isMobile } = useSidebar();
+  const requestTour = useOnboardingStore((state) => state.requestTour);
   const [isLoggingOut, startTransition] = useTransition();
 
   if (!user) {
     return <Skeleton className="size-8 rounded-full" />;
   }
+
+  // A phone has no sidebar, so the tour points at the cards of the dashboard and has to start there.
+  const handleShowTour = () => {
+    if (isMobile && pathname !== ROUTES.dashboard) router.push(ROUTES.dashboard);
+    requestTour();
+  };
 
   const handleLogout = () => {
     startTransition(() => {
@@ -65,6 +77,10 @@ export const UserAvatar = () => {
             <UserIcon />
             {t('profile')}
           </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem onSelect={handleShowTour}>
+          <Compass />
+          {t('showTour')}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem variant="destructive" disabled={isLoggingOut} onSelect={handleLogout}>

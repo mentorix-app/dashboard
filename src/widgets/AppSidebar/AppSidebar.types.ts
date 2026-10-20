@@ -1,5 +1,6 @@
 import type { LucideIcon } from 'lucide-react';
 import type messages from '@/i18n/messages/en';
+import type { TourTarget } from '@/src/features/ProductTour/ProductTour.types';
 
 type AppSidebarMessages = (typeof messages)['AppSidebar'];
 
@@ -11,6 +12,8 @@ export type SidebarNavItem = {
   i18nKey: SidebarItemI18nKey;
   href: string;
   icon: LucideIcon;
+  /** Marks the item as a stop of the product tour. */
+  tourTarget?: TourTarget;
   /** Reserved for future nested-accordion items. */
   children?: SidebarNavItem[];
 };

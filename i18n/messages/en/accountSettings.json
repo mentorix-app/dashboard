@@ -1,0 +1,23 @@
+{
+  "heading": "Delete account",
+  "description": "Permanently deletes your Mentorix account and everything linked to it. You will be signed out, and this cannot be undone.",
+  "trainerNote": "A trainer account can be deleted only while it has no clients, programs or exercises. Remove them first, or contact support.",
+  "adminNote": "Administrator accounts cannot be deleted here.",
+  "button": "Delete account",
+  "confirm": {
+    "title": "Delete your account?",
+    "description": "Your account will be deleted permanently and you will be signed out. If you signed in with Apple, you will confirm with Apple next. This cannot be undone.",
+    "cancel": "Cancel",
+    "submit": "Delete account"
+  },
+  "errors": {
+    "has_data": "Your account still has clients, programs or exercises, so it cannot be deleted. Remove them first, or contact support.",
+    "apple_required": "Please confirm the deletion with Apple.",
+    "apple_mismatch": "That is not the Apple account you signed in with. Use the same Apple account and try again.",
+    "apple_failed": "We could not confirm the deletion with Apple. Nothing was deleted. Please try again.",
+    "apple_cancelled": "The confirmation with Apple was cancelled. Nothing was deleted.",
+    "session_expired": "Your session has expired. Sign in again and retry.",
+    "unavailable": "The service is temporarily unavailable. Nothing was deleted. Please try again later.",
+    "unknown": "We could not delete your account. Nothing was deleted. Please try again."
+  }
+}

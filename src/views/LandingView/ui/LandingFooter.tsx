@@ -10,7 +10,6 @@ const FOOTER_LINKS = [
   { key: 'preview', href: '#preview', internal: false },
   { key: 'pricing', href: '#pricing', internal: false },
   { key: 'signIn', href: ROUTES.login, internal: true },
-  { key: 'signUp', href: ROUTES.signup, internal: true },
 ] as const;
 
 export const LandingFooter = () => {

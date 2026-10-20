@@ -8,10 +8,10 @@ export const navGroups: SidebarNavGroup[] = [
     i18nKey: 'groups.main',
     items: [
       { id: 'dashboard', i18nKey: 'dashboard', href: ROUTES.dashboard, icon: LayoutDashboard },
-      { id: 'exercises', i18nKey: 'exercises', href: ROUTES.exercises, icon: Dumbbell },
-      { id: 'programs', i18nKey: 'programs', href: ROUTES.programs, icon: Table2 },
-      { id: 'clients', i18nKey: 'clients', href: ROUTES.clients, icon: Users },
-      { id: 'analytics', i18nKey: 'analytics', href: ROUTES.analytics, icon: BarChart3 },
+      { id: 'exercises', i18nKey: 'exercises', href: ROUTES.exercises, icon: Dumbbell, tourTarget: 'nav-exercises' },
+      { id: 'programs', i18nKey: 'programs', href: ROUTES.programs, icon: Table2, tourTarget: 'nav-programs' },
+      { id: 'clients', i18nKey: 'clients', href: ROUTES.clients, icon: Users, tourTarget: 'nav-clients' },
+      { id: 'analytics', i18nKey: 'analytics', href: ROUTES.analytics, icon: BarChart3, tourTarget: 'nav-analytics' },
     ],
   },
 ];

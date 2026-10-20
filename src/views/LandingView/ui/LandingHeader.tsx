@@ -49,7 +49,7 @@ export const LandingHeader = () => {
             <Link href={ROUTES.login}>{t('nav.signIn')}</Link>
           </Button>
           <Button asChild size="sm">
-            <Link href={ROUTES.signup}>{t('nav.getStarted')}</Link>
+            <Link href={ROUTES.login}>{t('nav.getStarted')}</Link>
           </Button>
         </div>
 
@@ -93,7 +93,7 @@ export const LandingHeader = () => {
               <Link href={ROUTES.login}>{t('nav.signIn')}</Link>
             </Button>
             <Button asChild onClick={close}>
-              <Link href={ROUTES.signup}>{t('nav.getStarted')}</Link>
+              <Link href={ROUTES.login}>{t('nav.getStarted')}</Link>
             </Button>
           </nav>
         </div>
