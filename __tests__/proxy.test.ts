@@ -33,9 +33,10 @@ import { EncryptJWT } from 'jose';
 import { NextRequest } from 'next/server';
 import proxy from '../proxy';
 
-const buildRequest = (path: string, opts: { cookie?: string; acceptLanguage?: string } = {}): NextRequest => {
+const buildRequest = (path: string, opts: { cookie?: string; acceptLanguage?: string | null } = {}): NextRequest => {
   const headers = new Headers();
-  headers.set('accept-language', opts.acceptLanguage ?? 'en');
+  // `null` sends no Accept-Language header at all.
+  if (opts.acceptLanguage !== null) headers.set('accept-language', opts.acceptLanguage ?? 'en');
   if (opts.cookie) headers.set('cookie', opts.cookie);
   return new NextRequest(new URL(path, 'http://localhost'), { headers });
 };
@@ -64,6 +65,20 @@ describe('proxy — locale redirection', () => {
     const res = await proxy(buildRequest('/dashboard', { acceptLanguage: 'xx' }));
 
     expect(new URL(res.headers.get('location') ?? '').pathname).toBe('/ru/dashboard');
+  });
+
+  it('falls back to the default locale when there is no Accept-Language header (curl, some crawlers)', async () => {
+    const res = await proxy(buildRequest('/privacy', { acceptLanguage: null }));
+
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get('location') ?? '').pathname).toBe('/ru/privacy');
+  });
+
+  it('does not fail on a malformed Accept-Language value', async () => {
+    const res = await proxy(buildRequest('/', { acceptLanguage: 'not a locale!!' }));
+
+    expect(res.status).toBe(307);
+    expect(new URL(res.headers.get('location') ?? '').pathname).toBe('/ru');
   });
 
   it('strips an invalid two/three-letter locale-shaped prefix before redirecting', async () => {
@@ -141,5 +156,27 @@ describe('proxy — session gating', () => {
 
     expect(res.status).not.toBe(307);
     expect(res.headers.get('Content-Language')).toBe('en');
+  });
+
+  describe.each(['/en/privacy', '/en/terms', '/ru/privacy', '/ru/terms'])('legal page %s', (path) => {
+    it('opens for an unauthenticated visitor (Google and Apple read it without a session)', async () => {
+      const res = await proxy(buildRequest(path));
+
+      expect(res.status).not.toBe(307);
+      expect(res.headers.get('Content-Language')).toBe(path.slice(1, 3));
+    });
+
+    it('stays readable for a signed-in user, with no bounce to the dashboard', async () => {
+      const cookie = await validSessionCookie();
+      const res = await proxy(buildRequest(path, { cookie }));
+
+      expect(res.status).not.toBe(307);
+    });
+  });
+
+  it('negotiates the locale for a bare legal path', async () => {
+    const res = await proxy(buildRequest('/privacy', { acceptLanguage: 'ru' }));
+
+    expect(new URL(res.headers.get('location') ?? '').pathname).toBe('/ru/privacy');
   });
 });

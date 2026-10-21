@@ -2,7 +2,7 @@
 
 import { Link } from '@/i18n/navigation';
 import { useTranslations } from '@/i18n';
-import { ROUTES } from '@/src/shared/lib';
+import { ROUTES, SUPPORT_MAILTO } from '@/src/shared/lib';
 import { Logo } from '@/src/shared/ui';
 
 const FOOTER_LINKS = [
@@ -10,6 +10,9 @@ const FOOTER_LINKS = [
   { key: 'preview', href: '#preview', internal: false },
   { key: 'pricing', href: '#pricing', internal: false },
   { key: 'signIn', href: ROUTES.login, internal: true },
+  { key: 'privacy', href: ROUTES.privacy, internal: true },
+  { key: 'terms', href: ROUTES.terms, internal: true },
+  { key: 'contact', href: SUPPORT_MAILTO, internal: false },
 ] as const;
 
 export const LandingFooter = () => {

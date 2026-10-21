@@ -4,6 +4,8 @@ import { Loader2 } from 'lucide-react';
 import { useId, type FC } from 'react';
 
 import { useTranslations } from '@/i18n';
+import { Link } from '@/i18n/navigation';
+import { ROUTES } from '@/src/shared/lib';
 import { Button, Checkbox, FormMessage, Label } from '@/src/shared/ui';
 import { TERMS_SUMMARY_ITEMS } from '../TrainerOnboarding.constants';
 import type { ActivationErrorKey } from '../TrainerOnboarding.types';
@@ -38,6 +40,17 @@ export const TermsStep: FC<TermsStepProps> = ({
           <li key={item}>{t(`terms.summary.${item}`)}</li>
         ))}
       </ul>
+      <p className="mt-4 text-sm">
+        <Link href={ROUTES.terms} target="_blank" className="text-primary underline underline-offset-4">
+          {t('terms.readTerms')}
+        </Link>
+        <span aria-hidden className="text-muted-foreground mx-2">
+          ·
+        </span>
+        <Link href={ROUTES.privacy} target="_blank" className="text-primary underline underline-offset-4">
+          {t('terms.readPrivacy')}
+        </Link>
+      </p>
       <div className="mt-5 flex items-start gap-2">
         <Checkbox
           id={checkboxId}

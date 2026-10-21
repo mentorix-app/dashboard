@@ -173,7 +173,10 @@
       "features": "Features",
       "preview": "Preview",
       "pricing": "Pricing",
-      "signIn": "Sign in"
+      "signIn": "Sign in",
+      "privacy": "Privacy Policy",
+      "terms": "Terms of Service",
+      "contact": "Contact"
     },
     "rights": "All rights reserved."
   },
