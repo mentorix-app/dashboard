@@ -21,6 +21,8 @@
       "record": "Your acceptance is saved together with the version of the text and the time."
     },
     "accept": "I accept the trainer terms",
+    "readTerms": "Read the full Terms of Service",
+    "readPrivacy": "Read the Privacy Policy",
     "submit": "Accept and continue",
     "submitting": "Saving…"
   },

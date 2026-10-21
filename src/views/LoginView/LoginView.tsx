@@ -1,8 +1,12 @@
+import { Link } from '@/i18n/navigation';
 import { getTranslations } from '@/i18n/server';
 import { AuthErrorAlert, type AuthErrorCode } from '@/src/entities/auth';
 import { AppleSignIn } from '@/src/features/AppleSignIn';
 import { GoogleSignIn } from '@/src/features/GoogleSignIn';
+import { ROUTES } from '@/src/shared/lib';
 import { Logo } from '@/src/shared/ui';
+
+const NOTICE_LINK_CLASS = 'text-foreground underline underline-offset-4';
 
 type LoginViewProps = {
   locale: string;
@@ -32,6 +36,20 @@ export async function LoginView({ locale, errorCode, accountDeleted = false }: L
         <GoogleSignIn key={locale} />
         <AppleSignIn label={t('apple.continue')} />
       </div>
+      <p className="text-muted-foreground mt-6 text-center text-xs text-balance">
+        {t.rich('legalNotice', {
+          terms: (chunks) => (
+            <Link href={ROUTES.terms} className={NOTICE_LINK_CLASS}>
+              {chunks}
+            </Link>
+          ),
+          privacy: (chunks) => (
+            <Link href={ROUTES.privacy} className={NOTICE_LINK_CLASS}>
+              {chunks}
+            </Link>
+          ),
+        })}
+      </p>
     </div>
   );
 }

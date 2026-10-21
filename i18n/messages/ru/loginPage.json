@@ -3,6 +3,7 @@
   "metadataDescription": "Вход в панель управления Mentorix.",
   "heading": "Войдите в Mentorix",
   "subtitle": "Продолжите через Google или Apple. Аккаунт создаётся автоматически при первом входе.",
+  "legalNotice": "Продолжая, вы принимаете <terms>Условия использования</terms> и <privacy>Политику конфиденциальности</privacy>.",
   "deleted": "Ваш аккаунт удалён.",
   "google": {
     "continue": "Продолжить с Google",

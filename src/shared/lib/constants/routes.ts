@@ -9,6 +9,8 @@ export const ROUTES = {
   programAnalyticsOverview: (id: string) => `/analytics/${id}/overview`,
   programAnalyticsResults: (id: string) => `/analytics/${id}/results`,
   login: '/login',
+  privacy: '/privacy',
+  terms: '/terms',
   user: (id: string) => `/user/${id}`,
   userSubscription: (id: string) => `/user/${id}/subscription`,
   userTraining: (id: string) => `/user/${id}/training`,

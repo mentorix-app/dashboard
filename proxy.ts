@@ -11,7 +11,11 @@ const intlMiddleware = createMiddleware(routing);
 
 /** Routes that are accessible without authentication. */
 const AUTH_PATHS = new Set(['/login']);
-const CLIENT_STATS_PATH = '/stats';
+/**
+ * Pages anyone may read, signed in or not, with no redirect either way: the signed client
+ * statistics and the legal texts (Google and Apple fetch the latter without a session).
+ */
+const OPEN_PATHS = new Set(['/stats', '/privacy', '/terms']);
 
 /** Cookie name must match AUTH_SESSION_COOKIE in base.constants.ts. */
 const AUTH_SESSION_COOKIE = 'auth_session';
@@ -62,13 +66,19 @@ function getLocale(request: NextRequest): string {
   });
 
   const locales = [...i18n.locales];
-  const languages = new Negotiator({ headers: negotiatorHeaders }).languages();
+  // Without an Accept-Language header (curl, some crawlers) Negotiator answers `*`, which is not a locale.
+  const languages = new Negotiator({ headers: negotiatorHeaders }).languages().filter((language) => language !== '*');
 
   if (languages.length === 0) {
     return i18n.defaultLocale;
   }
 
-  return match(languages, locales, i18n.defaultLocale);
+  try {
+    return match(languages, locales, i18n.defaultLocale);
+  } catch {
+    // A malformed header value must not turn the page into a 500.
+    return i18n.defaultLocale;
+  }
 }
 
 function pathnameIsMissingLocale(pathname: string): boolean {
@@ -116,12 +126,12 @@ async function handleProxy(request: NextRequest) {
   const hasSession = await hasValidSession(request.cookies.get(AUTH_SESSION_COOKIE)?.value);
   const isAuthPath = AUTH_PATHS.has(pathWithoutLocale);
   const isLandingPath = pathWithoutLocale === '/';
-  const isClientStatsPath = pathWithoutLocale === CLIENT_STATS_PATH;
+  const isOpenPath = OPEN_PATHS.has(pathWithoutLocale);
   // The marketing landing (locale root) and auth pages are reachable without a session.
   const isPublicPath = isAuthPath || isLandingPath;
 
   // Unauthenticated user trying to access a protected route → send to login.
-  if (!isPublicPath && !isClientStatsPath && !hasSession) {
+  if (!isPublicPath && !isOpenPath && !hasSession) {
     return NextResponse.redirect(new URL(`/${locale}/login`, request.url));
   }
 

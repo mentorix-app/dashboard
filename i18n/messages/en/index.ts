@@ -21,6 +21,9 @@ import trainerGate from './trainerGate.json';
 import productTour from './productTour.json';
 import profilePage from './profilePage.json';
 import accountSettings from './accountSettings.json';
+import legal from './legal.json';
+import privacyPolicy from './privacyPolicy.json';
+import termsOfService from './termsOfService.json';
 import clientProfilePage from './clientProfilePage.json';
 import errors from './errors.json';
 import subscription from './subscription.json';
@@ -52,6 +55,9 @@ export default {
   ProductTour: productTour,
   Profile: profilePage,
   Account: accountSettings,
+  Legal: legal,
+  PrivacyPolicy: privacyPolicy,
+  TermsOfService: termsOfService,
   ClientProfile: clientProfilePage,
   Errors: errors,
   Subscription: subscription,

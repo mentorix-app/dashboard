@@ -3,6 +3,7 @@
   "metadataDescription": "Sign in to the Mentorix dashboard.",
   "heading": "Sign in to Mentorix",
   "subtitle": "Continue with Google or Apple. An account is created automatically the first time you sign in.",
+  "legalNotice": "By continuing, you agree to the <terms>Terms of Service</terms> and the <privacy>Privacy Policy</privacy>.",
   "deleted": "Your account has been deleted.",
   "google": {
     "continue": "Continue with Google",

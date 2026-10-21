@@ -1,0 +1,106 @@
+{
+  "metaTitle": "Privacy Policy",
+  "metaDescription": "How Mentorix collects, uses and protects personal data, including the data received from Google and Apple sign-in.",
+  "title": "Privacy Policy",
+  "intro": [
+    "This Privacy Policy explains what personal data Mentorix collects, why, who can see it and how you can control it. It applies to the Mentorix web dashboard, the Mentorix mobile app and the Mentorix Telegram bot.",
+    "By using Mentorix you confirm that you have read this policy. If you do not agree with it, please do not use the service."
+  ],
+  "sections": [
+    {
+      "id": "who-we-are",
+      "title": "Who we are",
+      "paragraphs": [
+        "Mentorix is a service for fitness trainers and their clients. Trainers build exercises and training programs, invite clients and follow their results. Clients receive programs, mark completed workouts and read their trainer's comments.",
+        "The service is operated by Mentorix, an individual entrepreneur registered in the Republic of Kazakhstan (\"Mentorix\", \"we\", \"us\"). You can contact us at mentorix.app@proton.me."
+      ]
+    },
+    {
+      "id": "data-we-collect",
+      "title": "Data we collect",
+      "paragraphs": ["We collect only the data needed to run the service:"],
+      "items": [
+        "Sign-in data. When you continue with Google, Google gives us your email address, your name and your Google account identifier. When you continue with Apple, Apple gives us your Apple account identifier, your email address (which may be a private relay address) and, the first time only, your name. If you link Telegram, we store your Telegram account identifier.",
+        "Content you create. Trainers create exercises, training programs, client lists, invitations and comments. Clients' accounts hold the programs assigned to them, the workouts they mark as completed, their results and the comments from their trainer.",
+        "Technical data. Our servers record your IP address, the type of browser or device, and the time and result of requests. We use these logs for security, to prevent abuse (for example, to limit repeated sign-in attempts) and to find and fix errors.",
+        "We do not collect bank card details in the web dashboard."
+      ]
+    },
+    {
+      "id": "google-user-data",
+      "title": "How we use data from Google",
+      "paragraphs": [
+        "Mentorix uses Google Sign-In only to let you sign in. We request only the basic scopes openid, email and profile. We use the email address, name and Google account identifier received from Google only to recognise you, create and secure your account, show your name in the product and contact you about the service.",
+        "We do not read your Gmail, Google Drive, Calendar, Contacts or any other Google service, and we do not call Google APIs on your behalf after you have signed in. We do not sell Google user data, we do not use it for advertising, and we do not share it with third parties except service providers that help us run Mentorix (see \"Who can see your data\") or when the law requires it.",
+        "Mentorix's use and transfer of information received from Google APIs to any other app will adhere to the Google API Services User Data Policy, including the Limited Use requirements."
+      ]
+    },
+    {
+      "id": "purposes",
+      "title": "Why we use your data",
+      "items": [
+        "to create your account and let you sign in;",
+        "to provide the service: store and show programs, record completed workouts and results, show your trainer's comments;",
+        "to keep the service secure and stop abuse;",
+        "to answer your questions and send you messages about the service;",
+        "to meet our legal obligations."
+      ]
+    },
+    {
+      "id": "who-can-see",
+      "title": "Who can see your data",
+      "paragraphs": [
+        "A trainer sees the data of the clients they invited and work with in Mentorix. A client sees the programs and comments of their own trainer. Other users do not see your data.",
+        "We do not sell personal data. We share it only with providers that help us run the service, and only as far as needed: hosting and network protection (Render and Cloudflare), and Google and Apple as the sign-in providers you choose. We may also disclose data when the law requires it.",
+        "Our infrastructure providers may process data in other countries."
+      ]
+    },
+    {
+      "id": "cookies",
+      "title": "Cookies and local storage",
+      "paragraphs": ["The web dashboard uses only what it needs to work:"],
+      "items": [
+        "one session cookie (auth_session), encrypted and not readable by scripts, that keeps you signed in;",
+        "short-lived cookies used only while you sign in with Google or Apple, and while you confirm account deletion with Apple;",
+        "your browser's local storage keeps your theme, language and your progress in the first-run guide on this device.",
+        "We do not use advertising, analytics or tracking cookies."
+      ],
+      "closing": "The Google sign-in button loads a script from accounts.google.com, and Sign in with Apple takes you to appleid.apple.com. Those services have their own privacy policies."
+    },
+    {
+      "id": "storage",
+      "title": "Storage, security and retention",
+      "paragraphs": [
+        "Data is transmitted over encrypted connections. Your session cookie is encrypted, and sign-in tokens are never exposed to scripts in your browser.",
+        "We keep your data while your account exists. When you delete your account, we delete its data, except what we must keep by law. Technical backup copies are overwritten in the regular backup cycle."
+      ]
+    },
+    {
+      "id": "your-rights",
+      "title": "Your rights and deleting your account",
+      "paragraphs": [
+        "You can delete your account yourself: in the web dashboard open Profile and then Account, or use the same option in the mobile app. A trainer account that still has clients, programs or exercises cannot be deleted yet; write to us and we will help.",
+        "You may also ask us to show, correct or delete your data, or to stop processing it. Write to mentorix.app@proton.me and we will reply as soon as we can."
+      ]
+    },
+    {
+      "id": "children",
+      "title": "Children",
+      "paragraphs": [
+        "Mentorix is not intended for children under 16. If you believe a child has given us personal data, write to us and we will delete it."
+      ]
+    },
+    {
+      "id": "changes",
+      "title": "Changes to this policy",
+      "paragraphs": [
+        "We may update this policy. The date at the top shows when the current version took effect. If a change is important, we will tell you in the service."
+      ]
+    },
+    {
+      "id": "contact",
+      "title": "Contact",
+      "paragraphs": ["Questions about this policy or your data: mentorix.app@proton.me."]
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "metaTitle": "Terms of Service",
+  "metaDescription": "The rules for using Mentorix: accounts, roles of clients and trainers, trainer responsibilities, acceptable use and liability.",
+  "title": "Terms of Service",
+  "intro": [
+    "These Terms of Service are an agreement between you and Mentorix about the use of the Mentorix web dashboard, mobile app and Telegram bot (the \"Service\").",
+    "By signing in to or using the Service you accept these Terms. A trainer also accepts them explicitly when activating the trainer workspace. How we handle personal data is described in the Privacy Policy."
+  ],
+  "sections": [
+    {
+      "id": "service",
+      "title": "About the Service",
+      "paragraphs": [
+        "Mentorix is a tool for fitness trainers and their clients. Trainers create exercises and training programs, invite clients, assign programs and follow results. Clients receive programs, mark completed workouts and read their trainer's comments.",
+        "The Service is operated by Mentorix, an individual entrepreneur registered in the Republic of Kazakhstan (\"Mentorix\", \"we\", \"us\"). Contact: mentorix.app@proton.me."
+      ]
+    },
+    {
+      "id": "accounts",
+      "title": "Accounts and signing in",
+      "items": [
+        "You sign in with your Google or Apple account. We do not use passwords. A new account is created the first time you sign in.",
+        "Keep access to your Google or Apple account safe. You are responsible for what happens under your account.",
+        "Give us accurate information and do not impersonate another person.",
+        "You can delete your account at any time (see the Privacy Policy)."
+      ]
+    },
+    {
+      "id": "roles",
+      "title": "Clients and trainers",
+      "paragraphs": [
+        "Every account is a client account. A client can take part in the programs a trainer assigns. Any signed-in person can become a trainer by accepting these Terms in the trainer workspace; the version of the Terms and the time you accepted them are saved. Administrators manage the Service and cannot become trainers."
+      ]
+    },
+    {
+      "id": "trainer-responsibilities",
+      "title": "What a trainer is responsible for",
+      "paragraphs": ["If you work as a trainer in Mentorix, you agree that:"],
+      "items": [
+        "you are responsible for the exercises, programs, comments and advice you give your clients;",
+        "you will not give advice or make promises that you are not qualified to give;",
+        "you will use clients' data only to work with them in Mentorix and will not pass it on;",
+        "you will obey the laws that apply to your work as a trainer."
+      ]
+    },
+    {
+      "id": "not-medical-advice",
+      "title": "Fitness information is not medical advice",
+      "paragraphs": [
+        "Programs and comments in Mentorix come from trainers and are not medical advice. Talk to a doctor before you start a new training program, especially if you have a health condition. Stop exercising and seek help if you feel pain or discomfort. You train at your own risk."
+      ]
+    },
+    {
+      "id": "acceptable-use",
+      "title": "Acceptable use",
+      "paragraphs": ["You agree not to:"],
+      "items": [
+        "break the law or the rights of other people;",
+        "upload unlawful, offensive or misleading content;",
+        "try to break, overload or get unauthorised access to the Service or to other people's accounts;",
+        "copy the Service's data on a large scale by automated means."
+      ]
+    },
+    {
+      "id": "content",
+      "title": "Your content",
+      "paragraphs": [
+        "What you create in Mentorix (exercises, programs, comments, results) stays yours. You give us the right to store it and show it to the people you work with in Mentorix, only as far as needed to run the Service. You promise that you have the right to add this content."
+      ]
+    },
+    {
+      "id": "availability",
+      "title": "Availability and changes",
+      "paragraphs": [
+        "We work to keep the Service available, but we do not promise that it will run without interruptions or errors. The Service is under active development, and we may change or stop features."
+      ]
+    },
+    {
+      "id": "suspension",
+      "title": "Suspension and deletion",
+      "paragraphs": [
+        "We may limit or close an account that breaks these Terms or puts the Service or other people at risk. You may stop using the Service and delete your account at any time."
+      ]
+    },
+    {
+      "id": "liability",
+      "title": "Liability",
+      "paragraphs": [
+        "The Service is provided \"as is\". To the extent the law allows, Mentorix is not liable for indirect losses, for lost data or profit, or for the results of training, including injuries, that follow the advice of a trainer. Nothing in these Terms limits liability that cannot be limited by law."
+      ]
+    },
+    {
+      "id": "law",
+      "title": "Governing law",
+      "paragraphs": ["These Terms are governed by the law of the Republic of Kazakhstan."]
+    },
+    {
+      "id": "changes",
+      "title": "Changes to these Terms",
+      "paragraphs": [
+        "We may update these Terms. The date at the top shows when the current version took effect. If you keep using the Service after a change, you accept the new version."
+      ]
+    },
+    {
+      "id": "contact",
+      "title": "Contact",
+      "paragraphs": ["Questions about these Terms: mentorix.app@proton.me."]
+    }
+  ]
+}

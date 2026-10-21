@@ -1,8 +1,10 @@
+import { LEGAL_VERSION } from '@/src/shared/lib';
+
 /**
- * Version of the trainer terms the person accepts: a calendar date (`YYYY-MM-DD`)
- * that the API stores with the time of the acceptance. Bump it when the text changes.
+ * Version of the trainer terms the person accepts: the version of the published Terms of Service
+ * (a calendar date, `YYYY-MM-DD`) that the API stores with the time of the acceptance.
  */
-export const TRAINER_TERMS_VERSION = '2026-10-01';
+export const TRAINER_TERMS_VERSION = LEGAL_VERSION;
 
 export const ONBOARDING_STEPS = ['welcome', 'terms', 'howItWorks'] as const;
 
