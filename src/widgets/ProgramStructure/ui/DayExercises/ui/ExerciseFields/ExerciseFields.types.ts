@@ -8,6 +8,8 @@ export type ExerciseFieldsProps = {
   indicator?: ReactNode;
   action?: ReactNode;
   canEdit: boolean;
+  /** False in block types without sets (EMOM, AMRAP, …): only reps and instruction remain. */
+  showSets?: boolean;
   onUpdate: (itemId: string, input: ProgramDayExerciseInput) => void;
   className?: string;
 };

@@ -10,6 +10,8 @@ import type {
   CreateProgramDayBlockVariables,
   DeleteProgramBlockExerciseResponse,
   DeleteProgramBlockExerciseVariables,
+  DuplicateProgramBlockExerciseResponse,
+  DuplicateProgramBlockExerciseVariables,
   UpdateProgramBlockExerciseResponse,
   UpdateProgramBlockExerciseVariables,
 } from '../model/programExercises';
@@ -53,6 +55,22 @@ export const useUpdateProgramBlockExercise = () => {
         .put<UpdateProgramBlockExerciseResponse>(
           `${blockExercisesPath(programId, weekId, blockId)}/${encodeURIComponent(itemId)}`,
           body
+        )
+        .then((response) => response.data),
+    onSuccess: (program) => writeProgramDetail(queryClient, program),
+  });
+};
+
+export const useDuplicateProgramBlockExercise = () => {
+  const queryClient = useQueryClient();
+
+  // POST .../blocks/{blockId}/exercises/{itemId}/duplicate takes no body: a group
+  // gets the copy right after the original, a `single` gets a new single after it.
+  return useMutation<DuplicateProgramBlockExerciseResponse, HttpError, DuplicateProgramBlockExerciseVariables>({
+    mutationFn: ({ programId, weekId, blockId, itemId }) =>
+      http
+        .post<DuplicateProgramBlockExerciseResponse>(
+          `${blockExercisesPath(programId, weekId, blockId)}/${encodeURIComponent(itemId)}/duplicate`
         )
         .then((response) => response.data),
     onSuccess: (program) => writeProgramDetail(queryClient, program),

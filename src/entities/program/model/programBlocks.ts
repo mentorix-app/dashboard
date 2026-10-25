@@ -1,6 +1,6 @@
-import type { ProgramBlockGroupType, ProgramDetail } from './structure';
+import type { ProgramBlockGroupType, ProgramBlockSettings, ProgramDetail } from './structure';
 
-/** Merge two or more sibling blocks on a day into one group (defaults to `complex`). */
+/** Merge two or more sibling blocks on a day into one group (the backend makes it `skill_work`). */
 export type MergeProgramDayBlocksVariables = {
   programId: string;
   weekId: string;
@@ -8,14 +8,19 @@ export type MergeProgramDayBlocksVariables = {
   blockIds: string[];
 };
 
-/** Change a group block's type and/or instruction. `single` cannot be set here. */
+/**
+ * Change a group block's type, instruction and/or format settings. `single`
+ * cannot be set here. For each setting an omitted key keeps the stored value,
+ * `null` clears it and a number sets it; a number for a setting the resulting
+ * type does not take is rejected.
+ */
 export type PatchProgramDayBlockVariables = {
   programId: string;
   weekId: string;
   blockId: string;
   blockType?: ProgramBlockGroupType;
   instruction?: string;
-};
+} & Partial<ProgramBlockSettings>;
 
 /** Fully replaces the clients allowed to see a block; an empty list makes it shared. */
 export type SetProgramDayBlockClientsVariables = {
@@ -78,6 +83,18 @@ export type MoveProgramExerciseToBlockVariables = {
   targetBlockId: string;
 };
 
+/**
+ * Copy a whole block (any type, with settings, exercises and its own copy of
+ * the client rules) to the end of any day of the same program, the source day
+ * included. `weekId` is the source block's week.
+ */
+export type CopyProgramDayBlockVariables = {
+  programId: string;
+  weekId: string;
+  blockId: string;
+  targetDayId: string;
+};
+
 export type MergeProgramDayBlocksResponse = ProgramDetail;
 export type PatchProgramDayBlockResponse = ProgramDetail;
 export type SetProgramDayBlockClientsResponse = ProgramDetail;
@@ -88,3 +105,4 @@ export type ReorderProgramBlockExercisesResponse = ProgramDetail;
 export type MoveProgramDayBlockResponse = ProgramDetail;
 export type ExtractProgramBlockExerciseResponse = ProgramDetail;
 export type MoveProgramExerciseToBlockResponse = ProgramDetail;
+export type CopyProgramDayBlockResponse = ProgramDetail;

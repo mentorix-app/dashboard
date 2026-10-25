@@ -1,6 +1,6 @@
 import { renderHook } from '@testing-library/react';
 
-import { ProgramBlockType, type ProgramDayBlock } from '../../../../../../../entities/program';
+import { ProgramBlockType, EMPTY_BLOCK_SETTINGS, type ProgramDayBlock } from '../../../../../../../entities/program';
 
 import { useGroupBlockCardConfig } from '../GroupBlockCard.conf';
 
@@ -32,6 +32,7 @@ const block: ProgramDayBlock = {
     },
   ],
   createdAt: '2026-10-11T00:00:00Z',
+  ...EMPTY_BLOCK_SETTINGS,
 };
 
 describe('useGroupBlockCardConfig', () => {

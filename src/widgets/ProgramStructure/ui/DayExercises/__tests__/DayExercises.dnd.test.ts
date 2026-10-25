@@ -6,6 +6,7 @@ import {
   type ProgramDayBlock,
   type ProgramDayExercise,
 } from '@/src/entities/program/model/structure';
+import { EMPTY_BLOCK_SETTINGS } from '@/src/entities/program/model/blockSettings';
 
 import { useDayDnd } from '../hooks';
 
@@ -34,12 +35,13 @@ const buildBlock = (
   clientUserIds: [],
   exercises: exerciseIds.map((exerciseId, index) => buildExercise(exerciseId, index + 1)),
   createdAt: '2024-01-01T00:00:00Z',
+  ...EMPTY_BLOCK_SETTINGS,
 });
 
 // blk-a: single (exa1) · blk-b: group (exb1, exb2, exb3) · blk-c: group (exc1)
 const buildBlocks = (): ProgramDayBlock[] => [
   buildBlock('blk-a', ProgramBlockType.Single, 1, ['exa1']),
-  buildBlock('blk-b', ProgramBlockType.Complex, 2, ['exb1', 'exb2', 'exb3']),
+  buildBlock('blk-b', ProgramBlockType.SkillWork, 2, ['exb1', 'exb2', 'exb3']),
   buildBlock('blk-c', ProgramBlockType.Superset, 3, ['exc1']),
 ];
 

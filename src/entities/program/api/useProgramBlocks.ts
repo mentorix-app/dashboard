@@ -4,6 +4,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { http, type HttpError } from '@/src/shared/api';
 import { writeProgramDetail } from '../lib';
 import type {
+  CopyProgramDayBlockResponse,
+  CopyProgramDayBlockVariables,
   DeleteProgramDayBlockResponse,
   DeleteProgramDayBlockVariables,
   MergeProgramDayBlocksResponse,
@@ -20,7 +22,7 @@ import { blockPath, dayBlocksPath } from './programBlockPaths';
 export const useMergeProgramDayBlocks = () => {
   const queryClient = useQueryClient();
 
-  // POST .../days/{dayId}/blocks/merge groups 2+ blocks; new group defaults to `complex`.
+  // POST .../days/{dayId}/blocks/merge groups 2+ blocks; the new group is `skill_work`.
   return useMutation<MergeProgramDayBlocksResponse, HttpError, MergeProgramDayBlocksVariables>({
     mutationFn: ({ programId, weekId, dayId, blockIds }) =>
       http
@@ -33,7 +35,8 @@ export const useMergeProgramDayBlocks = () => {
 export const usePatchProgramDayBlock = () => {
   const queryClient = useQueryClient();
 
-  // PATCH .../blocks/{blockId} changes a group block's type and/or instruction.
+  // PATCH .../blocks/{blockId} changes a group block's type, instruction and/or
+  // format settings (omitted keys keep their value, null clears).
   return useMutation<PatchProgramDayBlockResponse, HttpError, PatchProgramDayBlockVariables>({
     mutationFn: ({ programId, weekId, blockId, ...body }) =>
       http
@@ -79,6 +82,20 @@ export const useDeleteProgramDayBlock = () => {
     mutationFn: ({ programId, weekId, blockId }) =>
       http
         .delete<DeleteProgramDayBlockResponse>(blockPath(programId, weekId, blockId))
+        .then((response) => response.data),
+    onSuccess: (program) => writeProgramDetail(queryClient, program),
+  });
+};
+
+export const useCopyProgramDayBlock = () => {
+  const queryClient = useQueryClient();
+
+  // POST .../blocks/{blockId}/copy appends a full copy of the block to the end of
+  // any day of the program (the source day included).
+  return useMutation<CopyProgramDayBlockResponse, HttpError, CopyProgramDayBlockVariables>({
+    mutationFn: ({ programId, weekId, blockId, targetDayId }) =>
+      http
+        .post<CopyProgramDayBlockResponse>(`${blockPath(programId, weekId, blockId)}/copy`, { targetDayId })
         .then((response) => response.data),
     onSuccess: (program) => writeProgramDetail(queryClient, program),
   });

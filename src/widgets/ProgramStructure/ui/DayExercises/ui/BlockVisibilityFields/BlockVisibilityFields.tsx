@@ -76,7 +76,7 @@ export const BlockVisibilityFields: FC<BlockVisibilityFieldsProps> = ({ config }
 
   return (
     <fieldset className="grid gap-3" aria-describedby={cn(guidanceId, errorMessage && errorId)}>
-      <legend className="text-sm font-medium">{t('structure.blocks.visibility.title')}</legend>
+      <legend className="mb-2 text-sm leading-none font-medium">{t('structure.blocks.visibility.title')}</legend>
 
       <div className="flex items-start gap-3 rounded-md border p-3">
         <Checkbox

@@ -22,6 +22,10 @@ export type SingleBlockRowProps = {
   onUpdate: (itemId: string, input: ProgramDayExerciseInput) => void;
   onRequestDelete: (blockId: string, itemId: string) => void;
   onMoveToDay: (blockId: string, toDayId: string) => void;
+  /** Creates a new single with the same exercise right after this one. */
+  onDuplicate: (blockId: string, itemId: string) => void;
+  /** Opens the copy-to-day dialog for this block. */
+  onCopy: (blockId: string) => void;
   isLastSharedBlock: boolean;
   visibilityOpen: boolean;
   onOpenVisibility: () => void;

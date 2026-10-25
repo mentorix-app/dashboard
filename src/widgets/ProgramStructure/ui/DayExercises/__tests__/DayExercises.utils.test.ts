@@ -1,7 +1,9 @@
 import { ProgramBlockType, type ProgramDayBlock } from '@/src/entities/program/model/structure';
+import { EMPTY_BLOCK_SETTINGS } from '@/src/entities/program/model/blockSettings';
 import type { ProgramDayExerciseInput } from '@/src/entities/program/model/programExercises';
 
 import {
+  applySetsPolicy,
   formatVolumeField,
   isSameExerciseInput,
   normalizeExerciseInput,
@@ -18,6 +20,7 @@ const buildBlock = (id: string, clientUserIds: string[]): ProgramDayBlock => ({
   clientUserIds,
   exercises: [],
   createdAt: '2024-01-01T00:00:00Z',
+  ...EMPTY_BLOCK_SETTINGS,
 });
 
 describe('DayExercises utils', () => {
@@ -101,6 +104,23 @@ describe('DayExercises utils', () => {
       expect(isSameExerciseInput(base, { ...base, reps: '12' })).toBe(false);
       expect(isSameExerciseInput(base, { ...base, instruction: 'slow' })).toBe(false);
       expect(isSameExerciseInput(base, { ...base })).toBe(true);
+    });
+  });
+
+  describe('applySetsPolicy', () => {
+    const input: ProgramDayExerciseInput = { exerciseId: 'ex-1', sets: '3', reps: '10', instruction: 'go' };
+
+    it('keeps sets where the block type carries them', () => {
+      expect(applySetsPolicy(input, true)).toBe(input);
+    });
+
+    it('always sends null sets where the block type has none', () => {
+      expect(applySetsPolicy(input, false)).toEqual({ ...input, sets: null });
+    });
+
+    it('makes a stale local sets value compare equal once both sides follow the policy', () => {
+      const saved = { ...input, sets: '4' };
+      expect(isSameExerciseInput(applySetsPolicy(input, false), applySetsPolicy(saved, false))).toBe(true);
     });
   });
 

@@ -37,7 +37,19 @@ export type DeleteProgramBlockExerciseVariables = {
   itemId: string;
 };
 
+/**
+ * Duplicate an exercise. In a group the copy lands right after the original;
+ * in a `single` block the copy becomes a new single right after it.
+ */
+export type DuplicateProgramBlockExerciseVariables = {
+  programId: string;
+  weekId: string;
+  blockId: string;
+  itemId: string;
+};
+
 export type CreateProgramDayBlockResponse = ProgramDetail;
 export type AddProgramBlockExerciseResponse = ProgramDetail;
 export type UpdateProgramBlockExerciseResponse = ProgramDetail;
 export type DeleteProgramBlockExerciseResponse = ProgramDetail;
+export type DuplicateProgramBlockExerciseResponse = ProgramDetail;

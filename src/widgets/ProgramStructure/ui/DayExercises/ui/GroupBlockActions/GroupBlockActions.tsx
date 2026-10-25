@@ -1,6 +1,6 @@
 'use client';
 
-import { MoreVertical, Pencil, Trash2, Ungroup } from 'lucide-react';
+import { Copy, MoreVertical, Pencil, Trash2, Ungroup } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
 import {
@@ -18,15 +18,17 @@ import type { MoveTargetDay } from '../../DayExercises.types';
 type GroupBlockActionsProps = {
   dayMoveTargets: MoveTargetDay[];
   onEdit: () => void;
+  onCopy: () => void;
   onMoveToDay: (targetDayId: string) => void;
   onUngroup: () => void;
   onDelete: () => void;
 };
 
-/** The overflow menu for a group block: edit, move to another day, ungroup, delete. */
+/** The overflow menu for a group block: edit, copy to any day, move to another day, ungroup, delete. */
 export const GroupBlockActions = ({
   dayMoveTargets,
   onEdit,
+  onCopy,
   onMoveToDay,
   onUngroup,
   onDelete,
@@ -44,6 +46,10 @@ export const GroupBlockActions = ({
         <DropdownMenuItem onClick={onEdit}>
           <Pencil className="size-4" />
           {t('structure.blocks.editBlock')}
+        </DropdownMenuItem>
+        <DropdownMenuItem onClick={onCopy}>
+          <Copy className="size-4" />
+          {t('structure.blocks.copyBlock')}
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         {dayMoveTargets.length > 0 ? (

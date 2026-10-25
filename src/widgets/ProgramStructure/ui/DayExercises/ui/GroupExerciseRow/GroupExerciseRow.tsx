@@ -1,8 +1,9 @@
 'use client';
 
-import { CornerUpLeft, MoreVertical, Trash2 } from 'lucide-react';
+import { CopyPlus, CornerUpLeft, MoreVertical, Trash2 } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
+import { blockHasSets } from '@/src/entities/program';
 import {
   Button,
   DropdownMenu,
@@ -19,7 +20,8 @@ import type { GroupExerciseRowProps } from './GroupExerciseRow.types';
 /**
  * An exercise inside a group block. Mobile places the full-width content below
  * its controls; desktop centres drag/actions around the two-column exercise
- * content. Its menu can extract, move, or delete the exercise.
+ * content. Its menu can duplicate, extract, move, or delete the exercise. In a
+ * block type without sets only reps and instruction are editable.
  */
 export const GroupExerciseRow = ({
   block,
@@ -30,18 +32,24 @@ export const GroupExerciseRow = ({
   moveTargets,
   onUpdate,
   onRequestDelete,
+  onDuplicate,
   onExtract,
   onMoveToBlock,
 }: GroupExerciseRowProps) => {
   const t = useTranslations('ProgramWizard');
+  const showSets = blockHasSets(block.blockType);
 
   return (
     <>
       <div className="flex shrink-0 pt-0.5">{dragHandle}</div>
 
       <ExerciseFields
+        // Remount when the block switches between types with and without sets so
+        // the row re-reads the server values instead of keeping stale local sets.
+        key={showSets ? 'with-sets' : 'without-sets'}
         exercise={exercise}
         exerciseName={exerciseName}
+        showSets={showSets}
         action={
           canEdit ? (
             <DropdownMenu modal={false}>
@@ -51,6 +59,10 @@ export const GroupExerciseRow = ({
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => onDuplicate(block.id, exercise.id)}>
+                  <CopyPlus className="size-4" />
+                  {t('structure.exercises.duplicate')}
+                </DropdownMenuItem>
                 <DropdownMenuItem onClick={() => onExtract(block.id, exercise.id)}>
                   <CornerUpLeft className="size-4" />
                   {t('structure.exercises.extractToSingle')}

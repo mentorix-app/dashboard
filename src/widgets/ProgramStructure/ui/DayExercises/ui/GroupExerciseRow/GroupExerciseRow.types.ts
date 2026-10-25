@@ -16,6 +16,8 @@ export type GroupExerciseRowProps = {
   moveTargets: BlockMoveTarget[];
   onUpdate: (itemId: string, input: ProgramDayExerciseInput) => void;
   onRequestDelete: (blockId: string, itemId: string) => void;
+  /** Inserts a copy of the exercise right after it in the same group. */
+  onDuplicate: (blockId: string, itemId: string) => void;
   onExtract: (blockId: string, itemId: string) => void;
   onMoveToBlock: (blockId: string, itemId: string, targetBlockId: string) => void;
 };

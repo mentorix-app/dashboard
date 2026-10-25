@@ -26,13 +26,14 @@ export const DayBlock = (props: DayBlockProps) => {
     onSelectChange,
     onUpdateExercise,
     onRequestDeleteExercise,
+    onDuplicateExercise,
     onExtractExercise,
     onMoveExerciseToBlock,
     onAddExercise,
-    onPatchBlock,
     onUngroupBlock,
     onDeleteBlock,
     onMoveBlockToDay,
+    onCopyBlock,
     isLastSharedBlock,
     visibilityOpen,
     onOpenVisibility,
@@ -54,13 +55,14 @@ export const DayBlock = (props: DayBlockProps) => {
         onSelectChange={onSelectChange}
         onUpdateExercise={onUpdateExercise}
         onRequestDeleteExercise={onRequestDeleteExercise}
+        onDuplicateExercise={onDuplicateExercise}
         onExtractExercise={onExtractExercise}
         onMoveExerciseToBlock={onMoveExerciseToBlock}
         onAddExercise={onAddExercise}
-        onPatchBlock={onPatchBlock}
         onUngroupBlock={onUngroupBlock}
         onDeleteBlock={onDeleteBlock}
         onMoveBlockToDay={onMoveBlockToDay}
+        onCopyBlock={onCopyBlock}
         isLastSharedBlock={isLastSharedBlock}
       />
     );
@@ -88,6 +90,8 @@ export const DayBlock = (props: DayBlockProps) => {
         onUpdate={(itemId, input) => onUpdateExercise(block.id, itemId, input)}
         onRequestDelete={onRequestDeleteExercise}
         onMoveToDay={onMoveBlockToDay}
+        onDuplicate={onDuplicateExercise}
+        onCopy={onCopyBlock}
         isLastSharedBlock={isLastSharedBlock}
         visibilityOpen={visibilityOpen}
         onOpenVisibility={onOpenVisibility}

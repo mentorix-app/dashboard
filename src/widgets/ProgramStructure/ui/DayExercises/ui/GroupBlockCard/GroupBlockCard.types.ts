@@ -1,7 +1,6 @@
 import type { ProgramDayBlock, ProgramDayExercise, ProgramDayExerciseInput } from '@/src/entities/program';
 
 import type { BlockMoveTarget, MoveTargetDay } from '../../DayExercises.types';
-import type { BlockEditValue } from '../BlockEditDialog';
 
 export type GroupBlockCardProps = {
   programId: string;
@@ -19,12 +18,14 @@ export type GroupBlockCardProps = {
   onSelectChange: (blockId: string, checked: boolean) => void;
   onUpdateExercise: (blockId: string, itemId: string, input: ProgramDayExerciseInput) => void;
   onRequestDeleteExercise: (blockId: string, itemId: string) => void;
+  onDuplicateExercise: (blockId: string, itemId: string) => void;
   onExtractExercise: (blockId: string, itemId: string) => void;
   onMoveExerciseToBlock: (blockId: string, itemId: string, targetBlockId: string) => void;
   onAddExercise: (blockId: string, exerciseIds: string[]) => void;
-  onPatchBlock: (blockId: string, value: BlockEditValue) => void;
   onUngroupBlock: (blockId: string) => void;
   onDeleteBlock: (blockId: string) => void;
   onMoveBlockToDay: (blockId: string, targetDayId: string) => void;
+  /** Opens the copy-to-day dialog for this block. */
+  onCopyBlock: (blockId: string) => void;
   isLastSharedBlock: boolean;
 };

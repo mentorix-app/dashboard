@@ -2,6 +2,7 @@ import { Difficulty } from '@/src/shared/types';
 
 import { ProgramCategory, ProgramStatus, type Program } from '@/src/entities/program/model/types';
 import { ProgramBlockType, type ProgramDay, type ProgramWeek } from '@/src/entities/program/model/structure';
+import { EMPTY_BLOCK_SETTINGS } from '@/src/entities/program/model/blockSettings';
 
 import {
   getCompletionPercent,
@@ -46,6 +47,7 @@ const buildDay = (filled: boolean, clientUserIds: string[] = []): ProgramDay => 
           instruction: '',
           sortOrder: 1,
           clientUserIds,
+          ...EMPTY_BLOCK_SETTINGS,
           exercises: [
             {
               id: 'exercise-1',

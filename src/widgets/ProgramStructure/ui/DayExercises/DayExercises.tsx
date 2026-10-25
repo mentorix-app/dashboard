@@ -12,6 +12,7 @@ import { RenderedExercisesProvider, SingleImportProvider } from './context';
 import { useDayDnd } from './hooks';
 import { BLOCK_DND_PREFIX } from './lib';
 import type { DayExercisesProps } from './DayExercises.types';
+import { CopyBlockDialog } from './ui/CopyBlockDialog';
 import { DayBlock } from './ui/DayBlock';
 import { MergeBar } from './ui/MergeBar';
 
@@ -39,15 +40,20 @@ export const DayExercises = (props: DayExercisesProps) => {
     onConfirmAddSingles,
     onUpdateExercise,
     onRequestDeleteExercise,
+    onDuplicateExercise,
     onExtractExercise,
     onMoveExerciseToBlock,
     onAddExercise,
-    onPatchBlock,
     onUngroupBlock,
     onDeleteBlock,
     onMoveBlockToDay,
     onReorderBlocks,
     onReorderBlockExercises,
+    copyBlock,
+    isCopyOpen,
+    onOpenCopy,
+    onCopyOpenChange,
+    onCopyBlock,
   } = useDayExercisesConfig(props);
 
   const dnd = useDayDnd({
@@ -106,13 +112,14 @@ export const DayExercises = (props: DayExercisesProps) => {
                         onSelectChange={onSelectChange}
                         onUpdateExercise={onUpdateExercise}
                         onRequestDeleteExercise={onRequestDeleteExercise}
+                        onDuplicateExercise={onDuplicateExercise}
                         onExtractExercise={onExtractExercise}
                         onMoveExerciseToBlock={onMoveExerciseToBlock}
                         onAddExercise={onAddExercise}
-                        onPatchBlock={onPatchBlock}
                         onUngroupBlock={onUngroupBlock}
                         onDeleteBlock={onDeleteBlock}
                         onMoveBlockToDay={onMoveBlockToDay}
+                        onCopyBlock={onOpenCopy}
                         isLastSharedBlock={lastSharedBlockId === block.id}
                         visibilityOpen={visibilityBlockId === block.id}
                         onOpenVisibility={() => onOpenVisibility(block.id)}
@@ -138,6 +145,16 @@ export const DayExercises = (props: DayExercisesProps) => {
       )}
 
       <ExercisePicker open={isPickerOpen} onOpenChange={onPickerOpenChange} onConfirm={onConfirmAddSingles} />
+      <CopyBlockDialog
+        programId={props.programId}
+        sourceWeekId={props.weekId}
+        sourceDayId={props.day.id}
+        block={copyBlock}
+        open={isCopyOpen}
+        getExerciseLabel={getExerciseLabel}
+        onOpenChange={onCopyOpenChange}
+        onCopy={onCopyBlock}
+      />
     </div>
   );
 };
