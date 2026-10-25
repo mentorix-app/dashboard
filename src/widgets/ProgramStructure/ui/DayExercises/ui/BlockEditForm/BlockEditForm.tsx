@@ -1,14 +1,17 @@
 'use client';
 
 import { useTranslations } from '@/i18n';
-import { GROUP_BLOCK_TYPES } from '@/src/entities/program';
+import { FORMAT_BLOCK_TYPES, SECTION_BLOCK_TYPES } from '@/src/entities/program';
 import {
   Button,
   DialogFooter,
   Label,
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
+  SelectSeparator,
   SelectTrigger,
   SelectValue,
   Textarea,
@@ -16,8 +19,9 @@ import {
 } from '@/src/shared/ui';
 
 import { BLOCK_TYPE_LABEL_KEY } from '../../DayExercises.constants';
+import { BlockSettingsFields } from '../BlockSettingsFields';
 import { BlockVisibilityFields } from '../BlockVisibilityFields';
-import { getBlockVisibilityErrorMessageKey } from '../BlockVisibilityFields/BlockVisibilityFields.utils';
+import { getBlockEditErrorMessageKey } from '../BlockEditDialog/BlockEditDialog.utils';
 import { BlockSaveButton } from '../BlockSaveButton';
 import { useBlockEditFormConfig } from './BlockEditForm.conf';
 import type { BlockEditFormProps } from './BlockEditForm.types';
@@ -44,24 +48,45 @@ export const BlockEditForm = ({
           </Typography>
 
           <div className="grid gap-2">
-            <Label>{t('structure.blocks.editDialog.typeLabel')}</Label>
+            <Label htmlFor="block-type-select">{t('structure.blocks.editDialog.typeLabel')}</Label>
             <Select value={config.blockType} onValueChange={config.handleBlockTypeChange}>
-              <SelectTrigger>
+              <SelectTrigger id="block-type-select" className="w-full sm:w-72">
                 <SelectValue />
               </SelectTrigger>
               <SelectContent>
-                {GROUP_BLOCK_TYPES.map((type) => (
-                  <SelectItem key={type} value={type}>
-                    {t(BLOCK_TYPE_LABEL_KEY[type])}
-                  </SelectItem>
-                ))}
+                <SelectGroup>
+                  <SelectLabel>{t('structure.blocks.typeGroups.formats')}</SelectLabel>
+                  {FORMAT_BLOCK_TYPES.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {t(BLOCK_TYPE_LABEL_KEY[type])}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+                <SelectSeparator />
+                <SelectGroup>
+                  <SelectLabel>{t('structure.blocks.typeGroups.sections')}</SelectLabel>
+                  {SECTION_BLOCK_TYPES.map((type) => (
+                    <SelectItem key={type} value={type}>
+                      {t(BLOCK_TYPE_LABEL_KEY[type])}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
               </SelectContent>
             </Select>
           </div>
 
+          <BlockSettingsFields
+            blockType={config.blockType}
+            rule={config.rule}
+            form={config.form}
+            setsToClear={config.setsToClear}
+            onDurationBlur={config.handleDurationBlur}
+          />
+
           <div className="grid gap-2">
-            <Label>{t('structure.blocks.editDialog.instructionLabel')}</Label>
+            <Label htmlFor="block-instruction">{t('structure.blocks.editDialog.instructionLabel')}</Label>
             <Textarea
+              id="block-instruction"
               rows={3}
               {...config.form.register('instruction')}
               placeholder={t('structure.blocks.editDialog.instructionPlaceholder')}
@@ -80,7 +105,7 @@ export const BlockEditForm = ({
           </Typography>
         ) : errorKey ? (
           <Typography variant="p-sm" className="text-destructive" role="alert">
-            {t(getBlockVisibilityErrorMessageKey(errorKey))}
+            {t(getBlockEditErrorMessageKey(errorKey))}
           </Typography>
         ) : null}
       </div>

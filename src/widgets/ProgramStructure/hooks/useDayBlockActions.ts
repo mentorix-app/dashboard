@@ -2,17 +2,16 @@
 
 import { useTranslations } from '@/i18n';
 import {
+  parseProgramBlockError,
+  useCopyProgramDayBlock,
   useDeleteProgramDayBlock,
   useMergeProgramDayBlocks,
   useMoveProgramDayBlock,
-  usePatchProgramDayBlock,
   useReorderProgramBlockExercises,
   useReorderProgramDayBlocks,
   useUngroupProgramDayBlock,
 } from '@/src/entities/program';
 import { useToast } from '@/src/shared/hooks';
-
-import type { BlockEditValue } from '../ui/DayExercises/ui/BlockEditDialog';
 
 type UseDayBlockActionsParams = {
   programId: string;
@@ -21,21 +20,22 @@ type UseDayBlockActionsParams = {
 };
 
 /**
- * Block-level mutations for the selected day: grouping singles, editing and
- * ungrouping/deleting groups, reordering (blocks and grouped exercises) and
- * moving a whole block to another day. Every response rewrites the program.
+ * Block-level mutations for the selected day: grouping singles, ungrouping/
+ * deleting groups, reordering (blocks and grouped exercises), moving a whole
+ * block to another day of the week and copying it to any day of the program.
+ * Every response rewrites the program. Editing a group lives in its dialog.
  */
 export const useDayBlockActions = ({ programId, weekId, dayId }: UseDayBlockActionsParams) => {
   const t = useTranslations('ProgramWizard');
   const { showSuccessToast, showErrorToast } = useToast();
 
   const merge = useMergeProgramDayBlocks();
-  const patch = usePatchProgramDayBlock();
   const ungroup = useUngroupProgramDayBlock();
   const remove = useDeleteProgramDayBlock();
   const reorderBlocks = useReorderProgramDayBlocks();
   const reorderExercises = useReorderProgramBlockExercises();
   const moveBlock = useMoveProgramDayBlock();
+  const copyBlock = useCopyProgramDayBlock();
 
   const handleMerge = (blockIds: string[]) => {
     if (blockIds.length < 2) return;
@@ -44,16 +44,6 @@ export const useDayBlockActions = ({ programId, weekId, dayId }: UseDayBlockActi
       {
         onSuccess: () => showSuccessToast(t('structure.blocks.toast.blocksMerged')),
         onError: () => showErrorToast(t('structure.blocks.toast.mergeError')),
-      }
-    );
-  };
-
-  const handlePatchBlock = (blockId: string, value: BlockEditValue) => {
-    patch.mutate(
-      { programId, weekId, blockId, blockType: value.blockType, instruction: value.instruction },
-      {
-        onSuccess: () => showSuccessToast(t('structure.blocks.toast.blockUpdated')),
-        onError: () => showErrorToast(t('structure.blocks.toast.blockUpdateError')),
       }
     );
   };
@@ -108,13 +98,29 @@ export const useDayBlockActions = ({ programId, weekId, dayId }: UseDayBlockActi
     );
   };
 
+  /** Copies a block to the end of `targetDayId`; resolves to whether it succeeded. */
+  const handleCopyBlock = async (blockId: string, targetDayId: string, successMessage: string) => {
+    try {
+      await copyBlock.mutateAsync({ programId, weekId, blockId, targetDayId });
+      showSuccessToast(successMessage);
+      return true;
+    } catch (error) {
+      showErrorToast(
+        parseProgramBlockError(error) === 'notFound'
+          ? t('structure.blocks.toast.blockCopyNotFound')
+          : t('structure.blocks.toast.blockCopyError')
+      );
+      return false;
+    }
+  };
+
   return {
     handleMerge,
-    handlePatchBlock,
     handleUngroupBlock,
     handleDeleteBlock,
     handleReorderBlocks,
     handleReorderBlockExercises,
     handleMoveBlockToDay,
+    handleCopyBlock,
   };
 };

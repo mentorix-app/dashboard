@@ -1,10 +1,14 @@
 'use client';
 
+import { useRef } from 'react';
+
 import { useTranslations } from '@/i18n';
 import {
+  parseProgramBlockError,
   useAddProgramBlockExercise,
   useCreateProgramDayBlock,
   useDeleteProgramBlockExercise,
+  useDuplicateProgramBlockExercise,
   useExtractProgramBlockExercise,
   useMoveProgramExerciseToBlock,
   useReorderProgramBlockExercises,
@@ -30,7 +34,9 @@ const emptyExercise = (exerciseId: string): ProgramDayExerciseInput => ({
 /**
  * Exercise-level mutations for the selected day. Adds are sequential POSTs
  * (capped at MAX_PICK) collapsed into one toast; updates persist on blur or
- * unmount; extract and cross-block moves each hit their dedicated endpoint.
+ * unmount; extract, cross-block moves and duplicates each hit their dedicated
+ * endpoint. In-flight updates are tracked per row so a duplicate or block copy
+ * can wait for the latest values to land first.
  */
 export const useDayExerciseActions = ({ programId, weekId, dayId }: UseDayExerciseActionsParams) => {
   const t = useTranslations('ProgramWizard');
@@ -40,9 +46,11 @@ export const useDayExerciseActions = ({ programId, weekId, dayId }: UseDayExerci
   const addExercise = useAddProgramBlockExercise();
   const updateExercise = useUpdateProgramBlockExercise();
   const deleteExercise = useDeleteProgramBlockExercise();
+  const duplicateExercise = useDuplicateProgramBlockExercise();
   const extractExercise = useExtractProgramBlockExercise();
   const moveExercise = useMoveProgramExerciseToBlock();
   const reorderExercises = useReorderProgramBlockExercises();
+  const pendingUpdatesRef = useRef(new Map<string, Promise<void>>());
 
   const handleAddSingles = async (exerciseIds: string[]) => {
     const ids = exerciseIds.slice(0, MAX_PICK);
@@ -71,9 +79,25 @@ export const useDayExerciseActions = ({ programId, weekId, dayId }: UseDayExerci
   };
 
   const handleUpdateExercise = (blockId: string, itemId: string, input: ProgramDayExerciseInput) => {
-    updateExercise.mutate(
-      { programId, weekId, blockId, itemId, ...input },
-      { onError: () => showErrorToast(t('structure.exercises.toast.exerciseUpdateError')) }
+    const pending = pendingUpdatesRef.current;
+    const request = updateExercise.mutateAsync({ programId, weekId, blockId, itemId, ...input }).then(
+      () => undefined,
+      () => showErrorToast(t('structure.exercises.toast.exerciseUpdateError'))
+    );
+    pending.set(itemId, request);
+    void request.then(() => {
+      if (pending.get(itemId) === request) pending.delete(itemId);
+    });
+  };
+
+  /** Resolves once every in-flight update of the given rows has settled (successfully or not). */
+  const waitForPendingUpdates = async (itemIds: string[]) => {
+    const pending = pendingUpdatesRef.current;
+    await Promise.all(
+      itemIds.flatMap((itemId) => {
+        const request = pending.get(itemId);
+        return request ? [request] : [];
+      })
     );
   };
 
@@ -87,6 +111,20 @@ export const useDayExerciseActions = ({ programId, weekId, dayId }: UseDayExerci
     );
   };
 
+  const handleDuplicateExercise = async (blockId: string, itemId: string) => {
+    await waitForPendingUpdates([itemId]);
+    try {
+      await duplicateExercise.mutateAsync({ programId, weekId, blockId, itemId });
+      showSuccessToast(t('structure.exercises.toast.exerciseDuplicated'));
+    } catch (error) {
+      showErrorToast(
+        parseProgramBlockError(error) === 'notFound'
+          ? t('structure.exercises.toast.exerciseDuplicateNotFound')
+          : t('structure.exercises.toast.exerciseDuplicateError')
+      );
+    }
+  };
+
   const handleExtractExercise = (blockId: string, itemId: string, sortOrder?: number) => {
     extractExercise.mutate(
       { programId, weekId, blockId, itemId, sortOrder },
@@ -98,12 +136,14 @@ export const useDayExerciseActions = ({ programId, weekId, dayId }: UseDayExerci
   };
 
   // The move endpoint appends to the target; when a drop specifies a slot we chase
-  // it with a reorder so the exercise lands where the user dropped it.
+  // it with a reorder so the exercise lands where the user dropped it. When the
+  // target type carries no sets the backend clears them, and the toast says so.
   const handleMoveExerciseToBlock = async (
     blockId: string,
     itemId: string,
     targetBlockId: string,
-    targetItemIds?: string[]
+    targetItemIds?: string[],
+    clearedSetsBlockLabel?: string
   ) => {
     try {
       await moveExercise.mutateAsync({ programId, weekId, blockId, itemId, targetBlockId });
@@ -115,7 +155,12 @@ export const useDayExerciseActions = ({ programId, weekId, dayId }: UseDayExerci
           exerciseItemIds: targetItemIds,
         });
       }
-      showSuccessToast(t('structure.exercises.toast.exerciseMoved'));
+      showSuccessToast(
+        t('structure.exercises.toast.exerciseMoved'),
+        clearedSetsBlockLabel
+          ? { description: t('structure.exercises.toast.setsCleared', { type: clearedSetsBlockLabel }) }
+          : undefined
+      );
     } catch {
       showErrorToast(t('structure.exercises.toast.exerciseMoveError'));
     }
@@ -126,7 +171,9 @@ export const useDayExerciseActions = ({ programId, weekId, dayId }: UseDayExerci
     handleAddToBlock,
     handleUpdateExercise,
     handleDeleteExercise,
+    handleDuplicateExercise,
     handleExtractExercise,
     handleMoveExerciseToBlock,
+    waitForPendingUpdates,
   };
 };

@@ -25,6 +25,7 @@ type GroupBlockExercisesProps = {
   moveTargets: BlockMoveTarget[];
   onUpdateExercise: (blockId: string, itemId: string, input: ProgramDayExerciseInput) => void;
   onRequestDeleteExercise: (blockId: string, itemId: string) => void;
+  onDuplicateExercise: (blockId: string, itemId: string) => void;
   onExtractExercise: (blockId: string, itemId: string) => void;
   onMoveExerciseToBlock: (blockId: string, itemId: string, targetBlockId: string) => void;
 };
@@ -37,6 +38,7 @@ export const GroupBlockExercises = ({
   moveTargets,
   onUpdateExercise,
   onRequestDeleteExercise,
+  onDuplicateExercise,
   onExtractExercise,
   onMoveExerciseToBlock,
 }: GroupBlockExercisesProps) => {
@@ -75,6 +77,7 @@ export const GroupBlockExercises = ({
                 moveTargets={moveTargets}
                 onUpdate={(itemId, input) => onUpdateExercise(block.id, itemId, input)}
                 onRequestDelete={onRequestDeleteExercise}
+                onDuplicate={onDuplicateExercise}
                 onExtract={onExtractExercise}
                 onMoveToBlock={onMoveExerciseToBlock}
               />

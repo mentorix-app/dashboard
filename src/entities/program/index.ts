@@ -3,14 +3,37 @@ export { ProgramCategory, ProgramStatus } from './model/types';
 export { useProgramBasicsDraftStore } from './model/basicsDraftStore';
 export { useProgramRevertSignalStore } from './model/revertSignalStore';
 export type {
+  ProgramBlockDurationField,
   ProgramBlockGroupType,
+  ProgramBlockSettingField,
+  ProgramBlockSettings,
   ProgramDay,
   ProgramDayBlock,
   ProgramDayExercise,
   ProgramDetail,
   ProgramWeek,
 } from './model/structure';
-export { GROUP_BLOCK_TYPES, ProgramBlockType } from './model/structure';
+export {
+  DEFAULT_GROUP_BLOCK_TYPE,
+  FORMAT_BLOCK_TYPES,
+  GROUP_BLOCK_TYPES,
+  ProgramBlockType,
+  SECTION_BLOCK_TYPES,
+} from './model/structure';
+export type { BlockTypeRule } from './model/blockSettings';
+export {
+  BLOCK_SETTING_FIELDS,
+  BLOCK_SETTING_LIMITS,
+  BLOCK_TYPE_RULES,
+  EMPTY_BLOCK_SETTINGS,
+  blockHasSets,
+  getBlockSettings,
+  getBlockTypeRule,
+  getMissingRequiredSettings,
+  isDurationSetting,
+  isProgramBlockType,
+  resolveBlockType,
+} from './model/blockSettings';
 export type { ProgramAssignment, ProgramVersionSummary } from './model/versioning';
 export { ProgramAssignmentStatus } from './model/versioning';
 export {
@@ -79,6 +102,7 @@ export type {
   AddProgramBlockExerciseVariables,
   CreateProgramDayBlockVariables,
   DeleteProgramBlockExerciseVariables,
+  DuplicateProgramBlockExerciseVariables,
   ProgramDayExerciseInput,
   UpdateProgramBlockExerciseVariables,
 } from './model/programExercises';
@@ -86,9 +110,11 @@ export {
   useAddProgramBlockExercise,
   useCreateProgramDayBlock,
   useDeleteProgramBlockExercise,
+  useDuplicateProgramBlockExercise,
   useUpdateProgramBlockExercise,
 } from './api/useProgramExercises';
 export type {
+  CopyProgramDayBlockVariables,
   DeleteProgramDayBlockVariables,
   ExtractProgramBlockExerciseVariables,
   MergeProgramDayBlocksVariables,
@@ -101,6 +127,7 @@ export type {
   UngroupProgramDayBlockVariables,
 } from './model/programBlocks';
 export {
+  useCopyProgramDayBlock,
   useDeleteProgramDayBlock,
   useMergeProgramDayBlocks,
   usePatchProgramDayBlock,

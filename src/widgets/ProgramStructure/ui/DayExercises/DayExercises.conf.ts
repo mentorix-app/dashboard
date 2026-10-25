@@ -9,15 +9,15 @@ import { confirm } from '@/src/shared/ui';
 
 import { useDayBlockActions } from '../../hooks/useDayBlockActions';
 import { useDayExerciseActions } from '../../hooks/useDayExerciseActions';
-import { BLOCK_TYPE_LABEL_KEY } from './DayExercises.constants';
-import { getLastSharedBlockId, haveMatchingBlockVisibility } from './lib';
+import { useBlockCopy } from './hooks/useBlockCopy';
+import { getBlockTypeLabelKey, getLastSharedBlockId, haveMatchingBlockVisibility, moveDropsSets } from './lib';
 import type { BlockMoveTarget, DayExercisesProps, MoveTargetDay } from './DayExercises.types';
 
 /**
  * Logic for the selected day's block editor: derives move targets and localized
- * names, owns the merge selection and add-picker state, forwards mutations to
- * the block/exercise action hooks, and queues delete confirmations via the
- * global `confirm()` singleton.
+ * names, owns the merge selection, add-picker and copy-dialog state, forwards
+ * mutations to the block/exercise action hooks, and queues delete
+ * confirmations via the global `confirm()` singleton.
  */
 export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }: DayExercisesProps) => {
   const t = useTranslations('ProgramWizard');
@@ -25,6 +25,11 @@ export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }:
   const { showErrorToast } = useToast();
   const exerciseActions = useDayExerciseActions({ programId, weekId, dayId: day.id });
   const blockActions = useDayBlockActions({ programId, weekId, dayId: day.id });
+  const blockCopy = useBlockCopy({
+    blocks: day.blocks,
+    waitForPendingUpdates: exerciseActions.waitForPendingUpdates,
+    copyBlock: blockActions.handleCopyBlock,
+  });
 
   const [selectedBlockIds, setSelectedBlockIds] = useState<Set<string>>(new Set());
   const [isPickerOpen, setPickerOpen] = useState(false);
@@ -42,7 +47,7 @@ export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }:
     .filter((block) => block.blockType !== ProgramBlockType.Single)
     .map((block) => ({
       id: block.id,
-      label: t('structure.exercises.moveToBlockLabel', { type: t(BLOCK_TYPE_LABEL_KEY[block.blockType]) }),
+      label: t('structure.exercises.moveToBlockLabel', { type: t(getBlockTypeLabelKey(block.blockType)) }),
     }));
 
   const getExerciseLabel = (exercise: ProgramDayExercise) =>
@@ -85,6 +90,27 @@ export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }:
     });
   };
 
+  // Shared by the row menu and drag-and-drop (including dragging a single into a group).
+  const handleMoveExerciseToBlock = (
+    blockId: string,
+    itemId: string,
+    targetBlockId: string,
+    targetItemIds?: string[]
+  ) => {
+    const target = blocks.find((block) => block.id === targetBlockId);
+    const clearedSetsBlockLabel =
+      target && moveDropsSets(blocks, blockId, itemId, targetBlockId)
+        ? t(getBlockTypeLabelKey(target.blockType))
+        : undefined;
+    void exerciseActions.handleMoveExerciseToBlock(
+      blockId,
+      itemId,
+      targetBlockId,
+      targetItemIds,
+      clearedSetsBlockLabel
+    );
+  };
+
   return {
     t,
     blocks,
@@ -110,14 +136,17 @@ export const useDayExercisesConfig = ({ programId, weekId, day, week, canEdit }:
     onConfirmAddSingles: handleConfirmAddSingles,
     onUpdateExercise: exerciseActions.handleUpdateExercise,
     onRequestDeleteExercise: handleRequestDeleteExercise,
+    onDuplicateExercise: (blockId: string, itemId: string) => {
+      void exerciseActions.handleDuplicateExercise(blockId, itemId);
+    },
     onExtractExercise: exerciseActions.handleExtractExercise,
-    onMoveExerciseToBlock: exerciseActions.handleMoveExerciseToBlock,
+    onMoveExerciseToBlock: handleMoveExerciseToBlock,
     onAddExercise: exerciseActions.handleAddToBlock,
-    onPatchBlock: blockActions.handlePatchBlock,
     onUngroupBlock: blockActions.handleUngroupBlock,
     onDeleteBlock: blockActions.handleDeleteBlock,
     onMoveBlockToDay: blockActions.handleMoveBlockToDay,
     onReorderBlocks: blockActions.handleReorderBlocks,
     onReorderBlockExercises: blockActions.handleReorderBlockExercises,
+    ...blockCopy,
   };
 };

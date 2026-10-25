@@ -1,6 +1,6 @@
 'use client';
 
-import { MoreVertical, Pencil, Trash2 } from 'lucide-react';
+import { Copy, CopyPlus, MoreVertical, Pencil, Trash2 } from 'lucide-react';
 
 import { useTranslations } from '@/i18n';
 import {
@@ -38,6 +38,8 @@ export const SingleBlockRow = ({
   onUpdate,
   onRequestDelete,
   onMoveToDay,
+  onDuplicate,
+  onCopy,
   isLastSharedBlock,
   visibilityOpen,
   onOpenVisibility,
@@ -85,6 +87,14 @@ export const SingleBlockRow = ({
                 <DropdownMenuItem onClick={onOpenVisibility}>
                   <Pencil className="size-4" />
                   {t('structure.blocks.editBlock')}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onDuplicate(block.id, exercise.id)}>
+                  <CopyPlus className="size-4" />
+                  {t('structure.exercises.duplicate')}
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => onCopy(block.id)}>
+                  <Copy className="size-4" />
+                  {t('structure.blocks.copyBlock')}
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 {moveTargets.length > 0 ? (

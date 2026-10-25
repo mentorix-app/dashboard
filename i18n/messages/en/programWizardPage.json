@@ -170,6 +170,7 @@
       "moveToBlock": "Move to block",
       "moveToBlockLabel": "{type} block",
       "extractToSingle": "Extract to its own block",
+      "duplicate": "Duplicate",
       "selectForMerge": "Select exercise to group",
       "columns": {
         "exercise": "Exercise",
@@ -193,7 +194,11 @@
         "exerciseMoveError": "Could not move the exercise. Please try again.",
         "exerciseReorderError": "Could not reorder the exercises. Please try again.",
         "exerciseExtracted": "Exercise moved to its own block.",
-        "exerciseExtractError": "Could not extract the exercise. Please try again."
+        "exerciseExtractError": "Could not extract the exercise. Please try again.",
+        "exerciseDuplicated": "Exercise duplicated.",
+        "exerciseDuplicateError": "Could not duplicate the exercise. Please try again.",
+        "exerciseDuplicateNotFound": "This exercise is no longer available. Refresh and try again.",
+        "setsCleared": "Sets were removed: the {type} block doesn't use them."
       }
     },
     "blocks": {
@@ -204,15 +209,17 @@
         "for_time": "For Time",
         "intervals": "Intervals",
         "chipper": "Chipper",
-        "ladder": "Ladder",
-        "death_by": "Death By",
         "superset": "Superset",
-        "complex": "Complex",
         "skill_work": "Skill Work",
         "strength": "Strength",
         "conditioning": "Conditioning",
         "gymnastics": "Gymnastics",
-        "weightlifting": "Weightlifting"
+        "weightlifting": "Weightlifting",
+        "unknown": "Block"
+      },
+      "typeGroups": {
+        "formats": "Formats",
+        "sections": "Sets & reps"
       },
       "selectionCount": "{count, plural, one {# selected} other {# selected}}",
       "merge": "Group",
@@ -221,11 +228,92 @@
       "addExerciseToBlock": "Add exercise to {type}",
       "blockActions": "Block actions",
       "editBlock": "Edit block",
-      "noDescription": "Instruction: No data",
+      "addInstruction": "Add instruction",
       "ungroup": "Ungroup",
       "deleteBlock": "Delete block",
       "reorderBlock": "Reorder block",
       "moveBlockToDay": "Move block to day",
+      "copyBlock": "Copy to…",
+      "settings": {
+        "title": "{type} settings",
+        "fields": {
+          "rounds": "Rounds",
+          "durationSec": "Duration",
+          "timeCapSec": "Time cap",
+          "workSec": "Work",
+          "restSec": "Rest",
+          "minutesOf": "{field}, minutes",
+          "secondsOf": "{field}, seconds"
+        },
+        "hints": {
+          "rounds": "How many times the whole block repeats, 1 to 100",
+          "rest": "Leave empty or 0 for no rest"
+        },
+        "units": {
+          "min": "min",
+          "sec": "sec",
+          "minutes": "{minutes} min",
+          "seconds": "{seconds} sec",
+          "minutesSeconds": "{minutes} min {seconds} sec"
+        },
+        "formats": {
+          "emom": "A new round every minute: do the work at the top of the minute, rest for the remainder.",
+          "amrap": "As many rounds as possible in the time given.",
+          "for_time": "Finish everything as fast as possible. Rounds and a time cap are optional.",
+          "intervals": "Alternate work and rest for a set number of rounds.",
+          "chipper": "A long list of exercises worked through once, in order.",
+          "superset": "Exercises are done back to back without rest, for a set number of rounds."
+        },
+        "noSets": "This format has no sets — exercises keep only reps and an instruction.",
+        "setsWillBeCleared": "{count, plural, one {Saving removes the sets of # exercise.} other {Saving removes the sets of # exercises.}}",
+        "errors": {
+          "required": "Fill in this field.",
+          "rounds": "Enter a whole number from {min} to {max}.",
+          "durationFormat": "Use whole numbers for minutes and seconds.",
+          "durationRange": "The time must be above zero and at most 24 hours.",
+          "restRange": "Rest can't be longer than 24 hours."
+        },
+        "summary": {
+          "label": "Block settings",
+          "rounds": "{count, plural, one {# round} other {# rounds}}",
+          "timeCap": "cap {time}",
+          "work": "work {time}",
+          "rest": "rest {time}",
+          "noRest": "no rest",
+          "missing": {
+            "rounds": "rounds not set",
+            "durationSec": "time not set",
+            "timeCapSec": "time cap not set",
+            "workSec": "work not set",
+            "restSec": "rest not set"
+          },
+          "missingAction": "Set it in the block settings"
+        },
+        "clearSetsConfirm": {
+          "title": "Remove sets?",
+          "description": "The {type} format has no sets. {count, plural, one {The sets of # exercise} other {The sets of # exercises}} will be removed; reps and instructions stay.",
+          "confirm": "Save and remove sets",
+          "cancel": "Cancel"
+        }
+      },
+      "copyDialog": {
+        "title": "Copy block",
+        "description": "The copy, with all its exercises and settings, is added to the end of the chosen day. The original stays where it is.",
+        "weekLabel": "Week",
+        "weekPlaceholder": "Choose a week",
+        "currentWeek": "current",
+        "dayLabel": "Day",
+        "currentDay": "Current day",
+        "restDay": "Rest",
+        "blockCount": "{count, plural, one {# block} other {# blocks}}",
+        "exerciseCount": "{count, plural, one {# exercise} other {# exercises}}",
+        "moreExercises": "and {count} more",
+        "noExercises": "No exercises in this block yet.",
+        "restrictedInfo": "{count, plural, one {The copy is visible to the same client as the original.} other {The copy is visible to the same # clients as the original.}}",
+        "noSharedBlockWarning": "This day has no block visible to every client. The program can't be published until you add one.",
+        "submit": "Copy",
+        "cancel": "Cancel"
+      },
       "editDialog": {
         "title": "Edit block",
         "description": "Update the block details and choose which assigned clients can access it.",
@@ -296,7 +384,11 @@
         "blockUpdateError": "Could not update the block. Please try again.",
         "blockDeleteError": "Could not delete the block. Please try again.",
         "blockReorderError": "Could not reorder the blocks. Please try again.",
-        "blockMoveError": "Could not move the block. Please try again."
+        "blockMoveError": "Could not move the block. Please try again.",
+        "blockCopied": "Block copied to week {week}, day {day}.",
+        "blockCopiedSameDay": "Block copied to the end of this day.",
+        "blockCopyError": "Could not copy the block. Please try again.",
+        "blockCopyNotFound": "The block or day is no longer available. Refresh and try again."
       }
     }
   },

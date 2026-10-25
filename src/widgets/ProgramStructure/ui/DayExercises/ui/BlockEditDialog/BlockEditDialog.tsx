@@ -7,7 +7,7 @@ import type { BlockEditDialogProps } from './BlockEditDialog.types';
 import { BlockEditForm } from '../BlockEditForm';
 import { useBlockEditDialogConfig } from './BlockEditDialog.conf';
 
-/** Dialog to change a group block's type and instruction. */
+/** Dialog to change a group block's type, format settings, instruction and visibility. */
 export const BlockEditDialog = (props: BlockEditDialogProps) => {
   const t = useTranslations('ProgramWizard');
   const config = useBlockEditDialogConfig(props);

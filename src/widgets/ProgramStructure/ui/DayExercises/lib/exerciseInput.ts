@@ -27,3 +27,11 @@ export const normalizeExerciseInput = (input: ProgramDayExerciseInput): ProgramD
 /** True when two exercise inputs carry the same editable values. */
 export const isSameExerciseInput = (a: ProgramDayExerciseInput, b: ProgramDayExerciseInput): boolean =>
   a.sets === b.sets && a.reps === b.reps && a.instruction === b.instruction;
+
+/**
+ * Applies the block's sets policy: in a block type without sets the input
+ * always carries `sets: null`, so a stale local value never reaches the API
+ * (which rejects non-empty sets there).
+ */
+export const applySetsPolicy = (input: ProgramDayExerciseInput, allowSets: boolean): ProgramDayExerciseInput =>
+  allowSets ? input : { ...input, sets: null };
